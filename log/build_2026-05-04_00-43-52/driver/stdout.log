@@ -1,6 +1,0 @@
-[ 33%] Built target sparkcan
-[35m[1mScanning dependencies of target driver[0m
-[ 50%] Built target example_pid
-[ 66%] Built target example_control
-[ 83%] Built target example_status
-[ 91%] [32mBuilding CXX object CMakeFiles/driver.dir/src/driver_node.cpp.o[0m

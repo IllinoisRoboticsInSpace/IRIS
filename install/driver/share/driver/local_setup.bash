@@ -1,1 +1,0 @@
-/home/iris/colcon_ws/src/IRIS/build/driver/ament_cmake_environment_hooks/local_setup.bash
