@@ -1,0 +1,6 @@
+source;share/sparkcan/hook/cmake_prefix_path.ps1
+source;share/sparkcan/hook/cmake_prefix_path.dsv
+source;share/sparkcan/hook/cmake_prefix_path.sh
+source;share/sparkcan/hook/ld_library_path_lib.ps1
+source;share/sparkcan/hook/ld_library_path_lib.dsv
+source;share/sparkcan/hook/ld_library_path_lib.sh

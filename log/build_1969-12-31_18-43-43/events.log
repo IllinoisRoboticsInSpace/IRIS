@@ -1,0 +1,686 @@
+[0.000000] (-) TimerEvent: {}
+[0.000833] (controls) JobQueued: {'identifier': 'controls', 'dependencies': OrderedDict()}
+[0.001384] (driver) JobQueued: {'identifier': 'driver', 'dependencies': OrderedDict()}
+[0.001741] (linear_actuator) JobQueued: {'identifier': 'linear_actuator', 'dependencies': OrderedDict()}
+[0.002049] (sparkcan) JobQueued: {'identifier': 'sparkcan', 'dependencies': OrderedDict()}
+[0.002166] (depositor) JobQueued: {'identifier': 'depositor', 'dependencies': OrderedDict([('linear_actuator', '/home/iris/colcon_ws/src/IRIS/install/linear_actuator')])}
+[0.002263] (excavator) JobQueued: {'identifier': 'excavator', 'dependencies': OrderedDict([('linear_actuator', '/home/iris/colcon_ws/src/IRIS/install/linear_actuator')])}
+[0.002347] (linear_actuator) JobStarted: {'identifier': 'linear_actuator'}
+[0.099325] (-) TimerEvent: {}
+[0.179212] (controls) JobStarted: {'identifier': 'controls'}
+[0.199032] (driver) JobStarted: {'identifier': 'driver'}
+[0.199921] (-) TimerEvent: {}
+[0.214517] (sparkcan) JobStarted: {'identifier': 'sparkcan'}
+[0.300339] (-) TimerEvent: {}
+[0.401314] (-) TimerEvent: {}
+[0.501964] (-) TimerEvent: {}
+[0.602616] (-) TimerEvent: {}
+[0.703277] (-) TimerEvent: {}
+[0.803920] (-) TimerEvent: {}
+[0.904598] (-) TimerEvent: {}
+[1.005262] (-) TimerEvent: {}
+[1.105998] (-) TimerEvent: {}
+[1.206786] (-) TimerEvent: {}
+[1.307445] (-) TimerEvent: {}
+[1.408080] (-) TimerEvent: {}
+[1.508778] (-) TimerEvent: {}
+[1.609430] (-) TimerEvent: {}
+[1.710083] (-) TimerEvent: {}
+[1.810770] (-) TimerEvent: {}
+[1.825447] (driver) JobProgress: {'identifier': 'driver', 'progress': 'cmake'}
+[1.827229] (driver) Command: {'cmd': ['/usr/bin/cmake', '/home/iris/colcon_ws/src/IRIS/driver', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/home/iris/colcon_ws/src/IRIS/install/driver'], 'cwd': '/home/iris/colcon_ws/src/IRIS/build/driver', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'iris'), ('SSH_CLIENT', '192.168.1.172 58412 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/iris/colcon_ws/install/sparkcan/lib:/home/iris/colcon_ws/install/rviz_imu_plugin/lib:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib:/home/iris/colcon_ws/install/driver/lib:/home/iris/colcon_ws/install/apriltag_msgs/lib:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/aarch64-linux-gnu:/opt/ros/galactic/lib:/usr/local/cuda-11.4/lib64:'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/iris'), ('OLDPWD', '/home/iris/colcon_ws/src'), ('SSH_TTY', '/dev/pts/4'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/iris/colcon_ws/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'iris'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '8'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/galactic/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/controls:/home/iris/colcon_ws/install/apriltag_msgs:/opt/ros/galactic'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/iris/colcon_ws/src/IRIS/build/driver'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.1.172 58412 192.168.1.143 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/iris/colcon_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/home/iris/colcon_ws/build/excavator:/home/iris/colcon_ws/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/depositor:/home/iris/colcon_ws/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/build/linear_actuator:/home/iris/colcon_ws/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/controls:/home/iris/colcon_ws/install/controls/lib/python3.8/site-packages:/home/iris/colcon_ws/install/apriltag_msgs/lib/python3.8/site-packages:/opt/ros/galactic/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/iris/colcon_ws/install/sparkcan:/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/apriltag_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/controls:/opt/ros/galactic')]), 'shell': False}
+[1.910929] (-) TimerEvent: {}
+[1.985598] (sparkcan) JobProgress: {'identifier': 'sparkcan', 'progress': 'cmake'}
+[1.987106] (sparkcan) Command: {'cmd': ['/usr/bin/cmake', '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan', '-DCMAKE_INSTALL_PREFIX=/home/iris/colcon_ws/src/IRIS/install/sparkcan'], 'cwd': '/home/iris/colcon_ws/src/IRIS/build/sparkcan', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'iris'), ('SSH_CLIENT', '192.168.1.172 58412 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/iris/colcon_ws/install/sparkcan/lib:/home/iris/colcon_ws/install/rviz_imu_plugin/lib:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib:/home/iris/colcon_ws/install/driver/lib:/home/iris/colcon_ws/install/apriltag_msgs/lib:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/aarch64-linux-gnu:/opt/ros/galactic/lib:/usr/local/cuda-11.4/lib64:'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/iris'), ('OLDPWD', '/home/iris/colcon_ws/src'), ('SSH_TTY', '/dev/pts/4'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/iris/colcon_ws/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'iris'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '8'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/galactic/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/controls:/home/iris/colcon_ws/install/apriltag_msgs:/opt/ros/galactic'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/iris/colcon_ws/src/IRIS/build/sparkcan'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.1.172 58412 192.168.1.143 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/iris/colcon_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/home/iris/colcon_ws/build/excavator:/home/iris/colcon_ws/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/depositor:/home/iris/colcon_ws/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/build/linear_actuator:/home/iris/colcon_ws/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/controls:/home/iris/colcon_ws/install/controls/lib/python3.8/site-packages:/home/iris/colcon_ws/install/apriltag_msgs/lib/python3.8/site-packages:/opt/ros/galactic/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/iris/colcon_ws/install/sparkcan:/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/apriltag_msgs')]), 'shell': False}
+[2.013848] (-) TimerEvent: {}
+[2.115024] (-) TimerEvent: {}
+[2.216639] (-) TimerEvent: {}
+[2.317729] (-) TimerEvent: {}
+[2.418451] (-) TimerEvent: {}
+[2.519241] (-) TimerEvent: {}
+[2.620140] (-) TimerEvent: {}
+[2.720961] (-) TimerEvent: {}
+[2.808648] (driver) StdoutLine: {'line': b'-- The C compiler identification is GNU 9.4.0\n'}
+[2.809402] (sparkcan) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 9.4.0\n'}
+[2.823460] (-) TimerEvent: {}
+[2.924128] (-) TimerEvent: {}
+[2.984576] (sparkcan) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++\n'}
+[3.024286] (-) TimerEvent: {}
+[3.071122] (driver) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 9.4.0\n'}
+[3.124507] (-) TimerEvent: {}
+[3.225629] (-) TimerEvent: {}
+[3.229658] (driver) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc\n'}
+[3.325797] (-) TimerEvent: {}
+[3.328759] (sparkcan) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ -- works\n'}
+[3.333452] (sparkcan) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[3.425991] (-) TimerEvent: {}
+[3.426963] (driver) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc -- works\n'}
+[3.428921] (driver) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[3.526156] (-) TimerEvent: {}
+[3.627459] (-) TimerEvent: {}
+[3.644463] (driver) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[3.670080] (sparkcan) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[3.721955] (sparkcan) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[3.722525] (driver) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[3.723487] (driver) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[3.724182] (sparkcan) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[3.727538] (-) TimerEvent: {}
+[3.729117] (driver) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++\n'}
+[3.730521] (sparkcan) StdoutLine: {'line': b'-- Looking for C++ include pthread.h\n'}
+[3.827738] (-) TimerEvent: {}
+[3.928478] (-) TimerEvent: {}
+[4.029213] (-) TimerEvent: {}
+[4.048967] (driver) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ -- works\n'}
+[4.051758] (driver) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[4.129382] (-) TimerEvent: {}
+[4.134456] (sparkcan) StdoutLine: {'line': b'-- Looking for C++ include pthread.h - found\n'}
+[4.135293] (sparkcan) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[4.229570] (-) TimerEvent: {}
+[4.273020] (linear_actuator) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/home/iris/colcon_ws/src/IRIS/build/linear_actuator/build', '--no-deps', 'symlink_data'], 'cwd': '/home/iris/colcon_ws/src/IRIS/build/linear_actuator', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'iris', 'SSH_CLIENT': '192.168.1.172 58412 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/iris/colcon_ws/install/sparkcan/lib:/home/iris/colcon_ws/install/rviz_imu_plugin/lib:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib:/home/iris/colcon_ws/install/driver/lib:/home/iris/colcon_ws/install/apriltag_msgs/lib:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/aarch64-linux-gnu:/opt/ros/galactic/lib:/usr/local/cuda-11.4/lib64:', 'MOTD_SHOWN': 'pam', 'HOME': '/home/iris', 'OLDPWD': '/home/iris/colcon_ws/src', 'SSH_TTY': '/dev/pts/4', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLCON_PREFIX_PATH': '/home/iris/colcon_ws/install', 'ROS_DISTRO': 'galactic', 'LOGNAME': 'iris', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '8', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/galactic/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/controls:/home/iris/colcon_ws/install/apriltag_msgs:/opt/ros/galactic', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/iris/colcon_ws/src/IRIS/build/linear_actuator', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '192.168.1.172 58412 192.168.1.143 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/iris/colcon_ws/src/IRIS/build/linear_actuator/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/home/iris/colcon_ws/build/excavator:/home/iris/colcon_ws/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/depositor:/home/iris/colcon_ws/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/build/linear_actuator:/home/iris/colcon_ws/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/controls:/home/iris/colcon_ws/install/controls/lib/python3.8/site-packages:/home/iris/colcon_ws/install/apriltag_msgs/lib/python3.8/site-packages:/opt/ros/galactic/lib/python3.8/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/iris/colcon_ws/install/sparkcan:/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/apriltag_msgs'}, 'shell': False}
+[4.296187] (controls) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/home/iris/colcon_ws/src/IRIS/build/controls/build', '--no-deps', 'symlink_data'], 'cwd': '/home/iris/colcon_ws/src/IRIS/build/controls', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'iris', 'SSH_CLIENT': '192.168.1.172 58412 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/iris/colcon_ws/install/sparkcan/lib:/home/iris/colcon_ws/install/rviz_imu_plugin/lib:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib:/home/iris/colcon_ws/install/driver/lib:/home/iris/colcon_ws/install/apriltag_msgs/lib:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/aarch64-linux-gnu:/opt/ros/galactic/lib:/usr/local/cuda-11.4/lib64:', 'MOTD_SHOWN': 'pam', 'HOME': '/home/iris', 'OLDPWD': '/home/iris/colcon_ws/src', 'SSH_TTY': '/dev/pts/4', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLCON_PREFIX_PATH': '/home/iris/colcon_ws/install', 'ROS_DISTRO': 'galactic', 'LOGNAME': 'iris', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '8', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/galactic/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/controls:/home/iris/colcon_ws/install/apriltag_msgs:/opt/ros/galactic', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/iris/colcon_ws/src/IRIS/build/controls', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '192.168.1.172 58412 192.168.1.143 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/iris/colcon_ws/src/IRIS/build/controls/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/controls/lib/python3.8/site-packages:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/home/iris/colcon_ws/build/excavator:/home/iris/colcon_ws/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/depositor:/home/iris/colcon_ws/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/build/linear_actuator:/home/iris/colcon_ws/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/controls:/home/iris/colcon_ws/install/controls/lib/python3.8/site-packages:/home/iris/colcon_ws/install/apriltag_msgs/lib/python3.8/site-packages:/opt/ros/galactic/lib/python3.8/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/iris/colcon_ws/install/sparkcan:/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/apriltag_msgs'}, 'shell': False}
+[4.322758] (driver) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[4.329711] (-) TimerEvent: {}
+[4.349163] (driver) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[4.351503] (driver) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[4.429873] (-) TimerEvent: {}
+[4.512054] (sparkcan) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed\n'}
+[4.512849] (sparkcan) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads\n'}
+[4.517689] (driver) StdoutLine: {'line': b'-- Found ament_cmake: 1.1.6 (/opt/ros/galactic/share/ament_cmake/cmake)\n'}
+[4.530026] (-) TimerEvent: {}
+[4.630662] (-) TimerEvent: {}
+[4.731538] (-) TimerEvent: {}
+[4.765413] (driver) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") \n'}
+[4.766620] (driver) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[4.831706] (-) TimerEvent: {}
+[4.933607] (-) TimerEvent: {}
+[4.992273] (linear_actuator) StdoutLine: {'line': b'running develop\n'}
+[4.993008] (controls) StdoutLine: {'line': b'running develop\n'}
+[4.999561] (sparkcan) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads - not found\n'}
+[5.000836] (sparkcan) StdoutLine: {'line': b'-- Looking for pthread_create in pthread\n'}
+[5.033754] (-) TimerEvent: {}
+[5.134446] (-) TimerEvent: {}
+[5.235387] (-) TimerEvent: {}
+[5.295786] (sparkcan) StdoutLine: {'line': b'-- Looking for pthread_create in pthread - found\n'}
+[5.298886] (sparkcan) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[5.335538] (-) TimerEvent: {}
+[5.351543] (driver) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[5.355318] (sparkcan) StdoutLine: {'line': b'-- Configuring done\n'}
+[5.377667] (sparkcan) StdoutLine: {'line': b'-- Generating done\n'}
+[5.395286] (sparkcan) StdoutLine: {'line': b'-- Build files have been written to: /home/iris/colcon_ws/src/IRIS/build/sparkcan\n'}
+[5.404891] (sparkcan) CommandEnded: {'returncode': 0}
+[5.413455] (sparkcan) JobProgress: {'identifier': 'sparkcan', 'progress': 'build'}
+[5.413675] (sparkcan) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/iris/colcon_ws/src/IRIS/build/sparkcan', '--', '-j6', '-l6'], 'cwd': '/home/iris/colcon_ws/src/IRIS/build/sparkcan', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'iris'), ('SSH_CLIENT', '192.168.1.172 58412 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/iris/colcon_ws/install/sparkcan/lib:/home/iris/colcon_ws/install/rviz_imu_plugin/lib:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib:/home/iris/colcon_ws/install/driver/lib:/home/iris/colcon_ws/install/apriltag_msgs/lib:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/aarch64-linux-gnu:/opt/ros/galactic/lib:/usr/local/cuda-11.4/lib64:'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/iris'), ('OLDPWD', '/home/iris/colcon_ws/src'), ('SSH_TTY', '/dev/pts/4'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/iris/colcon_ws/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'iris'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '8'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/galactic/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/controls:/home/iris/colcon_ws/install/apriltag_msgs:/opt/ros/galactic'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/iris/colcon_ws/src/IRIS/build/sparkcan'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.1.172 58412 192.168.1.143 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/iris/colcon_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/home/iris/colcon_ws/build/excavator:/home/iris/colcon_ws/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/depositor:/home/iris/colcon_ws/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/build/linear_actuator:/home/iris/colcon_ws/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/controls:/home/iris/colcon_ws/install/controls/lib/python3.8/site-packages:/home/iris/colcon_ws/install/apriltag_msgs/lib/python3.8/site-packages:/opt/ros/galactic/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/iris/colcon_ws/install/sparkcan:/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/apriltag_msgs')]), 'shell': False}
+[5.435765] (-) TimerEvent: {}
+[5.495135] (driver) StdoutLine: {'line': b'-- Found rclcpp: 9.2.2 (/opt/ros/galactic/share/rclcpp/cmake)\n'}
+[5.503821] (linear_actuator) StdoutLine: {'line': b'running egg_info\n'}
+[5.504747] (linear_actuator) StdoutLine: {'line': b'creating linear_actuator.egg-info\n'}
+[5.505889] (linear_actuator) StdoutLine: {'line': b'writing linear_actuator.egg-info/PKG-INFO\n'}
+[5.506754] (linear_actuator) StdoutLine: {'line': b'writing dependency_links to linear_actuator.egg-info/dependency_links.txt\n'}
+[5.507590] (linear_actuator) StdoutLine: {'line': b'writing entry points to linear_actuator.egg-info/entry_points.txt\n'}
+[5.508090] (controls) StdoutLine: {'line': b'running egg_info\n'}
+[5.508502] (linear_actuator) StdoutLine: {'line': b'writing requirements to linear_actuator.egg-info/requires.txt\n'}
+[5.508734] (linear_actuator) StdoutLine: {'line': b'writing top-level names to linear_actuator.egg-info/top_level.txt\n'}
+[5.509358] (controls) StdoutLine: {'line': b'creating controls.egg-info\n'}
+[5.510198] (controls) StdoutLine: {'line': b'writing controls.egg-info/PKG-INFO\n'}
+[5.511010] (controls) StdoutLine: {'line': b'writing dependency_links to controls.egg-info/dependency_links.txt\n'}
+[5.511513] (controls) StdoutLine: {'line': b'writing entry points to controls.egg-info/entry_points.txt\n'}
+[5.512030] (controls) StdoutLine: {'line': b'writing requirements to controls.egg-info/requires.txt\n'}
+[5.512268] (controls) StdoutLine: {'line': b'writing top-level names to controls.egg-info/top_level.txt\n'}
+[5.519600] (linear_actuator) StdoutLine: {'line': b"writing manifest file 'linear_actuator.egg-info/SOURCES.txt'\n"}
+[5.520571] (controls) StdoutLine: {'line': b"writing manifest file 'controls.egg-info/SOURCES.txt'\n"}
+[5.522834] (sparkcan) StdoutLine: {'line': b'-- Configuring done\n'}
+[5.535821] (-) TimerEvent: {}
+[5.537736] (sparkcan) StdoutLine: {'line': b'-- Generating done\n'}
+[5.544351] (sparkcan) StdoutLine: {'line': b'-- Build files have been written to: /home/iris/colcon_ws/src/IRIS/build/sparkcan\n'}
+[5.590537] (linear_actuator) StdoutLine: {'line': b"reading manifest file 'linear_actuator.egg-info/SOURCES.txt'\n"}
+[5.594461] (linear_actuator) StdoutLine: {'line': b"writing manifest file 'linear_actuator.egg-info/SOURCES.txt'\n"}
+[5.603093] (sparkcan) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target sparkcan\x1b[0m\n'}
+[5.622581] (sparkcan) StderrLine: {'line': b"make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/src/SparkBase.cpp' has modification time 1777864368 s in the future\n"}
+[5.634449] (controls) StdoutLine: {'line': b"reading manifest file 'controls.egg-info/SOURCES.txt'\n"}
+[5.636081] (controls) StdoutLine: {'line': b"writing manifest file 'controls.egg-info/SOURCES.txt'\n"}
+[5.636525] (-) TimerEvent: {}
+[5.653332] (sparkcan) StdoutLine: {'line': b'[ 10%] \x1b[32mBuilding CXX object CMakeFiles/sparkcan.dir/src/SparkFlex.cpp.o\x1b[0m\n'}
+[5.661326] (sparkcan) StdoutLine: {'line': b'[ 20%] \x1b[32mBuilding CXX object CMakeFiles/sparkcan.dir/src/SparkBase.cpp.o\x1b[0m\n'}
+[5.677779] (linear_actuator) StdoutLine: {'line': b'running build_ext\n'}
+[5.703856] (sparkcan) StdoutLine: {'line': b'[ 30%] \x1b[32mBuilding CXX object CMakeFiles/sparkcan.dir/src/SparkMax.cpp.o\x1b[0m\n'}
+[5.724285] (controls) StdoutLine: {'line': b'running build_ext\n'}
+[5.736688] (-) TimerEvent: {}
+[5.798445] (controls) StdoutLine: {'line': b'Creating /home/iris/colcon_ws/src/IRIS/install/controls/lib/python3.8/site-packages/site.py\n'}
+[5.798918] (linear_actuator) StdoutLine: {'line': b'Creating /home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages/site.py\n'}
+[5.803625] (linear_actuator) StdoutLine: {'line': b'Creating /home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages/linear-actuator.egg-link (link to .)\n'}
+[5.804447] (controls) StdoutLine: {'line': b'Creating /home/iris/colcon_ws/src/IRIS/install/controls/lib/python3.8/site-packages/controls.egg-link (link to .)\n'}
+[5.805812] (linear_actuator) StdoutLine: {'line': b'\n'}
+[5.806233] (linear_actuator) StdoutLine: {'line': b'Installed /home/iris/colcon_ws/src/IRIS/build/linear_actuator\n'}
+[5.806602] (linear_actuator) StdoutLine: {'line': b'running symlink_data\n'}
+[5.806861] (linear_actuator) StdoutLine: {'line': b'creating /home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/ament_index\n'}
+[5.807127] (controls) StdoutLine: {'line': b'Installing controller_node script to /home/iris/colcon_ws/src/IRIS/install/controls/lib/controls\n'}
+[5.807494] (linear_actuator) StdoutLine: {'line': b'creating /home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/ament_index/resource_index\n'}
+[5.807830] (linear_actuator) StdoutLine: {'line': b'creating /home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/ament_index/resource_index/packages\n'}
+[5.808067] (linear_actuator) StdoutLine: {'line': b'symbolically linking /home/iris/colcon_ws/src/IRIS/build/linear_actuator/resource/linear_actuator -> /home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/ament_index/resource_index/packages\n'}
+[5.808315] (controls) StdoutLine: {'line': b'\n'}
+[5.808636] (controls) StdoutLine: {'line': b'Installed /home/iris/colcon_ws/src/IRIS/build/controls\n'}
+[5.808820] (controls) StdoutLine: {'line': b'running symlink_data\n'}
+[5.808990] (linear_actuator) StdoutLine: {'line': b'symbolically linking /home/iris/colcon_ws/src/IRIS/build/linear_actuator/package.xml -> /home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator\n'}
+[5.809166] (controls) StdoutLine: {'line': b'creating /home/iris/colcon_ws/src/IRIS/install/controls/share/ament_index\n'}
+[5.809329] (controls) StdoutLine: {'line': b'creating /home/iris/colcon_ws/src/IRIS/install/controls/share/ament_index/resource_index\n'}
+[5.809493] (controls) StdoutLine: {'line': b'creating /home/iris/colcon_ws/src/IRIS/install/controls/share/ament_index/resource_index/packages\n'}
+[5.809696] (controls) StdoutLine: {'line': b'symbolically linking /home/iris/colcon_ws/src/IRIS/build/controls/resource/controls -> /home/iris/colcon_ws/src/IRIS/install/controls/share/ament_index/resource_index/packages\n'}
+[5.809866] (controls) StdoutLine: {'line': b'symbolically linking /home/iris/colcon_ws/src/IRIS/build/controls/package.xml -> /home/iris/colcon_ws/src/IRIS/install/controls/share/controls\n'}
+[5.836891] (-) TimerEvent: {}
+[5.931958] (controls) CommandEnded: {'returncode': 0}
+[5.936998] (-) TimerEvent: {}
+[6.037958] (-) TimerEvent: {}
+[6.076709] (controls) JobEnded: {'identifier': 'controls', 'rc': 0}
+[6.078030] (linear_actuator) CommandEnded: {'returncode': 0}
+[6.100210] (linear_actuator) JobEnded: {'identifier': 'linear_actuator', 'rc': 0}
+[6.102827] (depositor) JobStarted: {'identifier': 'depositor'}
+[6.118075] (driver) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[6.123725] (excavator) JobStarted: {'identifier': 'excavator'}
+[6.138472] (-) TimerEvent: {}
+[6.162895] (driver) StdoutLine: {'line': b'-- Found rosidl_adapter: 2.2.3 (/opt/ros/galactic/share/rosidl_adapter/cmake)\n'}
+[6.238659] (-) TimerEvent: {}
+[6.339447] (-) TimerEvent: {}
+[6.440133] (-) TimerEvent: {}
+[6.543121] (-) TimerEvent: {}
+[6.644508] (-) TimerEvent: {}
+[6.745768] (-) TimerEvent: {}
+[6.847085] (-) TimerEvent: {}
+[6.948210] (-) TimerEvent: {}
+[7.052361] (-) TimerEvent: {}
+[7.153790] (-) TimerEvent: {}
+[7.286676] (-) TimerEvent: {}
+[7.340384] (driver) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "1.1.1f")  \n'}
+[7.386782] (-) TimerEvent: {}
+[7.487895] (-) TimerEvent: {}
+[7.588613] (-) TimerEvent: {}
+[7.594134] (driver) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/galactic/include  \n'}
+[7.688762] (-) TimerEvent: {}
+[7.789454] (-) TimerEvent: {}
+[7.890617] (-) TimerEvent: {}
+[7.991599] (-) TimerEvent: {}
+[8.092767] (-) TimerEvent: {}
+[8.123931] (driver) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[8.192928] (-) TimerEvent: {}
+[8.293682] (-) TimerEvent: {}
+[8.394368] (-) TimerEvent: {}
+[8.462176] (driver) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 3.3.1 (/opt/ros/galactic/share/rmw_implementation_cmake/cmake)\n'}
+[8.474783] (driver) StdoutLine: {'line': b'-- Found rmw_cyclonedds_cpp: 0.22.6 (/opt/ros/galactic/share/rmw_cyclonedds_cpp/cmake)\n'}
+[8.495045] (-) TimerEvent: {}
+[8.596798] (-) TimerEvent: {}
+[8.697870] (-) TimerEvent: {}
+[8.782909] (driver) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_cyclonedds_cpp' as default\n"}
+[8.787112] (driver) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[8.798050] (-) TimerEvent: {}
+[8.834371] (sparkcan) StdoutLine: {'line': b'[ 40%] \x1b[32m\x1b[1mLinking CXX shared library libsparkcan.so\x1b[0m\n'}
+[8.898272] (-) TimerEvent: {}
+[8.999223] (-) TimerEvent: {}
+[9.078894] (driver) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[9.080560] (driver) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[9.081125] (sparkcan) StderrLine: {'line': b'make[2]: warning:  Clock skew detected.  Your build may be incomplete.\n'}
+[9.099409] (-) TimerEvent: {}
+[9.106828] (sparkcan) StdoutLine: {'line': b'[ 40%] Built target sparkcan\n'}
+[9.198387] (sparkcan) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target example_control\x1b[0m\n'}
+[9.201003] (-) TimerEvent: {}
+[9.208976] (sparkcan) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target example_status\x1b[0m\n'}
+[9.223320] (sparkcan) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target example_pid\x1b[0m\n'}
+[9.252478] (sparkcan) StderrLine: {'line': b"make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/examples/pid.cpp' has modification time 1777864364 s in the future\n"}
+[9.255344] (sparkcan) StderrLine: {'line': b"make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/examples/control.cpp' has modification time 1777864364 s in the future\n"}
+[9.257695] (sparkcan) StderrLine: {'line': b"make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/examples/status.cpp' has modification time 1777864364 s in the future\n"}
+[9.280556] (sparkcan) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/example_status.dir/examples/status.cpp.o\x1b[0m\n'}
+[9.288109] (sparkcan) StdoutLine: {'line': b'[ 60%] \x1b[32mBuilding CXX object CMakeFiles/example_pid.dir/examples/pid.cpp.o\x1b[0m\n'}
+[9.291708] (depositor) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/home/iris/colcon_ws/src/IRIS/build/depositor/build', '--no-deps', 'symlink_data'], 'cwd': '/home/iris/colcon_ws/src/IRIS/build/depositor', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'iris', 'SSH_CLIENT': '192.168.1.172 58412 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/iris/colcon_ws/install/sparkcan/lib:/home/iris/colcon_ws/install/rviz_imu_plugin/lib:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib:/home/iris/colcon_ws/install/driver/lib:/home/iris/colcon_ws/install/apriltag_msgs/lib:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/aarch64-linux-gnu:/opt/ros/galactic/lib:/usr/local/cuda-11.4/lib64:', 'MOTD_SHOWN': 'pam', 'HOME': '/home/iris', 'OLDPWD': '/home/iris/colcon_ws/src', 'SSH_TTY': '/dev/pts/4', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLCON_PREFIX_PATH': '/home/iris/colcon_ws/install', 'ROS_DISTRO': 'galactic', 'LOGNAME': 'iris', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '8', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/galactic/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/iris/colcon_ws/src/IRIS/install/linear_actuator:/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/controls:/home/iris/colcon_ws/install/apriltag_msgs:/opt/ros/galactic', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/iris/colcon_ws/src/IRIS/build/depositor', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '192.168.1.172 58412 192.168.1.143 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/iris/colcon_ws/src/IRIS/build/depositor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/src/IRIS/build/linear_actuator:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/home/iris/colcon_ws/build/excavator:/home/iris/colcon_ws/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/depositor:/home/iris/colcon_ws/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/build/linear_actuator:/home/iris/colcon_ws/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/controls:/home/iris/colcon_ws/install/controls/lib/python3.8/site-packages:/home/iris/colcon_ws/install/apriltag_msgs/lib/python3.8/site-packages:/opt/ros/galactic/lib/python3.8/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/iris/colcon_ws/install/sparkcan:/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/apriltag_msgs'}, 'shell': False}
+[9.301780] (-) TimerEvent: {}
+[9.302472] (sparkcan) StdoutLine: {'line': b'[ 70%] \x1b[32mBuilding CXX object CMakeFiles/example_control.dir/examples/control.cpp.o\x1b[0m\n'}
+[9.350580] (excavator) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/home/iris/colcon_ws/src/IRIS/build/excavator/build', '--no-deps', 'symlink_data'], 'cwd': '/home/iris/colcon_ws/src/IRIS/build/excavator', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'iris', 'SSH_CLIENT': '192.168.1.172 58412 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/iris/colcon_ws/install/sparkcan/lib:/home/iris/colcon_ws/install/rviz_imu_plugin/lib:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib:/home/iris/colcon_ws/install/driver/lib:/home/iris/colcon_ws/install/apriltag_msgs/lib:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/aarch64-linux-gnu:/opt/ros/galactic/lib:/usr/local/cuda-11.4/lib64:', 'MOTD_SHOWN': 'pam', 'HOME': '/home/iris', 'OLDPWD': '/home/iris/colcon_ws/src', 'SSH_TTY': '/dev/pts/4', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLCON_PREFIX_PATH': '/home/iris/colcon_ws/install', 'ROS_DISTRO': 'galactic', 'LOGNAME': 'iris', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '8', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/galactic/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/iris/colcon_ws/src/IRIS/install/linear_actuator:/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/controls:/home/iris/colcon_ws/install/apriltag_msgs:/opt/ros/galactic', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/iris/colcon_ws/src/IRIS/build/excavator', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '192.168.1.172 58412 192.168.1.143 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/iris/colcon_ws/src/IRIS/build/excavator/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/src/IRIS/build/linear_actuator:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/home/iris/colcon_ws/build/excavator:/home/iris/colcon_ws/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/depositor:/home/iris/colcon_ws/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/build/linear_actuator:/home/iris/colcon_ws/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/controls:/home/iris/colcon_ws/install/controls/lib/python3.8/site-packages:/home/iris/colcon_ws/install/apriltag_msgs/lib/python3.8/site-packages:/opt/ros/galactic/lib/python3.8/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/iris/colcon_ws/install/sparkcan:/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/apriltag_msgs'}, 'shell': False}
+[9.401967] (-) TimerEvent: {}
+[9.466443] (driver) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed\n'}
+[9.467156] (driver) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads\n'}
+[9.508350] (-) TimerEvent: {}
+[9.637614] (-) TimerEvent: {}
+[9.738330] (-) TimerEvent: {}
+[9.794571] (driver) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads - not found\n'}
+[9.795254] (driver) StdoutLine: {'line': b'-- Looking for pthread_create in pthread\n'}
+[9.838856] (-) TimerEvent: {}
+[9.940219] (-) TimerEvent: {}
+[9.991330] (depositor) StdoutLine: {'line': b'running develop\n'}
+[10.040395] (-) TimerEvent: {}
+[10.079764] (excavator) StdoutLine: {'line': b'running develop\n'}
+[10.140599] (-) TimerEvent: {}
+[10.241865] (-) TimerEvent: {}
+[10.343246] (-) TimerEvent: {}
+[10.443965] (-) TimerEvent: {}
+[10.471651] (driver) StdoutLine: {'line': b'-- Looking for pthread_create in pthread - found\n'}
+[10.475933] (driver) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[10.551152] (-) TimerEvent: {}
+[10.644645] (depositor) StdoutLine: {'line': b'running egg_info\n'}
+[10.645796] (depositor) StdoutLine: {'line': b'creating depositor.egg-info\n'}
+[10.647499] (depositor) StdoutLine: {'line': b'writing depositor.egg-info/PKG-INFO\n'}
+[10.649193] (-) TimerEvent: {}
+[10.650807] (depositor) StdoutLine: {'line': b'writing dependency_links to depositor.egg-info/dependency_links.txt\n'}
+[10.652282] (depositor) StdoutLine: {'line': b'writing entry points to depositor.egg-info/entry_points.txt\n'}
+[10.653670] (depositor) StdoutLine: {'line': b'writing requirements to depositor.egg-info/requires.txt\n'}
+[10.654850] (depositor) StdoutLine: {'line': b'writing top-level names to depositor.egg-info/top_level.txt\n'}
+[10.659786] (depositor) StdoutLine: {'line': b"writing manifest file 'depositor.egg-info/SOURCES.txt'\n"}
+[10.746147] (depositor) StdoutLine: {'line': b"reading manifest file 'depositor.egg-info/SOURCES.txt'\n"}
+[10.748881] (depositor) StdoutLine: {'line': b"writing manifest file 'depositor.egg-info/SOURCES.txt'\n"}
+[10.749322] (-) TimerEvent: {}
+[10.843641] (excavator) StdoutLine: {'line': b'running egg_info\n'}
+[10.844543] (excavator) StdoutLine: {'line': b'creating excavator.egg-info\n'}
+[10.845335] (excavator) StdoutLine: {'line': b'writing excavator.egg-info/PKG-INFO\n'}
+[10.845964] (excavator) StdoutLine: {'line': b'writing dependency_links to excavator.egg-info/dependency_links.txt\n'}
+[10.846235] (excavator) StdoutLine: {'line': b'writing entry points to excavator.egg-info/entry_points.txt\n'}
+[10.846782] (excavator) StdoutLine: {'line': b'writing requirements to excavator.egg-info/requires.txt\n'}
+[10.847024] (excavator) StdoutLine: {'line': b'writing top-level names to excavator.egg-info/top_level.txt\n'}
+[10.849471] (-) TimerEvent: {}
+[10.850682] (excavator) StdoutLine: {'line': b"writing manifest file 'excavator.egg-info/SOURCES.txt'\n"}
+[10.856450] (depositor) StdoutLine: {'line': b'running build_ext\n'}
+[10.858378] (depositor) StdoutLine: {'line': b'Creating /home/iris/colcon_ws/src/IRIS/install/depositor/lib/python3.8/site-packages/site.py\n'}
+[10.864508] (depositor) StdoutLine: {'line': b'Creating /home/iris/colcon_ws/src/IRIS/install/depositor/lib/python3.8/site-packages/depositor.egg-link (link to .)\n'}
+[10.867827] (depositor) StdoutLine: {'line': b'Installing depositor_node script to /home/iris/colcon_ws/src/IRIS/install/depositor/lib/depositor\n'}
+[10.870122] (depositor) StdoutLine: {'line': b'\n'}
+[10.871410] (depositor) StdoutLine: {'line': b'Installed /home/iris/colcon_ws/src/IRIS/build/depositor\n'}
+[10.872471] (depositor) StdoutLine: {'line': b'running symlink_data\n'}
+[10.873512] (depositor) StdoutLine: {'line': b'creating /home/iris/colcon_ws/src/IRIS/install/depositor/share/ament_index\n'}
+[10.874436] (depositor) StdoutLine: {'line': b'creating /home/iris/colcon_ws/src/IRIS/install/depositor/share/ament_index/resource_index\n'}
+[10.875288] (depositor) StdoutLine: {'line': b'creating /home/iris/colcon_ws/src/IRIS/install/depositor/share/ament_index/resource_index/packages\n'}
+[10.876360] (depositor) StdoutLine: {'line': b'symbolically linking /home/iris/colcon_ws/src/IRIS/build/depositor/resource/depositor -> /home/iris/colcon_ws/src/IRIS/install/depositor/share/ament_index/resource_index/packages\n'}
+[10.878606] (depositor) StdoutLine: {'line': b'symbolically linking /home/iris/colcon_ws/src/IRIS/build/depositor/package.xml -> /home/iris/colcon_ws/src/IRIS/install/depositor/share/depositor\n'}
+[10.924953] (excavator) StdoutLine: {'line': b"reading manifest file 'excavator.egg-info/SOURCES.txt'\n"}
+[10.926752] (excavator) StdoutLine: {'line': b"writing manifest file 'excavator.egg-info/SOURCES.txt'\n"}
+[10.949665] (-) TimerEvent: {}
+[11.019739] (excavator) StdoutLine: {'line': b'running build_ext\n'}
+[11.020736] (excavator) StdoutLine: {'line': b'Creating /home/iris/colcon_ws/src/IRIS/install/excavator/lib/python3.8/site-packages/site.py\n'}
+[11.026149] (excavator) StdoutLine: {'line': b'Creating /home/iris/colcon_ws/src/IRIS/install/excavator/lib/python3.8/site-packages/excavator.egg-link (link to .)\n'}
+[11.028735] (excavator) StdoutLine: {'line': b'Installing excavator_node script to /home/iris/colcon_ws/src/IRIS/install/excavator/lib/excavator\n'}
+[11.029648] (excavator) StdoutLine: {'line': b'\n'}
+[11.030128] (excavator) StdoutLine: {'line': b'Installed /home/iris/colcon_ws/src/IRIS/build/excavator\n'}
+[11.030359] (excavator) StdoutLine: {'line': b'running symlink_data\n'}
+[11.030931] (excavator) StdoutLine: {'line': b'creating /home/iris/colcon_ws/src/IRIS/install/excavator/share/ament_index\n'}
+[11.031179] (excavator) StdoutLine: {'line': b'creating /home/iris/colcon_ws/src/IRIS/install/excavator/share/ament_index/resource_index\n'}
+[11.031361] (excavator) StdoutLine: {'line': b'creating /home/iris/colcon_ws/src/IRIS/install/excavator/share/ament_index/resource_index/packages\n'}
+[11.031526] (excavator) StdoutLine: {'line': b'symbolically linking /home/iris/colcon_ws/src/IRIS/build/excavator/resource/excavator -> /home/iris/colcon_ws/src/IRIS/install/excavator/share/ament_index/resource_index/packages\n'}
+[11.031691] (excavator) StdoutLine: {'line': b'symbolically linking /home/iris/colcon_ws/src/IRIS/build/excavator/package.xml -> /home/iris/colcon_ws/src/IRIS/install/excavator/share/excavator\n'}
+[11.049866] (-) TimerEvent: {}
+[11.143470] (excavator) CommandEnded: {'returncode': 0}
+[11.150036] (-) TimerEvent: {}
+[11.172132] (excavator) JobEnded: {'identifier': 'excavator', 'rc': 0}
+[11.175606] (depositor) CommandEnded: {'returncode': 0}
+[11.216198] (depositor) JobEnded: {'identifier': 'depositor', 'rc': 0}
+[11.250245] (-) TimerEvent: {}
+[11.351017] (-) TimerEvent: {}
+[11.409531] (sparkcan) StdoutLine: {'line': b'[ 80%] \x1b[32m\x1b[1mLinking CXX executable example_control\x1b[0m\n'}
+[11.451230] (-) TimerEvent: {}
+[11.551977] (-) TimerEvent: {}
+[11.634691] (sparkcan) StderrLine: {'line': b'make[2]: warning:  Clock skew detected.  Your build may be incomplete.\n'}
+[11.652150] (-) TimerEvent: {}
+[11.659868] (sparkcan) StdoutLine: {'line': b'[ 80%] Built target example_control\n'}
+[11.752322] (-) TimerEvent: {}
+[11.814304] (sparkcan) StdoutLine: {'line': b'[ 90%] \x1b[32m\x1b[1mLinking CXX executable example_pid\x1b[0m\n'}
+[11.852515] (-) TimerEvent: {}
+[11.953324] (-) TimerEvent: {}
+[11.956751] (sparkcan) StderrLine: {'line': b'make[2]: warning:  Clock skew detected.  Your build may be incomplete.\n'}
+[11.978565] (sparkcan) StdoutLine: {'line': b'[ 90%] Built target example_pid\n'}
+[12.012444] (sparkcan) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable example_status\x1b[0m\n'}
+[12.053461] (-) TimerEvent: {}
+[12.153313] (sparkcan) StderrLine: {'line': b'make[2]: warning:  Clock skew detected.  Your build may be incomplete.\n'}
+[12.153846] (-) TimerEvent: {}
+[12.175204] (sparkcan) StdoutLine: {'line': b'[100%] Built target example_status\n'}
+[12.206361] (sparkcan) CommandEnded: {'returncode': 0}
+[12.208004] (sparkcan) JobProgress: {'identifier': 'sparkcan', 'progress': 'install'}
+[12.238834] (sparkcan) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/iris/colcon_ws/src/IRIS/build/sparkcan'], 'cwd': '/home/iris/colcon_ws/src/IRIS/build/sparkcan', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'iris'), ('SSH_CLIENT', '192.168.1.172 58412 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/iris/colcon_ws/install/sparkcan/lib:/home/iris/colcon_ws/install/rviz_imu_plugin/lib:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib:/home/iris/colcon_ws/install/driver/lib:/home/iris/colcon_ws/install/apriltag_msgs/lib:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/aarch64-linux-gnu:/opt/ros/galactic/lib:/usr/local/cuda-11.4/lib64:'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/iris'), ('OLDPWD', '/home/iris/colcon_ws/src'), ('SSH_TTY', '/dev/pts/4'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/iris/colcon_ws/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'iris'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '8'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/galactic/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/controls:/home/iris/colcon_ws/install/apriltag_msgs:/opt/ros/galactic'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/iris/colcon_ws/src/IRIS/build/sparkcan'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.1.172 58412 192.168.1.143 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/iris/colcon_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/home/iris/colcon_ws/build/excavator:/home/iris/colcon_ws/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/depositor:/home/iris/colcon_ws/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/build/linear_actuator:/home/iris/colcon_ws/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/controls:/home/iris/colcon_ws/install/controls/lib/python3.8/site-packages:/home/iris/colcon_ws/install/apriltag_msgs/lib/python3.8/site-packages:/opt/ros/galactic/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/iris/colcon_ws/install/sparkcan:/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/apriltag_msgs')]), 'shell': False}
+[12.254065] (-) TimerEvent: {}
+[12.267372] (sparkcan) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[12.268163] (sparkcan) StdoutLine: {'line': b'-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/libsparkcan.so\n'}
+[12.269140] (sparkcan) StdoutLine: {'line': b'-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include\n'}
+[12.269538] (sparkcan) StdoutLine: {'line': b'-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include/SparkMax.hpp\n'}
+[12.269807] (sparkcan) StdoutLine: {'line': b'-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include/SparkFlex.hpp\n'}
+[12.270065] (sparkcan) StdoutLine: {'line': b'-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include/SparkBase.hpp\n'}
+[12.270803] (sparkcan) StdoutLine: {'line': b'-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanTargets.cmake\n'}
+[12.271167] (sparkcan) StdoutLine: {'line': b'-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanTargets-noconfig.cmake\n'}
+[12.271538] (sparkcan) StdoutLine: {'line': b'-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanConfig.cmake\n'}
+[12.271870] (sparkcan) StdoutLine: {'line': b'-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanConfigVersion.cmake\n'}
+[12.276495] (sparkcan) CommandEnded: {'returncode': 0}
+[12.296934] (sparkcan) JobEnded: {'identifier': 'sparkcan', 'rc': 0}
+[12.354191] (-) TimerEvent: {}
+[12.381940] (driver) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.10.7 (/opt/ros/galactic/share/ament_lint_auto/cmake)\n'}
+[12.454353] (-) TimerEvent: {}
+[12.555025] (-) TimerEvent: {}
+[12.655812] (-) TimerEvent: {}
+[12.749429] (driver) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[12.750104] (driver) StdoutLine: {'line': b'-- Configured cppcheck include dirs: /home/iris/colcon_ws/src/IRIS/driver/include;/home/iris/colcon_ws/src/IRIS/driver/../dependencies/sparkcan/include\n'}
+[12.750430] (driver) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[12.752950] (driver) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[12.755878] (-) TimerEvent: {}
+[12.756368] (driver) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[12.756735] (driver) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[12.757950] (driver) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[12.770012] (driver) StdoutLine: {'line': b'-- Configuring done\n'}
+[12.801024] (driver) StdoutLine: {'line': b'-- Generating done\n'}
+[12.816054] (driver) StdoutLine: {'line': b'-- Build files have been written to: /home/iris/colcon_ws/src/IRIS/build/driver\n'}
+[12.842144] (driver) CommandEnded: {'returncode': 0}
+[12.844080] (driver) JobProgress: {'identifier': 'driver', 'progress': 'build'}
+[12.844726] (driver) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/iris/colcon_ws/src/IRIS/build/driver', '--', '-j6', '-l6'], 'cwd': '/home/iris/colcon_ws/src/IRIS/build/driver', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'iris'), ('SSH_CLIENT', '192.168.1.172 58412 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/iris/colcon_ws/install/sparkcan/lib:/home/iris/colcon_ws/install/rviz_imu_plugin/lib:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib:/home/iris/colcon_ws/install/driver/lib:/home/iris/colcon_ws/install/apriltag_msgs/lib:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/aarch64-linux-gnu:/opt/ros/galactic/lib:/usr/local/cuda-11.4/lib64:'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/iris'), ('OLDPWD', '/home/iris/colcon_ws/src'), ('SSH_TTY', '/dev/pts/4'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/iris/colcon_ws/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'iris'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '8'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/galactic/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/controls:/home/iris/colcon_ws/install/apriltag_msgs:/opt/ros/galactic'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/iris/colcon_ws/src/IRIS/build/driver'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.1.172 58412 192.168.1.143 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/iris/colcon_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/home/iris/colcon_ws/build/excavator:/home/iris/colcon_ws/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/depositor:/home/iris/colcon_ws/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/build/linear_actuator:/home/iris/colcon_ws/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/controls:/home/iris/colcon_ws/install/controls/lib/python3.8/site-packages:/home/iris/colcon_ws/install/apriltag_msgs/lib/python3.8/site-packages:/opt/ros/galactic/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/iris/colcon_ws/install/sparkcan:/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/apriltag_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/controls:/opt/ros/galactic')]), 'shell': False}
+[12.856038] (-) TimerEvent: {}
+[12.913678] (driver) StdoutLine: {'line': b'-- Found ament_cmake: 1.1.6 (/opt/ros/galactic/share/ament_cmake/cmake)\n'}
+[12.956209] (-) TimerEvent: {}
+[12.982258] (driver) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[13.056365] (-) TimerEvent: {}
+[13.137792] (driver) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[13.153882] (driver) StdoutLine: {'line': b'-- Found rclcpp: 9.2.2 (/opt/ros/galactic/share/rclcpp/cmake)\n'}
+[13.156465] (-) TimerEvent: {}
+[13.229808] (driver) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[13.269082] (-) TimerEvent: {}
+[13.269470] (driver) StdoutLine: {'line': b'-- Found rosidl_adapter: 2.2.3 (/opt/ros/galactic/share/rosidl_adapter/cmake)\n'}
+[13.369260] (-) TimerEvent: {}
+[13.469942] (-) TimerEvent: {}
+[13.509382] (driver) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[13.570102] (-) TimerEvent: {}
+[13.620369] (driver) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 3.3.1 (/opt/ros/galactic/share/rmw_implementation_cmake/cmake)\n'}
+[13.624522] (driver) StdoutLine: {'line': b'-- Found rmw_cyclonedds_cpp: 0.22.6 (/opt/ros/galactic/share/rmw_cyclonedds_cpp/cmake)\n'}
+[13.663545] (driver) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_cyclonedds_cpp' as default\n"}
+[13.670323] (-) TimerEvent: {}
+[13.770985] (-) TimerEvent: {}
+[13.871656] (-) TimerEvent: {}
+[13.969111] (driver) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.10.7 (/opt/ros/galactic/share/ament_lint_auto/cmake)\n'}
+[13.971732] (-) TimerEvent: {}
+[14.072246] (-) TimerEvent: {}
+[14.138182] (driver) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[14.138810] (driver) StdoutLine: {'line': b'-- Configured cppcheck include dirs: /home/iris/colcon_ws/src/IRIS/driver/include;/home/iris/colcon_ws/src/IRIS/driver/../dependencies/sparkcan/include\n'}
+[14.139041] (driver) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[14.139771] (driver) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[14.142439] (driver) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[14.142774] (driver) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[14.142978] (driver) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[14.150248] (driver) StdoutLine: {'line': b'-- Configuring done\n'}
+[14.172422] (-) TimerEvent: {}
+[14.179552] (driver) StdoutLine: {'line': b'-- Generating done\n'}
+[14.253338] (driver) StdoutLine: {'line': b'-- Build files have been written to: /home/iris/colcon_ws/src/IRIS/build/driver\n'}
+[14.272581] (-) TimerEvent: {}
+[14.321552] (driver) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target sparkcan\x1b[0m\n'}
+[14.329809] (driver) StderrLine: {'line': b"make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/src/SparkBase.cpp' has modification time 1777864359 s in the future\n"}
+[14.354011] (driver) StdoutLine: {'line': b'[  8%] \x1b[32mBuilding CXX object sparkcan_build/CMakeFiles/sparkcan.dir/src/SparkFlex.cpp.o\x1b[0m\n'}
+[14.354678] (driver) StdoutLine: {'line': b'[ 16%] \x1b[32mBuilding CXX object sparkcan_build/CMakeFiles/sparkcan.dir/src/SparkBase.cpp.o\x1b[0m\n'}
+[14.359026] (driver) StdoutLine: {'line': b'[ 25%] \x1b[32mBuilding CXX object sparkcan_build/CMakeFiles/sparkcan.dir/src/SparkMax.cpp.o\x1b[0m\n'}
+[14.372815] (-) TimerEvent: {}
+[14.473599] (-) TimerEvent: {}
+[14.574345] (-) TimerEvent: {}
+[14.675089] (-) TimerEvent: {}
+[14.775839] (-) TimerEvent: {}
+[14.876564] (-) TimerEvent: {}
+[14.977329] (-) TimerEvent: {}
+[15.078066] (-) TimerEvent: {}
+[15.178805] (-) TimerEvent: {}
+[15.279535] (-) TimerEvent: {}
+[15.380291] (-) TimerEvent: {}
+[15.481063] (-) TimerEvent: {}
+[15.581791] (-) TimerEvent: {}
+[15.682525] (-) TimerEvent: {}
+[15.783242] (-) TimerEvent: {}
+[15.884232] (-) TimerEvent: {}
+[15.985019] (-) TimerEvent: {}
+[16.085697] (-) TimerEvent: {}
+[16.186376] (-) TimerEvent: {}
+[16.287071] (-) TimerEvent: {}
+[16.387706] (-) TimerEvent: {}
+[16.488341] (-) TimerEvent: {}
+[16.589046] (-) TimerEvent: {}
+[16.637378] (driver) StdoutLine: {'line': b'[ 33%] \x1b[32m\x1b[1mLinking CXX shared library libsparkcan.so\x1b[0m\n'}
+[16.689198] (-) TimerEvent: {}
+[16.788311] (driver) StderrLine: {'line': b'make[2]: warning:  Clock skew detected.  Your build may be incomplete.\n'}
+[16.789266] (-) TimerEvent: {}
+[16.810611] (driver) StdoutLine: {'line': b'[ 33%] Built target sparkcan\n'}
+[16.841766] (driver) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target example_status\x1b[0m\n'}
+[16.844512] (driver) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target example_control\x1b[0m\n'}
+[16.849598] (driver) StderrLine: {'line': b"make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/examples/status.cpp' has modification time 1777864357 s in the future\n"}
+[16.850678] (driver) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target example_pid\x1b[0m\n'}
+[16.851379] (driver) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target driver\x1b[0m\n'}
+[16.853371] (driver) StderrLine: {'line': b"make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/examples/control.cpp' has modification time 1777864357 s in the future\n"}
+[16.859191] (driver) StderrLine: {'line': b"make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/examples/pid.cpp' has modification time 1777864357 s in the future\n"}
+[16.876523] (driver) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object sparkcan_build/CMakeFiles/example_status.dir/examples/status.cpp.o\x1b[0m\n'}
+[16.877058] (driver) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object sparkcan_build/CMakeFiles/example_control.dir/examples/control.cpp.o\x1b[0m\n'}
+[16.880751] (driver) StdoutLine: {'line': b'[ 58%] \x1b[32mBuilding CXX object sparkcan_build/CMakeFiles/example_pid.dir/examples/pid.cpp.o\x1b[0m\n'}
+[16.889443] (-) TimerEvent: {}
+[16.990102] (-) TimerEvent: {}
+[17.090802] (-) TimerEvent: {}
+[17.191549] (-) TimerEvent: {}
+[17.292306] (-) TimerEvent: {}
+[17.302835] (driver) StderrLine: {'line': b"make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/driver/src/driver_node.cpp' has modification time 1777867147 s in the future\n"}
+[17.392499] (-) TimerEvent: {}
+[17.424031] (driver) StdoutLine: {'line': b'[ 66%] \x1b[32mBuilding CXX object CMakeFiles/driver.dir/src/driver_node.cpp.o\x1b[0m\n'}
+[17.492669] (-) TimerEvent: {}
+[17.593689] (-) TimerEvent: {}
+[17.694423] (-) TimerEvent: {}
+[17.795150] (-) TimerEvent: {}
+[17.895945] (-) TimerEvent: {}
+[17.996756] (-) TimerEvent: {}
+[18.097536] (-) TimerEvent: {}
+[18.198384] (-) TimerEvent: {}
+[18.299159] (-) TimerEvent: {}
+[18.403830] (driver) StdoutLine: {'line': b'[ 75%] \x1b[32m\x1b[1mLinking CXX executable example_control\x1b[0m\n'}
+[18.404523] (-) TimerEvent: {}
+[18.505513] (-) TimerEvent: {}
+[18.562218] (driver) StdoutLine: {'line': b'[ 83%] \x1b[32m\x1b[1mLinking CXX executable example_status\x1b[0m\n'}
+[18.563215] (driver) StdoutLine: {'line': b'[ 91%] \x1b[32m\x1b[1mLinking CXX executable example_pid\x1b[0m\n'}
+[18.605693] (-) TimerEvent: {}
+[18.626614] (driver) StderrLine: {'line': b'make[2]: warning:  Clock skew detected.  Your build may be incomplete.\n'}
+[18.672805] (driver) StdoutLine: {'line': b'[ 91%] Built target example_control\n'}
+[18.705886] (-) TimerEvent: {}
+[18.729224] (driver) StderrLine: {'line': b'make[2]: warning:  Clock skew detected.  Your build may be incomplete.\n'}
+[18.740081] (driver) StderrLine: {'line': b'make[2]: warning:  Clock skew detected.  Your build may be incomplete.\n'}
+[18.753792] (driver) StdoutLine: {'line': b'[ 91%] Built target example_status\n'}
+[18.768743] (driver) StdoutLine: {'line': b'[ 91%] Built target example_pid\n'}
+[18.806044] (-) TimerEvent: {}
+[18.906740] (-) TimerEvent: {}
+[19.007439] (-) TimerEvent: {}
+[19.108147] (-) TimerEvent: {}
+[19.208892] (-) TimerEvent: {}
+[19.309611] (-) TimerEvent: {}
+[19.410310] (-) TimerEvent: {}
+[19.510998] (-) TimerEvent: {}
+[19.611703] (-) TimerEvent: {}
+[19.712453] (-) TimerEvent: {}
+[19.813139] (-) TimerEvent: {}
+[19.913839] (-) TimerEvent: {}
+[20.014542] (-) TimerEvent: {}
+[20.115259] (-) TimerEvent: {}
+[20.215966] (-) TimerEvent: {}
+[20.316696] (-) TimerEvent: {}
+[20.417414] (-) TimerEvent: {}
+[20.518142] (-) TimerEvent: {}
+[20.618857] (-) TimerEvent: {}
+[20.719570] (-) TimerEvent: {}
+[20.820302] (-) TimerEvent: {}
+[20.921115] (-) TimerEvent: {}
+[21.021856] (-) TimerEvent: {}
+[21.122560] (-) TimerEvent: {}
+[21.223274] (-) TimerEvent: {}
+[21.323994] (-) TimerEvent: {}
+[21.424750] (-) TimerEvent: {}
+[21.525487] (-) TimerEvent: {}
+[21.626191] (-) TimerEvent: {}
+[21.726905] (-) TimerEvent: {}
+[21.827607] (-) TimerEvent: {}
+[21.928310] (-) TimerEvent: {}
+[22.029136] (-) TimerEvent: {}
+[22.129852] (-) TimerEvent: {}
+[22.230554] (-) TimerEvent: {}
+[22.331279] (-) TimerEvent: {}
+[22.432702] (-) TimerEvent: {}
+[22.533425] (-) TimerEvent: {}
+[22.634178] (-) TimerEvent: {}
+[22.734916] (-) TimerEvent: {}
+[22.835651] (-) TimerEvent: {}
+[22.936372] (-) TimerEvent: {}
+[23.037125] (-) TimerEvent: {}
+[23.137850] (-) TimerEvent: {}
+[23.238578] (-) TimerEvent: {}
+[23.339326] (-) TimerEvent: {}
+[23.440117] (-) TimerEvent: {}
+[23.540878] (-) TimerEvent: {}
+[23.641612] (-) TimerEvent: {}
+[23.742299] (-) TimerEvent: {}
+[23.842997] (-) TimerEvent: {}
+[23.943735] (-) TimerEvent: {}
+[24.044483] (-) TimerEvent: {}
+[24.145190] (-) TimerEvent: {}
+[24.245883] (-) TimerEvent: {}
+[24.346574] (-) TimerEvent: {}
+[24.447265] (-) TimerEvent: {}
+[24.547973] (-) TimerEvent: {}
+[24.648733] (-) TimerEvent: {}
+[24.749718] (-) TimerEvent: {}
+[24.850414] (-) TimerEvent: {}
+[24.951137] (-) TimerEvent: {}
+[25.051821] (-) TimerEvent: {}
+[25.152535] (-) TimerEvent: {}
+[25.253236] (-) TimerEvent: {}
+[25.354187] (-) TimerEvent: {}
+[25.454902] (-) TimerEvent: {}
+[25.555633] (-) TimerEvent: {}
+[25.656338] (-) TimerEvent: {}
+[25.757044] (-) TimerEvent: {}
+[25.857704] (-) TimerEvent: {}
+[25.958376] (-) TimerEvent: {}
+[26.059048] (-) TimerEvent: {}
+[26.159721] (-) TimerEvent: {}
+[26.260385] (-) TimerEvent: {}
+[26.361081] (-) TimerEvent: {}
+[26.461740] (-) TimerEvent: {}
+[26.562447] (-) TimerEvent: {}
+[26.663107] (-) TimerEvent: {}
+[26.763772] (-) TimerEvent: {}
+[26.864450] (-) TimerEvent: {}
+[26.965124] (-) TimerEvent: {}
+[27.066256] (-) TimerEvent: {}
+[27.167006] (-) TimerEvent: {}
+[27.267737] (-) TimerEvent: {}
+[27.368443] (-) TimerEvent: {}
+[27.469113] (-) TimerEvent: {}
+[27.569791] (-) TimerEvent: {}
+[27.670450] (-) TimerEvent: {}
+[27.771137] (-) TimerEvent: {}
+[27.871794] (-) TimerEvent: {}
+[27.972461] (-) TimerEvent: {}
+[28.073127] (-) TimerEvent: {}
+[28.173802] (-) TimerEvent: {}
+[28.274482] (-) TimerEvent: {}
+[28.375160] (-) TimerEvent: {}
+[28.475882] (-) TimerEvent: {}
+[28.617933] (-) TimerEvent: {}
+[28.718667] (-) TimerEvent: {}
+[28.819383] (-) TimerEvent: {}
+[28.920078] (-) TimerEvent: {}
+[29.020789] (-) TimerEvent: {}
+[29.121490] (-) TimerEvent: {}
+[29.222194] (-) TimerEvent: {}
+[29.322926] (-) TimerEvent: {}
+[29.423607] (-) TimerEvent: {}
+[29.524298] (-) TimerEvent: {}
+[29.625006] (-) TimerEvent: {}
+[29.725709] (-) TimerEvent: {}
+[29.826409] (-) TimerEvent: {}
+[29.927108] (-) TimerEvent: {}
+[30.027822] (-) TimerEvent: {}
+[30.128542] (-) TimerEvent: {}
+[30.229227] (-) TimerEvent: {}
+[30.329910] (-) TimerEvent: {}
+[30.430589] (-) TimerEvent: {}
+[30.531290] (-) TimerEvent: {}
+[30.632022] (-) TimerEvent: {}
+[30.732802] (-) TimerEvent: {}
+[30.833497] (-) TimerEvent: {}
+[30.934191] (-) TimerEvent: {}
+[31.034904] (-) TimerEvent: {}
+[31.135619] (-) TimerEvent: {}
+[31.236332] (-) TimerEvent: {}
+[31.337078] (-) TimerEvent: {}
+[31.437792] (-) TimerEvent: {}
+[31.538504] (-) TimerEvent: {}
+[31.639196] (-) TimerEvent: {}
+[31.739897] (-) TimerEvent: {}
+[31.840624] (-) TimerEvent: {}
+[31.941312] (-) TimerEvent: {}
+[32.042004] (-) TimerEvent: {}
+[32.142683] (-) TimerEvent: {}
+[32.243377] (-) TimerEvent: {}
+[32.344051] (-) TimerEvent: {}
+[32.444775] (-) TimerEvent: {}
+[32.545457] (-) TimerEvent: {}
+[32.646142] (-) TimerEvent: {}
+[32.746810] (-) TimerEvent: {}
+[32.847485] (-) TimerEvent: {}
+[32.948114] (-) TimerEvent: {}
+[33.049250] (-) TimerEvent: {}
+[33.149919] (-) TimerEvent: {}
+[33.250578] (-) TimerEvent: {}
+[33.351267] (-) TimerEvent: {}
+[33.451946] (-) TimerEvent: {}
+[33.552642] (-) TimerEvent: {}
+[33.726448] (-) TimerEvent: {}
+[33.827136] (-) TimerEvent: {}
+[33.927852] (-) TimerEvent: {}
+[34.028554] (-) TimerEvent: {}
+[34.129265] (-) TimerEvent: {}
+[34.229951] (-) TimerEvent: {}
+[34.330635] (-) TimerEvent: {}
+[34.431359] (-) TimerEvent: {}
+[34.532375] (-) TimerEvent: {}
+[34.633121] (-) TimerEvent: {}
+[34.733885] (-) TimerEvent: {}
+[34.834657] (-) TimerEvent: {}
+[34.935407] (-) TimerEvent: {}
+[34.949983] (driver) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable driver\x1b[0m\n'}
+[35.035586] (-) TimerEvent: {}
+[35.136365] (-) TimerEvent: {}
+[35.237101] (-) TimerEvent: {}
+[35.337838] (-) TimerEvent: {}
+[35.438543] (-) TimerEvent: {}
+[35.539607] (-) TimerEvent: {}
+[35.640312] (-) TimerEvent: {}
+[35.741059] (-) TimerEvent: {}
+[35.841747] (-) TimerEvent: {}
+[35.942427] (-) TimerEvent: {}
+[36.043197] (-) TimerEvent: {}
+[36.143895] (-) TimerEvent: {}
+[36.195406] (driver) StderrLine: {'line': b'make[2]: warning:  Clock skew detected.  Your build may be incomplete.\n'}
+[36.217864] (driver) StdoutLine: {'line': b'[100%] Built target driver\n'}
+[36.244057] (-) TimerEvent: {}
+[36.344717] (-) TimerEvent: {}
+[36.367719] (driver) CommandEnded: {'returncode': 0}
+[36.369585] (driver) JobProgress: {'identifier': 'driver', 'progress': 'install'}
+[36.370151] (driver) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/iris/colcon_ws/src/IRIS/build/driver'], 'cwd': '/home/iris/colcon_ws/src/IRIS/build/driver', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'iris'), ('SSH_CLIENT', '192.168.1.172 58412 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/iris/colcon_ws/install/sparkcan/lib:/home/iris/colcon_ws/install/rviz_imu_plugin/lib:/home/iris/colcon_ws/install/realsense2_camera_msgs/lib:/home/iris/colcon_ws/install/driver/lib:/home/iris/colcon_ws/install/apriltag_msgs/lib:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/aarch64-linux-gnu:/opt/ros/galactic/lib:/usr/local/cuda-11.4/lib64:'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/iris'), ('OLDPWD', '/home/iris/colcon_ws/src'), ('SSH_TTY', '/dev/pts/4'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/iris/colcon_ws/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'iris'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '8'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/galactic/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/controls:/home/iris/colcon_ws/install/apriltag_msgs:/opt/ros/galactic'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/iris/colcon_ws/src/IRIS/build/driver'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '192.168.1.172 58412 192.168.1.143 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/iris/colcon_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/home/iris/colcon_ws/build/excavator:/home/iris/colcon_ws/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/depositor:/home/iris/colcon_ws/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/build/linear_actuator:/home/iris/colcon_ws/install/linear_actuator/lib/python3.8/site-packages:/home/iris/colcon_ws/build/controls:/home/iris/colcon_ws/install/controls/lib/python3.8/site-packages:/home/iris/colcon_ws/install/apriltag_msgs/lib/python3.8/site-packages:/opt/ros/galactic/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/iris/colcon_ws/install/sparkcan:/home/iris/colcon_ws/install/rviz_imu_plugin:/home/iris/colcon_ws/install/realsense2_camera_msgs:/home/iris/colcon_ws/install/imu_complementary_filter:/home/iris/colcon_ws/install/driver:/home/iris/colcon_ws/install/apriltag_msgs:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/controls:/opt/ros/galactic')]), 'shell': False}
+[36.398006] (driver) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[36.398985] (driver) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[36.400296] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/include/SparkBase.hpp\n'}
+[36.423397] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/include/SparkFlex.hpp\n'}
+[36.444866] (-) TimerEvent: {}
+[36.445547] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/include/SparkMax.hpp\n'}
+[36.468918] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/lib/cmake/sparkcan/sparkcanConfig.cmake\n'}
+[36.492159] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/lib/cmake/sparkcan/sparkcanConfigVersion.cmake\n'}
+[36.517909] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/lib/driver/driver\n'}
+[36.540790] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/ament_index/resource_index/package_run_dependencies/driver\n'}
+[36.544989] (-) TimerEvent: {}
+[36.564053] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/ament_index/resource_index/parent_prefix_path/driver\n'}
+[36.588051] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/environment/ament_prefix_path.sh\n'}
+[36.610433] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/environment/ament_prefix_path.dsv\n'}
+[36.633209] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/environment/path.sh\n'}
+[36.645107] (-) TimerEvent: {}
+[36.657346] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/environment/path.dsv\n'}
+[36.679478] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/local_setup.bash\n'}
+[36.702663] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/local_setup.sh\n'}
+[36.725970] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/local_setup.zsh\n'}
+[36.745266] (-) TimerEvent: {}
+[36.748957] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/local_setup.dsv\n'}
+[36.773135] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.dsv\n'}
+[36.796169] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/ament_index/resource_index/packages/driver\n'}
+[36.819158] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/cmake/driverConfig.cmake\n'}
+[36.841354] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/cmake/driverConfig-version.cmake\n'}
+[36.845343] (-) TimerEvent: {}
+[36.864813] (driver) StdoutLine: {'line': b'-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.xml\n'}
+[36.889700] (driver) StdoutLine: {'line': b'-- Installing: /home/iris/colcon_ws/src/IRIS/install/driver/lib/libsparkcan.so\n'}
+[36.891659] (driver) StdoutLine: {'line': b'-- Installing: /home/iris/colcon_ws/src/IRIS/install/driver/lib/cmake/sparkcan/sparkcanTargets.cmake\n'}
+[36.892142] (driver) StdoutLine: {'line': b'-- Installing: /home/iris/colcon_ws/src/IRIS/install/driver/lib/cmake/sparkcan/sparkcanTargets-noconfig.cmake\n'}
+[36.897465] (driver) CommandEnded: {'returncode': 0}
+[36.945571] (-) TimerEvent: {}
+[36.947795] (driver) JobEnded: {'identifier': 'driver', 'rc': 0}
+[36.950866] (-) EventReactorShutdown: {}

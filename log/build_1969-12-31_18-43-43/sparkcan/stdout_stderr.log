@@ -1,0 +1,58 @@
+-- The CXX compiler identification is GNU 9.4.0
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for C++ include pthread.h
+-- Looking for C++ include pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/iris/colcon_ws/src/IRIS/build/sparkcan
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/iris/colcon_ws/src/IRIS/build/sparkcan
+[35m[1mScanning dependencies of target sparkcan[0m
+make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/src/SparkBase.cpp' has modification time 1777864368 s in the future
+[ 10%] [32mBuilding CXX object CMakeFiles/sparkcan.dir/src/SparkFlex.cpp.o[0m
+[ 20%] [32mBuilding CXX object CMakeFiles/sparkcan.dir/src/SparkBase.cpp.o[0m
+[ 30%] [32mBuilding CXX object CMakeFiles/sparkcan.dir/src/SparkMax.cpp.o[0m
+[ 40%] [32m[1mLinking CXX shared library libsparkcan.so[0m
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
+[ 40%] Built target sparkcan
+[35m[1mScanning dependencies of target example_control[0m
+[35m[1mScanning dependencies of target example_status[0m
+[35m[1mScanning dependencies of target example_pid[0m
+make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/examples/pid.cpp' has modification time 1777864364 s in the future
+make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/examples/control.cpp' has modification time 1777864364 s in the future
+make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/examples/status.cpp' has modification time 1777864364 s in the future
+[ 50%] [32mBuilding CXX object CMakeFiles/example_status.dir/examples/status.cpp.o[0m
+[ 60%] [32mBuilding CXX object CMakeFiles/example_pid.dir/examples/pid.cpp.o[0m
+[ 70%] [32mBuilding CXX object CMakeFiles/example_control.dir/examples/control.cpp.o[0m
+[ 80%] [32m[1mLinking CXX executable example_control[0m
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
+[ 80%] Built target example_control
+[ 90%] [32m[1mLinking CXX executable example_pid[0m
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
+[ 90%] Built target example_pid
+[100%] [32m[1mLinking CXX executable example_status[0m
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
+[100%] Built target example_status
+-- Install configuration: ""
+-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/libsparkcan.so
+-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include
+-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include/SparkMax.hpp
+-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include/SparkFlex.hpp
+-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include/SparkBase.hpp
+-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanTargets.cmake
+-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanTargets-noconfig.cmake
+-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanConfig.cmake
+-- Installing: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanConfigVersion.cmake

@@ -48,6 +48,26 @@ Driver::Driver() : Node("Driver"), left("can0", 1), right("can0", 2), incoming_l
         [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_right(msg->data); }
     );
     
+    tread_speed_left_exc_routine_subscription  = this->create_subscription<std_msgs::msg::Float32>(
+        "tread_speed_left_exc_routine", 10,  
+        [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_left(msg->data); }
+    );
+
+    tread_speed_right_exc_routine_subscription  = this->create_subscription<std_msgs::msg::Float32>(
+        "tread_speed_right_exc_routine", 10,  
+        [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_right(msg->data); }
+    );
+
+    tread_speed_left_dep_routine_subscription  = this->create_subscription<std_msgs::msg::Float32>(
+        "tread_speed_left_dep_routine", 10,  
+        [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_left(msg->data); }
+    );
+
+    tread_speed_right_dep_routine_subscription  = this->create_subscription<std_msgs::msg::Float32>(
+        "tread_speed_right_dep_routine", 10,  
+        [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_right(msg->data); }
+    );
+
     timer = this->create_wall_timer(10ms, std::bind(&Driver::periodic, this));
 
     left.SetIdleMode(IdleMode::kCoast);
@@ -72,8 +92,8 @@ auto Driver::handle_incoming_right(float in) -> void {
 }
 
 auto Driver::periodic() -> void {
-    std::cout << "Set left to " << incoming_left * 2.3703703 << std::endl;
-    std::cout << "Set right to " << incoming_right * 2.3703703 << std::endl;
+    std::cout << "Set left to " << incoming_left * -2.3703703 * 0.75 << std::endl;
+    std::cout << "Set right to " << incoming_right * -2.3703703 * 0.75 << std::endl;
     left.Heartbeat();
     right.Heartbeat();
 //    left.SetVoltage(incoming_left * 12.0);

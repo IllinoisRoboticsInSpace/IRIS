@@ -1,0 +1,31 @@
+[ 33%] Built target sparkcan
+[ 50%] Built target example_status
+[ 66%] Built target example_pid
+[ 83%] Built target driver
+[100%] Built target example_control
+-- Install configuration: ""
+-- Execute custom install script
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/include/SparkBase.hpp
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/include/SparkFlex.hpp
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/include/SparkMax.hpp
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/lib/cmake/sparkcan/sparkcanConfig.cmake
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/lib/cmake/sparkcan/sparkcanConfigVersion.cmake
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/lib/driver/driver
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/ament_index/resource_index/package_run_dependencies/driver
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/ament_index/resource_index/parent_prefix_path/driver
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/environment/path.sh
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/environment/path.dsv
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/local_setup.bash
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/local_setup.sh
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/local_setup.zsh
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/local_setup.dsv
+-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.dsv
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/ament_index/resource_index/packages/driver
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/cmake/driverConfig.cmake
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/cmake/driverConfig-version.cmake
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.xml
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/driver/lib/libsparkcan.so
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/driver/lib/cmake/sparkcan/sparkcanTargets.cmake
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/driver/lib/cmake/sparkcan/sparkcanTargets-noconfig.cmake

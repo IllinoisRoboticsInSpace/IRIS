@@ -1,0 +1,6 @@
+Invoking command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan': /usr/bin/cmake /home/iris/colcon_ws/src/IRIS/dependencies/sparkcan -DCMAKE_INSTALL_PREFIX=/home/iris/colcon_ws/src/IRIS/install/sparkcan
+Invoked command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan' returned '0': /usr/bin/cmake /home/iris/colcon_ws/src/IRIS/dependencies/sparkcan -DCMAKE_INSTALL_PREFIX=/home/iris/colcon_ws/src/IRIS/install/sparkcan
+Invoking command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan': /usr/bin/cmake --build /home/iris/colcon_ws/src/IRIS/build/sparkcan -- -j6 -l6
+Invoked command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan' returned '0': /usr/bin/cmake --build /home/iris/colcon_ws/src/IRIS/build/sparkcan -- -j6 -l6
+Invoking command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan': /usr/bin/cmake --install /home/iris/colcon_ws/src/IRIS/build/sparkcan
+Invoked command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan' returned '0': /usr/bin/cmake --install /home/iris/colcon_ws/src/IRIS/build/sparkcan

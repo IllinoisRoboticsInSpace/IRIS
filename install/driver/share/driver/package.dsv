@@ -1,0 +1,11 @@
+source;share/driver/hook/cmake_prefix_path.ps1
+source;share/driver/hook/cmake_prefix_path.dsv
+source;share/driver/hook/cmake_prefix_path.sh
+source;share/driver/hook/ld_library_path_lib.ps1
+source;share/driver/hook/ld_library_path_lib.dsv
+source;share/driver/hook/ld_library_path_lib.sh
+source;share/driver/local_setup.bash
+source;share/driver/local_setup.dsv
+source;share/driver/local_setup.ps1
+source;share/driver/local_setup.sh
+source;share/driver/local_setup.zsh

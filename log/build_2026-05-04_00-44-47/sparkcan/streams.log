@@ -1,0 +1,18 @@
+[1.178s] Invoking command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan': /usr/bin/cmake --build /home/iris/colcon_ws/src/IRIS/build/sparkcan -- -j6 -l6
+[1.313s] [ 40%] Built target sparkcan
+[1.397s] [ 60%] Built target example_status
+[1.413s] [ 80%] Built target example_pid
+[1.438s] [100%] Built target example_control
+[1.475s] Invoked command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan' returned '0': /usr/bin/cmake --build /home/iris/colcon_ws/src/IRIS/build/sparkcan -- -j6 -l6
+[1.505s] Invoking command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan': /usr/bin/cmake --install /home/iris/colcon_ws/src/IRIS/build/sparkcan
+[1.648s] -- Install configuration: ""
+[1.648s] -- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/libsparkcan.so
+[1.648s] -- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include
+[1.648s] -- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include/SparkMax.hpp
+[1.648s] -- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include/SparkFlex.hpp
+[1.649s] -- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include/SparkBase.hpp
+[1.649s] -- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanTargets.cmake
+[1.649s] -- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanTargets-noconfig.cmake
+[1.650s] -- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanConfig.cmake
+[1.656s] -- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanConfigVersion.cmake
+[1.658s] Invoked command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan' returned '0': /usr/bin/cmake --install /home/iris/colcon_ws/src/IRIS/build/sparkcan

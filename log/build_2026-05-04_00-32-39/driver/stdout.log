@@ -1,0 +1,69 @@
+-- Found ament_cmake: 1.1.6 (/opt/ros/galactic/share/ament_cmake/cmake)
+-- Using PYTHON_EXECUTABLE: /usr/bin/python3
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found rclcpp: 9.2.2 (/opt/ros/galactic/share/rclcpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Found rosidl_adapter: 2.2.3 (/opt/ros/galactic/share/rosidl_adapter/cmake)
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 3.3.1 (/opt/ros/galactic/share/rmw_implementation_cmake/cmake)
+-- Found rmw_cyclonedds_cpp: 0.22.6 (/opt/ros/galactic/share/rmw_cyclonedds_cpp/cmake)
+-- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+-- Found ament_lint_auto: 0.10.7 (/opt/ros/galactic/share/ament_lint_auto/cmake)
+-- Added test 'cppcheck' to perform static code analysis on C / C++ code
+-- Configured cppcheck include dirs: /home/iris/colcon_ws/src/IRIS/driver/include;/home/iris/colcon_ws/src/IRIS/driver/../dependencies/sparkcan/include
+-- Configured cppcheck exclude dirs and/or files: 
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'uncrustify' to check C / C++ code style
+-- Configured uncrustify additional arguments: 
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/iris/colcon_ws/src/IRIS/build/driver
+[35m[1mScanning dependencies of target sparkcan[0m
+[ 16%] [32mBuilding CXX object sparkcan_build/CMakeFiles/sparkcan.dir/src/SparkBase.cpp.o[0m
+[ 16%] [32mBuilding CXX object sparkcan_build/CMakeFiles/sparkcan.dir/src/SparkMax.cpp.o[0m
+[ 25%] [32mBuilding CXX object sparkcan_build/CMakeFiles/sparkcan.dir/src/SparkFlex.cpp.o[0m
+[ 33%] [32m[1mLinking CXX shared library libsparkcan.so[0m
+[ 33%] Built target sparkcan
+[35m[1mScanning dependencies of target example_pid[0m
+[35m[1mScanning dependencies of target example_control[0m
+[35m[1mScanning dependencies of target example_status[0m
+[35m[1mScanning dependencies of target driver[0m
+[ 50%] [32mBuilding CXX object sparkcan_build/CMakeFiles/example_control.dir/examples/control.cpp.o[0m
+[ 50%] [32mBuilding CXX object sparkcan_build/CMakeFiles/example_status.dir/examples/status.cpp.o[0m
+[ 58%] [32mBuilding CXX object sparkcan_build/CMakeFiles/example_pid.dir/examples/pid.cpp.o[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/driver.dir/src/driver_node.cpp.o[0m
+[ 75%] [32m[1mLinking CXX executable example_control[0m
+[ 83%] [32m[1mLinking CXX executable example_pid[0m
+[ 91%] Built target example_control
+[ 91%] [32m[1mLinking CXX executable example_status[0m
+[ 91%] Built target example_pid
+[ 91%] Built target example_status
+[100%] [32m[1mLinking CXX executable driver[0m
+[100%] Built target driver
+-- Install configuration: ""
+-- Execute custom install script
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/include/SparkBase.hpp
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/include/SparkFlex.hpp
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/include/SparkMax.hpp
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/lib/cmake/sparkcan/sparkcanConfig.cmake
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/lib/cmake/sparkcan/sparkcanConfigVersion.cmake
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/lib/driver/driver
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/ament_index/resource_index/package_run_dependencies/driver
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/ament_index/resource_index/parent_prefix_path/driver
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/environment/path.sh
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/environment/path.dsv
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/local_setup.bash
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/local_setup.sh
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/local_setup.zsh
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/local_setup.dsv
+-- Symlinking: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.dsv
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/ament_index/resource_index/packages/driver
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/cmake/driverConfig.cmake
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/cmake/driverConfig-version.cmake
+-- Up-to-date symlink: /home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.xml
+-- Installing: /home/iris/colcon_ws/src/IRIS/install/driver/lib/libsparkcan.so
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/driver/lib/cmake/sparkcan/sparkcanTargets.cmake
+-- Installing: /home/iris/colcon_ws/src/IRIS/install/driver/lib/cmake/sparkcan/sparkcanTargets-noconfig.cmake

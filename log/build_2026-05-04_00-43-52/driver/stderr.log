@@ -1,0 +1,12 @@
+[01m[K/home/iris/colcon_ws/src/IRIS/driver/src/driver_node.cpp:[m[K In constructor ‘[01m[KDriver::Driver()[m[K’:
+[01m[K/home/iris/colcon_ws/src/IRIS/driver/src/driver_node.cpp:51:5:[m[K [01;31m[Kerror: [m[K‘[01m[Ktread_speed_left_exc_subscription[m[K’ was not declared in this scope; did you mean ‘[01m[Ktread_speed_left_teleop_subscription[m[K’?
+   51 |     [01;31m[Ktread_speed_left_exc_subscription[m[K  = this->create_subscription<std_msgs::msg::Float32>(
+      |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+      |     [32m[Ktread_speed_left_teleop_subscription[m[K
+[01m[K/home/iris/colcon_ws/src/IRIS/driver/src/driver_node.cpp:56:5:[m[K [01;31m[Kerror: [m[K‘[01m[Ktread_speed_right_exc_subscription[m[K’ was not declared in this scope; did you mean ‘[01m[Ktread_speed_right_teleop_subscription[m[K’?
+   56 |     [01;31m[Ktread_speed_right_exc_subscription[m[K  = this->create_subscription<std_msgs::msg::Float32>(
+      |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+      |     [32m[Ktread_speed_right_teleop_subscription[m[K
+make[2]: *** [CMakeFiles/driver.dir/build.make:63: CMakeFiles/driver.dir/src/driver_node.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:104: CMakeFiles/driver.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

@@ -1,0 +1,17 @@
+[2.229s] Invoking command in '/home/iris/colcon_ws/src/IRIS/build/excavator': AMENT_PREFIX_PATH=/home/iris/colcon_ws/src/IRIS/install/linear_actuator:${AMENT_PREFIX_PATH} PYTHONPATH=/home/iris/colcon_ws/src/IRIS/build/excavator/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/src/IRIS/build/linear_actuator:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/iris/colcon_ws/src/IRIS/build/excavator/build --no-deps symlink_data
+[2.837s] running develop
+[3.218s] running egg_info
+[3.218s] writing excavator.egg-info/PKG-INFO
+[3.219s] writing dependency_links to excavator.egg-info/dependency_links.txt
+[3.219s] writing entry points to excavator.egg-info/entry_points.txt
+[3.220s] writing requirements to excavator.egg-info/requires.txt
+[3.220s] writing top-level names to excavator.egg-info/top_level.txt
+[3.292s] reading manifest file 'excavator.egg-info/SOURCES.txt'
+[3.294s] writing manifest file 'excavator.egg-info/SOURCES.txt'
+[3.382s] running build_ext
+[3.382s] Creating /home/iris/colcon_ws/src/IRIS/install/excavator/lib/python3.8/site-packages/excavator.egg-link (link to .)
+[3.385s] Installing excavator_node script to /home/iris/colcon_ws/src/IRIS/install/excavator/lib/excavator
+[3.385s] 
+[3.386s] Installed /home/iris/colcon_ws/src/IRIS/build/excavator
+[3.386s] running symlink_data
+[3.478s] Invoked command in '/home/iris/colcon_ws/src/IRIS/build/excavator' returned '0': AMENT_PREFIX_PATH=/home/iris/colcon_ws/src/IRIS/install/linear_actuator:${AMENT_PREFIX_PATH} PYTHONPATH=/home/iris/colcon_ws/src/IRIS/build/excavator/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/src/IRIS/build/linear_actuator:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/iris/colcon_ws/src/IRIS/build/excavator/build --no-deps symlink_data

@@ -1,0 +1,14 @@
+[ 40%] Built target sparkcan
+[ 60%] Built target example_status
+[ 80%] Built target example_control
+[100%] Built target example_pid
+-- Install configuration: ""
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/libsparkcan.so
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include/SparkMax.hpp
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include/SparkFlex.hpp
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/include/SparkBase.hpp
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanTargets.cmake
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanTargets-noconfig.cmake
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanConfig.cmake
+-- Up-to-date: /home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/cmake/sparkcan/sparkcanConfigVersion.cmake

@@ -1,0 +1,24 @@
+[4.274s] Invoking command in '/home/iris/colcon_ws/src/IRIS/build/linear_actuator': PYTHONPATH=/home/iris/colcon_ws/src/IRIS/build/linear_actuator/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/iris/colcon_ws/src/IRIS/build/linear_actuator/build --no-deps symlink_data
+[4.990s] running develop
+[5.502s] running egg_info
+[5.503s] creating linear_actuator.egg-info
+[5.504s] writing linear_actuator.egg-info/PKG-INFO
+[5.505s] writing dependency_links to linear_actuator.egg-info/dependency_links.txt
+[5.506s] writing entry points to linear_actuator.egg-info/entry_points.txt
+[5.506s] writing requirements to linear_actuator.egg-info/requires.txt
+[5.506s] writing top-level names to linear_actuator.egg-info/top_level.txt
+[5.517s] writing manifest file 'linear_actuator.egg-info/SOURCES.txt'
+[5.589s] reading manifest file 'linear_actuator.egg-info/SOURCES.txt'
+[5.592s] writing manifest file 'linear_actuator.egg-info/SOURCES.txt'
+[5.676s] running build_ext
+[5.797s] Creating /home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages/site.py
+[5.802s] Creating /home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages/linear-actuator.egg-link (link to .)
+[5.804s] 
+[5.804s] Installed /home/iris/colcon_ws/src/IRIS/build/linear_actuator
+[5.804s] running symlink_data
+[5.805s] creating /home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/ament_index
+[5.805s] creating /home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/ament_index/resource_index
+[5.806s] creating /home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/ament_index/resource_index/packages
+[5.806s] symbolically linking /home/iris/colcon_ws/src/IRIS/build/linear_actuator/resource/linear_actuator -> /home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/ament_index/resource_index/packages
+[5.807s] symbolically linking /home/iris/colcon_ws/src/IRIS/build/linear_actuator/package.xml -> /home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator
+[6.076s] Invoked command in '/home/iris/colcon_ws/src/IRIS/build/linear_actuator' returned '0': PYTHONPATH=/home/iris/colcon_ws/src/IRIS/build/linear_actuator/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/iris/colcon_ws/src/IRIS/build/linear_actuator/build --no-deps symlink_data

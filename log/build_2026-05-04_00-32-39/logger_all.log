@@ -1,0 +1,582 @@
+[0.473s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--symlink-install']
+[0.473s] DEBUG:colcon:Parsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffffa517cd90>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=6, paths=None, symlink_install=True, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffffa517cd90>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0xffffa51892e0>)
+[0.848s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.849s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.849s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.849s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.849s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.849s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.850s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/iris/colcon_ws/src/IRIS'
+[0.850s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.850s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.850s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.850s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.851s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.851s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.851s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.851s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.851s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.877s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.878s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.878s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.878s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.878s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.878s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.879s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.879s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.879s] Level 1:colcon.colcon_core.package_identification:_identify(controls) by extensions ['ignore', 'ignore_ament_install']
+[0.879s] Level 1:colcon.colcon_core.package_identification:_identify(controls) by extension 'ignore'
+[0.880s] Level 1:colcon.colcon_core.package_identification:_identify(controls) by extension 'ignore_ament_install'
+[0.880s] Level 1:colcon.colcon_core.package_identification:_identify(controls) by extensions ['colcon_pkg']
+[0.880s] Level 1:colcon.colcon_core.package_identification:_identify(controls) by extension 'colcon_pkg'
+[0.880s] Level 1:colcon.colcon_core.package_identification:_identify(controls) by extensions ['colcon_meta']
+[0.880s] Level 1:colcon.colcon_core.package_identification:_identify(controls) by extension 'colcon_meta'
+[0.880s] Level 1:colcon.colcon_core.package_identification:_identify(controls) by extensions ['ros']
+[0.880s] Level 1:colcon.colcon_core.package_identification:_identify(controls) by extension 'ros'
+[0.886s] DEBUG:colcon.colcon_core.package_identification:Package 'controls' with type 'ros.ament_python' and name 'controls'
+[0.886s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extensions ['ignore', 'ignore_ament_install']
+[0.886s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extension 'ignore'
+[0.887s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extension 'ignore_ament_install'
+[0.887s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extensions ['colcon_pkg']
+[0.887s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extension 'colcon_pkg'
+[0.887s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extensions ['colcon_meta']
+[0.887s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extension 'colcon_meta'
+[0.887s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extensions ['ros']
+[0.887s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extension 'ros'
+[0.888s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extensions ['cmake', 'python']
+[0.888s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extension 'cmake'
+[0.888s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extension 'python'
+[0.888s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extensions ['python_setup_py']
+[0.888s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control) by extension 'python_setup_py'
+[0.888s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extensions ['ignore', 'ignore_ament_install']
+[0.888s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extension 'ignore'
+[0.889s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extension 'ignore_ament_install'
+[0.889s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extensions ['colcon_pkg']
+[0.889s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extension 'colcon_pkg'
+[0.889s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extensions ['colcon_meta']
+[0.889s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extension 'colcon_meta'
+[0.889s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extensions ['ros']
+[0.889s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extension 'ros'
+[0.889s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extensions ['cmake', 'python']
+[0.890s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extension 'cmake'
+[0.890s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extension 'python'
+[0.890s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extensions ['python_setup_py']
+[0.890s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron) by extension 'python_setup_py'
+[0.890s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extensions ['ignore', 'ignore_ament_install']
+[0.890s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extension 'ignore'
+[0.891s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extension 'ignore_ament_install'
+[0.891s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extensions ['colcon_pkg']
+[0.891s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extension 'colcon_pkg'
+[0.891s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extensions ['colcon_meta']
+[0.891s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extension 'colcon_meta'
+[0.891s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extensions ['ros']
+[0.891s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extension 'ros'
+[0.891s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extensions ['cmake', 'python']
+[0.891s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extension 'cmake'
+[0.892s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extension 'python'
+[0.892s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extensions ['python_setup_py']
+[0.892s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/include) by extension 'python_setup_py'
+[0.892s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extensions ['ignore', 'ignore_ament_install']
+[0.892s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extension 'ignore'
+[0.892s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extension 'ignore_ament_install'
+[0.892s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extensions ['colcon_pkg']
+[0.893s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extension 'colcon_pkg'
+[0.893s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extensions ['colcon_meta']
+[0.893s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extension 'colcon_meta'
+[0.893s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extensions ['ros']
+[0.893s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extension 'ros'
+[0.893s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extensions ['cmake', 'python']
+[0.893s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extension 'cmake'
+[0.893s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extension 'python'
+[0.894s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extensions ['python_setup_py']
+[0.894s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/lib) by extension 'python_setup_py'
+[0.894s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extensions ['ignore', 'ignore_ament_install']
+[0.894s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extension 'ignore'
+[0.894s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extension 'ignore_ament_install'
+[0.894s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extensions ['colcon_pkg']
+[0.894s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extension 'colcon_pkg'
+[0.895s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extensions ['colcon_meta']
+[0.895s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extension 'colcon_meta'
+[0.895s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extensions ['ros']
+[0.895s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extension 'ros'
+[0.895s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extensions ['cmake', 'python']
+[0.895s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extension 'cmake'
+[0.895s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extension 'python'
+[0.895s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extensions ['python_setup_py']
+[0.895s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/src) by extension 'python_setup_py'
+[0.896s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extensions ['ignore', 'ignore_ament_install']
+[0.896s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extension 'ignore'
+[0.896s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extension 'ignore_ament_install'
+[0.896s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extensions ['colcon_pkg']
+[0.896s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extension 'colcon_pkg'
+[0.896s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extensions ['colcon_meta']
+[0.896s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extension 'colcon_meta'
+[0.897s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extensions ['ros']
+[0.897s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extension 'ros'
+[0.897s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extensions ['cmake', 'python']
+[0.897s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extension 'cmake'
+[0.897s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extension 'python'
+[0.897s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extensions ['python_setup_py']
+[0.897s] Level 1:colcon.colcon_core.package_identification:_identify(cytron_control/cytron/test) by extension 'python_setup_py'
+[0.897s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extensions ['ignore', 'ignore_ament_install']
+[0.898s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'ignore'
+[0.898s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'ignore_ament_install'
+[0.898s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extensions ['colcon_pkg']
+[0.898s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'colcon_pkg'
+[0.898s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extensions ['colcon_meta']
+[0.898s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'colcon_meta'
+[0.898s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extensions ['ros']
+[0.898s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'ros'
+[0.899s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extensions ['cmake', 'python']
+[0.899s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'cmake'
+[0.899s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'python'
+[0.899s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extensions ['python_setup_py']
+[0.899s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'python_setup_py'
+[0.899s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extensions ['ignore', 'ignore_ament_install']
+[0.899s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extension 'ignore'
+[0.900s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extension 'ignore_ament_install'
+[0.900s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extensions ['colcon_pkg']
+[0.900s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extension 'colcon_pkg'
+[0.900s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extensions ['colcon_meta']
+[0.900s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extension 'colcon_meta'
+[0.900s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extensions ['ros']
+[0.900s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extension 'ros'
+[0.900s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extensions ['cmake', 'python']
+[0.900s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extension 'cmake'
+[0.901s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extension 'python'
+[0.901s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extensions ['python_setup_py']
+[0.901s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_msgs) by extension 'python_setup_py'
+[0.901s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extensions ['ignore', 'ignore_ament_install']
+[0.901s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extension 'ignore'
+[0.901s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extension 'ignore_ament_install'
+[0.901s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extensions ['colcon_pkg']
+[0.902s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extension 'colcon_pkg'
+[0.902s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extensions ['colcon_meta']
+[0.902s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extension 'colcon_meta'
+[0.902s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extensions ['ros']
+[0.902s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extension 'ros'
+[0.902s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extensions ['cmake', 'python']
+[0.902s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extension 'cmake'
+[0.902s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extension 'python'
+[0.902s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extensions ['python_setup_py']
+[0.902s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/apriltag_ros) by extension 'python_setup_py'
+[0.903s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extensions ['ignore', 'ignore_ament_install']
+[0.903s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extension 'ignore'
+[0.903s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extension 'ignore_ament_install'
+[0.903s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extensions ['colcon_pkg']
+[0.903s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extension 'colcon_pkg'
+[0.903s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extensions ['colcon_meta']
+[0.903s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extension 'colcon_meta'
+[0.904s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extensions ['ros']
+[0.904s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extension 'ros'
+[0.904s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extensions ['cmake', 'python']
+[0.904s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extension 'cmake'
+[0.904s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extension 'python'
+[0.904s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extensions ['python_setup_py']
+[0.904s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/imu_tools) by extension 'python_setup_py'
+[0.904s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extensions ['ignore', 'ignore_ament_install']
+[0.905s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extension 'ignore'
+[0.905s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extension 'ignore_ament_install'
+[0.905s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extensions ['colcon_pkg']
+[0.905s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extension 'colcon_pkg'
+[0.905s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extensions ['colcon_meta']
+[0.905s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extension 'colcon_meta'
+[0.905s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extensions ['ros']
+[0.905s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extension 'ros'
+[0.906s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extensions ['cmake', 'python']
+[0.906s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extension 'cmake'
+[0.906s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extension 'python'
+[0.906s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extensions ['python_setup_py']
+[0.906s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/realsense-ros) by extension 'python_setup_py'
+[0.906s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/sparkcan) by extensions ['ignore', 'ignore_ament_install']
+[0.906s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/sparkcan) by extension 'ignore'
+[0.907s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/sparkcan) by extension 'ignore_ament_install'
+[0.907s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/sparkcan) by extensions ['colcon_pkg']
+[0.907s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/sparkcan) by extension 'colcon_pkg'
+[0.907s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/sparkcan) by extensions ['colcon_meta']
+[0.907s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/sparkcan) by extension 'colcon_meta'
+[0.907s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/sparkcan) by extensions ['ros']
+[0.907s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/sparkcan) by extension 'ros'
+[0.907s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/sparkcan) by extensions ['cmake', 'python']
+[0.908s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/sparkcan) by extension 'cmake'
+[0.911s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/sparkcan) by extension 'python'
+[0.911s] DEBUG:colcon.colcon_core.package_identification:Package 'dependencies/sparkcan' with type 'cmake' and name 'sparkcan'
+[0.911s] Level 1:colcon.colcon_core.package_identification:_identify(depositor) by extensions ['ignore', 'ignore_ament_install']
+[0.912s] Level 1:colcon.colcon_core.package_identification:_identify(depositor) by extension 'ignore'
+[0.912s] Level 1:colcon.colcon_core.package_identification:_identify(depositor) by extension 'ignore_ament_install'
+[0.912s] Level 1:colcon.colcon_core.package_identification:_identify(depositor) by extensions ['colcon_pkg']
+[0.912s] Level 1:colcon.colcon_core.package_identification:_identify(depositor) by extension 'colcon_pkg'
+[0.912s] Level 1:colcon.colcon_core.package_identification:_identify(depositor) by extensions ['colcon_meta']
+[0.912s] Level 1:colcon.colcon_core.package_identification:_identify(depositor) by extension 'colcon_meta'
+[0.912s] Level 1:colcon.colcon_core.package_identification:_identify(depositor) by extensions ['ros']
+[0.912s] Level 1:colcon.colcon_core.package_identification:_identify(depositor) by extension 'ros'
+[0.914s] DEBUG:colcon.colcon_core.package_identification:Package 'depositor' with type 'ros.ament_python' and name 'depositor'
+[0.914s] Level 1:colcon.colcon_core.package_identification:_identify(driver) by extensions ['ignore', 'ignore_ament_install']
+[0.915s] Level 1:colcon.colcon_core.package_identification:_identify(driver) by extension 'ignore'
+[0.915s] Level 1:colcon.colcon_core.package_identification:_identify(driver) by extension 'ignore_ament_install'
+[0.915s] Level 1:colcon.colcon_core.package_identification:_identify(driver) by extensions ['colcon_pkg']
+[0.915s] Level 1:colcon.colcon_core.package_identification:_identify(driver) by extension 'colcon_pkg'
+[0.915s] Level 1:colcon.colcon_core.package_identification:_identify(driver) by extensions ['colcon_meta']
+[0.915s] Level 1:colcon.colcon_core.package_identification:_identify(driver) by extension 'colcon_meta'
+[0.915s] Level 1:colcon.colcon_core.package_identification:_identify(driver) by extensions ['ros']
+[0.915s] Level 1:colcon.colcon_core.package_identification:_identify(driver) by extension 'ros'
+[0.917s] DEBUG:colcon.colcon_core.package_identification:Package 'driver' with type 'ros.ament_cmake' and name 'driver'
+[0.917s] Level 1:colcon.colcon_core.package_identification:_identify(excavator) by extensions ['ignore', 'ignore_ament_install']
+[0.917s] Level 1:colcon.colcon_core.package_identification:_identify(excavator) by extension 'ignore'
+[0.917s] Level 1:colcon.colcon_core.package_identification:_identify(excavator) by extension 'ignore_ament_install'
+[0.918s] Level 1:colcon.colcon_core.package_identification:_identify(excavator) by extensions ['colcon_pkg']
+[0.918s] Level 1:colcon.colcon_core.package_identification:_identify(excavator) by extension 'colcon_pkg'
+[0.918s] Level 1:colcon.colcon_core.package_identification:_identify(excavator) by extensions ['colcon_meta']
+[0.918s] Level 1:colcon.colcon_core.package_identification:_identify(excavator) by extension 'colcon_meta'
+[0.918s] Level 1:colcon.colcon_core.package_identification:_identify(excavator) by extensions ['ros']
+[0.918s] Level 1:colcon.colcon_core.package_identification:_identify(excavator) by extension 'ros'
+[0.919s] DEBUG:colcon.colcon_core.package_identification:Package 'excavator' with type 'ros.ament_python' and name 'excavator'
+[0.920s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.920s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.920s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.920s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extensions ['ignore', 'ignore_ament_install']
+[0.921s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extension 'ignore'
+[0.921s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extension 'ignore_ament_install'
+[0.921s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extensions ['colcon_pkg']
+[0.921s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extension 'colcon_pkg'
+[0.921s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extensions ['colcon_meta']
+[0.921s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extension 'colcon_meta'
+[0.921s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extensions ['ros']
+[0.921s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extension 'ros'
+[0.922s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extensions ['cmake', 'python']
+[0.922s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extension 'cmake'
+[0.922s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extension 'python'
+[0.922s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extensions ['python_setup_py']
+[0.922s] Level 1:colcon.colcon_core.package_identification:_identify(install_scripts) by extension 'python_setup_py'
+[0.922s] Level 1:colcon.colcon_core.package_identification:_identify(linear_actuator) by extensions ['ignore', 'ignore_ament_install']
+[0.922s] Level 1:colcon.colcon_core.package_identification:_identify(linear_actuator) by extension 'ignore'
+[0.923s] Level 1:colcon.colcon_core.package_identification:_identify(linear_actuator) by extension 'ignore_ament_install'
+[0.923s] Level 1:colcon.colcon_core.package_identification:_identify(linear_actuator) by extensions ['colcon_pkg']
+[0.923s] Level 1:colcon.colcon_core.package_identification:_identify(linear_actuator) by extension 'colcon_pkg'
+[0.923s] Level 1:colcon.colcon_core.package_identification:_identify(linear_actuator) by extensions ['colcon_meta']
+[0.923s] Level 1:colcon.colcon_core.package_identification:_identify(linear_actuator) by extension 'colcon_meta'
+[0.923s] Level 1:colcon.colcon_core.package_identification:_identify(linear_actuator) by extensions ['ros']
+[0.923s] Level 1:colcon.colcon_core.package_identification:_identify(linear_actuator) by extension 'ros'
+[0.924s] DEBUG:colcon.colcon_core.package_identification:Package 'linear_actuator' with type 'ros.ament_python' and name 'linear_actuator'
+[0.925s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.925s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.925s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.925s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extensions ['ignore', 'ignore_ament_install']
+[0.926s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extension 'ignore'
+[0.926s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extension 'ignore_ament_install'
+[0.926s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extensions ['colcon_pkg']
+[0.926s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extension 'colcon_pkg'
+[0.926s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extensions ['colcon_meta']
+[0.926s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extension 'colcon_meta'
+[0.926s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extensions ['ros']
+[0.926s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extension 'ros'
+[0.927s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extensions ['cmake', 'python']
+[0.927s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extension 'cmake'
+[0.927s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extension 'python'
+[0.927s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extensions ['python_setup_py']
+[0.927s] Level 1:colcon.colcon_core.package_identification:_identify(run_scripts) by extension 'python_setup_py'
+[0.927s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.927s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.927s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.927s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.927s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.967s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.967s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.972s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 11 installed packages in /home/iris/colcon_ws/install
+[0.976s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 316 installed packages in /opt/ros/galactic
+[1.010s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[1.175s] Level 5:colcon.colcon_core.verb:set package 'controls' build argument 'cmake_args' from command line to 'None'
+[1.175s] Level 5:colcon.colcon_core.verb:set package 'controls' build argument 'cmake_target' from command line to 'None'
+[1.175s] Level 5:colcon.colcon_core.verb:set package 'controls' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.175s] Level 5:colcon.colcon_core.verb:set package 'controls' build argument 'cmake_clean_cache' from command line to 'False'
+[1.175s] Level 5:colcon.colcon_core.verb:set package 'controls' build argument 'cmake_clean_first' from command line to 'False'
+[1.175s] Level 5:colcon.colcon_core.verb:set package 'controls' build argument 'cmake_force_configure' from command line to 'False'
+[1.175s] Level 5:colcon.colcon_core.verb:set package 'controls' build argument 'ament_cmake_args' from command line to 'None'
+[1.175s] Level 5:colcon.colcon_core.verb:set package 'controls' build argument 'catkin_cmake_args' from command line to 'None'
+[1.175s] Level 5:colcon.colcon_core.verb:set package 'controls' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.175s] DEBUG:colcon.colcon_core.verb:Building package 'controls' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/iris/colcon_ws/src/IRIS/build/controls', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/iris/colcon_ws/src/IRIS/install/controls', 'merge_install': False, 'path': '/home/iris/colcon_ws/src/IRIS/controls', 'symlink_install': True, 'test_result_base': None}
+[1.176s] Level 5:colcon.colcon_core.verb:set package 'driver' build argument 'cmake_args' from command line to 'None'
+[1.176s] Level 5:colcon.colcon_core.verb:set package 'driver' build argument 'cmake_target' from command line to 'None'
+[1.176s] Level 5:colcon.colcon_core.verb:set package 'driver' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.177s] Level 5:colcon.colcon_core.verb:set package 'driver' build argument 'cmake_clean_cache' from command line to 'False'
+[1.177s] Level 5:colcon.colcon_core.verb:set package 'driver' build argument 'cmake_clean_first' from command line to 'False'
+[1.177s] Level 5:colcon.colcon_core.verb:set package 'driver' build argument 'cmake_force_configure' from command line to 'False'
+[1.177s] Level 5:colcon.colcon_core.verb:set package 'driver' build argument 'ament_cmake_args' from command line to 'None'
+[1.177s] Level 5:colcon.colcon_core.verb:set package 'driver' build argument 'catkin_cmake_args' from command line to 'None'
+[1.177s] Level 5:colcon.colcon_core.verb:set package 'driver' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.177s] DEBUG:colcon.colcon_core.verb:Building package 'driver' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/iris/colcon_ws/src/IRIS/build/driver', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/iris/colcon_ws/src/IRIS/install/driver', 'merge_install': False, 'path': '/home/iris/colcon_ws/src/IRIS/driver', 'symlink_install': True, 'test_result_base': None}
+[1.178s] Level 5:colcon.colcon_core.verb:set package 'linear_actuator' build argument 'cmake_args' from command line to 'None'
+[1.178s] Level 5:colcon.colcon_core.verb:set package 'linear_actuator' build argument 'cmake_target' from command line to 'None'
+[1.178s] Level 5:colcon.colcon_core.verb:set package 'linear_actuator' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.178s] Level 5:colcon.colcon_core.verb:set package 'linear_actuator' build argument 'cmake_clean_cache' from command line to 'False'
+[1.178s] Level 5:colcon.colcon_core.verb:set package 'linear_actuator' build argument 'cmake_clean_first' from command line to 'False'
+[1.178s] Level 5:colcon.colcon_core.verb:set package 'linear_actuator' build argument 'cmake_force_configure' from command line to 'False'
+[1.178s] Level 5:colcon.colcon_core.verb:set package 'linear_actuator' build argument 'ament_cmake_args' from command line to 'None'
+[1.178s] Level 5:colcon.colcon_core.verb:set package 'linear_actuator' build argument 'catkin_cmake_args' from command line to 'None'
+[1.178s] Level 5:colcon.colcon_core.verb:set package 'linear_actuator' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.178s] DEBUG:colcon.colcon_core.verb:Building package 'linear_actuator' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/iris/colcon_ws/src/IRIS/build/linear_actuator', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/iris/colcon_ws/src/IRIS/install/linear_actuator', 'merge_install': False, 'path': '/home/iris/colcon_ws/src/IRIS/linear_actuator', 'symlink_install': True, 'test_result_base': None}
+[1.179s] Level 5:colcon.colcon_core.verb:set package 'sparkcan' build argument 'cmake_args' from command line to 'None'
+[1.179s] Level 5:colcon.colcon_core.verb:set package 'sparkcan' build argument 'cmake_target' from command line to 'None'
+[1.179s] Level 5:colcon.colcon_core.verb:set package 'sparkcan' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.179s] Level 5:colcon.colcon_core.verb:set package 'sparkcan' build argument 'cmake_clean_cache' from command line to 'False'
+[1.180s] Level 5:colcon.colcon_core.verb:set package 'sparkcan' build argument 'cmake_clean_first' from command line to 'False'
+[1.180s] Level 5:colcon.colcon_core.verb:set package 'sparkcan' build argument 'cmake_force_configure' from command line to 'False'
+[1.180s] Level 5:colcon.colcon_core.verb:set package 'sparkcan' build argument 'ament_cmake_args' from command line to 'None'
+[1.180s] Level 5:colcon.colcon_core.verb:set package 'sparkcan' build argument 'catkin_cmake_args' from command line to 'None'
+[1.180s] Level 5:colcon.colcon_core.verb:set package 'sparkcan' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.180s] DEBUG:colcon.colcon_core.verb:Building package 'sparkcan' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/iris/colcon_ws/src/IRIS/build/sparkcan', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/iris/colcon_ws/src/IRIS/install/sparkcan', 'merge_install': False, 'path': '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan', 'symlink_install': True, 'test_result_base': None}
+[1.181s] Level 5:colcon.colcon_core.verb:set package 'depositor' build argument 'cmake_args' from command line to 'None'
+[1.181s] Level 5:colcon.colcon_core.verb:set package 'depositor' build argument 'cmake_target' from command line to 'None'
+[1.181s] Level 5:colcon.colcon_core.verb:set package 'depositor' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.181s] Level 5:colcon.colcon_core.verb:set package 'depositor' build argument 'cmake_clean_cache' from command line to 'False'
+[1.181s] Level 5:colcon.colcon_core.verb:set package 'depositor' build argument 'cmake_clean_first' from command line to 'False'
+[1.181s] Level 5:colcon.colcon_core.verb:set package 'depositor' build argument 'cmake_force_configure' from command line to 'False'
+[1.181s] Level 5:colcon.colcon_core.verb:set package 'depositor' build argument 'ament_cmake_args' from command line to 'None'
+[1.181s] Level 5:colcon.colcon_core.verb:set package 'depositor' build argument 'catkin_cmake_args' from command line to 'None'
+[1.181s] Level 5:colcon.colcon_core.verb:set package 'depositor' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.181s] DEBUG:colcon.colcon_core.verb:Building package 'depositor' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/iris/colcon_ws/src/IRIS/build/depositor', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/iris/colcon_ws/src/IRIS/install/depositor', 'merge_install': False, 'path': '/home/iris/colcon_ws/src/IRIS/depositor', 'symlink_install': True, 'test_result_base': None}
+[1.182s] Level 5:colcon.colcon_core.verb:set package 'excavator' build argument 'cmake_args' from command line to 'None'
+[1.182s] Level 5:colcon.colcon_core.verb:set package 'excavator' build argument 'cmake_target' from command line to 'None'
+[1.182s] Level 5:colcon.colcon_core.verb:set package 'excavator' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.182s] Level 5:colcon.colcon_core.verb:set package 'excavator' build argument 'cmake_clean_cache' from command line to 'False'
+[1.182s] Level 5:colcon.colcon_core.verb:set package 'excavator' build argument 'cmake_clean_first' from command line to 'False'
+[1.182s] Level 5:colcon.colcon_core.verb:set package 'excavator' build argument 'cmake_force_configure' from command line to 'False'
+[1.183s] Level 5:colcon.colcon_core.verb:set package 'excavator' build argument 'ament_cmake_args' from command line to 'None'
+[1.183s] Level 5:colcon.colcon_core.verb:set package 'excavator' build argument 'catkin_cmake_args' from command line to 'None'
+[1.183s] Level 5:colcon.colcon_core.verb:set package 'excavator' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.183s] DEBUG:colcon.colcon_core.verb:Building package 'excavator' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/iris/colcon_ws/src/IRIS/build/excavator', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/iris/colcon_ws/src/IRIS/install/excavator', 'merge_install': False, 'path': '/home/iris/colcon_ws/src/IRIS/excavator', 'symlink_install': True, 'test_result_base': None}
+[1.183s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.186s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.186s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/iris/colcon_ws/src/IRIS/linear_actuator' with build type 'ament_python'
+[1.187s] Level 1:colcon.colcon_core.shell:create_environment_hook('linear_actuator', 'ament_prefix_path')
+[1.192s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.193s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator/hook/ament_prefix_path.ps1'
+[1.194s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator/hook/ament_prefix_path.dsv'
+[1.195s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator/hook/ament_prefix_path.sh'
+[1.197s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.197s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.211s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/iris/colcon_ws/src/IRIS/controls' with build type 'ament_python'
+[1.211s] Level 1:colcon.colcon_core.shell:create_environment_hook('controls', 'ament_prefix_path')
+[1.212s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/controls/share/controls/hook/ament_prefix_path.ps1'
+[1.214s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/controls/share/controls/hook/ament_prefix_path.dsv'
+[1.215s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/controls/share/controls/hook/ament_prefix_path.sh'
+[1.217s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.217s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.228s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/iris/colcon_ws/src/IRIS/driver' with build type 'ament_cmake'
+[1.229s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/iris/colcon_ws/src/IRIS/driver'
+[1.230s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.231s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.242s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan'
+[1.243s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.244s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.816s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/iris/colcon_ws/src/IRIS/linear_actuator'
+[1.817s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.817s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.383s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/iris/colcon_ws/src/IRIS/controls'
+[2.384s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.384s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.408s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/iris/colcon_ws/src/IRIS/build/driver': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/controls:/opt/ros/galactic /usr/bin/cmake --build /home/iris/colcon_ws/src/IRIS/build/driver -- -j6 -l6
+[2.426s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan': /usr/bin/cmake --build /home/iris/colcon_ws/src/IRIS/build/sparkcan -- -j6 -l6
+[3.454s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/iris/colcon_ws/src/IRIS/build/controls': PYTHONPATH=/home/iris/colcon_ws/src/IRIS/build/controls/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/controls/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/iris/colcon_ws/src/IRIS/build/controls/build --no-deps symlink_data
+[3.570s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/iris/colcon_ws/src/IRIS/build/linear_actuator': PYTHONPATH=/home/iris/colcon_ws/src/IRIS/build/linear_actuator/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/iris/colcon_ws/src/IRIS/build/linear_actuator/build --no-deps symlink_data
+[4.760s] Level 1:colcon.colcon_core.shell:create_environment_hook('controls', 'pythonpath_develop')
+[4.762s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/build/controls/share/controls/hook/pythonpath_develop.ps1'
+[4.765s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/iris/colcon_ws/src/IRIS/build/controls' returned '0': PYTHONPATH=/home/iris/colcon_ws/src/IRIS/build/controls/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/controls/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/iris/colcon_ws/src/IRIS/build/controls/build --no-deps symlink_data
+[4.766s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/build/controls/share/controls/hook/pythonpath_develop.dsv'
+[4.767s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/build/controls/share/controls/hook/pythonpath_develop.sh'
+[4.875s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/controls' for CMake module files
+[4.876s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/controls' for CMake config files
+[4.878s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/controls/lib'
+[4.879s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/controls/bin'
+[4.879s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/controls/lib/pkgconfig/controls.pc'
+[4.880s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/controls/lib/python3.8/site-packages'
+[4.880s] Level 1:colcon.colcon_core.shell:create_environment_hook('controls', 'pythonpath')
+[4.881s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/controls/share/controls/hook/pythonpath.ps1'
+[4.883s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/controls/share/controls/hook/pythonpath.dsv'
+[4.884s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/controls/share/controls/hook/pythonpath.sh'
+[4.886s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/controls/bin'
+[4.886s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(controls)
+[4.887s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/controls/share/controls/package.ps1'
+[4.890s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/iris/colcon_ws/src/IRIS/install/controls/share/controls/package.dsv'
+[4.892s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/controls/share/controls/package.sh'
+[4.894s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/controls/share/controls/package.bash'
+[4.896s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/controls/share/controls/package.zsh'
+[4.898s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/iris/colcon_ws/src/IRIS/install/controls/share/colcon-core/packages/controls)
+[5.186s] Level 1:colcon.colcon_core.shell:create_environment_hook('linear_actuator', 'pythonpath_develop')
+[5.187s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/iris/colcon_ws/src/IRIS/build/linear_actuator' returned '0': PYTHONPATH=/home/iris/colcon_ws/src/IRIS/build/linear_actuator/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/iris/colcon_ws/src/IRIS/build/linear_actuator/build --no-deps symlink_data
+[5.187s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/build/linear_actuator/share/linear_actuator/hook/pythonpath_develop.ps1'
+[5.191s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/build/linear_actuator/share/linear_actuator/hook/pythonpath_develop.dsv'
+[5.193s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/build/linear_actuator/share/linear_actuator/hook/pythonpath_develop.sh'
+[5.195s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/linear_actuator' for CMake module files
+[5.233s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/linear_actuator' for CMake config files
+[5.237s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib'
+[5.237s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/bin'
+[5.238s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/pkgconfig/linear_actuator.pc'
+[5.238s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages'
+[5.239s] Level 1:colcon.colcon_core.shell:create_environment_hook('linear_actuator', 'pythonpath')
+[5.242s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator/hook/pythonpath.ps1'
+[5.244s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator/hook/pythonpath.dsv'
+[5.246s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator/hook/pythonpath.sh'
+[5.248s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/bin'
+[5.249s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(linear_actuator)
+[5.250s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator/package.ps1'
+[5.252s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator/package.dsv'
+[5.253s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator/package.sh'
+[5.260s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator/package.bash'
+[5.264s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/linear_actuator/package.zsh'
+[5.266s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/iris/colcon_ws/src/IRIS/install/linear_actuator/share/colcon-core/packages/linear_actuator)
+[5.268s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/iris/colcon_ws/src/IRIS/depositor' with build type 'ament_python'
+[5.269s] Level 1:colcon.colcon_core.shell:create_environment_hook('depositor', 'ament_prefix_path')
+[5.270s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/depositor/share/depositor/hook/ament_prefix_path.ps1'
+[5.272s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/depositor/share/depositor/hook/ament_prefix_path.dsv'
+[5.276s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/depositor/share/depositor/hook/ament_prefix_path.sh'
+[5.278s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[5.279s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[5.336s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/iris/colcon_ws/src/IRIS/excavator' with build type 'ament_python'
+[5.337s] Level 1:colcon.colcon_core.shell:create_environment_hook('excavator', 'ament_prefix_path')
+[5.338s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/excavator/share/excavator/hook/ament_prefix_path.ps1'
+[5.342s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/excavator/share/excavator/hook/ament_prefix_path.dsv'
+[5.343s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/excavator/share/excavator/hook/ament_prefix_path.sh'
+[5.345s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[5.345s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[6.075s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/iris/colcon_ws/src/IRIS/depositor'
+[6.077s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[6.077s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[6.828s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/iris/colcon_ws/src/IRIS/excavator'
+[6.829s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[6.830s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[7.452s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan' returned '0': /usr/bin/cmake --build /home/iris/colcon_ws/src/IRIS/build/sparkcan -- -j6 -l6
+[7.488s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan': /usr/bin/cmake --install /home/iris/colcon_ws/src/IRIS/build/sparkcan
+[7.526s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(sparkcan)
+[7.527s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/sparkcan' for CMake module files
+[7.529s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/sparkcan' for CMake config files
+[7.529s] Level 1:colcon.colcon_core.shell:create_environment_hook('sparkcan', 'cmake_prefix_path')
+[7.530s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/sparkcan/share/sparkcan/hook/cmake_prefix_path.ps1'
+[7.531s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/sparkcan/share/sparkcan/hook/cmake_prefix_path.dsv'
+[7.532s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/sparkcan/share/sparkcan/hook/cmake_prefix_path.sh'
+[7.534s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/sparkcan/lib'
+[7.534s] Level 1:colcon.colcon_core.shell:create_environment_hook('sparkcan', 'ld_library_path_lib')
+[7.535s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/sparkcan/share/sparkcan/hook/ld_library_path_lib.ps1'
+[7.535s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/sparkcan/share/sparkcan/hook/ld_library_path_lib.dsv'
+[7.536s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/sparkcan/share/sparkcan/hook/ld_library_path_lib.sh'
+[7.538s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/iris/colcon_ws/src/IRIS/build/sparkcan' returned '0': /usr/bin/cmake --install /home/iris/colcon_ws/src/IRIS/build/sparkcan
+[7.538s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/sparkcan/bin'
+[7.538s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/pkgconfig/sparkcan.pc'
+[7.539s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/sparkcan/lib/python3.8/site-packages'
+[7.540s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/sparkcan/bin'
+[7.541s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/sparkcan/share/sparkcan/package.ps1'
+[7.544s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/iris/colcon_ws/src/IRIS/install/sparkcan/share/sparkcan/package.dsv'
+[7.545s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/sparkcan/share/sparkcan/package.sh'
+[7.546s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/sparkcan/share/sparkcan/package.bash'
+[7.547s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/sparkcan/share/sparkcan/package.zsh'
+[7.548s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/iris/colcon_ws/src/IRIS/install/sparkcan/share/colcon-core/packages/sparkcan)
+[7.933s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/iris/colcon_ws/src/IRIS/build/depositor': AMENT_PREFIX_PATH=/home/iris/colcon_ws/src/IRIS/install/linear_actuator:${AMENT_PREFIX_PATH} PYTHONPATH=/home/iris/colcon_ws/src/IRIS/build/depositor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/src/IRIS/build/linear_actuator:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/iris/colcon_ws/src/IRIS/build/depositor/build --no-deps symlink_data
+[8.022s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/iris/colcon_ws/src/IRIS/build/excavator': AMENT_PREFIX_PATH=/home/iris/colcon_ws/src/IRIS/install/linear_actuator:${AMENT_PREFIX_PATH} PYTHONPATH=/home/iris/colcon_ws/src/IRIS/build/excavator/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/src/IRIS/build/linear_actuator:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/iris/colcon_ws/src/IRIS/build/excavator/build --no-deps symlink_data
+[9.454s] Level 1:colcon.colcon_core.shell:create_environment_hook('depositor', 'pythonpath_develop')
+[9.455s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/iris/colcon_ws/src/IRIS/build/depositor' returned '0': AMENT_PREFIX_PATH=/home/iris/colcon_ws/src/IRIS/install/linear_actuator:${AMENT_PREFIX_PATH} PYTHONPATH=/home/iris/colcon_ws/src/IRIS/build/depositor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/depositor/lib/python3.8/site-packages:/home/iris/colcon_ws/src/IRIS/build/linear_actuator:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/iris/colcon_ws/src/IRIS/build/depositor/build --no-deps symlink_data
+[9.456s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/build/depositor/share/depositor/hook/pythonpath_develop.ps1'
+[9.458s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/build/depositor/share/depositor/hook/pythonpath_develop.dsv'
+[9.460s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/build/depositor/share/depositor/hook/pythonpath_develop.sh'
+[9.462s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/depositor' for CMake module files
+[9.463s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/depositor' for CMake config files
+[9.465s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/depositor/lib'
+[9.465s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/depositor/bin'
+[9.465s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/depositor/lib/pkgconfig/depositor.pc'
+[9.466s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/depositor/lib/python3.8/site-packages'
+[9.466s] Level 1:colcon.colcon_core.shell:create_environment_hook('depositor', 'pythonpath')
+[9.466s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/depositor/share/depositor/hook/pythonpath.ps1'
+[9.468s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/depositor/share/depositor/hook/pythonpath.dsv'
+[9.469s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/depositor/share/depositor/hook/pythonpath.sh'
+[9.470s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/depositor/bin'
+[9.470s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(depositor)
+[9.471s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/depositor/share/depositor/package.ps1'
+[9.473s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/iris/colcon_ws/src/IRIS/install/depositor/share/depositor/package.dsv'
+[9.475s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/depositor/share/depositor/package.sh'
+[9.476s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/depositor/share/depositor/package.bash'
+[9.477s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/depositor/share/depositor/package.zsh'
+[9.478s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/iris/colcon_ws/src/IRIS/install/depositor/share/colcon-core/packages/depositor)
+[9.586s] Level 1:colcon.colcon_core.shell:create_environment_hook('excavator', 'pythonpath_develop')
+[9.587s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/build/excavator/share/excavator/hook/pythonpath_develop.ps1'
+[9.588s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/iris/colcon_ws/src/IRIS/build/excavator' returned '0': AMENT_PREFIX_PATH=/home/iris/colcon_ws/src/IRIS/install/linear_actuator:${AMENT_PREFIX_PATH} PYTHONPATH=/home/iris/colcon_ws/src/IRIS/build/excavator/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/iris/colcon_ws/src/IRIS/install/excavator/lib/python3.8/site-packages:/home/iris/colcon_ws/src/IRIS/build/linear_actuator:/home/iris/colcon_ws/src/IRIS/install/linear_actuator/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/iris/colcon_ws/src/IRIS/build/excavator/build --no-deps symlink_data
+[9.590s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/build/excavator/share/excavator/hook/pythonpath_develop.dsv'
+[9.591s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/build/excavator/share/excavator/hook/pythonpath_develop.sh'
+[9.594s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/excavator' for CMake module files
+[9.595s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/excavator' for CMake config files
+[9.597s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/excavator/lib'
+[9.597s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/excavator/bin'
+[9.597s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/excavator/lib/pkgconfig/excavator.pc'
+[9.598s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/excavator/lib/python3.8/site-packages'
+[9.598s] Level 1:colcon.colcon_core.shell:create_environment_hook('excavator', 'pythonpath')
+[9.599s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/excavator/share/excavator/hook/pythonpath.ps1'
+[9.601s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/excavator/share/excavator/hook/pythonpath.dsv'
+[9.602s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/excavator/share/excavator/hook/pythonpath.sh'
+[9.604s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/excavator/bin'
+[9.604s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(excavator)
+[9.605s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/excavator/share/excavator/package.ps1'
+[9.607s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/iris/colcon_ws/src/IRIS/install/excavator/share/excavator/package.dsv'
+[9.608s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/excavator/share/excavator/package.sh'
+[9.610s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/excavator/share/excavator/package.bash'
+[9.611s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/excavator/share/excavator/package.zsh'
+[9.612s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/iris/colcon_ws/src/IRIS/install/excavator/share/colcon-core/packages/excavator)
+[25.956s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/iris/colcon_ws/src/IRIS/build/driver' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/controls:/opt/ros/galactic /usr/bin/cmake --build /home/iris/colcon_ws/src/IRIS/build/driver -- -j6 -l6
+[25.964s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/iris/colcon_ws/src/IRIS/build/driver': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/controls:/opt/ros/galactic /usr/bin/cmake --install /home/iris/colcon_ws/src/IRIS/build/driver
+[26.030s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(driver)
+[26.032s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver' for CMake module files
+[26.034s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/iris/colcon_ws/src/IRIS/build/driver' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/iris/colcon_ws/install/excavator:/home/iris/colcon_ws/install/depositor:/home/iris/colcon_ws/install/linear_actuator:/home/iris/colcon_ws/install/controls:/opt/ros/galactic /usr/bin/cmake --install /home/iris/colcon_ws/src/IRIS/build/driver
+[26.035s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver' for CMake config files
+[26.036s] Level 1:colcon.colcon_core.shell:create_environment_hook('driver', 'cmake_prefix_path')
+[26.037s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/hook/cmake_prefix_path.ps1'
+[26.039s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/hook/cmake_prefix_path.dsv'
+[26.041s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/hook/cmake_prefix_path.sh'
+[26.043s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver/lib'
+[26.043s] Level 1:colcon.colcon_core.shell:create_environment_hook('driver', 'ld_library_path_lib')
+[26.044s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/hook/ld_library_path_lib.ps1'
+[26.046s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/hook/ld_library_path_lib.dsv'
+[26.047s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/hook/ld_library_path_lib.sh'
+[26.049s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver/bin'
+[26.049s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver/lib/pkgconfig/driver.pc'
+[26.050s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver/lib/python3.8/site-packages'
+[26.051s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver/bin'
+[26.053s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.ps1'
+[26.055s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.dsv'
+[26.057s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.sh'
+[26.059s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.bash'
+[26.060s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.zsh'
+[26.061s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/iris/colcon_ws/src/IRIS/install/driver/share/colcon-core/packages/driver)
+[26.063s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(driver)
+[26.063s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver' for CMake module files
+[26.065s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver' for CMake config files
+[26.065s] Level 1:colcon.colcon_core.shell:create_environment_hook('driver', 'cmake_prefix_path')
+[26.066s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/hook/cmake_prefix_path.ps1'
+[26.169s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/hook/cmake_prefix_path.dsv'
+[26.170s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/hook/cmake_prefix_path.sh'
+[26.172s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver/lib'
+[26.172s] Level 1:colcon.colcon_core.shell:create_environment_hook('driver', 'ld_library_path_lib')
+[26.173s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/hook/ld_library_path_lib.ps1'
+[26.174s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/hook/ld_library_path_lib.dsv'
+[26.176s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/hook/ld_library_path_lib.sh'
+[26.177s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver/bin'
+[26.177s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver/lib/pkgconfig/driver.pc'
+[26.178s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver/lib/python3.8/site-packages'
+[26.178s] Level 1:colcon.colcon_core.environment:checking '/home/iris/colcon_ws/src/IRIS/install/driver/bin'
+[26.179s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.ps1'
+[26.181s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.dsv'
+[26.182s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.sh'
+[26.184s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.bash'
+[26.185s] INFO:colcon.colcon_core.shell:Creating package script '/home/iris/colcon_ws/src/IRIS/install/driver/share/driver/package.zsh'
+[26.186s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/iris/colcon_ws/src/IRIS/install/driver/share/colcon-core/packages/driver)
+[26.187s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[26.188s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[26.188s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[26.189s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[26.190s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[26.191s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/iris/colcon_ws/src/IRIS/install/local_setup.ps1'
+[26.193s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/iris/colcon_ws/src/IRIS/install/_local_setup_util_ps1.py'
+[26.196s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/iris/colcon_ws/src/IRIS/install/setup.ps1'
+[26.200s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/iris/colcon_ws/src/IRIS/install/local_setup.sh'
+[26.201s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/iris/colcon_ws/src/IRIS/install/_local_setup_util_sh.py'
+[26.202s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/iris/colcon_ws/src/IRIS/install/setup.sh'
+[26.206s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/iris/colcon_ws/src/IRIS/install/local_setup.bash'
+[26.207s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/iris/colcon_ws/src/IRIS/install/setup.bash'
+[26.210s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/iris/colcon_ws/src/IRIS/install/local_setup.zsh'
+[26.212s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/iris/colcon_ws/src/IRIS/install/setup.zsh'

@@ -1,0 +1,10 @@
+make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/src/SparkBase.cpp' has modification time 1777864359 s in the future
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
+make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/examples/status.cpp' has modification time 1777864357 s in the future
+make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/examples/control.cpp' has modification time 1777864357 s in the future
+make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/dependencies/sparkcan/examples/pid.cpp' has modification time 1777864357 s in the future
+make[2]: Warning: File '/home/iris/colcon_ws/src/IRIS/driver/src/driver_node.cpp' has modification time 1777867147 s in the future
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
+make[2]: warning:  Clock skew detected.  Your build may be incomplete.
