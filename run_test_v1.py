@@ -7,10 +7,15 @@ import sys
 # USER CONFIG
 # ==============================
 GPIO_CHIP = "/dev/gpiochip0"
-DIR1_LINE = 134 # 53
-PWM1_LINE = 123 # 113
-DIR2_LINE = 133 # 124
-PWM2_LINE = 136 # 52 
+# DIR1_LINE = 134 
+# PWM1_LINE = 123
+# DIR2_LINE = 133 
+# PWM2_LINE = 136 
+
+DIR1_LINE = 53
+PWM1_LINE = 113
+DIR2_LINE = 124
+PWM2_LINE = 52 
 
 # PWM_FREQUENCY = 1000  # Hz
 # PWM_PERIOD = 1.0 / PWM_FREQUENCY
@@ -112,7 +117,7 @@ def run_motor_locked_antiphase(speed_percent: float, duration: float):
 # ==============================
 try:
     print("Extending actuator")
-    set_direction(True)
+    set_direction(False)
     run_motor(True)
     
     time.sleep(5)
@@ -120,6 +125,8 @@ try:
     print("Retracting actuator")
     set_direction(True)
     run_motor(True)
+
+    time.sleep(5)
 
 finally:
     cleanup()
