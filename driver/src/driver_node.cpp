@@ -118,11 +118,11 @@ auto Driver::periodic() -> void {
 //    left.SetDutyCycle(incoming_right * -2.3703703 * 0.5);
 //    right.SetDutyCycle(incoming_left * -2.3703703 * 0.5);
 
-    float left_input = incoming_right * -2.3703703 * 0.75;
-    float right_input = incoming_left * -2.3703703 * 0.75;    
+    float left_input = incoming_right * -1.0;
+    float right_input = incoming_left * -1.0;    
 
-    left.SetDutyCycle(left_input * left_input * left_input);    
-    right.SetDutyCycle(right_input * right_input * right_input);
+    left.SetDutyCycle(left_input);    
+    right.SetDutyCycle(right_input);
     // 	left.SetDutyCycle(incoming_right * incoming_right);
     // if (incoming_right > 0)    
     //else	

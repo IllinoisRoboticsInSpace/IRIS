@@ -11,9 +11,11 @@ import time
 from linear_actuator import LinearActuator
 
 PHASE_INIT = 0
-PHASE_RAISE = 1
-PHASE_HOLD = 2
-PHASE_LOWER = 3
+PHASE_DRIVE_IN = 1
+PHASE_RAISE = 2
+PHASE_HOLD = 3
+PHASE_LOWER = 4
+PHASE_DRIVE_OUT = 5
 
 class Depositer(Node):
     def __init__(self):
@@ -23,6 +25,10 @@ class Depositer(Node):
 
         self.dep_routine_publisher = self.create_publisher(
             Bool, 'dep_routine', 10)
+        self.tread_speed_left_dep_routine_publisher = self.create_publisher(
+            Float32, 'tread_speed_left_dep_routine', 10)
+        self.tread_speed_right_dep_routine_publisher = self.create_publisher(
+            Float32, 'tread_speed_right_dep_routine', 10)
 
         self.timer = self.create_timer(0.1, self.timer_response)
 
@@ -38,9 +44,12 @@ class Depositer(Node):
         self.should_run = False
         self.up = False
 
+        self.tread_speed = 0.15
+
+        self.drive_duration = 3.5 * 1e9
         self.lower_duration = 40.0 * 1e9
-        self.hold_duration = 10.0 * 1e9
-        self.raise_duration = 35.0 * 1e9
+        self.hold_duration = 2.0 * 1e9
+        self.raise_duration = 45.0 * 1e9
 
         self.routine_phase = PHASE_INIT
         self.routine_phase_start_time = 0
@@ -54,41 +63,69 @@ class Depositer(Node):
 
         if (self.routine_phase == PHASE_INIT):
             pass
+        elif (self.routine_phase == PHASE_DRIVE_IN):
+            if (time.time_ns() - self.routine_phase_start_time > self.drive_duration):
+                self.tread_speed_left_dep_routine_publisher.publish(Float32(data=0.0))
+                self.tread_speed_right_dep_routine_publisher.publish(Float32(data=0.0))
+
+                self.routine_phase = PHASE_RAISE
+                self.routine_phase_start_time = time.time_ns()
+
+                self.up = True
+                self.should_run = True
         elif (self.routine_phase == PHASE_RAISE):
             if (time.time_ns() - self.routine_phase_start_time > self.raise_duration):
                 self.routine_phase = PHASE_HOLD
                 self.routine_phase_start_time = time.time_ns()
+
                 self.up = False
                 self.should_run = False
         elif (self.routine_phase == PHASE_HOLD):
             if (time.time_ns() - self.routine_phase_start_time > self.hold_duration):
                 self.routine_phase = PHASE_LOWER
                 self.routine_phase_start_time = time.time_ns()
+
                 self.up = False
                 self.should_run = True
         elif (self.routine_phase == PHASE_LOWER):
             if (time.time_ns() - self.routine_phase_start_time > self.lower_duration):
+                self.routine_phase = PHASE_DRIVE_OUT
+                self.routine_phase_start_time = time.time_ns()
+
+                self.up = False
+                self.should_run = True
+
+                self.tread_speed_left_dep_routine_publisher.publish(Float32(data=-self.tread_speed))
+                self.tread_speed_right_dep_routine_publisher.publish(Float32(data=-self.tread_speed))
+        elif (self.routine_phase == PHASE_DRIVE_OUT):
+            if (time.time_ns() - self.routine_phase_start_time > self.drive_duration):
+                self.tread_speed_left_dep_routine_publisher.publish(Float32(data=0.0))
+                self.tread_speed_right_dep_routine_publisher.publish(Float32(data=0.0))
+
                 self.routine_phase = PHASE_INIT
+
                 self.dep_routine_val = False
                 self.dep_routine_publisher.publish(Bool(data=False))
+
                 self.up = True
                 self.should_run = False
-                
-
 
     def dep_routine_response(self, message: Bool):
         self.dep_routine_val = message.data
         if message.data and not self.should_run:
            self.get_logger().info('Triggering dumping routine...')
 
-           self.routine_phase = PHASE_RAISE
+           self.routine_phase = PHASE_DRIVE_IN
            self.routine_phase_start_time = time.time_ns()
 
            self.up = True
-           self.should_run = True
+           self.should_run = False
+
+           self.tread_speed_left_dep_routine_publisher.publish(Float32(data=self.tread_speed))
+           self.tread_speed_right_dep_routine_publisher.publish(Float32(data=self.tread_speed))
 
     def raise_dumper_response(self, message: Bool):
-        self.get_logger().info("Raising dumper")
+        self.get_logger().info(f"Raise dumper {message}")
         if self.dep_routine_val:
             self.routine_phase = PHASE_INIT
             self.dep_routine_val = False
@@ -102,7 +139,7 @@ class Depositer(Node):
             self.should_run = False
 
     def lower_dumper_response(self, message: Bool):
-        self.get_logger().info("Lowering dumper")
+        self.get_logger().info(f"Lower dumper {message}")
         if self.dep_routine_val:
             self.routine_phase = PHASE_INIT
             self.dep_routine_val = False
