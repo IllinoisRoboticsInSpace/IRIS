@@ -1,0 +1,35 @@
+[0.908s] Invoking command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/navigation': PYTHONPATH=/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/navigation build --build-base /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/build install --prefix /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation --record /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/install.log --single-version-externally-managed
+[1.116s] running egg_info
+[1.116s] creating ../build/navigation/navigation.egg-info
+[1.119s] writing ../build/navigation/navigation.egg-info/PKG-INFO
+[1.119s] writing dependency_links to ../build/navigation/navigation.egg-info/dependency_links.txt
+[1.119s] writing entry points to ../build/navigation/navigation.egg-info/entry_points.txt
+[1.119s] writing requirements to ../build/navigation/navigation.egg-info/requires.txt
+[1.119s] writing top-level names to ../build/navigation/navigation.egg-info/top_level.txt
+[1.119s] writing manifest file '../build/navigation/navigation.egg-info/SOURCES.txt'
+[1.123s] reading manifest file '../build/navigation/navigation.egg-info/SOURCES.txt'
+[1.128s] writing manifest file '../build/navigation/navigation.egg-info/SOURCES.txt'
+[1.128s] running build
+[1.128s] running build_py
+[1.128s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/build
+[1.128s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/build/lib
+[1.128s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/build/lib/navigation
+[1.128s] copying navigation/__init__.py -> /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/build/lib/navigation
+[1.128s] running install
+[1.128s] running install_lib
+[1.128s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[1.128s]   warnings.warn(
+[1.134s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/lib/python3.10/site-packages/navigation
+[1.134s] copying /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/build/lib/navigation/__init__.py -> /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/lib/python3.10/site-packages/navigation
+[1.136s] byte-compiling /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/lib/python3.10/site-packages/navigation/__init__.py to __init__.cpython-310.pyc
+[1.138s] running install_data
+[1.139s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/ament_index
+[1.139s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/ament_index/resource_index
+[1.140s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/ament_index/resource_index/packages
+[1.140s] copying resource/navigation -> /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/ament_index/resource_index/packages
+[1.140s] copying package.xml -> /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/navigation
+[1.140s] running install_egg_info
+[1.144s] Copying ../build/navigation/navigation.egg-info to /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/lib/python3.10/site-packages/navigation-0.0.0-py3.10.egg-info
+[1.145s] running install_scripts
+[1.170s] writing list of installed files to '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/install.log'
+[1.247s] Invoked command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/navigation' returned '0': PYTHONPATH=/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/navigation build --build-base /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/build install --prefix /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation --record /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/install.log --single-version-externally-managed

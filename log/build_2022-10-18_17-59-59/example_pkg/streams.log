@@ -1,0 +1,43 @@
+[0.834s] Invoking command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/example_pkg': PYTHONPATH=/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/example_pkg build --build-base /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build install --prefix /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg --record /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/install.log --single-version-externally-managed
+[1.115s] running egg_info
+[1.125s] creating ../build/example_pkg/example_pkg.egg-info
+[1.125s] writing ../build/example_pkg/example_pkg.egg-info/PKG-INFO
+[1.125s] writing dependency_links to ../build/example_pkg/example_pkg.egg-info/dependency_links.txt
+[1.125s] writing entry points to ../build/example_pkg/example_pkg.egg-info/entry_points.txt
+[1.126s] writing requirements to ../build/example_pkg/example_pkg.egg-info/requires.txt
+[1.126s] writing top-level names to ../build/example_pkg/example_pkg.egg-info/top_level.txt
+[1.126s] writing manifest file '../build/example_pkg/example_pkg.egg-info/SOURCES.txt'
+[1.127s] reading manifest file '../build/example_pkg/example_pkg.egg-info/SOURCES.txt'
+[1.129s] writing manifest file '../build/example_pkg/example_pkg.egg-info/SOURCES.txt'
+[1.130s] running build
+[1.130s] running build_py
+[1.131s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build
+[1.131s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build/lib
+[1.131s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build/lib/example_pkg
+[1.131s] copying example_pkg/publisher_member_function.py -> /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build/lib/example_pkg
+[1.134s] copying example_pkg/__init__.py -> /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build/lib/example_pkg
+[1.134s] copying example_pkg/subscriber_member_function.py -> /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build/lib/example_pkg
+[1.144s] running install
+[1.144s] running install_lib
+[1.144s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages/example_pkg
+[1.145s] copying /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build/lib/example_pkg/publisher_member_function.py -> /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages/example_pkg
+[1.145s] copying /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build/lib/example_pkg/__init__.py -> /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages/example_pkg
+[1.145s] copying /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build/lib/example_pkg/subscriber_member_function.py -> /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages/example_pkg
+[1.145s] byte-compiling /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages/example_pkg/publisher_member_function.py to publisher_member_function.cpython-310.pyc
+[1.145s] byte-compiling /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages/example_pkg/__init__.py to __init__.cpython-310.pyc
+[1.145s] byte-compiling /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages/example_pkg/subscriber_member_function.py to subscriber_member_function.cpython-310.pyc
+[1.145s] running install_data
+[1.145s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/ament_index
+[1.145s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/ament_index/resource_index
+[1.146s] creating /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/ament_index/resource_index/packages
+[1.146s] copying resource/example_pkg -> /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/ament_index/resource_index/packages
+[1.146s] copying package.xml -> /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/example_pkg
+[1.146s] running install_egg_info
+[1.146s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[1.146s]   warnings.warn(
+[1.146s] Copying ../build/example_pkg/example_pkg.egg-info to /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages/example_pkg-0.0.0-py3.10.egg-info
+[1.147s] running install_scripts
+[1.183s] Installing listener script to /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/example_pkg
+[1.183s] Installing talker script to /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/example_pkg
+[1.184s] writing list of installed files to '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/install.log'
+[1.278s] Invoked command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/example_pkg' returned '0': PYTHONPATH=/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/example_pkg build --build-base /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build install --prefix /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg --record /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/install.log --single-version-externally-managed

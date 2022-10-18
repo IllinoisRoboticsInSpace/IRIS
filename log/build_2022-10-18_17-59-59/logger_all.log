@@ -1,0 +1,227 @@
+[0.223s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.223s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7f6a66183460>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f6a66b176a0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f6a66b176a0>>)
+[0.241s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.241s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.241s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.241s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.241s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.242s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.242s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(example_pkg) by extensions ['ignore', 'ignore_ament_install']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(example_pkg) by extension 'ignore'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(example_pkg) by extension 'ignore_ament_install'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(example_pkg) by extensions ['colcon_pkg']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(example_pkg) by extension 'colcon_pkg'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(example_pkg) by extensions ['colcon_meta']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(example_pkg) by extension 'colcon_meta'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(example_pkg) by extensions ['ros']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(example_pkg) by extension 'ros'
+[0.267s] DEBUG:colcon.colcon_core.package_identification:Package 'example_pkg' with type 'ros.ament_python' and name 'example_pkg'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(navigation) by extensions ['ignore', 'ignore_ament_install']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(navigation) by extension 'ignore'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(navigation) by extension 'ignore_ament_install'
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(navigation) by extensions ['colcon_pkg']
+[0.267s] Level 1:colcon.colcon_core.package_identification:_identify(navigation) by extension 'colcon_pkg'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(navigation) by extensions ['colcon_meta']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(navigation) by extension 'colcon_meta'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(navigation) by extensions ['ros']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(navigation) by extension 'ros'
+[0.268s] DEBUG:colcon.colcon_core.package_identification:Package 'navigation' with type 'ros.ament_python' and name 'navigation'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(navigation-c) by extensions ['ignore', 'ignore_ament_install']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(navigation-c) by extension 'ignore'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(navigation-c) by extension 'ignore_ament_install'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(navigation-c) by extensions ['colcon_pkg']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(navigation-c) by extension 'colcon_pkg'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(navigation-c) by extensions ['colcon_meta']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(navigation-c) by extension 'colcon_meta'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(navigation-c) by extensions ['ros']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(navigation-c) by extension 'ros'
+[0.269s] DEBUG:colcon.colcon_core.package_identification:Package 'navigation-c' with type 'ros.ament_cmake' and name 'navigation-c'
+[0.269s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.269s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.269s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.269s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.269s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.287s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.287s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.289s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 3 installed packages in /home/arpan/Desktop/colcon_ws/install
+[0.291s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 341 installed packages in /opt/ros/humble
+[0.292s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.339s] Level 5:colcon.colcon_core.verb:set package 'example_pkg' build argument 'cmake_args' from command line to 'None'
+[0.339s] Level 5:colcon.colcon_core.verb:set package 'example_pkg' build argument 'cmake_target' from command line to 'None'
+[0.339s] Level 5:colcon.colcon_core.verb:set package 'example_pkg' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.340s] Level 5:colcon.colcon_core.verb:set package 'example_pkg' build argument 'cmake_clean_cache' from command line to 'False'
+[0.340s] Level 5:colcon.colcon_core.verb:set package 'example_pkg' build argument 'cmake_clean_first' from command line to 'False'
+[0.340s] Level 5:colcon.colcon_core.verb:set package 'example_pkg' build argument 'cmake_force_configure' from command line to 'False'
+[0.340s] Level 5:colcon.colcon_core.verb:set package 'example_pkg' build argument 'ament_cmake_args' from command line to 'None'
+[0.340s] Level 5:colcon.colcon_core.verb:set package 'example_pkg' build argument 'catkin_cmake_args' from command line to 'None'
+[0.340s] Level 5:colcon.colcon_core.verb:set package 'example_pkg' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.340s] DEBUG:colcon.colcon_core.verb:Building package 'example_pkg' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg', 'merge_install': False, 'path': '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/example_pkg', 'symlink_install': False, 'test_result_base': None}
+[0.340s] Level 5:colcon.colcon_core.verb:set package 'navigation' build argument 'cmake_args' from command line to 'None'
+[0.341s] Level 5:colcon.colcon_core.verb:set package 'navigation' build argument 'cmake_target' from command line to 'None'
+[0.341s] Level 5:colcon.colcon_core.verb:set package 'navigation' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.341s] Level 5:colcon.colcon_core.verb:set package 'navigation' build argument 'cmake_clean_cache' from command line to 'False'
+[0.341s] Level 5:colcon.colcon_core.verb:set package 'navigation' build argument 'cmake_clean_first' from command line to 'False'
+[0.341s] Level 5:colcon.colcon_core.verb:set package 'navigation' build argument 'cmake_force_configure' from command line to 'False'
+[0.341s] Level 5:colcon.colcon_core.verb:set package 'navigation' build argument 'ament_cmake_args' from command line to 'None'
+[0.341s] Level 5:colcon.colcon_core.verb:set package 'navigation' build argument 'catkin_cmake_args' from command line to 'None'
+[0.341s] Level 5:colcon.colcon_core.verb:set package 'navigation' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.341s] DEBUG:colcon.colcon_core.verb:Building package 'navigation' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation', 'merge_install': False, 'path': '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/navigation', 'symlink_install': False, 'test_result_base': None}
+[0.342s] Level 5:colcon.colcon_core.verb:set package 'navigation-c' build argument 'cmake_args' from command line to 'None'
+[0.342s] Level 5:colcon.colcon_core.verb:set package 'navigation-c' build argument 'cmake_target' from command line to 'None'
+[0.342s] Level 5:colcon.colcon_core.verb:set package 'navigation-c' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.342s] Level 5:colcon.colcon_core.verb:set package 'navigation-c' build argument 'cmake_clean_cache' from command line to 'False'
+[0.342s] Level 5:colcon.colcon_core.verb:set package 'navigation-c' build argument 'cmake_clean_first' from command line to 'False'
+[0.342s] Level 5:colcon.colcon_core.verb:set package 'navigation-c' build argument 'cmake_force_configure' from command line to 'False'
+[0.342s] Level 5:colcon.colcon_core.verb:set package 'navigation-c' build argument 'ament_cmake_args' from command line to 'None'
+[0.342s] Level 5:colcon.colcon_core.verb:set package 'navigation-c' build argument 'catkin_cmake_args' from command line to 'None'
+[0.342s] Level 5:colcon.colcon_core.verb:set package 'navigation-c' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.342s] DEBUG:colcon.colcon_core.verb:Building package 'navigation-c' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation-c', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c', 'merge_install': False, 'path': '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/navigation-c', 'symlink_install': False, 'test_result_base': None}
+[0.342s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.345s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.346s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/example_pkg' with build type 'ament_python'
+[0.346s] Level 1:colcon.colcon_core.shell:create_environment_hook('example_pkg', 'ament_prefix_path')
+[0.350s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.350s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/example_pkg/hook/ament_prefix_path.ps1'
+[0.351s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/example_pkg/hook/ament_prefix_path.dsv'
+[0.352s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/example_pkg/hook/ament_prefix_path.sh'
+[0.354s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.354s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.359s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/navigation' with build type 'ament_python'
+[0.360s] Level 1:colcon.colcon_core.shell:create_environment_hook('navigation', 'ament_prefix_path')
+[0.361s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/navigation/hook/ament_prefix_path.ps1'
+[0.362s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/navigation/hook/ament_prefix_path.dsv'
+[0.362s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/navigation/hook/ament_prefix_path.sh'
+[0.363s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.364s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.368s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/navigation-c' with build type 'ament_cmake'
+[0.368s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/navigation-c'
+[0.369s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.369s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.614s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/example_pkg'
+[0.616s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.616s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.839s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/navigation'
+[0.840s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.840s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.848s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation-c': CMAKE_PREFIX_PATH=/home/arpan/Desktop/colcon_ws/install/navigation:/home/arpan/Desktop/colcon_ws/install/example_pkg:/opt/ros/humble /usr/bin/cmake /home/arpan/Desktop/colcon_ws/src/IRIS-2023/navigation-c -DCMAKE_INSTALL_PREFIX=/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c
+[1.181s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/example_pkg': PYTHONPATH=/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/example_pkg build --build-base /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build install --prefix /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg --record /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/install.log --single-version-externally-managed
+[1.267s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/navigation': PYTHONPATH=/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/navigation build --build-base /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/build install --prefix /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation --record /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/install.log --single-version-externally-managed
+[1.605s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation' for CMake module files
+[1.606s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation' for CMake config files
+[1.606s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/navigation' returned '0': PYTHONPATH=/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/navigation build --build-base /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/build install --prefix /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation --record /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation/install.log --single-version-externally-managed
+[1.607s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/lib'
+[1.607s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/bin'
+[1.607s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/lib/pkgconfig/navigation.pc'
+[1.608s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/lib/python3.10/site-packages'
+[1.608s] Level 1:colcon.colcon_core.shell:create_environment_hook('navigation', 'pythonpath')
+[1.609s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/navigation/hook/pythonpath.ps1'
+[1.609s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/navigation/hook/pythonpath.dsv'
+[1.610s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/navigation/hook/pythonpath.sh'
+[1.610s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/bin'
+[1.610s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(navigation)
+[1.611s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/navigation/package.ps1'
+[1.614s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/navigation/package.dsv'
+[1.614s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/navigation/package.sh'
+[1.615s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/navigation/package.bash'
+[1.616s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/navigation/package.zsh'
+[1.616s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation/share/colcon-core/packages/navigation)
+[1.623s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg' for CMake module files
+[1.624s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/example_pkg' returned '0': PYTHONPATH=/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/example_pkg build --build-base /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/build install --prefix /home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg --record /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/example_pkg/install.log --single-version-externally-managed
+[1.625s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg' for CMake config files
+[1.625s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib'
+[1.625s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/bin'
+[1.625s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/pkgconfig/example_pkg.pc'
+[1.626s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/lib/python3.10/site-packages'
+[1.626s] Level 1:colcon.colcon_core.shell:create_environment_hook('example_pkg', 'pythonpath')
+[1.628s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/example_pkg/hook/pythonpath.ps1'
+[1.628s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/example_pkg/hook/pythonpath.dsv'
+[1.629s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/example_pkg/hook/pythonpath.sh'
+[1.629s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/bin'
+[1.630s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(example_pkg)
+[1.631s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/example_pkg/package.ps1'
+[1.632s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/example_pkg/package.dsv'
+[1.633s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/example_pkg/package.sh'
+[1.633s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/example_pkg/package.bash'
+[1.633s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/example_pkg/package.zsh'
+[1.633s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/example_pkg/share/colcon-core/packages/example_pkg)
+[1.739s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation-c' returned '0': CMAKE_PREFIX_PATH=/home/arpan/Desktop/colcon_ws/install/navigation:/home/arpan/Desktop/colcon_ws/install/example_pkg:/opt/ros/humble /usr/bin/cmake /home/arpan/Desktop/colcon_ws/src/IRIS-2023/navigation-c -DCMAKE_INSTALL_PREFIX=/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c
+[1.740s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation-c': CMAKE_PREFIX_PATH=/home/arpan/Desktop/colcon_ws/install/navigation:/home/arpan/Desktop/colcon_ws/install/example_pkg:/opt/ros/humble /usr/bin/cmake --build /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation-c -- -j4 -l4
+[1.782s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation-c' returned '0': CMAKE_PREFIX_PATH=/home/arpan/Desktop/colcon_ws/install/navigation:/home/arpan/Desktop/colcon_ws/install/example_pkg:/opt/ros/humble /usr/bin/cmake --build /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation-c -- -j4 -l4
+[1.832s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation-c': CMAKE_PREFIX_PATH=/home/arpan/Desktop/colcon_ws/install/navigation:/home/arpan/Desktop/colcon_ws/install/example_pkg:/opt/ros/humble /usr/bin/cmake --install /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation-c
+[1.847s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(navigation-c)
+[1.849s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c' for CMake module files
+[1.850s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation-c' returned '0': CMAKE_PREFIX_PATH=/home/arpan/Desktop/colcon_ws/install/navigation:/home/arpan/Desktop/colcon_ws/install/example_pkg:/opt/ros/humble /usr/bin/cmake --install /home/arpan/Desktop/colcon_ws/src/IRIS-2023/build/navigation-c
+[1.851s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c' for CMake config files
+[1.851s] Level 1:colcon.colcon_core.shell:create_environment_hook('navigation-c', 'cmake_prefix_path')
+[1.852s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/hook/cmake_prefix_path.ps1'
+[1.853s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/hook/cmake_prefix_path.dsv'
+[1.853s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/hook/cmake_prefix_path.sh'
+[1.854s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/bin'
+[1.854s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/lib/pkgconfig/navigation-c.pc'
+[1.854s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/lib/python3.10/site-packages'
+[1.854s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/bin'
+[1.858s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/package.ps1'
+[1.860s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/package.dsv'
+[1.861s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/package.sh'
+[1.862s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/package.bash'
+[1.862s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/package.zsh'
+[1.862s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/colcon-core/packages/navigation-c)
+[1.890s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(navigation-c)
+[1.892s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c' for CMake module files
+[1.892s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c' for CMake config files
+[1.892s] Level 1:colcon.colcon_core.shell:create_environment_hook('navigation-c', 'cmake_prefix_path')
+[1.893s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/hook/cmake_prefix_path.ps1'
+[1.894s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/hook/cmake_prefix_path.dsv'
+[1.894s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/hook/cmake_prefix_path.sh'
+[1.895s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/bin'
+[1.895s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/lib/pkgconfig/navigation-c.pc'
+[1.895s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/lib/python3.10/site-packages'
+[1.896s] Level 1:colcon.colcon_core.environment:checking '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/bin'
+[1.897s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/package.ps1'
+[1.897s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/package.dsv'
+[1.898s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/package.sh'
+[1.898s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/package.bash'
+[1.899s] INFO:colcon.colcon_core.shell:Creating package script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/navigation-c/package.zsh'
+[1.899s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/navigation-c/share/colcon-core/packages/navigation-c)
+[1.900s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[1.900s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[1.900s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[1.901s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[1.907s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[1.907s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[1.907s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[1.935s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[1.936s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/local_setup.ps1'
+[1.937s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/_local_setup_util_ps1.py'
+[1.938s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/setup.ps1'
+[1.939s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/local_setup.sh'
+[1.940s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/_local_setup_util_sh.py'
+[1.940s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/setup.sh'
+[1.941s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/local_setup.bash'
+[1.941s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/setup.bash'
+[1.943s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/local_setup.zsh'
+[1.943s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arpan/Desktop/colcon_ws/src/IRIS-2023/install/setup.zsh'
