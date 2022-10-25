@@ -5,12 +5,21 @@
     <xacro:property name="base_length" value="0.42"/><!-- Along y axis -->
     <xacro:property name="base_height" value="0.18"/><!-- Along z axis -->
 
+    <!-- Wheel set 1 -->
     <xacro:property name="wheel_radius" value="0.10"/>
     <xacro:property name="wheel_width" value="0.04"/>
     <xacro:property name="wheel_to_chassis_gap" value="0.025"/><!-- Along x axis -->
     <xacro:property name="wheel_zoff" value="0.05"/>
     <xacro:property name="wheel_xoff" value="0.12"/>
-    <xacro:property name="wheel_ygap" value="0.12"/>
+    <xacro:property name="wheel_ygap" value="-0.05"/>
+
+    <!-- Wheel set 2 -->
+    <xacro:property name="wheel_radius2" value="0.10"/>
+    <xacro:property name="wheel_width2" value="0.04"/>
+    <xacro:property name="wheel_to_chassis_gap2" value="0.025"/><!-- Along x axis -->
+    <xacro:property name="wheel_zoff2" value="0.05"/>
+    <xacro:property name="wheel_xoff2" value="0.5"/>
+    <xacro:property name="wheel_ygap2" value="-0.05"/>
 
     <xacro:property name="caster_xoff" value="0.14"/>
 
@@ -61,5 +70,30 @@
 
     <xacro:wheel prefix="drivewhl_l" x_reflect="-1" y_reflect="1" />
     <xacro:wheel prefix="drivewhl_r" x_reflect="-1" y_reflect="-1" />
+
+    <!-- Wheels Set 2-->
+    <xacro:macro name="wheel2" params="prefix x_reflect y_reflect">
+        <link name="${prefix}_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+            <geometry>
+                <cylinder radius="${wheel_radius2}" length="${wheel_width2}"/>
+            </geometry>
+            <material name="Gray">
+            <color rgba="0.5 0.5 0.5 1.0"/>
+            </material>
+        </visual>
+        </link>
+
+        <joint name="${prefix}_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="${prefix}_link"/>
+        <origin xyz="${x_reflect*wheel_xoff2} ${y_reflect*(base_width/2+wheel_ygap2)} ${-wheel_zoff2}" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        </joint>
+    </xacro:macro>
+
+    <xacro:wheel2 prefix="drivewhl_l2" x_reflect="-1" y_reflect="1" />
+    <xacro:wheel2 prefix="drivewhl_r2" x_reflect="-1" y_reflect="-1" />
 
 </robot>
