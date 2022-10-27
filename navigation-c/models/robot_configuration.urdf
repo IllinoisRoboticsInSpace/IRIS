@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
 <robot name="differential_robot" xmlns:xacro="http://ros.org/wiki/xacro">
     <!-- Define robot constants -->
-    <xacro:property name="base_width" value="0.31"/><!-- Along x axis -->
-    <xacro:property name="base_length" value="0.42"/><!-- Along y axis -->
-    <xacro:property name="base_height" value="0.18"/><!-- Along z axis -->
+    <xacro:property name="base_width" value="0.5"/><!-- Along x axis -->
+    <xacro:property name="base_length" value="1.0"/><!-- Along y axis -->
+    <xacro:property name="base_height" value="0.5"/><!-- Along z axis -->
 
     <!-- Wheel set 1 -->
-    <xacro:property name="wheel_radius" value="0.10"/>
-    <xacro:property name="wheel_width" value="0.04"/>
+    <xacro:property name="wheel_radius" value="0.089"/>
+    <xacro:property name="wheel_width" value="0.1016"/>
     <xacro:property name="wheel_to_chassis_gap" value="0.025"/><!-- Along x axis -->
-    <xacro:property name="wheel_zoff" value="0.05"/>
-    <xacro:property name="wheel_xoff" value="0.12"/>
-    <xacro:property name="wheel_ygap" value="-0.05"/>
+    <xacro:property name="wheel_zoff" value="0.2"/> <!-- downwards is positive -->
+    <xacro:property name="wheel_xoff" value="0.3"/>
+    <xacro:property name="wheel_ygap" value="0.0508"/>
 
     <!-- Wheel set 2 -->
-    <xacro:property name="wheel_radius2" value="0.10"/>
-    <xacro:property name="wheel_width2" value="0.04"/>
+    <xacro:property name="wheel_radius2" value="0.089"/>
+    <xacro:property name="wheel_width2" value="0.1016"/>
     <xacro:property name="wheel_to_chassis_gap2" value="0.025"/><!-- Along x axis -->
-    <xacro:property name="wheel_zoff2" value="0.05"/>
-    <xacro:property name="wheel_xoff2" value="0.5"/>
-    <xacro:property name="wheel_ygap2" value="-0.05"/>
+    <xacro:property name="wheel_zoff2" value="0.2"/> <!-- downwards is positive -->
+    <xacro:property name="wheel_xoff2" value="-0.3"/>
+    <xacro:property name="wheel_ygap2" value="0.0508"/>
 
     <xacro:property name="caster_xoff" value="0.14"/>
 
