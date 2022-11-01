@@ -17,9 +17,9 @@
     <xacro:property name="wheel_radius2" value="0.089"/>
     <xacro:property name="wheel_width2" value="0.1016"/>
     <xacro:property name="wheel_to_chassis_gap2" value="0.025"/><!-- Along x axis -->
-    <xacro:property name="wheel_zoff2" value="0.05"/>
-    <xacro:property name="wheel_xoff2" value="0.5"/>
-    <xacro:property name="wheel_ygap2" value="-0.05"/>
+    <xacro:property name="wheel_zoff2" value="0.2"/>
+    <xacro:property name="wheel_xoff2" value="-0.3"/>
+    <xacro:property name="wheel_ygap2" value="0.0508"/>
 
     <xacro:property name="caster_xoff" value="0.14"/>
 
