@@ -12,7 +12,7 @@ find_package(ament_cmake REQUIRED)
 # find_package(<dependency> REQUIRED)
 
 install(
-  DIRECTORY src launch rviz models
+  DIRECTORY src launch rviz models config world
   DESTINATION share/navigation-c
 )
 
