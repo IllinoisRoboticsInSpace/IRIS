@@ -7,6 +7,7 @@ def generate_launch_description():
     pkg_share = launch_ros.substitutions.FindPackageShare(package='navigation-c').find('navigation-c')
     default_model_path = os.path.join(pkg_share, 'models/robot_configuration.urdf')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config.rviz')
+    world_path=os.path.join(pkg_share, 'world/my_world.sdf'),
 
     robot_state_publisher_node = launch_ros.actions.Node(
         package='robot_state_publisher',
@@ -46,7 +47,7 @@ def generate_launch_description():
                                             description='Absolute path to robot urdf file'),
         launch.actions.DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path,
                                             description='Absolute path to rviz config file'),
-        launch.actions.ExecuteProcess(cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so'], output='screen'), #added for gazebo
+        launch.actions.ExecuteProcess(cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', world_path], output='screen'), #added for gazebo
         joint_state_publisher_node,
         joint_state_publisher_gui_node,
         robot_state_publisher_node,
