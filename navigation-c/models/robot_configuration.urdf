@@ -149,8 +149,8 @@
         </joint>
     </xacro:macro>
 
-    <xacro:wheel2 prefix="drivewhl_l2" x_reflect="-1" y_reflect="1" />
-    <xacro:wheel2 prefix="drivewhl_r2" x_reflect="-1" y_reflect="-1" />
+    <!-- <xacro:wheel2 prefix="drivewhl_l2" x_reflect="-1" y_reflect="1" />
+    <xacro:wheel2 prefix="drivewhl_r2" x_reflect="-1" y_reflect="-1" /> -->
 
 <!-- GAZEBO WIP -->
 
