@@ -149,8 +149,8 @@
         </joint>
     </xacro:macro>
 
-    <!-- <xacro:wheel2 prefix="drivewhl_l2" x_reflect="-1" y_reflect="1" />
-    <xacro:wheel2 prefix="drivewhl_r2" x_reflect="-1" y_reflect="-1" /> -->
+    <xacro:wheel2 prefix="drivewhl_l2" x_reflect="-1" y_reflect="1" />
+    <xacro:wheel2 prefix="drivewhl_r2" x_reflect="-1" y_reflect="-1" />
 
 <!-- GAZEBO WIP -->
 
@@ -252,8 +252,11 @@
     </ros>
 
     <!-- wheels -->
+    <num_wheel_pairs>2</num_wheel_pairs>
     <left_joint>drivewhl_l_joint</left_joint>
     <right_joint>drivewhl_r_joint</right_joint>
+    <left_joint>drivewhl_l2_joint</left_joint>
+    <right_joint>drivewhl_r2_joint</right_joint>
     
     <!-- kinematics -->
     <wheel_separation>0.4</wheel_separation>
