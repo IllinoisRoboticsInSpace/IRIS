@@ -16,7 +16,10 @@
     - `source ~/colcon_ws/install/setup.bash`
 
 ### Package Usage
-TODO
+Launch ROS2 navigation package:
+'''
+ros2 launch navigation-c display.launch.py
+'''
 ### End Package Folder Structure
 ```
 ~/colcon_ws/
