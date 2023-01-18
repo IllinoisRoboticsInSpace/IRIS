@@ -113,8 +113,8 @@
         </joint>
     </xacro:macro>
 
-    <xacro:wheel prefix="drivewhl_l" x_reflect="-1" y_reflect="1" />
-    <xacro:wheel prefix="drivewhl_r" x_reflect="-1" y_reflect="-1" />
+    <xacro:wheel prefix="drivewhl_l_back" x_reflect="-1" y_reflect="1" />
+    <xacro:wheel prefix="drivewhl_r_back" x_reflect="-1" y_reflect="-1" />
 
     <!-- Wheels Set 2-->
     <xacro:macro name="wheel2" params="prefix x_reflect y_reflect">
@@ -149,8 +149,8 @@
         </joint>
     </xacro:macro>
 
-    <xacro:wheel2 prefix="drivewhl_l2" x_reflect="-1" y_reflect="1" />
-    <xacro:wheel2 prefix="drivewhl_r2" x_reflect="-1" y_reflect="-1" />
+    <xacro:wheel2 prefix="drivewhl_l_front" x_reflect="-1" y_reflect="1" />
+    <xacro:wheel2 prefix="drivewhl_r_front" x_reflect="-1" y_reflect="-1" />
 
 <!-- GAZEBO WIP -->
 
@@ -252,8 +252,11 @@
     </ros>
 
     <!-- wheels -->
-    <left_joint>drivewhl_l_joint</left_joint>
-    <right_joint>drivewhl_r_joint</right_joint>
+    <num_wheel_pairs>2</num_wheel_pairs>
+    <left_joint>drivewhl_l_back_joint</left_joint>
+    <left_joint>drivewhl_l_front_joint</left_joint>
+    <right_joint>drivewhl_r_back_joint</right_joint>
+    <right_joint>drivewhl_r_front_joint</right_joint>
 
     <!-- kinematics -->
     <wheel_separation>0.4</wheel_separation>
@@ -311,10 +314,10 @@
     <ray>
       <scan>
         <horizontal>
-          <samples>360</samples>
+          <samples>86</samples>
           <resolution>1.000000</resolution>
-          <min_angle>0.000000</min_angle>
-          <max_angle>6.280000</max_angle>
+          <min_angle>0.8203</min_angle>
+          <max_angle>2.3213</max_angle>
         </horizontal>
       </scan>
       <range>
