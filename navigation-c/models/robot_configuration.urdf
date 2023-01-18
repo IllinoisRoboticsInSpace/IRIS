@@ -303,7 +303,7 @@
 <joint name="lidar_joint" type="fixed">
   <parent link="base_link"/>
   <child link="lidar_link"/>
-  <origin xyz="0 0 0.26" rpy="0 0 0"/>
+  <origin xyz="0.5 0 0.26" rpy="0 0 0"/>
 </joint>
 
 <gazebo reference="lidar_link">
@@ -316,9 +316,15 @@
         <horizontal>
           <samples>86</samples>
           <resolution>1.000000</resolution>
-          <min_angle>0.8203</min_angle>
-          <max_angle>2.3213</max_angle>
+          <min_angle>5.5316</min_angle>
+          <max_angle>7.0316</max_angle>
         </horizontal>
+        <vertical>
+          <samples>100</samples>
+          <resolution>1.0</resolution>
+          <min_angle>-0.4974</min_angle>
+          <max_angle>0.4974</max_angle>
+        </vertical>
       </scan>
       <range>
         <min>0.120000</min>
