@@ -1,4 +1,6 @@
 from setuptools import setup
+import os
+from glob import glob
 
 package_name = 'jetson'
 
@@ -8,18 +10,21 @@ setup(
     packages=[package_name],
     data_files=[
         ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
-        ('share/' + package_name, ['package.xml']),
+            [f'resource/{package_name}']),
+        (f'share/{package_name}', ['package.xml']),
+        (os.path.join('share', package_name, 'launch'),
+            glob(os.path.join('launch', '*.py'))),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='iris',
-    maintainer_email='iris@todo.todo',
-    description='TODO: Package description',
+    maintainer='iris-autonomous',
+    maintainer_email='iris.uiuc@gmail.com',
+    description='Jetson package for IRIS-2022',
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'twist_serial = jetson.twist_serial:main'
         ],
     },
 )
