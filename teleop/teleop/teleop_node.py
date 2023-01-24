@@ -24,10 +24,10 @@ class TeleopNode(Node):
         ))
         #self.get_logger().info(str(msg.axes[1]))
 
-    # def joystick_twist_callback(self, msg: Twist):
-    #     linear: Vector3 = msg.linear
-    #     angular: Vector3 = msg.angular
-    #     self.get_logger().info(f"Linear: {linear.x:.2f} | Angular: {angular.z:.2f}")
+    def joystick_twist_callback(self, msg: Twist):
+        linear: Vector3 = msg.linear
+        angular: Vector3 = msg.angular
+        self.get_logger().info(f"Linear: {linear.x:.2f} | Angular: {angular.z:.2f}")
 
 
 def main(args=None):

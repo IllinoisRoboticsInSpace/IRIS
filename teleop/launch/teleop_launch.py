@@ -25,6 +25,7 @@ def generate_launch_description():
                 'deadzone': 0.3,
                 'autorepeat_rate': 20.0,
             }]),
+        # JOYSTICK (TWIST) MODE
         # Node(
         #     package='teleop_twist_joy', executable='teleop_node',
         #     name='teleop_twist_joy_node', parameters=[config_filepath]),

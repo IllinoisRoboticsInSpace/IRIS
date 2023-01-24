@@ -19,9 +19,9 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='iris-autonomous',
-    maintainer_email='iris@illinois.edu',
-    description='Teleop package for IRIS-2022',
+    maintainer='iris-autonomous-team',
+    maintainer_email='iris.uiuc@gmail.com',
+    description='Teleop package for IRIS (2023)',
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
