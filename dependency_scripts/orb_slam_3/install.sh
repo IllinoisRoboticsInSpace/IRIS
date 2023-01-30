@@ -5,6 +5,8 @@
 # './install.sh'
 #
 # Place script in an empty folder and run with sudo.
+mkdir -p ~/orb_slam3
+cd ~/orb_slam3
 sudo apt-get install -y wget nasm python3-pip
 pip install numpy
 git clone --recursive https://github.com/stevenlovegrove/Pangolin.git
