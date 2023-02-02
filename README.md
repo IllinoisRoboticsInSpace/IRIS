@@ -1,6 +1,6 @@
 # IRIS-2023
 ### Prerequistes
-- ROS2 Humble
+- ROS2 Galactic
 ### Getting Started
 1. Create a colcon workspace
     - if you're colcon workspace folder does not exist: `mkdir -p ~/colcon_ws/src`
@@ -16,7 +16,10 @@
     - `source ~/colcon_ws/install/setup.bash`
 
 ### Package Usage
-TODO
+Launch ROS2 navigation package:
+```
+ros2 launch navigation-c display.launch.py
+```
 ### End Package Folder Structure
 ```
 ~/colcon_ws/
