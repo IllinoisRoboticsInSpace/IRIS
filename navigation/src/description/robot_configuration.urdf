@@ -14,16 +14,48 @@
 
     <xacro:property name="caster_xoff" value="0.14"/>
 
+    <!-- Define intertial property macros  -->
+    <xacro:macro name="box_inertia" params="m w h d">
+        <inertial>
+        <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/2}"/>
+        <mass value="${m}"/>
+        <inertia ixx="${(m/12) * (h*h + d*d)}" ixy="0.0" ixz="0.0" iyy="${(m/12) * (w*w + d*d)}" iyz="0.0" izz="${(m/12) * (w*w + h*h)}"/>
+        </inertial>
+    </xacro:macro>
+
+    <xacro:macro name="cylinder_inertia" params="m r h">
+        <inertial>
+        <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
+        <mass value="${m}"/>
+        <inertia ixx="${(m/12) * (3*r*r + h*h)}" ixy = "0" ixz = "0" iyy="${(m/12) * (3*r*r + h*h)}" iyz = "0" izz="${(m/2) * (r*r)}"/>
+        </inertial>
+    </xacro:macro>
+
+    <xacro:macro name="sphere_inertia" params="m r">
+        <inertial>
+        <mass value="${m}"/>
+        <inertia ixx="${(2/5) * m * (r*r)}" ixy="0.0" ixz="0.0" iyy="${(2/5) * m * (r*r)}" iyz="0.0" izz="${(2/5) * m * (r*r)}"/>
+        </inertial>
+    </xacro:macro>
+
     <!-- Robot Base -->
     <link name="base_link">
         <visual>
-        <geometry>
-            <box size="${base_length} ${base_width} ${base_height}"/>
-        </geometry>
-        <material name="Cyan">
-            <color rgba="0 1.0 1.0 1.0"/>
-        </material>
+            <geometry>
+                <box size="${base_length} ${base_width} ${base_height}"/>
+            </geometry>
+            <material name="Cyan">
+                <color rgba="0 1.0 1.0 1.0"/>
+            </material>
         </visual>
+
+        <collision>
+            <geometry>
+                <box size="${base_length} ${base_width} ${base_height}"/>
+            </geometry>
+        </collision>
+
+        <xacro:box_inertia m="15" w="${base_width}" d="${base_length}" h="${base_height}"/>
     </link>
 
     <!-- Robot Footprint -->
@@ -38,22 +70,32 @@
     <!-- Wheels -->
     <xacro:macro name="wheel" params="prefix x_reflect y_reflect">
         <link name="${prefix}_link">
-        <visual>
-            <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
-            <geometry>
-                <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
-            </geometry>
-            <material name="Gray">
-            <color rgba="0.5 0.5 0.5 1.0"/>
-            </material>
-        </visual>
+            <visual>
+                <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+                </geometry>
+                <material name="Gray">
+                <color rgba="0.5 0.5 0.5 1.0"/>
+                </material>
+            </visual>
+
+            <collision>
+                <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+                </geometry>
+            </collision>
+
+            <xacro:cylinder_inertia m="0.5" r="${wheel_radius}" h="${wheel_width}"/>
+
         </link>
 
         <joint name="${prefix}_joint" type="continuous">
-        <parent link="base_link"/>
-        <child link="${prefix}_link"/>
-        <origin xyz="${x_reflect*wheel_xoff} ${y_reflect*(base_width/2+wheel_ygap)} ${-wheel_zoff}" rpy="0 0 0"/>
-        <axis xyz="0 1 0"/>
+            <parent link="base_link"/>
+            <child link="${prefix}_link"/>
+            <origin xyz="${x_reflect*wheel_xoff} ${y_reflect*(base_width/2+wheel_ygap)} ${-wheel_zoff}" rpy="0 0 0"/>
+            <axis xyz="0 1 0"/>
         </joint>
     </xacro:macro>
 
@@ -63,13 +105,22 @@
     <!-- Caster Wheel -->
     <link name="front_caster">
         <visual>
-        <geometry>
-            <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
-        </geometry>
-        <material name="Cyan">
-            <color rgba="0 1.0 1.0 1.0"/>
-        </material>
+            <geometry>
+                <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+            </geometry>
+            <material name="Cyan">
+                <color rgba="0 1.0 1.0 1.0"/>
+            </material>
         </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+            </geometry>
+        </collision>
+
+        <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
     </link>
 
     <joint name="caster_joint" type="fixed">
