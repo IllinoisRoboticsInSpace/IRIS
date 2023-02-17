@@ -40,7 +40,24 @@ void loop() {
    
   Serial.readBytes(input,2);
   //Serial.write(input[1]);
-   unsigned int OdroidInInt = input[1]+input[0]*256;
+
+
+  //First byte: contains motorVal and checksum, in the Order Checksum:[7:3],motorVal[2:0]
+  //Second byte: is the power value.
+  /*
+   * Input[0],[1],[2] correspond to motor
+    KEY:
+    Motor ID: 
+  0: Left Drive
+  1: Right Drive
+  2: Bucket Ladder M
+  3: dump conveyor LA
+  4: bucket ladder LA
+  5: agitator
+  6: dump conveyor M
+  7: stops motors
+  */
+   unsigned int OdroidInInt = input[1]+input[0]*256; // concatenating bytes for CRC
    unsigned int CRC = 18;
    unsigned int msg = OdroidInInt % 2048;
    unsigned int checksum = OdroidInInt / 2048;
@@ -54,13 +71,13 @@ void loop() {
    if (curr) {
     // CRC came back bad
     // do some error handling here??
-    //Serial.print("error:");
+    Serial.print("error:");
    }else{
-  int power = input[1] % 128;
-  if(input[1]/128 % 2 == 1){
+  int power = input[1] % 128; // taking the most significant bit
+  if(input[1]/128 % 2 == 1){ // checking for 2s complement representation
     power *= -1;
   }
-  int motorNumber = input[0]%8;
+  int motorNumber = input[0]%8; // taking the motor number from the bottom two bits
   if(motorNumber == 1){
   ST.motor(1, -power);
   }else if(motorNumber == 2){

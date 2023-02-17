@@ -100,8 +100,7 @@ void loop()
    case 3 :
       digitalWrite(dir_1, (int)(OdroidIn[1]/128)); //controls the direction the motor;
       analogWrite(pwm_1, power*2); 
-      break; 
-   case 4 :
+      break;   case 4 :
       digitalWrite(dir_2, (int)(OdroidIn[1]/128)); //controls the direction the motor;
       analogWrite(pwm_2, power*2);
       break; 
@@ -112,7 +111,7 @@ void loop()
   
    case 6 :
       digitalWrite(dir_4, (int)(OdroidIn[1]/128)); //controls the direction the motor;
-      analogWrite(pwm_4, power*2);
+      analogWrite(pwm_4, power*2
       break;  
   
   default : 
