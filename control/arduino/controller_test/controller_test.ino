@@ -105,7 +105,11 @@ void loop()
   }
   else if (motorVal < 3)
   { // call a sabertooth for the action
-    ST[(motorVal % 4) / 2].motor(motorVal % 2 + 1, power);
+    if (((motorVal % 4) / 2) == 0) {
+      st_dr.motor(motorVal % 2 + 1, power);
+    } else {
+      // st_bl.motor(motorVal % 2 + 1, power);
+    }
   }
   else
   { // call a linAC
