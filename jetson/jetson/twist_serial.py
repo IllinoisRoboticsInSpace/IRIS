@@ -18,6 +18,7 @@ class twist_serial(Node):
 
         self.publisher_ = self.create_publisher(String, 'controller', 10) #publishes to 'controller' topic
 
+        # USB Cable should be connected to programming port from the jetson
         self.arduino = serial.Serial(port = '/dev/ttyACM0',baudrate = 9600, timeout = .1) #initializes arduino serial port. make sure baudrate is same for arduino and python code
 
         self.numMotor = [1,2]
