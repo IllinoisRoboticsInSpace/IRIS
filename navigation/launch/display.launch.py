@@ -42,6 +42,8 @@ def generate_launch_description():
 
 
     return launch.LaunchDescription([
+        launch_ros.actions.SetParameter(name='use_sim_time', value=True), # Might need to be set to real time when running on actual robot.
+        # 'use_sim_time' will be set on all nodes following the line above
         # Commented out gui for manually settign joint positions
         # launch.actions.DeclareLaunchArgument(name='gui', default_value='True',
         #                                     description='Flag to enable joint_state_publisher_gui'),
