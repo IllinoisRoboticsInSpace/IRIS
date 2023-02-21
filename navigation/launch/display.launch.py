@@ -42,7 +42,7 @@ def generate_launch_description():
 
 
     return launch.LaunchDescription([
-        launch_ros.actions.SetParameter(name='use_sim_time', value=True), # Might need to be set to real time when running on actual robot.
+        launch_ros.actions.SetParameter(name='use_sim_time', value=True), # Might need to be set to real time when running on actual robot (https://answers.ros.org/question/201948/tf_old_data-ignoring-data-from-the-past-for-frame-odom/).
         # 'use_sim_time' will be set on all nodes following the line above
         # Commented out gui for manually settign joint positions
         # launch.actions.DeclareLaunchArgument(name='gui', default_value='True',
