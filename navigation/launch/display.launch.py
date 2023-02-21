@@ -39,10 +39,20 @@ def generate_launch_description():
         arguments=['-entity', 'sam_bot', '-topic', 'robot_description'],
         output='screen'
     )
+    robot_localization_node = launch_ros.actions.Node(
+       package='robot_localization',
+       executable='ekf_node',
+       name='ekf_filter_node',
+       output='screen',
+       parameters=[os.path.join(pkg_share, 'config/ekf.yaml'), {'use_sim_time': LaunchConfiguration('use_sim_time')}]
+    )
 
 
     return launch.LaunchDescription([
+        # us_sim_time line is different from the original odom tutorial
         launch_ros.actions.SetParameter(name='use_sim_time', value=True), # Might need to be set to real time when running on actual robot (https://answers.ros.org/question/201948/tf_old_data-ignoring-data-from-the-past-for-frame-odom/).
+        launch.actions.DeclareLaunchArgument(name='use_sim_time', default_value='True',
+                                            description='Flag to enable use_sim_time'),
         # 'use_sim_time' will be set on all nodes following the line above
         # Commented out gui for manually settign joint positions
         # launch.actions.DeclareLaunchArgument(name='gui', default_value='True',
@@ -57,5 +67,6 @@ def generate_launch_description():
         # joint_state_publisher_gui_node,
         robot_state_publisher_node,
         spawn_entity,
+        robot_localization_node,
         rviz_node
     ])
