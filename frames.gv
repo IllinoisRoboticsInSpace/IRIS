@@ -1,0 +1,17 @@
+digraph G {
+"map" -> "odom"[label=" Broadcaster: default_authority\nAverage rate: 74.074\nBuffer length: 3.402\nMost recent transform: 302.191\nOldest transform: 298.789\n"];
+"base_link" -> "base_footprint"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"odom" -> "base_link"[label=" Broadcaster: default_authority\nAverage rate: 14.412\nBuffer length: 3.4\nMost recent transform: 302.111\nOldest transform: 298.711\n"];
+"camera_link" -> "camera_depth_frame"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "camera_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "imu_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "lidar_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "drivewhl_r_back_link"[label=" Broadcaster: default_authority\nAverage rate: 100.283\nBuffer length: 3.53\nMost recent transform: 302.164\nOldest transform: 298.634\n"];
+"base_link" -> "drivewhl_l_back_link"[label=" Broadcaster: default_authority\nAverage rate: 100.283\nBuffer length: 3.53\nMost recent transform: 302.164\nOldest transform: 298.634\n"];
+"base_link" -> "drivewhl_r_front_link"[label=" Broadcaster: default_authority\nAverage rate: 100.284\nBuffer length: 3.52\nMost recent transform: 302.154\nOldest transform: 298.634\n"];
+"base_link" -> "drivewhl_l_front_link"[label=" Broadcaster: default_authority\nAverage rate: 100.284\nBuffer length: 3.52\nMost recent transform: 302.154\nOldest transform: 298.634\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1676935560.349058"[ shape=plaintext ] ;
+}->"map";
+}
