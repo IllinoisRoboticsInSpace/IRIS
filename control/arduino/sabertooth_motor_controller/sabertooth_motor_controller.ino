@@ -15,8 +15,8 @@
 // serial input -> odroid
 Sabertooth st_dr(128, Serial1);
 byte odroid_dr;
-// Sabertooth st_bl(129, Serial1);
-// byte odroid_bl;
+Sabertooth st_bl(129, Serial1);
+byte odroid_bl;
 byte odroid_in[2];
 
 #define dir_1 22
@@ -35,6 +35,7 @@ void setup()
   Serial1.begin(9600);
   st_dr.autobaud();
 
+  // apportion correct motor values using define statements
   pinMode(pwm_1, OUTPUT);
   pinMode(dir_1, OUTPUT);
   pinMode(pwm_2, OUTPUT);
@@ -49,11 +50,12 @@ void setup()
   st_dr.motor(2, 0);
 }
 
-void CRC_check()
+// 0 means that no error
+int CRC_check()
 {
-
+  // split into separate function to avoid confusion
   unsigned int odroid_in_concat = odroid_in[1] + odroid_in[0] * 256; // concatenates odroid_in into a 16-bit int
-  unsigned int CRC = 18;                                             // CRC error checking
+  unsigned int CRC = 18;                                             // CRC error checking (black box?)
   unsigned int msg = odroid_in_concat % 2048;
   unsigned int checksum = odroid_in_concat / 2048;
   unsigned int curr = msg * 32 + checksum;
@@ -61,23 +63,33 @@ void CRC_check()
   int a, index;
   while (curr >= 32)
   {
-    index = largestOneIndex(curr);
+    index = largestOneIndex(curr); // CRC checking based on the index of high (1) bits found
     a = CRC << (index - 4);
     curr ^= a;
   }
   if (curr)
   {
-    // CRC came back bad
+    // if CRC came back bad
     // do some error handling here??
-    return;
+    return 1;
   }
+
+  return 0;
+
 }
 
 void loop()
 {
 
   Serial.readBytes(odroid_in, 2);
-  CRC_check();
+
+  if (CRC_check())
+  {
+    // if CRC came back bad
+    // do some error handling here??
+    return;
+  }
+
   // First byte: contains motorVal and checksum, in the Order Checksum:[7:3],motorVal[2:0]
   // Second byte: is the power value.
   /*
@@ -93,22 +105,24 @@ void loop()
    * 6: dump conveyor M
    * 7: stops motors
    */
-  int motorVal = odroid_in[0] % 8;
-  int power = odroid_in[1] % 128;
-  if (odroid_in[1] / 128 == 1 && motorVal < 3)
-  {
-    power *= -1;
-  }
-  if (motorVal == 7)
+  int motorVal = odroid_in[0] % 8; // bits 2:0
+  if (motorVal == 7) // stop code
   {
     Stop();
   }
-  else if (motorVal < 3)
+  int power = odroid_in[1] % 128; // bits 7:3
+  int invert = odroid_in[1] / 128; // bit 8
+  if (motorVal < 3)
   { // call a sabertooth for the action
+    if (invert) // checking if power (2s complement) is negative (most significant bit is 1)
+    {
+      power *= -1;
+    }
+
     if (((motorVal % 4) / 2) == 0) {
       st_dr.motor(motorVal % 2 + 1, power);
     } else {
-      // st_bl.motor(motorVal % 2 + 1, power);
+      st_bl.motor(motorVal % 2 + 1, power);
     }
   }
   else
@@ -150,7 +164,7 @@ void Stop()
     linAC(0, i);
   }
   st_dr.stop();
-  // st_bl.stop();
+  st_bl.stop();
 }
 
 int largestOneIndex(unsigned int curr)
