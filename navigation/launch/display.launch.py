@@ -47,7 +47,35 @@ def generate_launch_description():
        output='screen',
        parameters=[os.path.join(pkg_share, 'config/ekf.yaml'), {'use_sim_time': LaunchConfiguration('use_sim_time')}]
     )
+    depth_to_laserscan_node = launch_ros.actions.Node(
+        package='depthimage_to_laserscan',
+        executable='depthimage_to_laserscan_node',
+        name='depthimage_to_laserscan',
+        output='screen',
+        parameters=[{
+            'scan_height': 10,
+            'scan_time': 1.0,
+            'range_min': .5,
+            'range_max': 10.0,
+            'output_frame_id': "camera_depth_frame"
+        }],
+        remappings=[
+            ('image', '/depth_camera/depth/image_raw'),
+            ('camera_info', 'depth_camera/depth/camera_info'),
+            ('scan', '/scan_temp')
+        ]
+    )
 
+#  <node pkg="nodelet" type="nodelet" name="laserscan_nodelet_manager" args="manager"/> 
+#  <node pkg="nodelet" type="nodelet" 
+#  name="depthimage_to_laserscan"        args="load depthimage_to_laserscan/DepthImageToLaserScanNodelet 
+#  laserscan_nodelet_manager"> 
+#     <param name="scan_height" value="10"/> 
+#     <param name="output_frame_id" value="/camera_depth_frame"/> 
+#     <param name="range_min" value="0.45"/> 
+#     <remap from="image" to="/camera/depth/image_raw"/> 
+#     <remap from="scan" to="/scan"/> 
+#   </node> 
 
     return launch.LaunchDescription([
         # us_sim_time line is different from the original odom tutorial
@@ -69,5 +97,6 @@ def generate_launch_description():
         robot_state_publisher_node,
         spawn_entity,
         robot_localization_node,
+        depth_to_laserscan_node,
         rviz_node
     ])

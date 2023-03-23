@@ -19,6 +19,7 @@
   <exec_depend>xacro</exec_depend>
   <exec_depend>gazebo_ros</exec_depend>
   <exec_depend>robot_localization</exec_depend>
+  <exec_depend>depthimage-to-laserscan</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>
