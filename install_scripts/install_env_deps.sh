@@ -53,6 +53,8 @@ source ./install/setup.bash
 git submodule update --init --recursive
 cd ~/colcon_ws
 rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 -r --rosdistro $ROS_DISTRO -y
+export MAKEFLAGS="-j$(nproc)"
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 # colcon build # Should be run after running "install_jetson_deps.sh"
 
 # Install April Tags
