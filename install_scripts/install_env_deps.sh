@@ -50,6 +50,7 @@ source ./install/setup.bash
 
 
 # Repo Code Initialization
+git submodule update --init --recursive
 cd ~/colcon_ws
 rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 -r --rosdistro $ROS_DISTRO -y
 # colcon build # Should be run after running "install_jetson_deps.sh"
