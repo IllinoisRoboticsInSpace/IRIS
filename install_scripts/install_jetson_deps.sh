@@ -4,6 +4,13 @@
 sudo apt-get update
 sudo apt-get dist-upgrade
 
+# Setup CUDA Library Install
+# cuda 10.2
+# Link: https://github.com/jetsonhacks/buildLibrealsense2TX/issues/13#issuecomment-573976359
+echo "export CUDA_HOME=/usr/local/cuda" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64" >> ~/.bashrc
+echo "export PATH=$PATH:$CUDA_HOME/bin" >> ~/.bashrc
+
 # Adds 16GB of swap for initial compilation
 echo "Adding Swap"
 sudo swapoff /swapfile
@@ -32,7 +39,8 @@ cd librealsense
 ./scripts/patch-realsense-ubuntu-L4T.sh
 sudo apt-get install git libssl-dev libusb-1.0-0-dev libudev-dev pkg-config libgtk-3-dev -y
 ./scripts/setup_udev_rules.sh
-mkdir build && cd build
+mkdir build
+cd build
 cmake .. -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=release -DFORCE_RSUSB_BACKEND=false -DBUILD_WITH_CUDA=true && make -j$(($(nproc)-1)) && sudo make install
 
 # Install RSUSB Backend
