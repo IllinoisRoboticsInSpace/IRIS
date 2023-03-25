@@ -1,0 +1,9 @@
+[submodule "dependencies/realsense-ros"]
+	path = dependencies/realsense-ros
+	url = https://github.com/IntelRealSense/realsense-ros.git
+[submodule "dependencies/apriltag_msgs"]
+	path = dependencies/apriltag_msgs
+	url = https://github.com/christianrauch/apriltag_msgs
+[submodule "dependencies/apriltag_ros"]
+	path = dependencies/apriltag_ros
+	url = https://github.com/christianrauch/apriltag_ros
