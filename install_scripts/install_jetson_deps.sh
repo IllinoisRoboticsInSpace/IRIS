@@ -1,6 +1,9 @@
 # Script to install dependencies and configure the jetson nano
 # Only meant to be run once
 
+sudo apt-get update
+sudo apt-get dist-upgrade
+
 # Adds 16GB of swap for initial compilation
 echo "Adding Swap"
 sudo swapoff /swapfile
