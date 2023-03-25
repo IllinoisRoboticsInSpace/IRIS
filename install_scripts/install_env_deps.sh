@@ -53,3 +53,14 @@ source ./install/setup.bash
 cd ~/colcon_ws
 rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 -r --rosdistro $ROS_DISTRO -y
 # colcon build # Should be run after running "install_jetson_deps.sh"
+
+# Install April Tags
+cwd=$(pwd)
+cd ~/
+mkdir IRIS_dependencies
+cd IRIS_dependencies
+git clone https://github.com/AprilRobotics/apriltag.git
+cd apriltag
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+sudo cmake --build build --target install
+cd $cwd

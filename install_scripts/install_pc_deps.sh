@@ -25,4 +25,4 @@ wget https://www.dimensionengineering.com/software/SabertoothArduinoLibraries.zi
 unzip SabertoothArduinoLibraries.zip
 rm SabertoothArduinoLibraries.zip
 sudo usermod -a -G dialout iris # enable perimission requires restart
-cwd=$(pwd)
+cd $cwd
