@@ -23,7 +23,9 @@ sudo swapon /swapfile
 
 # Install Realsense
 cwd=$(pwd)
+cd ~/
 git clone https://github.com/IntelRealSense/librealsense.git
+cd librealsense
 
 # Install from Source Native Backend
 # Link: https://github.com/IntelRealSense/librealsense/blob/master/doc/installation_jetson.md#building-from-source-using-native-backend
