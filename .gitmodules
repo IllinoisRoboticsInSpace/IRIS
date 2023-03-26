@@ -7,3 +7,6 @@
 [submodule "dependencies/apriltag_ros"]
 	path = dependencies/apriltag_ros
 	url = https://github.com/christianrauch/apriltag_ros
+[submodule "dependencies/imu_tools"]
+	path = dependencies/imu_tools
+	url = https://github.com/IllinoisRoboticsInSpace/imu_tools
