@@ -29,20 +29,18 @@ void setup()
 {
   DRIVE_SABER_SERIAL.begin(9600);
   drive_sabertooth.autobaud();
-
-  drive_sabertooth.motor(DRIVE_LEFT_MOTOR, 0);
-  drive_sabertooth.motor(DRIVE_RIGHT_MOTOR, 0);
-
-  // Init the 10 amp board
-  pinMode(A_PWM,OUTPUT);
-  pinMode(A_DIRECTION,OUTPUT);
-
   DRIVE_SABER_SERIAL.begin(9600);
   drive_sabertooth.autobaud();
   S2_SABER_SERIAL.begin(9600);
   S2_sabertooth.autobaud();
   S3_SABER_SERIAL.begin(9600);
   S3_sabertooth.autobaud();
+
+  // Init the 10 amp board
+  pinMode(A_PWM,OUTPUT);
+  pinMode(A_DIRECTION,OUTPUT);
+
+  stop();
 }
 
 // 0 means that no error
@@ -68,9 +66,7 @@ int CRC_check()
     // do some error handling here??
     return 1;
   }
-
   return 0;
-
 }
 
 void loop()
