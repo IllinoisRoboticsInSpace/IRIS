@@ -1,5 +1,4 @@
 // Jolty Sample for Packet Serial
-#include <SoftwareSerial.h>
 #include <Sabertooth.h>
 
 // The Sabertooth is on address 128. We'll name its object ST.
@@ -9,9 +8,9 @@
 //   SyRen      - http://www.dimensionengineering.com/datasheets/SyrenDIPWizard/start.htm
 // Be sure to select Packetized Serial Mode for use with this library.
 //
-// In this sample, arduino due hardware serial TX0 connects to sabertooth S1.
+// In this sample, arduino due hardware serial TX1 connects to sabertooth S1.
 
-Sabertooth sabertooth(128, Serial); 
+Sabertooth sabertooth(128, Serial1); 
                                         
 void setup()
 {
