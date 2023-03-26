@@ -1,4 +1,11 @@
 # Ubuntu 20 Galactic on PC Installation Script
+
+# Update distribution and components such as kernel
+# If Realsense SDK install kernel modules fail to install
+# then restart device before installing realsense sdk
+sudo apt-get update
+sudo apt-get dist-upgrade
+
 echo "Begin PC Installation Script"
 echo "Installing Realsense SDK"
 
