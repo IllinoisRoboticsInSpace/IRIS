@@ -38,8 +38,8 @@ cd $cwd
 echo "Adding Swap"
 sudo swapoff /swapfile
 sudo rm  /swapfile
-sudo dd if=/dev/zero of=/swapfile bs=1M count=8192 #8GB
-# sudo dd if=/dev/zero of=/swapfile bs=1M count=16384 #16GB
+# sudo dd if=/dev/zero of=/swapfile bs=1M count=8192 #8GB
+sudo dd if=/dev/zero of=/swapfile bs=1M count=16384 #16GB
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
