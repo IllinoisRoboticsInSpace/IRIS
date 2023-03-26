@@ -1,6 +1,7 @@
-// !!UNFINISHED!!
-
 #include <Sabertooth.h>
+#include "motor_pin_config.h"
+
+#define DEBUG false
 
 /* available addresses for packetized serial mode are 128-135
  * i.e. switches 1-3 are DOWN and the rest are up to user choice
@@ -13,51 +14,45 @@
 
 // Abbreviations: st -> Sabertooth, dr -> drive, bl -> rbucket/ladder
 // serial input -> odroid
-Sabertooth st_dr(128, Serial1);
+Sabertooth drive_sabertooth(DRIVE_SABER_ADDRESS, DRIVE_SABER_SERIAL);
+Sabertooth S2_sabertooth(S2_SABER_ADDRESS, S2_SABER_SERIAL);
+Sabertooth S3_sabertooth(S3_SABER_ADDRESS, S3_SABER_SERIAL);
+
+// Old
 byte odroid_dr;
 Sabertooth st_bl(129, Serial1);
 byte odroid_bl;
-byte odroid_in[2];
+byte serial_in_buffer[2];
 
-#define dir_1 22
-#define pwm_1 2
-#define dir_2 23
-#define pwm_2 3
-
-#define dir_3 24
-#define pwm_3 4
-#define dir_4 25
-#define pwm_4 5
 
 void setup()
 {
-  Serial.begin(9600);
-  Serial1.begin(9600);
-  st_dr.autobaud();
+  DRIVE_SABER_SERIAL.begin(9600);
+  drive_sabertooth.autobaud();
 
-  // apportion correct motor values using define statements
-  pinMode(pwm_1, OUTPUT);
-  pinMode(dir_1, OUTPUT);
-  pinMode(pwm_2, OUTPUT);
-  pinMode(dir_2, OUTPUT);
+  drive_sabertooth.motor(DRIVE_LEFT_MOTOR, 0);
+  drive_sabertooth.motor(DRIVE_RIGHT_MOTOR, 0);
 
-  pinMode(pwm_3, OUTPUT);
-  pinMode(dir_3, OUTPUT);
-  pinMode(pwm_4, OUTPUT);
-  pinMode(dir_4, OUTPUT);
+  // Init the 10 amp board
+  pinMode(A_PWM,OUTPUT);
+  pinMode(A_DIRECTION,OUTPUT);
 
-  st_dr.motor(1, 0);
-  st_dr.motor(2, 0);
+  DRIVE_SABER_SERIAL.begin(9600);
+  drive_sabertooth.autobaud();
+  S2_SABER_SERIAL.begin(9600);
+  S2_sabertooth.autobaud();
+  S3_SABER_SERIAL.begin(9600);
+  S3_sabertooth.autobaud();
 }
 
 // 0 means that no error
 int CRC_check()
 {
   // split into separate function to avoid confusion
-  unsigned int odroid_in_concat = odroid_in[1] + odroid_in[0] * 256; // concatenates odroid_in into a 16-bit int
+  unsigned int serial_in_buffer_concat = serial_in_buffer[1] + serial_in_buffer[0] * 256; // concatenates serial_in_buffer into a 16-bit int
   unsigned int CRC = 18;                                             // CRC error checking (black box?)
-  unsigned int msg = odroid_in_concat % 2048;
-  unsigned int checksum = odroid_in_concat / 2048;
+  unsigned int msg = serial_in_buffer_concat % 2048;
+  unsigned int checksum = serial_in_buffer_concat / 2048;
   unsigned int curr = msg * 32 + checksum;
 
   int a, index;
@@ -80,10 +75,8 @@ int CRC_check()
 
 void loop()
 {
-
-  Serial.readBytes(odroid_in, 2);
-
-  if (CRC_check())
+  Serial.readBytes(serial_in_buffer, 2);
+  if (CRC_check() == 1)
   {
     // if CRC came back bad
     // do some error handling here??
@@ -105,13 +98,13 @@ void loop()
    * 6: dump conveyor M
    * 7: stops motors
    */
-  int motorVal = odroid_in[0] % 8; // bits 2:0
+  int motorVal = serial_in_buffer[0] % 8; // bits 2:0
   if (motorVal == 7) // stop code
   {
-    Stop();
+    stop();
   }
-  int power = odroid_in[1] % 128; // bits 7:3
-  int invert = odroid_in[1] / 128; // bit 8
+  int power = serial_in_buffer[1] % 128; // bits 7:3
+  int invert = serial_in_buffer[1] / 128; // bit 8
   if (motorVal < 3)
   { // call a sabertooth for the action
     if (invert) // checking if power (2s complement) is negative (most significant bit is 1)
@@ -120,7 +113,7 @@ void loop()
     }
 
     if (((motorVal % 4) / 2) == 0) {
-      st_dr.motor(motorVal % 2 + 1, power);
+      drive_sabertooth.motor(motorVal % 2 + 1, power);
     } else {
       st_bl.motor(motorVal % 2 + 1, power);
     }
@@ -136,35 +129,23 @@ void linAC(int power, int motor)
   switch (motor)
   {
   case 3:
-    digitalWrite(dir_1, (int)(odroid_in[1] / 128)); // controls the direction the motor;
-    analogWrite(pwm_1, power * 2);
-    break;
-  case 4:
-    digitalWrite(dir_2, (int)(odroid_in[1] / 128)); // controls the direction the motor;
-    analogWrite(pwm_2, power * 2);
-    break;
-  case 5:
-    digitalWrite(dir_3, (int)(odroid_in[1] / 128)); // controls the direction the motor;
-    analogWrite(pwm_3, power * 2);
-    break;
-
-  case 6:
-    digitalWrite(dir_4, (int)(odroid_in[1] / 128)); // controls the direction the motor;
-    analogWrite(pwm_4, power * 2);
+    digitalWrite(A_DIRECTION, (int)(serial_in_buffer[1] / 128)); // controls the direction the motor;
+    analogWrite(A_PWM, power * 2);
     break;
 
   default:
     return;
   }
 }
-void Stop()
+void stop()
 {
-  for (int i = 3; i < 7; i++)
+  for (int i = 0; i < 7; i++)
   {
     linAC(0, i);
   }
-  st_dr.stop();
-  st_bl.stop();
+  drive_sabertooth.stop();
+  S2_sabertooth.stop();
+  S3_sabertooth.stop();
 }
 
 int largestOneIndex(unsigned int curr)
