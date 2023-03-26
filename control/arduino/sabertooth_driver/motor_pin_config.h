@@ -1,5 +1,8 @@
 #ifndef _MOTOR_PIN_CONFIG_
 #define _MOTOR_PIN_CONFIG_
+
+#include <Arduino.h>
+
 // A config for the arduino due
 // Available addresses for packetized serial mode are 128-135
 // DIP switch address config: Description from http://www.dimensionengineering.com/datasheets/SabertoothDIPWizard/start.htm:

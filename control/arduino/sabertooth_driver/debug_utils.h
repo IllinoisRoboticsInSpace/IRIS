@@ -2,8 +2,9 @@
 #define _DEBUG_UTILS_
 
 #include <stdio.h>
+#include <Arduino.h>
 
-#define MAX_DEBUG_MESSAGE 128
+#define MAX_DEBUG_MESSAGE 256
 static char debug_buffer[MAX_DEBUG_MESSAGE];
 
 #if(DEBUG == true)
