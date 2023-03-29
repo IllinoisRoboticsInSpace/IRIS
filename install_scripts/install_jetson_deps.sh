@@ -47,4 +47,8 @@ cmake .. -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=release -DFORCE_RSUSB_BACKEND=
 # ./scirpts/libuvc_installation.sh
 cd $cwd
 
+# Set Number of Processors For Make
+# Must be small for memory intensive compilation
+export MAKEFLAGS="-j1"
+
 ./install_env_deps.sh

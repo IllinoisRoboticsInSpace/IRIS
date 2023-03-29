@@ -34,7 +34,7 @@ rm SabertoothArduinoLibraries.zip
 sudo usermod -a -G dialout iris # enable perimission requires restart
 cd $cwd
 
-# Adds 8GB of swap for initial compilation
+# Adds 16GB of swap for initial compilation
 echo "Adding Swap"
 sudo swapoff /swapfile
 sudo rm  /swapfile
@@ -43,5 +43,8 @@ sudo dd if=/dev/zero of=/swapfile bs=1M count=16384 #16GB
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
+
+# Set Number of Processors For Make
+export MAKEFLAGS="-j$(nproc)"
 
 ./install_env_deps.sh
