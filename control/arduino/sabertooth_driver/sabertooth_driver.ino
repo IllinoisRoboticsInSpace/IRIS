@@ -1,5 +1,6 @@
 #include <Sabertooth.h>
 #include "motor_pin_config.h"
+#include "debug_utils.h"
 
 #define DEBUG false
 
@@ -14,31 +15,36 @@
 
 // Abbreviations: st -> Sabertooth, dr -> drive, bl -> rbucket/ladder
 // serial input -> odroid
-Sabertooth drive_sabertooth(DRIVE_SABER_ADDRESS, DRIVE_SABER_SERIAL);
+Sabertooth S1_sabertooth(S1_SABER_ADDRESS, S1_SABER_SERIAL);
 Sabertooth S2_sabertooth(S2_SABER_ADDRESS, S2_SABER_SERIAL);
 Sabertooth S3_sabertooth(S3_SABER_ADDRESS, S3_SABER_SERIAL);
 
 // Old
 byte odroid_dr;
-Sabertooth st_bl(129, Serial1);
 byte odroid_bl;
 byte serial_in_buffer[2];
 
 
 void setup()
 {
-  DRIVE_SABER_SERIAL.begin(9600);
-  drive_sabertooth.autobaud();
-  DRIVE_SABER_SERIAL.begin(9600);
-  drive_sabertooth.autobaud();
+  Serial.begin(9600);
+  // Serial.print("Starting Up Sabertooth Driver\n");  
+  S1_SABER_SERIAL.begin(9600);
+  S1_sabertooth.autobaud();
   S2_SABER_SERIAL.begin(9600);
   S2_sabertooth.autobaud();
   S3_SABER_SERIAL.begin(9600);
   S3_sabertooth.autobaud();
 
   // Init the 10 amp board
-  pinMode(A_PWM,OUTPUT);
-  pinMode(A_DIRECTION,OUTPUT);
+  pinMode(A_PWM, OUTPUT);
+  pinMode(A_DIRECTION, OUTPUT);
+
+  // pinMode(LED_BUILTIN, OUTPUT);
+  
+  // #if(DEBUG == true)
+  //   setup_debug();
+  // #endif
 
   stop();
 }
@@ -71,11 +77,14 @@ int CRC_check()
 
 void loop()
 {
+  //Serial.print("Entering Loop\n");    
+  //PRINTF_SERIAL_DEBUG("Entering Loop\n");
   Serial.readBytes(serial_in_buffer, 2);
   if (CRC_check() == 1)
   {
     // if CRC came back bad
     // do some error handling here??
+    //PRINTF_SERIAL_DEBUG("CRC_CHECK FAILED!!!\n");
     return;
   }
 
@@ -87,11 +96,11 @@ void loop()
    * Motor ID:
    * 0: Left Drive
    * 1: Right Drive
-   * 2: Bucket Ladder M
-   * 3: dump conveyor LA
-   * 4: bucket ladder LA
-   * 5: agitator
-   * 6: dump conveyor M
+   * 2: Left Back Collection Motor
+   * 3: Right Back Collection Motor
+   * 4: Excavator Internal Motor
+   * 5: Excavator Threaded Rod Actuator
+   * 6: Excavator Pivoting Linear Actuator
    * 7: stops motors
    */
   int motorVal = serial_in_buffer[0] % 8; // bits 2:0
@@ -101,36 +110,78 @@ void loop()
   }
   int power = serial_in_buffer[1] % 128; // bits 7:3
   int invert = serial_in_buffer[1] / 128; // bit 8
-  if (motorVal < 3)
-  { // call a sabertooth for the action
-    if (invert) // checking if power (2s complement) is negative (most significant bit is 1)
-    {
-      power *= -1;
-    }
+  if (invert) // checking if power (2s complement) is negative (most significant bit is 1)
+  {
+    power *= -1;
+  }
 
-    if (((motorVal % 4) / 2) == 0) {
-      drive_sabertooth.motor(motorVal % 2 + 1, power);
-    } else {
-      st_bl.motor(motorVal % 2 + 1, power);
-    }
+  // PRINTF_SERIAL_DEBUG("Motor Val: %d\n", motorVal);
+  // PRINTF_SERIAL_DEBUG("Power: %d\n", power);
+  // Serial.print("Motor Val: ");  
+  // Serial.println(motorVal);   
+  // Serial.print("Power: ");  
+  // Serial.println(motorVal);
+
+  switch (motorVal)
+  {
+    case 0:
+      S3_sabertooth.motor(DRIVE_LEFT_MOTOR, power);
+      break;
+    case 1:
+      S1_sabertooth.motor(DRIVE_RIGHT_MOTOR, power);
+      // digitalWrite(LED_BUILTIN, HIGH);
+      // delay(1000);
+      // digitalWrite(LED_BUILTIN, LOW);
+      // delay(1000);
+      break;
+    case 2:
+      S3_sabertooth.motor(LEFT_COLLECTION_MOTOR, power);
+      break;
+    case 3:
+      S1_sabertooth.motor(RIGHT_COLLECTION_MOTOR, power);
+      break;
+    case 4:
+      S2_sabertooth.motor(EXCAVATOR_INTERNAL_MOTOR, power);
+      break;
+    case 5:
+      S2_sabertooth.motor(EXCAVATOR_THREADED_ROD, power);
+      break;
+    case 6:
+      linAC(power, motorVal);
+      break;      
+    default:
+      stop();
+      return;
   }
-  else
-  { // call a linAC
-    linAC(power, motorVal);
-  }
+  
+  
+  // if (motorVal < 3)
+  // { // call a sabertooth for the action
+    
+
+  //   if (((motorVal % 4) / 2) == 0) {
+  //     drive_sabertooth.motor(motorVal % 2 + 1, power);
+  //   } else {
+  //     st_bl.motor(motorVal % 2 + 1, power);
+  //   }
+  // }
+  // else
+  // { // call a linAC
+  //   linAC(power, motorVal);
+  // }
 }
 
 void linAC(int power, int motor)
 {
   switch (motor)
   {
-  case 3:
-    digitalWrite(A_DIRECTION, (int)(serial_in_buffer[1] / 128)); // controls the direction the motor;
-    analogWrite(A_PWM, power * 2);
-    break;
+    case 6:
+      digitalWrite(A_DIRECTION, (int)(serial_in_buffer[1] / 128)); // controls the direction the motor;
+      analogWrite(A_PWM, power * 2);
+      break;
 
-  default:
-    return;
+    default:
+      return;
   }
 }
 void stop()
@@ -139,7 +190,7 @@ void stop()
   {
     linAC(0, i);
   }
-  drive_sabertooth.stop();
+  S1_sabertooth.stop();
   S2_sabertooth.stop();
   S3_sabertooth.stop();
 }

@@ -27,25 +27,25 @@
 // NOTE: Hardware Serial TX0 interferes with the usb serial output
 
 // Sabertooth 1
-// Motors (1,2): Right Back Bucket Ladder Motor, Drive Right
-#define DRIVE_SABER_ADDRESS 128        // DIP switch address
-#define DRIVE_SABER_SERIAL Serial1     // Hardware Serial TX1
-#define DRIVE_LEFT_MOTOR 1             // S1
-#define DRIVE_RIGHT_MOTOR 2            // S2
+// Motors S(1,2): Right Back Collection Motor, Drive Right
+#define S1_SABER_ADDRESS 128            // DIP switch address
+#define S1_SABER_SERIAL Serial1         // Hardware Serial TX1
+#define RIGHT_COLLECTION_MOTOR 1        // S1
+#define DRIVE_RIGHT_MOTOR 2             // S2
 
 // Sabertooth 2
-// Motors (1,2): Excavator Internal Motor, Excavator Threaded Rod Actuator
-#define S2_SABER_ADDRESS 129           // DIP switch address
-#define S2_SABER_SERIAL Serial2        // Hardware Serial TX2
-#define S2_LEFT_MOTOR 1                // S1
-#define S2_RIGHT_MOTOR 2               // S2
+// Motors S(1,2): Excavator Internal Motor, Excavator Threaded Rod Actuator
+#define S2_SABER_ADDRESS 129            // DIP switch address
+#define S2_SABER_SERIAL Serial2         // Hardware Serial TX2
+#define EXCAVATOR_INTERNAL_MOTOR 1      // S1
+#define EXCAVATOR_THREADED_ROD 2        // S2
 
 // Sabertooth 3
-// Motors (1,2): Left Collection Motor, Left Drive Motor
+// Motors S(1,2): Left Back Collection Motor, Left Drive Motor
 #define S3_SABER_ADDRESS 130            // DIP switch address
 #define S3_SABER_SERIAL Serial3         // Hardware Serial TX3
-#define S3_LEFT_MOTOR 1                 // S1
-#define S3_RIGHT_MOTOR 2                // S2
+#define LEFT_COLLECTION_MOTOR 1         // S1
+#define DRIVE_LEFT_MOTOR 2              // S2
 
 // 10 Amp Board
 // Motors: Excavator Pivoting Linear Actuator
