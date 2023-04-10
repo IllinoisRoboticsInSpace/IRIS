@@ -37,6 +37,7 @@ cd IRIS_dependencies
 git clone https://github.com/IntelRealSense/librealsense.git
 cd librealsense
 
+# Choose a backend for usb
 # Install from Source Native Backend
 # Link: https://github.com/IntelRealSense/librealsense/blob/master/doc/installation_jetson.md#building-from-source-using-native-backend
 ./scripts/patch-realsense-ubuntu-L4T.sh
