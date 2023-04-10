@@ -20,6 +20,7 @@ sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
 
+# Not working on jetson nano ubuntu 20
 # Install Realsense SDK using debian apt
 # sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
 # sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -u
@@ -28,9 +29,11 @@ sudo swapon /swapfile
 # sudo apt-get install librealsense2-dkms
 # sudo apt-get install librealsense2-dbg
 
-# Install Realsense
+# Install Realsense SDK
 cwd=$(pwd)
 cd ~/
+mkdir IRIS_dependencies
+cd IRIS_dependencies
 git clone https://github.com/IntelRealSense/librealsense.git
 cd librealsense
 
