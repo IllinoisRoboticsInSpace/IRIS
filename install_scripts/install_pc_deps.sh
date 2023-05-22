@@ -1,4 +1,8 @@
 # Ubuntu 20 Galactic on PC Installation Script
+# Will edit the ~/.bashrc, but it will not check if it was previously written to.
+#
+#   ONLY RUN THIS SCRIPT ONCE
+#
 
 # Update distribution and components such as kernel
 # If Realsense SDK install kernel modules fail to install
@@ -31,7 +35,7 @@ cd ~/Arduino/libraries
 wget -c https://www.dimensionengineering.com/software/SabertoothArduinoLibraries.zip
 unzip SabertoothArduinoLibraries.zip
 rm SabertoothArduinoLibraries.zip
-sudo usermod -a -G dialout iris # enable perimission requires restart
+sudo usermod -a -G dialout $USER # enable permission requires restart
 cd $cwd
 
 # Adds 16GB of swap for initial compilation
@@ -45,7 +49,17 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 
 # Set Number of Processors For Make
-# export MAKEFLAGS="-j$(nproc)"
-export MAKEFLAGS="-j1"
+# Extracts amount of available memory in GB
+avail_mem=$(free -t -g | grep -oP '\d+' | sed '6!d')
+echo "$avail_mem GB of available memory"
+
+echo "Setting MAKEFLAGS"
+if [ $avail_mem -ge 16 ]; then
+  echo "Using All CPUs"
+  export MAKEFLAGS="-j$(nproc)"
+else
+  echo "Using 1 CPU"
+  export MAKEFLAGS="-j1"
+fi
 
 ./install_env_deps.sh
