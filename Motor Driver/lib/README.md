@@ -44,3 +44,6 @@ libraries scanning project source files.
 
 More information about PlatformIO Library Dependency Finder
 - https://docs.platformio.org/page/librarymanager/ldf.html
+
+Sabertooth Library
+- https://www.dimensionengineering.com/info/arduino
