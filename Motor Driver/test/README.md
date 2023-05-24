@@ -10,9 +10,10 @@ in the development cycle.
 More information about PlatformIO Unit Testing:
 - https://docs.platformio.org/en/latest/advanced/unit-testing/index.html
 
+NOTE:
+Google Test can not be used because it doesn't support the Arduino Due: https://docs.platformio.org/en/latest/advanced/unit-testing/frameworks/googletest.html
+
 
 Good Resources:
 Setting Up Unity Tests:
 https://www.youtube.com/watch?v=KPesyRp8qqo
-Setting Up Google Test Unit Tests:
-https://www.youtube.com/watch?v=_xRv-3FWyLE
