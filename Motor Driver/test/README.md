@@ -15,5 +15,9 @@ Google Test can not be used because it doesn't support the Arduino Due: https://
 
 
 Good Resources:
-Setting Up Unity Tests:
+Setting Up Unity Unit Tests:
 https://www.youtube.com/watch?v=KPesyRp8qqo
+Unity Unit Test Documentation:
+http://www.throwtheswitch.org/unity
+CMock Library:
+https://github.com/ThrowTheSwitch/CMock
