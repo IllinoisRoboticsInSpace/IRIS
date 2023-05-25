@@ -60,7 +60,7 @@ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --executo
 # Install April Tags
 cwd=$(pwd)
 cd ~/
-mkdir IRIS_dependencies
+mkdir -p IRIS_dependencies
 cd IRIS_dependencies
 git clone https://github.com/AprilRobotics/apriltag.git
 cd apriltag
