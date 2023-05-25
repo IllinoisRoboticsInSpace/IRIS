@@ -53,7 +53,7 @@ avail_mem=$(free -t -g | grep -oP '\d+' | sed '6!d')
 echo "$avail_mem GB of available memory"
 
 echo "Setting MAKEFLAGS"
-if [ $avail_mem -ge 16 ]; then
+if [ $avail_mem -ge 8 ]; then
   echo "Using All CPUs"
   export MAKEFLAGS="-j$(nproc)"
 else
