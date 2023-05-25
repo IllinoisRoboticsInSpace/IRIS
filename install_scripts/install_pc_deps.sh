@@ -78,3 +78,10 @@ echo "export PATH="$PATH:$(pwd)/bin"" >> ~/.bashrc
 export PATH="$PATH:$(pwd)/bin"
 # Development must go into the EmbeddedProto directory and run 'python3 setup.py'
 cd $cwd
+
+# Platformio Setup
+# Enable linux udev rules for platformio extension
+curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
+sudo service udev restart
+sudo usermod -a -G dialout $USER
+sudo usermod -a -G plugdev $USER
