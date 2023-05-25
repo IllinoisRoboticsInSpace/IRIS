@@ -17,3 +17,6 @@
 [submodule "dependencies/rtabmap"]
 	path = dependencies/rtabmap
 	url = https://github.com/introlab/rtabmap.git
+[submodule "Motor Driver/lib/EmbeddedProto"]
+	path = Motor Driver/lib/EmbeddedProto
+	url = https://github.com/Embedded-AMS/EmbeddedProto.git
