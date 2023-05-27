@@ -71,12 +71,13 @@ cd IRIS_dependencies
 version="21.5"
 link="https://github.com/protocolbuffers/protobuf/releases/download/v$version/protoc-$version-linux-x86_64.zip"
 mkdir -p protoc-$version
+cd protoc-$version
 wget $link -O protoc-$version.zip
 unzip protoc-$version.zip
 rm protoc-$version.zip
 echo "export PATH="$PATH:$(pwd)/bin"" >> ~/.bashrc
 export PATH="$PATH:$(pwd)/bin"
-# Development must go into the EmbeddedProto directory and run 'python3 setup.py'
+# Developer must go into the EmbeddedProto directory and run 'python3 setup.py' to install embeddded protobuf
 cd $cwd
 
 # Platformio Setup
