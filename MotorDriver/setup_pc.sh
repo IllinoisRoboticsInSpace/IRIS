@@ -1,4 +1,4 @@
-sudo apt-get install -y python3.8-venv zip unzip g++
+sudo apt-get install -y python3.8-venv zip unzip g++ autoconf automake libtool curl make
 
 cwd=$(pwd)
 cd lib/
@@ -16,21 +16,23 @@ cd lib/
 
 version="21.5"
 link="https://github.com/protocolbuffers/protobuf/archive/refs/tags/v$version.zip"
-wget $link -O protoc-$version.zip
-proto_lib_name=protoc-$version
-unzip $proto_lib_name.zip
-rm $proto_lib_name.zip
+proto_zip_name=protoc-$version
+wget $link -O $proto_zip_name.zip
+unzip $proto_zip_name.zip
+rm $proto_zip_name.zip
+proto_lib_name="protobuf-$version"
 cd $proto_lib_name/
 
 sudo apt-get remove -y protobuf-compiler
 # Build Instructions: https://github.com/protocolbuffers/protobuf/blob/21.x/src/README.md
 ./autogen.sh
-./congifure
+./configure
 make -j$(nproc)
 sudo make install
 sudo ldconfig
 cd ../
 
+git submodule update --init --recursive
 cd EmbeddedProto
 python3 setup.py
 cd $cwd
