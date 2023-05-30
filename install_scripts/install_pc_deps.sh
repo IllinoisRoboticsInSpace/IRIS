@@ -62,27 +62,3 @@ else
 fi
 
 ./install_env_deps.sh
-
-# Install Protoc v21.5
-cwd=$(pwd)
-cd ~/
-mkdir -p IRIS_dependencies
-cd IRIS_dependencies
-version="21.5"
-link="https://github.com/protocolbuffers/protobuf/releases/download/v$version/protoc-$version-linux-x86_64.zip"
-mkdir -p protoc-$version
-cd protoc-$version
-wget $link -O protoc-$version.zip
-unzip protoc-$version.zip
-rm protoc-$version.zip
-echo "export PATH="$PATH:$(pwd)/bin"" >> ~/.bashrc
-export PATH="$PATH:$(pwd)/bin"
-# Developer must go into the EmbeddedProto directory and run 'python3 setup.py' to install embeddded protobuf
-cd $cwd
-
-# Platformio Setup
-# Enable linux udev rules for platformio extension
-curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
-sudo service udev restart
-sudo usermod -a -G dialout $USER
-sudo usermod -a -G plugdev $USER
