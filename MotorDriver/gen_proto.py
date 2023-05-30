@@ -8,7 +8,7 @@ embedded_proto_path = "lib/EmbeddedProto"
 lib_base_path = "lib/IRISMotorDriver"
 env.Execute(f"protoc --plugin=protoc-gen-eams={embedded_proto_path}/protoc-gen-eams" + " "
             + f"-I{lib_base_path}/proto" + " "
-            + f"--eams_out={lib_base_path}/src/generated" + " "
+            + f"--eams_out={lib_base_path}/include/generated" + " "
             + f"{lib_base_path}/proto/commands.proto")
 
 # env.BuildSources(
