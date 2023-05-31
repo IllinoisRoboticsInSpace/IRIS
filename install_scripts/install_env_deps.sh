@@ -48,6 +48,16 @@ echo "Sourcing install/setup.bash"
 source ./install/setup.bash
 }" >> ~/.bashrc
 
+# Install April Tags
+# cwd=$(pwd)
+# cd ~/
+# mkdir -p IRIS_dependencies
+# cd IRIS_dependencies
+# git clone https://github.com/AprilRobotics/apriltag.git
+# cd apriltag
+# cmake -B build -DCMAKE_BUILD_TYPE=Release
+# sudo cmake --build build --target install
+# cd $cwd
 
 # Repo Code Initialization
 git submodule update --init --recursive
@@ -56,14 +66,3 @@ rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 -r --rosd
 # export MAKEFLAGS="-j$(nproc)" #Uncomment to use all cpu cores
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --executor sequential
 # colcon build # Should be run after running "install_jetson_deps.sh"
-
-# Install April Tags
-cwd=$(pwd)
-cd ~/
-mkdir -p IRIS_dependencies
-cd IRIS_dependencies
-git clone https://github.com/AprilRobotics/apriltag.git
-cd apriltag
-cmake -B build -DCMAKE_BUILD_TYPE=Release
-sudo cmake --build build --target install
-cd $cwd
