@@ -23,19 +23,19 @@ sudo apt-get install librealsense2-dkms librealsense2-utils librealsense2-dev li
 
 
 # Install Arduino 2 IDE
-cwd=$(pwd)
-cd ~/
-wget -c https://downloads.arduino.cc/arduino-ide/arduino-ide_2.0.4_Linux_64bit.AppImage -O ArduinoIDE2.AppImage
-sudo chmod +x ArduinoIDE2.AppImage
+# cwd=$(pwd)
+# cd ~/
+# wget -c https://downloads.arduino.cc/arduino-ide/arduino-ide_2.0.4_Linux_64bit.AppImage -O ArduinoIDE2.AppImage
+# sudo chmod +x ArduinoIDE2.AppImage
 
-# Install Sabertooth
-sudo apt-get install unzip
-mkdir -p ~/Arduino/libraries
-cd ~/Arduino/libraries
-wget -c https://www.dimensionengineering.com/software/SabertoothArduinoLibraries.zip
-unzip SabertoothArduinoLibraries.zip
-rm SabertoothArduinoLibraries.zip
-cd $cwd
+# # Install Sabertooth
+# sudo apt-get install unzip
+# mkdir -p ~/Arduino/libraries
+# cd ~/Arduino/libraries
+# wget -c https://www.dimensionengineering.com/software/SabertoothArduinoLibraries.zip
+# unzip SabertoothArduinoLibraries.zip
+# rm SabertoothArduinoLibraries.zip
+# cd $cwd
 
 # Adds 16GB of swap for initial compilation
 echo "Adding Swap"
