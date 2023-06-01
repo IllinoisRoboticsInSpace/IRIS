@@ -1,0 +1,66 @@
+syntax = "proto3";
+// proto3 syntax documentation: https://protobuf.dev/programming-guides/proto3/
+// embedded protobuf messages: https://embeddedproto.com/documentation/using-a-message/basic-variables/
+// Default values: https://protobuf.dev/programming-guides/proto3/#default
+
+message Types 
+{
+  uint32 unsigned_integer_32 = 2048;
+  int32  signed_integer_32 = 2049;
+  bool   bool_t = 2050;
+  float  float_t = 2051;
+  double double_t = 2052;
+  uint64 unsigned_integer_64 = 2053;
+  int64 signed_integer_64 = 2054;
+}
+
+message A
+{
+  int32 a = 3000;
+}
+
+message Nested
+{
+  A nested_a = 3000;
+}
+
+// Repeated messages are different from the standard protobuf messages
+// https://embeddedproto.com/documentation/using-a-message/repeated-fields/
+import "embedded_proto_options.proto";
+message Repeated
+{
+  // In this example the maximum length is 10 elements
+  repeated int32 repeated_int = 3001 [(EmbeddedProto.options).maxLength = 10];
+}
+
+message String
+{
+  string text = 3002;
+}
+
+message Raw_Bytes
+{
+  bytes b = 3003;
+}
+
+enum Example_Enum
+{
+  ZERO = 0;
+  ONE = 1;
+  TWO = 2;
+}
+
+message Oneof
+{
+  oneof Union
+  {
+    bool choice_one = 5001;
+    int32 choice_two = 5002;
+    double choice_three = 5003;
+  }
+}
+
+message Optional
+{
+  optional int32 option = 6001;
+}
