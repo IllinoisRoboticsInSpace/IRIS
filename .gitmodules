@@ -1,0 +1,22 @@
+[submodule "dependencies/realsense-ros"]
+	path = dependencies/realsense-ros
+	url = https://github.com/IntelRealSense/realsense-ros.git
+[submodule "dependencies/apriltag_msgs"]
+	path = dependencies/apriltag_msgs
+	url = https://github.com/christianrauch/apriltag_msgs
+[submodule "dependencies/apriltag_ros"]
+	path = dependencies/apriltag_ros
+	url = https://github.com/christianrauch/apriltag_ros
+[submodule "dependencies/imu_tools"]
+	path = dependencies/imu_tools
+	url = https://github.com/IllinoisRoboticsInSpace/imu_tools
+[submodule "dependencies/rtabmap_ros"]
+	path = dependencies/rtabmap_ros
+	url = https://github.com/introlab/rtabmap_ros.git
+	branch = ros2
+[submodule "dependencies/rtabmap"]
+	path = dependencies/rtabmap
+	url = https://github.com/introlab/rtabmap.git
+[submodule "MotorDriver/lib/EmbeddedProto"]
+	path = MotorDriver/lib/EmbeddedProto
+	url = https://github.com/Embedded-AMS/EmbeddedProto.git
