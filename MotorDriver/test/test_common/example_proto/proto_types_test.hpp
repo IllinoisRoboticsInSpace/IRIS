@@ -191,7 +191,7 @@ void string_message_test(void)
     TEST_ASSERT_GREATER_OR_EQUAL_UINT32(0, size);
 
     uint32_t string_size = message.get_text_data().get_length();
-    TEST_ASSERT_GREATER_OR_EQUAL_UINT32(0, string_size);
+    TEST_ASSERT_EQUAL_INT32(strlen(test_message), string_size);
 
     // Serialize Message
     auto serialization_status = message.serialize(write_fixed_buffer);
