@@ -113,3 +113,65 @@ void nested_message_test(void)
     }
     TEST_ASSERT_EQUAL_INT32(2, deserialized_message.get_nested_a().get_a());
 }
+
+void repeated_message_test(void)
+{
+    reset();
+
+    Repeated message;
+
+    for(int i = 0; i < 10; i++)
+    {
+        message.add_repeated_int(i);
+    }
+
+    TEST_ASSERT_EQUAL_UINT32(10, message.get_repeated_int().get_length());
+
+    // Check
+    for(int i = 0; i < 10; i++)
+    {
+        TEST_ASSERT_EQUAL_INT32(i, message.get_repeated_int()[i]);
+    }
+
+    // Set index values
+    message.set_repeated_int(0, 2);
+    TEST_ASSERT_EQUAL_INT32(2, message.get_repeated_int()[0]);
+    // Set back to 0
+    message.set_repeated_int(0, 0);
+
+    // Similar way to edit data using references
+    EmbeddedProto::int32& mutable_reference = message.mutable_repeated_int(0);
+    mutable_reference = 2;
+    TEST_ASSERT_EQUAL_INT32(2, message.get_repeated_int()[0]);
+    // Set back to 0
+    message.set_repeated_int(0, 0);
+    
+    uint32_t size = message.serialized_size();
+    TEST_ASSERT_GREATER_OR_EQUAL_UINT32(0, size);
+
+    // Serialize Message
+    auto serialization_status = message.serialize(write_fixed_buffer);
+    if(::EmbeddedProto::Error::NO_ERRORS != serialization_status)
+    {
+        TEST_FAIL_MESSAGE("Serialization Produced Error");
+    }
+    uint8_t* write_data_ptr = write_fixed_buffer.get_data();
+    uint32_t write_data_size = write_fixed_buffer.get_size();
+    TEST_ASSERT_EQUAL_INT32(size, write_data_size);
+
+    // Deserialize Message
+    uint8_t* read_data_ptr = read_fixed_buffer.get_data();
+    memcpy(read_data_ptr, write_data_ptr, write_data_size);
+    read_fixed_buffer.set_bytes_written(write_data_size);
+
+    Repeated deserialized_message;
+    auto deserialize_status = deserialized_message.deserialize(read_fixed_buffer);
+    if(::EmbeddedProto::Error::NO_ERRORS != deserialize_status)
+    {
+        TEST_FAIL_MESSAGE("Deserialization Produced Error");
+    }
+    for(int i = 0; i < 10; i++)
+    {
+        TEST_ASSERT_EQUAL_INT32(i, message.get_repeated_int()[i]);
+    }
+}
