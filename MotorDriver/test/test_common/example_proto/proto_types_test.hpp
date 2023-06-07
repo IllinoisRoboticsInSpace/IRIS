@@ -175,3 +175,44 @@ void repeated_message_test(void)
         TEST_ASSERT_EQUAL_INT32(i, message.get_repeated_int()[i]);
     }
 }
+
+void string_message_test(void)
+{
+    reset();
+
+    Text<128> message;
+    
+    char test_message[] = "String Message Test!";
+    message.mutable_text_data() = test_message;
+
+    TEST_ASSERT_EQUAL_STRING(test_message, message.text_data());
+    
+    uint32_t size = message.serialized_size();
+    TEST_ASSERT_GREATER_OR_EQUAL_UINT32(0, size);
+
+    uint32_t string_size = message.get_text_data().get_length();
+    TEST_ASSERT_GREATER_OR_EQUAL_UINT32(0, string_size);
+
+    // Serialize Message
+    auto serialization_status = message.serialize(write_fixed_buffer);
+    if(::EmbeddedProto::Error::NO_ERRORS != serialization_status)
+    {
+        TEST_FAIL_MESSAGE("Serialization Produced Error");
+    }
+    uint8_t* write_data_ptr = write_fixed_buffer.get_data();
+    uint32_t write_data_size = write_fixed_buffer.get_size();
+    TEST_ASSERT_EQUAL_INT32(size, write_data_size);
+
+    // Deserialize Message
+    uint8_t* read_data_ptr = read_fixed_buffer.get_data();
+    memcpy(read_data_ptr, write_data_ptr, write_data_size);
+    read_fixed_buffer.set_bytes_written(write_data_size);
+
+    Text<256> deserialized_message;
+    auto deserialize_status = deserialized_message.deserialize(read_fixed_buffer);
+    if(::EmbeddedProto::Error::NO_ERRORS != deserialize_status)
+    {
+        TEST_FAIL_MESSAGE("Deserialization Produced Error");
+    }
+    TEST_ASSERT_EQUAL_STRING(test_message, deserialized_message.text_data());
+}
