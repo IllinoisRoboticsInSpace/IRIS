@@ -330,3 +330,47 @@ void one_of_message_test(void)
     TEST_ASSERT_EQUAL_UINT32(Oneof::FieldNumber::DOUBLE_CHOICE, deserialized_message.get_which_Union());
     TEST_ASSERT_EQUAL_DOUBLE(10.5, deserialized_message.get_double_choice());
 }
+
+void optional_message_test(void)
+{
+    reset();
+
+    Optional message;
+    message.set_option(10);
+    uint32_t option_set_size = message.serialized_size();
+    // Setting option to 0 will not clear it so memory will still be allocated
+
+    message.clear_option();
+    uint32_t option_cleared_size = message.serialized_size();
+
+    TEST_ASSERT_LESS_THAN_UINT32(option_set_size, option_cleared_size);
+    TEST_ASSERT_FALSE(message.has_option());
+
+    // reset
+    message.set_option(10);
+    uint32_t size = message.serialized_size();
+    TEST_ASSERT_GREATER_OR_EQUAL_UINT32(0, size);
+
+    // Serialize Message
+    auto serialization_status = message.serialize(write_fixed_buffer);
+    if(::EmbeddedProto::Error::NO_ERRORS != serialization_status)
+    {
+        TEST_FAIL_MESSAGE("Serialization Produced Error");
+    }
+    uint8_t* write_data_ptr = write_fixed_buffer.get_data();
+    uint32_t write_data_size = write_fixed_buffer.get_size();
+    TEST_ASSERT_EQUAL_INT32(size, write_data_size);
+
+    // Deserialize Message
+    uint8_t* read_data_ptr = read_fixed_buffer.get_data();
+    memcpy(read_data_ptr, write_data_ptr, write_data_size);
+    read_fixed_buffer.set_bytes_written(write_data_size);
+
+    Optional deserialized_message;
+    auto deserialize_status = deserialized_message.deserialize(read_fixed_buffer);
+    if(::EmbeddedProto::Error::NO_ERRORS != deserialize_status)
+    {
+        TEST_FAIL_MESSAGE("Deserialization Produced Error");
+    }
+    TEST_ASSERT_EQUAL_INT32(message.get_option(), deserialized_message.get_option());
+}
