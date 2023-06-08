@@ -275,3 +275,58 @@ void bytes_message_test(void)
     TEST_ASSERT_EQUAL_INT32(expected.size(), deserialized_message.get_b().get_length());
     TEST_ASSERT_EQUAL_UINT8_ARRAY(message.get_b().get_const(), deserialized_message.get_b().get_const(), deserialized_message.get_b().get_length());
 }
+
+void one_of_message_test(void)
+{
+    reset();
+
+    Oneof message;
+    TEST_ASSERT_EQUAL_UINT32(Oneof::FieldNumber::NOT_SET, message.get_which_Union());
+
+    message.set_bool_choice(true);
+    TEST_ASSERT_EQUAL_UINT32(Oneof::FieldNumber::BOOL_CHOICE, message.get_which_Union());
+    uint32_t bool_message_size = message.serialized_size();
+    message.clear();
+
+    message.set_int32_choice(10);
+    TEST_ASSERT_EQUAL_UINT32(Oneof::FieldNumber::INT32_CHOICE, message.get_which_Union());
+    uint32_t int32_message_size = message.serialized_size();
+    message.clear();
+
+    message.set_double_choice(10.5);
+    TEST_ASSERT_EQUAL_UINT32(Oneof::FieldNumber::DOUBLE_CHOICE, message.get_which_Union());
+    uint32_t double_message_size = message.serialized_size();
+
+    TEST_ASSERT_LESS_THAN_UINT32(double_message_size, int32_message_size);
+    TEST_ASSERT_LESS_OR_EQUAL_UINT32(int32_message_size, bool_message_size);
+    // Serialization doesn't always obey strict sizes.
+    // While a bool = 1 bytes, int32 = 4 bytes, double = 8 bytes.
+    // The serialization might include more data than just the raw data type inside.
+
+    uint32_t size = message.serialized_size();
+    TEST_ASSERT_GREATER_OR_EQUAL_UINT32(0, size);
+
+    // Serialize Message
+    auto serialization_status = message.serialize(write_fixed_buffer);
+    if(::EmbeddedProto::Error::NO_ERRORS != serialization_status)
+    {
+        TEST_FAIL_MESSAGE("Serialization Produced Error");
+    }
+    uint8_t* write_data_ptr = write_fixed_buffer.get_data();
+    uint32_t write_data_size = write_fixed_buffer.get_size();
+    TEST_ASSERT_EQUAL_INT32(size, write_data_size);
+
+    // Deserialize Message
+    uint8_t* read_data_ptr = read_fixed_buffer.get_data();
+    memcpy(read_data_ptr, write_data_ptr, write_data_size);
+    read_fixed_buffer.set_bytes_written(write_data_size);
+
+    Oneof deserialized_message;
+    auto deserialize_status = deserialized_message.deserialize(read_fixed_buffer);
+    if(::EmbeddedProto::Error::NO_ERRORS != deserialize_status)
+    {
+        TEST_FAIL_MESSAGE("Deserialization Produced Error");
+    }
+    TEST_ASSERT_EQUAL_UINT32(Oneof::FieldNumber::DOUBLE_CHOICE, deserialized_message.get_which_Union());
+    TEST_ASSERT_EQUAL_DOUBLE(10.5, deserialized_message.get_double_choice());
+}

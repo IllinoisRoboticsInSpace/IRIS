@@ -54,9 +54,9 @@ message Oneof
 {
   oneof Union
   {
-    bool choice_one = 5001;
-    int32 choice_two = 5002;
-    double choice_three = 5003;
+    bool bool_choice = 5001;
+    int32 int32_choice = 5002;
+    double double_choice = 5003;
   }
 }
 
