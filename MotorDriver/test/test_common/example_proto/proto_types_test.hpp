@@ -216,3 +216,62 @@ void string_message_test(void)
     }
     TEST_ASSERT_EQUAL_STRING(test_message, deserialized_message.text_data());
 }
+
+void bytes_message_test(void)
+{
+    reset();
+
+    Raw_Bytes<10> message;
+
+    // Set some elements, others are by default zero.
+    message.mutable_b()[0] = 1;
+    message.mutable_b()[9] = 10;
+    TEST_ASSERT_EQUAL_INT8(1, message.get_b()[0]);
+    TEST_ASSERT_EQUAL_INT8(10, message.get_b()[9]);
+
+    // There is no index out of bound exception as they 
+    // are not possible on small mcu's. Instead the last 
+    // element of the array will be returned and changes!
+    message.mutable_b()[10] = 11; //message has 10 bytes so index 9 will be set to 11
+    TEST_ASSERT_EQUAL_INT8(11, message.get_b()[9]);
+
+    // Assign the content of a std array.
+    const std::array<uint8_t, 10> expected = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    message.mutable_b().set(expected.data(), 10);
+
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expected.begin(), message.get_b().get_const(), message.get_b().get_length());
+
+    // And you can clear the whole array with the clear function.
+    message.mutable_b().clear();
+    TEST_ASSERT_EQUAL_UINT32(0, message.get_b().get_length());
+    TEST_ASSERT_EACH_EQUAL_UINT8(0U, message.get_b().get_const(), message.get_b().get_max_length());
+
+    // Reset
+    message.mutable_b().set(expected.data(), 10);
+    uint32_t size = message.serialized_size();
+    TEST_ASSERT_GREATER_OR_EQUAL_UINT32(0, size);
+
+    // Serialize Message
+    auto serialization_status = message.serialize(write_fixed_buffer);
+    if(::EmbeddedProto::Error::NO_ERRORS != serialization_status)
+    {
+        TEST_FAIL_MESSAGE("Serialization Produced Error");
+    }
+    uint8_t* write_data_ptr = write_fixed_buffer.get_data();
+    uint32_t write_data_size = write_fixed_buffer.get_size();
+    TEST_ASSERT_EQUAL_INT32(size, write_data_size);
+
+    // Deserialize Message
+    uint8_t* read_data_ptr = read_fixed_buffer.get_data();
+    memcpy(read_data_ptr, write_data_ptr, write_data_size);
+    read_fixed_buffer.set_bytes_written(write_data_size);
+
+    Raw_Bytes<20> deserialized_message;
+    auto deserialize_status = deserialized_message.deserialize(read_fixed_buffer);
+    if(::EmbeddedProto::Error::NO_ERRORS != deserialize_status)
+    {
+        TEST_FAIL_MESSAGE("Deserialization Produced Error");
+    }
+    TEST_ASSERT_EQUAL_INT32(expected.size(), deserialized_message.get_b().get_length());
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(message.get_b().get_const(), deserialized_message.get_b().get_const(), deserialized_message.get_b().get_length());
+}
