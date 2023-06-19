@@ -13,6 +13,7 @@
 # First feel free to uninstall any applications from the software updater before continuing
 
 sudo apt-get remove --purge chromium-browser chromium-browser-l10n
+sudo apt-get install firefox
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get -y autoremove
@@ -26,4 +27,4 @@ sudo apt-get dist-upgrade
 echo "Reboot Jetson Immediately Before Continuing to part 2"
 
 # Extra notes:
-# Install firefox by executing "sudo apt-get install firefox"
+# The following problem was encountered on the jetpack 4.5.1 image. If there is a dpkg subprocess error with nvidia-l4t-bootloader run the commands found in this link: https://forums.developer.nvidia.com/t/solution-dpkg-error-processing-package-nvidia-l4t-bootloader-configure/208627.
