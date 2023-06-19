@@ -12,7 +12,7 @@ sudo mv nv_logo.svg no_logo.svg
 cd $cwd
 
 source_folder="/etc/apt/sources.list.d"
-sudo sed -i '/cuda-repo/s/^#//g' $source_folder/cuda-l4t*.list
+sudo sed -i '/cuda-repo/s/^#//g' $source_folder/cuda-*.list
 sudo sed -i '/jetson/s/^#//g' $source_folder/nvidia-l4t*.list
 sudo sed -i '/visionworks/s/^#//g' $source_folder/visionworks-*.list
 
