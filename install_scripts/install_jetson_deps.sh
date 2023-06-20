@@ -68,4 +68,7 @@ cd $cwd
 # Must be small for memory intensive compilation
 export MAKEFLAGS="-j1"
 
+# Added jtop
+sudo -H pip install -y -U jetson-stats
+
 ./install_env_deps.sh
