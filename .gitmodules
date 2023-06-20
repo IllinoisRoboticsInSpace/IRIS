@@ -1,6 +1,7 @@
 [submodule "dependencies/realsense-ros"]
 	path = dependencies/realsense-ros
 	url = https://github.com/IntelRealSense/realsense-ros.git
+	branch = ros2-development
 [submodule "dependencies/apriltag_msgs"]
 	path = dependencies/apriltag_msgs
 	url = https://github.com/christianrauch/apriltag_msgs
@@ -17,6 +18,7 @@
 [submodule "dependencies/rtabmap"]
 	path = dependencies/rtabmap
 	url = https://github.com/introlab/rtabmap.git
+	branch = master
 [submodule "MotorDriver/lib/EmbeddedProto"]
 	path = MotorDriver/lib/EmbeddedProto
 	url = https://github.com/Embedded-AMS/EmbeddedProto.git
