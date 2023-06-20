@@ -16,22 +16,22 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/ex
 export PATH=$PATH:$CUDA_HOME/bin
 
 # Adds 16GB of swap for initial compilation
-echo "Adding Swap"
-# Removing swap from Qengineering image
-sudo swapoff /dev/zram0
-sudo swapoff /dev/zram1
-sudo swapoff /dev/zram2
-sudo swapoff /dev/zram3
-sudo swapoff /var/swapfile
-sudo rm /dev/zram0 /dev/zram1 /dev/zram2 /dev/zram3 /var/swapfile
+# echo "Adding Swap"
+# # Removing swap from Qengineering image
+# sudo swapoff /dev/zram0
+# sudo swapoff /dev/zram1
+# sudo swapoff /dev/zram2
+# sudo swapoff /dev/zram3
+# sudo swapoff /var/swapfile
+# sudo rm /dev/zram0 /dev/zram1 /dev/zram2 /dev/zram3 /var/swapfile
 
-# Uncomment to remove old swap file named /swapfile
-# sudo swapoff /swapfile
-# sudo rm  /swapfile
-sudo dd if=/dev/zero of=/swapfile bs=1M count=16384
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
+# # Uncomment to remove old swap file named /swapfile
+# # sudo swapoff /swapfile
+# # sudo rm  /swapfile
+# sudo dd if=/dev/zero of=/swapfile bs=1M count=16384
+# sudo chmod 600 /swapfile
+# sudo mkswap /swapfile
+# sudo swapon /swapfile
 
 # Not working on jetson nano ubuntu 20
 # Install Realsense SDK using debian apt
