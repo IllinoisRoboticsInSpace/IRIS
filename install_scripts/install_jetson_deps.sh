@@ -69,6 +69,6 @@ cd $cwd
 export MAKEFLAGS="-j1"
 
 # Added jtop
-sudo -H pip install -y -U jetson-stats
+sudo -H pip install -U jetson-stats
 
 ./install_env_deps.sh
