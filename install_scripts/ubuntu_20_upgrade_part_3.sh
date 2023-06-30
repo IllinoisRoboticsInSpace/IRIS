@@ -27,5 +27,18 @@ sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 8
 # sudo update-alternatives --config gcc
 # sudo update-alternatives --config g++
 
+# It is recommended to set gcc manually to gcc 8 as it is used for compiling CUDA on the Jetson.
+
+# Setup ZRAM
+# https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
+sudo apt-get -y install dphys-swapfile
+sudo sed -i -e '/CONF_MAXSWAP=/ s/=.*/=4096/' /sbin/dphys-swapfile
+
+# Added jtop
+sudo -H pip install -U jetson-stats
+
+echo "Reboot Jetson To Finished Upgrade"
+
+# Extra Notes
 # Disable the Power Saving Blank Screen option in the settings as it gives unstable results when rebooting from sleep mode.
 # It is found in settings under "Power".
