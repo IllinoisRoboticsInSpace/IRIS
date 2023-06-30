@@ -17,17 +17,10 @@ export PATH=$PATH:$CUDA_HOME/bin
 
 # Adds 16GB of swap for initial compilation
 # echo "Adding Swap"
-# # Removing swap from Qengineering image
-# sudo swapoff /dev/zram0
-# sudo swapoff /dev/zram1
-# sudo swapoff /dev/zram2
-# sudo swapoff /dev/zram3
-# sudo swapoff /var/swapfile
-# sudo rm /dev/zram0 /dev/zram1 /dev/zram2 /dev/zram3 /var/swapfile
 
-# # Uncomment to remove old swap file named /swapfile
-# # sudo swapoff /swapfile
-# # sudo rm  /swapfile
+# Uncomment to remove old swap file named /swapfile
+# sudo swapoff /swapfile
+# sudo rm  /swapfile
 # sudo dd if=/dev/zero of=/swapfile bs=1M count=16384
 # sudo chmod 600 /swapfile
 # sudo mkswap /swapfile
@@ -67,8 +60,5 @@ cd $cwd
 # Set Number of Processors For Make
 # Must be small for memory intensive compilation
 export MAKEFLAGS="-j1"
-
-# Added jtop
-sudo -H pip install -U jetson-stats
 
 ./install_env_deps.sh
