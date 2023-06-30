@@ -1,16 +1,8 @@
 # This script is needed to compile and install a desired version of opencv with CUDA enabled on the Jetson Nano.
 # This script follows the instructions from this link: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
-# This script has opted to not use zram but instead make an 8GB SD memory swap file.
 
 sudo apt-get -y update
 sudo apt-get -y upgrade
-
-sudo swapoff /swapfile
-sudo rm /swapfile
-sudo dd if=/dev/zero of=/swapfile bs=1M count=8192
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
 
 free -m
 
