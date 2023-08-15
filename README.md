@@ -1,4 +1,4 @@
-# IRIS-2023
+# IRIS
 ### Prerequistes
 - ROS2 Galactic
 ### Getting Started
