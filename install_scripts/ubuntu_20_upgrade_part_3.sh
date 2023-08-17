@@ -35,6 +35,7 @@ sudo apt-get -y install dphys-swapfile
 sudo sed -i -e '/CONF_MAXSWAP=/ s/=.*/=4096/' /sbin/dphys-swapfile
 
 # Added jtop
+sudo apt install python3-pip
 sudo -H pip install -U jetson-stats
 
 echo "Reboot Jetson To Finished Upgrade"
