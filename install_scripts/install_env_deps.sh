@@ -34,7 +34,7 @@ sudo apt install -y ros-$ROS_DISTRO-navigation2 ros-$ROS_DISTRO-nav2-bringup
 
 # Install RTAB-MAP
 # https://github.com/introlab/rtabmap_ros/tree/ros2#binaries
-sudo apt-get install ros-$ROS_DISTRO-rtabmap-ros
+sudo apt-get install -y ros-$ROS_DISTRO-rtabmap-ros
 
 # Extra Installation Instructions
 echo "source ~/colcon_ws/install/setup.bash" >> ~/.bashrc
