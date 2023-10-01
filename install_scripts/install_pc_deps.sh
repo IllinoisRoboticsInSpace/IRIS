@@ -11,6 +11,10 @@ sudo apt-get update
 sudo apt-get dist-upgrade
 
 echo "Begin PC Installation Script"
+
+# Uncomment to activate sharing of ROS Nodes across the network.
+# echo "export ROS_DOMAIN_ID=1" >> ~/.bashrc
+
 echo "Installing Realsense SDK"
 
 # Install Realsense SDK
