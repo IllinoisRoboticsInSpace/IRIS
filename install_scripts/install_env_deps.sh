@@ -17,12 +17,10 @@ sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 sudo apt update -y
 sudo apt upgrade -y
-echo "export ROS_DOMAIN_ID=1" >> ~/.bashrc
 
 # Install Galactic
 sudo apt install -y ros-galactic-desktop
 echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
-mkdir -p ~/colcon_ws/src # Makes colcon workspace location
 source /opt/ros/galactic/setup.bash
 
 # Utilities
@@ -32,6 +30,10 @@ rosdep update --rosdistro=$ROS_DISTRO
 
 # Nav2
 sudo apt install -y ros-$ROS_DISTRO-navigation2 ros-$ROS_DISTRO-nav2-bringup
+
+# Install RTAB-MAP
+# https://github.com/introlab/rtabmap_ros/tree/ros2#binaries
+sudo apt-get install -y ros-$ROS_DISTRO-rtabmap-ros
 
 # Extra Installation Instructions
 echo "source ~/colcon_ws/install/setup.bash" >> ~/.bashrc
