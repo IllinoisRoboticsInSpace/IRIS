@@ -11,6 +11,10 @@ sudo apt-get update
 sudo apt-get dist-upgrade
 
 echo "Begin PC Installation Script"
+
+# Uncomment to activate sharing of ROS Nodes across the network.
+# echo "export ROS_DOMAIN_ID=1" >> ~/.bashrc
+
 echo "Installing Realsense SDK"
 
 # Install Realsense SDK
@@ -19,10 +23,9 @@ echo "Installing Realsense SDK"
 
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
 sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -u
-sudo apt-get install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
+sudo apt-get install -y librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
 
-
-# Install Arduino 2 IDE
+# # Install Arduino 2 IDE
 # cwd=$(pwd)
 # cd ~/
 # wget -c https://downloads.arduino.cc/arduino-ide/arduino-ide_2.0.4_Linux_64bit.AppImage -O ArduinoIDE2.AppImage
