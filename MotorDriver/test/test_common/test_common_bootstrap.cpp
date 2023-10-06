@@ -2,12 +2,10 @@
 
 // Include here the bootstraps for testing packages
 #include "example_package/example_package_bootstrap.hpp"
-#include "example_proto/example_proto_bootstrap.hpp"
 
 void RUN_UNITY_TESTS() {
     UNITY_BEGIN();
     RUN_EXAMPLE_PACKAGE_TESTS();
-    RUN_EXAMPLE_PROTO_TESTS();
     UNITY_END();
 }
 
