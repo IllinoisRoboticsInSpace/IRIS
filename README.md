@@ -1,18 +1,23 @@
 # IRIS
 ### Prerequistes
-- ROS2 Galactic
+- [TODO]
 ## Getting Started
-1. Create a colcon workspace
-    - if you're colcon workspace folder does not exist: `mkdir -p ~/colcon_ws/src`
-    - Make sure the `~/colcon_ws/src` subfolder exists
-2. Clone this Repo
-    -  Clone this repo into the `~/colcon_ws/src` subfolder
-2. Install the required dependencies with rosdep
+> **Note**
+> It is highly recommended to develop in a virtual machine. ([VM Instructions](url))
+1. Install [VMWare Workstation Player](https://customerconnect.vmware.com/en/downloads/info/slug/desktop_end_user_computing/vmware_workstation_player/17_0)
+2. Download, Unzip, and Run in VMWare our [preconfigured VM](https://uofi.app.box.com/folder/178594834739?s=xefuv04cugxavr3wadn55qbbtfs31ig4)
+3. Open the `~/colcon_ws` folder in VSCode
+4. If working on Arduino, install the PlatformIO VSCode extension
+   
+### Commands to know
+1. Install dependencies with rosdep
     - `cd ~/colcon_ws`
-    - `rosdep install -i --from-path src --rosdistro galactic -y`
-3. Build the desired package
+    - `rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 -r --rosdistro $ROS_DISTRO -y --include-eol-distros`
+2. Build the desired package
     - `colcon build --packages-select <Package folder name>`
-4. Source the setup script so ros2 can find the packages in this workspace 
+    - `build <Package folder name>`
+        - Use `build` function defined in `~./bashrc`
+3. Source the setup script so ros2 can find the packages in this workspace 
     - `source ~/colcon_ws/install/setup.bash`
 
 ## Package Usage
@@ -46,5 +51,5 @@ ros2 launch rtabmap_ros rtabmap.launch.py \rtabmap_args:="--delete_db_on_start" 
     install/
     log/
     src/
-        IRIS-2023/
+        IRIS/
 ```
