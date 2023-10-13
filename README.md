@@ -3,7 +3,7 @@
 - [TODO]
 ## Getting Started
 > **Note**
-> It is highly recommended to develop in a virtual machine. ([VM Instructions](url))
+> It is highly recommended to develop in a virtual machine because our install procedures are not isolated and can be invasive ([VM Instructions](url))
 1. Install [VMWare Workstation Player](https://customerconnect.vmware.com/en/downloads/info/slug/desktop_end_user_computing/vmware_workstation_player/17_0)
 2. Download, Unzip, and Run in VMWare our [preconfigured VM](https://uofi.app.box.com/folder/178594834739?s=xefuv04cugxavr3wadn55qbbtfs31ig4)
 3. Open the `~/colcon_ws` folder in VSCode
