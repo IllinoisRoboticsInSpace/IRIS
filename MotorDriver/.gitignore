@@ -6,3 +6,5 @@
 
 lib/protoc-21.5
 lib/protoc2
+
+!CATKIN_IGNORE
