@@ -12,9 +12,9 @@
   <test_depend>ament_pep257</test_depend>
   <test_depend>python3-pytest</test_depend>
 
-  <exec_depend>python3-protobuf</exec_depend>
-  <exec_depend>protobuf</exec_depend>
-  <exec_depend>pyserial</exec_depend>
+  <!--Rosdep does not support specific installation version: https://github.com/ros-infrastructure/rosdep/pull/694-->
+  <exec_depend>python3-protobuf</exec_depend> <!--Verified on version 3.6.1-->
+  <exec_depend>python3-serial</exec_depend> <!--Verified on version 3.5-->
   
   <export>
     <build_type>ament_python</build_type>
