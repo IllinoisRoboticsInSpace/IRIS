@@ -15,6 +15,7 @@
   <!--Rosdep does not support specific installation version: https://github.com/ros-infrastructure/rosdep/pull/694-->
   <exec_depend>python3-protobuf</exec_depend> <!--Verified on version 3.6.1-->
   <exec_depend>python3-serial</exec_depend> <!--Verified on version 3.5-->
+  <exec_depend>python-crccheck-pip</exec_depend> <!--Verified on version 1.3.0: https://pypi.org/project/crccheck/-->
   
   <export>
     <build_type>ament_python</build_type>
