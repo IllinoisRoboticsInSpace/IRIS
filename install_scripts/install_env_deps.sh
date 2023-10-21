@@ -24,7 +24,7 @@ echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
 source /opt/ros/galactic/setup.bash
 
 # Utilities
-sudo apt-get install -y python3-colcon-common-extensions python3-rosdep
+sudo apt-get install -y python3-colcon-common-extensions python3-rosdep python3-pip
 sudo rosdep init # Can fail if already initialized previously, therefore disregard error
 rosdep update --rosdistro=$ROS_DISTRO
 
