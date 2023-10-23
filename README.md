@@ -1,6 +1,6 @@
 # IRIS-2023
 ### Prerequistes
-- ROS2 Humble
+- ROS2 Galactic
 - ROS2 [Video4Linux2](https://gitlab.com/boldhearts/ros2_v4l2_camera) camera driver
     - ```bash
         sudo apt install ros-$ROS_DISTRO-v4l2-camera
