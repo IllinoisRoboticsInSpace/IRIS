@@ -1,5 +1,6 @@
 from setuptools import setup
 from setuptools.command.install import install
+from setuptools import find_packages
 import warnings
 import sys
 from sys import stderr
@@ -24,7 +25,7 @@ class PythonProtobufGenerator(install):
                   + f"--plugin=protoc-gen-eams={embedded_proto_path}/protoc-gen-eams" + " "
                   + f"-I./proto" + " "
                   + f"-I{embedded_proto_path}/generator" + " "
-                  + f"--python_out=./{package_name}/generated" + " "
+                  + f"--python_out=pyi_out:./{package_name}/generated" + " "
                   + f"./proto/*.proto"
         )
 
@@ -54,7 +55,7 @@ class PythonProtobufGenerator(install):
 setup(
     name=package_name,
     version='0.0.0',
-    packages=[package_name],
+    packages=find_packages(),
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
