@@ -13,8 +13,12 @@
 # limitations under the License.
 
 import pytest
+from motor_driver.generated import example_pb2
 
 def test_example():
     print("Intermediate printed messages\n")
     print("Run tests with command:\n colcon test --packages-select motor_driver --event-handlers console_cohesion+")
-    assert 1 == 1, 'Test failed message'
+    message = example_pb2.Types()
+    message.signed_integer_32 = 10
+
+    assert 10 == message.signed_integer_32, f"int32 should be 10"
