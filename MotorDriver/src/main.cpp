@@ -18,6 +18,7 @@ void setup() {
   Serial.begin(SERIAL_DEFAULT_BAUD_RATE); //! DUPLICATION: also in motordriver class, original comment was "For printing"
   ST.autobaud();
 
+  // while (driver.init_motor_driver() == false)
   if (driver.init_motor_driver() == false)
   {
     Serial.println("init failed");

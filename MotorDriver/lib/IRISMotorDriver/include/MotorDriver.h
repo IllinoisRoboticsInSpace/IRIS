@@ -61,6 +61,8 @@ class MotorDriver
     bool init_motor_driver();
 
     void update();
+    void setBaudRate(unsigned int baudRate);
+    void setMode(bool mode_auto);
 
     // placeholder, not representative of motion
     enum MotorDirection {

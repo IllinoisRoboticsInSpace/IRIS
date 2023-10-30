@@ -14,6 +14,7 @@ MotorDriver::MotorDriver(Sabertooth *st, unsigned int baudRate)
     this->st = st;
     initialized = false;
     config.baudRate = baudRate;
+    config.mode_auto = true;
 }
 
 /**
@@ -51,4 +52,21 @@ bool MotorDriver::init_motor_driver()
     Serial.println("Motor Driver Initialized");
     initialized = true;
     return true;
+}
+
+void MotorDriver::setMode(bool mode_auto)
+{
+    this->config.mode_auto = mode_auto;
+}
+
+void MotorDriver::setBaudRate(unsigned int baudRate)
+{
+    config.baudRate = baudRate;
+    if (initialized) {
+        initialized = false;
+        Serial.end();
+        Serial.begin(config.baudRate);
+        Serial.println("baud rate changed");
+        initialized = true;
+    }
 }
