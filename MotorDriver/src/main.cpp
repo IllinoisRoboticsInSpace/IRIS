@@ -10,14 +10,18 @@
 #define ST_DEFAULT_PORT 128 // 128 is the default port (for some reason?)
 
 Sabertooth ST(ST_DEFAULT_PORT);
-MotorDriver driver(SERIAL_DEFAULT_BAUD_RATE);
+MotorDriver driver;
 
 void setup() {
+  driver = MotorDriver(&ST, SERIAL_DEFAULT_BAUD_RATE);
   SabertoothTXPinSerial.begin(ST_DEFAULT_BAUD_RATE);
   Serial.begin(SERIAL_DEFAULT_BAUD_RATE); //! DUPLICATION: also in motordriver class, original comment was "For printing"
   ST.autobaud();
 
-  driver.init_motor_driver();
+  if (driver.init_motor_driver() == false)
+  {
+    Serial.println("init failed");
+  }
 }
 
 void loop() {

@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 
+#include "Sabertooth.h" //? DESIGN: is sabertooth necessary for motor driver to have?
+
 #define NUM_ARDUINO_PINS 4 // placeholder
 #define SERIAL_DEFAULT_BAUD_RATE 112500 // was there already (previous comment said "for printing")
 
@@ -54,9 +56,9 @@ class MotorDriver
 {
   public:
     MotorDriver();
-    MotorDriver(unsigned int baudRate);
+    MotorDriver(Sabertooth *st, unsigned int baudRate);
 
-    void init_motor_driver();
+    bool init_motor_driver();
 
     void update();
 
@@ -77,6 +79,7 @@ class MotorDriver
   private:
     bool initialized;
     MotorDriverConfig config;
+    Sabertooth *st; //? DESIGN: see above (line 6)
 
 };
 #endif

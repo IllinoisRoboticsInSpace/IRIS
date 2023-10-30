@@ -6,11 +6,12 @@
 MotorDriver::MotorDriver()
 {
     //Apply default config for default constructor
-    MotorDriver(SERIAL_DEFAULT_BAUD_RATE);
+    MotorDriver(0, SERIAL_DEFAULT_BAUD_RATE);
 }
 
-MotorDriver::MotorDriver(unsigned int baudRate)
+MotorDriver::MotorDriver(Sabertooth *st, unsigned int baudRate)
 {
+    this->st = st;
     initialized = false;
     config.baudRate = baudRate;
 }
@@ -40,9 +41,14 @@ void MotorDriver::update()
 /**
  * Initialize motor driver communication lines and supporting devices
 */
-void MotorDriver::init_motor_driver()
+bool MotorDriver::init_motor_driver()
 {
+    if (st == 0)
+    {
+        return false;
+    }
     Serial.begin(config.baudRate); //! DUPLICATION: also in main.cpp
     Serial.println("Motor Driver Initialized");
     initialized = true;
+    return true;
 }
