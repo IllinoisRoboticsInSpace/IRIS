@@ -3,6 +3,9 @@
 
 #include <Arduino.h>
 
+// placeholder
+#define NUM_ARDUINO_PINS 4
+
 /**
  * The MotorDriver class is responsible for keeping track of all in use
  * encoders, motors, PID loops, and other devices/services that would be
@@ -56,6 +59,23 @@ class MotorDriver
 
     void update();
 
+    // placeholder, not representative of motion
+    enum MotorDirection {
+      up, down, left, right
+    };
+
+    struct MotorDriverConfig {
+      unsigned int motorID;
+      unsigned int baudRate;
+      int serialAddress;
+      int serialPins[NUM_ARDUINO_PINS];
+      MotorDirection direction;
+      bool mode_auto;
+    };
+
   private:
+
+    MotorDriverConfig config;
+    
 };
 #endif
