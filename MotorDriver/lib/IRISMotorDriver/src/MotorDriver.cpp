@@ -6,6 +6,13 @@
 MotorDriver::MotorDriver()
 {
     //Apply default config for default constructor
+    MotorDriver(SERIAL_DEFAULT_BAUD_RATE);
+}
+
+MotorDriver::MotorDriver(unsigned int baudRate)
+{
+    initialized = false;
+    config.baudRate = baudRate;
 }
 
 /**
@@ -35,6 +42,7 @@ void MotorDriver::update()
 */
 void MotorDriver::init_motor_driver()
 {
-    Serial.begin(112500);
+    Serial.begin(config.baudRate); //! DUPLICATION: also in main.cpp
     Serial.println("Motor Driver Initialized");
+    initialized = true;
 }

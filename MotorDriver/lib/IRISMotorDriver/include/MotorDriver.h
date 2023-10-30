@@ -3,8 +3,8 @@
 
 #include <Arduino.h>
 
-// placeholder
-#define NUM_ARDUINO_PINS 4
+#define NUM_ARDUINO_PINS 4 // placeholder
+#define SERIAL_DEFAULT_BAUD_RATE 112500 // was there already (previous comment said "for printing")
 
 /**
  * The MotorDriver class is responsible for keeping track of all in use
@@ -54,6 +54,7 @@ class MotorDriver
 {
   public:
     MotorDriver();
+    MotorDriver(unsigned int baudRate);
 
     void init_motor_driver();
 
@@ -74,6 +75,7 @@ class MotorDriver
     };
 
   private:
+    bool initialized;
     MotorDriverConfig config;
 
 };

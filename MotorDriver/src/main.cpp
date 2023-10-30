@@ -6,13 +6,15 @@
 // To learn more read this: https://community.platformio.org/t/nrf52832-include-set-breaks-compilation-on-platformio-but-compiles-fine-on-arduinoide/12237/2
 #include <Arduino.h>
 
-Sabertooth ST(128);
+#define ST_DEFAULT_BAUD_RATE 9600 // 9600 is the default baud rate for Sabertooth packet serial.
+#define ST_DEFAULT_PORT 128 // 128 is the default port (for some reason?)
 
-MotorDriver driver;
+Sabertooth ST(ST_DEFAULT_PORT);
+MotorDriver driver(SERIAL_DEFAULT_BAUD_RATE);
 
 void setup() {
-  SabertoothTXPinSerial.begin(9600); // 9600 is the default baud rate for Sabertooth packet serial.
-  Serial.begin(112500);//For printing
+  SabertoothTXPinSerial.begin(ST_DEFAULT_BAUD_RATE);
+  Serial.begin(SERIAL_DEFAULT_BAUD_RATE); //! DUPLICATION: also in motordriver class, original comment was "For printing"
   ST.autobaud();
 
   driver.init_motor_driver();
