@@ -74,7 +74,7 @@ class MotorDriver
     };
 
   private:
+    MotorDriverConfig config;
 
-    MotorDriverConfig config;   
 };
 #endif
