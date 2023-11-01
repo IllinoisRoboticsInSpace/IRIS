@@ -1,3 +1,5 @@
 # Ignore all generated files
 *.py
 *.pyi
+
+!__init__.py
