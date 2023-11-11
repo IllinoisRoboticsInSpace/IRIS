@@ -18,6 +18,9 @@ from motor_driver.generated import example_pb2
 def test_example():
     print("Intermediate printed messages\n")
     print("Run tests with command:\n colcon test --packages-select motor_driver --event-handlers console_cohesion+")
+    assert 1 == 1
+
+def test_types_message():
     message = example_pb2.Types()
     message.signed_integer_32 = -10
     message.unsigned_integer_32 = 10
