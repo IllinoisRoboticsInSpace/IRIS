@@ -1,2 +1,25 @@
+syntax = "proto3";
+// TODO: Protobuf is able to find multiple message files but python is not able to link them together in the modules
+
 // Try to nest this message into the message format
 // Must be able to change the data that will be sent for different opcodes.
+
+// enum Config_Param
+// {
+//   SERIAL_PIN = 0;
+//   MOTOR_NUM = 1;
+//   ADDRESS = 2;
+//   INVERTED = 3;
+// }
+
+// message Config_Data
+// {
+//     // Config_Param key = 4000;
+//     oneof values
+//     {
+//         uint32 serialPin = 4001;
+//         uint32 motorNum = 4002;
+//         uint32 address = 4003;
+//         bool inverted = 4004;
+//     }
+// }
