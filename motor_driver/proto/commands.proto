@@ -1,0 +1,31 @@
+syntax = "proto3";
+// import "motorConfig.proto";
+// Make enum that contains the opcode
+// Make message for actuating the motor (motorID, output)
+
+enum Opcode
+{
+  CONFIG_MOTOR = 0;
+  TURN_MOTOR = 1;
+}
+
+message Serial_Message
+{
+    Opcode opcode = 5000;
+    oneof data
+    {
+        Config_Data config_data = 5001;//Protobuf can actually see "Config_Data"
+    }
+}
+
+message Config_Data
+{
+    // Config_Param key = 4000;
+    oneof values
+    {
+        uint32 serialPin = 4001;
+        uint32 motorNum = 4002;
+        uint32 address = 4003;
+        bool inverted = 4004;
+    }
+}
