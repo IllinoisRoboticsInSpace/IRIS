@@ -28,8 +28,6 @@ AprilTag Node:
 ```bash
 ros2 launch iris_apriltag_ros tag_36h11_all.launch.py
 ```
-
-TODO
 ### End Package Folder Structure
 ```
 ~/colcon_ws/
