@@ -73,7 +73,10 @@ class MotorDriver
       unsigned int motorID;
       unsigned int baudRate;
       int serialAddress;
-      int serialPins[NUM_ARDUINO_PINS];
+      int serialPinIn1;
+      int serialPinIn2;
+      int serialPinOut1;
+      int serialPinOut2;
       MotorDirection direction;
       bool mode_auto;
     };
