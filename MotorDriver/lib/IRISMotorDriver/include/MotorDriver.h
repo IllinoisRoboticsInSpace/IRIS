@@ -71,7 +71,7 @@ class MotorDriver
 
     MotorDriver();
     MotorDriver(Sabertooth *st, unsigned int baudRate);
-    MotorDriver::MotorDriver(Sabertooth *st, MotorDriverConfig config);
+    MotorDriver(Sabertooth *st, MotorDriverConfig config);
 
     bool init_motor_driver();
 
