@@ -17,19 +17,32 @@ MotorDriver::MotorDriver(Sabertooth *st, unsigned int baudRate)
     config.mode_auto = true;
 }
 
+// FUNCTIONS INCLUDED IN UPDATE():
+
+void MotorDriver::Read(){
+    
+}
+
+void MotorDriver::Parse(){ 
+
+}
+
+void MotorDriver::Execute(){
+
+}
+
+void MotorDriver::ReadEncoder(){
+
+}
+
 /**
  * Run motor driver update loop
 */
 void MotorDriver::update()
 {
-    //Read serial data
-
-    //parse serial data
-
-    //execute command
-
-
-
+    Read();
+    Parse();
+    Execute();
 
     //FUTURE:
     //read encoder data
