@@ -73,10 +73,7 @@ class MotorDriver
       unsigned int motorID;
       unsigned int baudRate;
       int serialAddress;
-      int serialPinIn1;
-      int serialPinIn2;
-      int serialPinOut1;
-      int serialPinOut2;
+      int serialPin;
       MotorDirection direction;
       bool mode_auto;
     };

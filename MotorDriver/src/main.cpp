@@ -13,6 +13,7 @@ Sabertooth ST(ST_DEFAULT_PORT);
 MotorDriver driver;
 
 void setup() {
+  //? below block in the init_motor_driver_function? or the constructor itself in MotorDriver
   driver = MotorDriver(&ST, SERIAL_DEFAULT_BAUD_RATE);
   SabertoothTXPinSerial.begin(ST_DEFAULT_BAUD_RATE);
   Serial.begin(SERIAL_DEFAULT_BAUD_RATE); //! DUPLICATION: also in motordriver class, original comment was "For printing"
