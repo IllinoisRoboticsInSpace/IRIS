@@ -17,6 +17,13 @@ MotorDriver::MotorDriver(Sabertooth *st, unsigned int baudRate)
     config.mode_auto = true;
 }
 
+MotorDriver::MotorDriver(Sabertooth *st, MotorDriverConfig config)
+{
+    this->st = st;
+    this->config = config;
+    initialized = false;
+}
+
 /**
  * Run motor driver update loop
 */
