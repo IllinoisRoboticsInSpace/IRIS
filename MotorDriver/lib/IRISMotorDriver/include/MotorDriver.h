@@ -79,6 +79,11 @@ class MotorDriver
     void setBaudRate(unsigned int baudRate);
     void setMode(bool mode_auto);
 
+    void Read();
+    void Parse();
+    void Execute();
+    void ReadEncoder();
+
   private:
     bool initialized;
     MotorDriverConfig config;
