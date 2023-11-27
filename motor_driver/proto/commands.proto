@@ -6,7 +6,11 @@ syntax = "proto3";
 enum Opcode
 {
   CONFIG_MOTOR = 0;
-  TURN_MOTOR = 1;
+  TURN_MOTOR_1 = 1; //Do we want the motor ID to be in the opcode or the Turn_Motor message (it will take up less data this way? but more hard coded)
+  TURN_MOTOR_2 = 2;
+  TURN_MOTOR_3 = 3;
+  TURN_MOTOR_4 = 4;
+  STOP_ALL_MOTORS = 5;
 }
 
 message Serial_Message
@@ -14,7 +18,8 @@ message Serial_Message
     Opcode opcode = 5000;
     oneof data
     {
-        Config_Data config_data = 5001;//Protobuf can actually see "Config_Data"
+        Config_Data configData = 5001;//Protobuf can actually see "Config_Data"
+        Turn_Motor motorCommand = 5002;
     }
 }
 
@@ -23,9 +28,15 @@ message Config_Data
     // Config_Param key = 4000;
     oneof values
     {
-        uint32 serialPin = 4001;
-        uint32 motorNum = 4002;
-        uint32 address = 4003;
-        bool inverted = 4004;
+        uint32 motorID = 4001;
+        uint32 serialPin = 4002;
+        uint32 motorNum = 4003;
+        uint32 address = 4004;
+        bool inverted = 4005;
     }
+}
+
+message Turn_Motor
+{
+    int32 percentSpeed = 6000;
 }
