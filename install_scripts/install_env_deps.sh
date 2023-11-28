@@ -35,6 +35,9 @@ sudo apt install -y ros-$ROS_DISTRO-navigation2 ros-$ROS_DISTRO-nav2-bringup
 # https://github.com/introlab/rtabmap_ros/tree/ros2#binaries
 sudo apt-get install -y ros-$ROS_DISTRO-rtabmap-ros
 
+# Motor Driver Dependencies
+pip3 install pyserial==3.4 protobuf==4.21.5 crccheck==1.3.0
+
 # Extra Installation Instructions
 echo "source ~/colcon_ws/install/setup.bash" >> ~/.bashrc
 
