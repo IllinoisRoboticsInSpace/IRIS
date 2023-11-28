@@ -3,10 +3,14 @@
 
 #include <Arduino.h>
 
+#undef min
+#undef max
+#include <array>
+
 #include "Sabertooth.h" //? DESIGN: is sabertooth necessary for motor driver to have?
 
 #define NUM_ARDUINO_PINS 4 // placeholder
-#define SERIAL_DEFAULT_BAUD_RATE 112500 // was there already (previous comment said "for printing")
+#define DEFAULT_SERIAL_TRANSFER_BAUD_RATE 112500 // was there already (previous comment said "for printing")
 
 /**
  * The MotorDriver class is responsible for keeping track of all in use
@@ -52,41 +56,48 @@
  * all encoder updates that can not be serviced as a given moment will be queued
  * up for sending instead of being processed.
  */
+
+/** commands.proto file format
+  uint32 motorID = 4001;
+  uint32 serialPin = 4002;
+  uint32 motorNum = 4003;
+  uint32 address = 4004;
+  bool inverted = 4005;
+*/
+
 class MotorDriver
 {
   public:
-    // placeholder, not representative of motion
-    enum MotorDirection {
-      up, down, left, right
-    };
 
     struct MotorDriverConfig {
+      // fields from commands.proto file
       unsigned int motorID;
-      unsigned int baudRate;
-      int serialAddress;
-      int serialPin;
-      MotorDirection direction;
-      bool mode_auto;
+      unsigned int serialPin;
+      unsigned int motorNum;
+      unsigned int address;
+      bool inverted;
+
+      // fields not in commands.proto file
+      unsigned int arduinoSabertoothBaudRate;
     };
 
     MotorDriver();
-    MotorDriver(Sabertooth *st, unsigned int baudRate);
-    MotorDriver(Sabertooth *st, MotorDriverConfig config);
+    MotorDriver(unsigned int serialTransferBaudRate, std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs, Sabertooth *st);
 
-    bool init_motor_driver();
+    bool initMotorDriver();
+
+    void read();
+    void parse();
+    void execute();
 
     void update();
-    void setBaudRate(unsigned int baudRate);
-    void setMode(bool mode_auto);
 
-    void Read();
-    void Parse();
-    void Execute();
-    void ReadEncoder();
+    void setSerialTransferBaudRate(unsigned int serialTransferBaudRate);
 
   private:
     bool initialized;
-    MotorDriverConfig config;
+    unsigned int serialTransferBaudRate;
+    std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs;
     Sabertooth *st; //? DESIGN: see above (line 6)
 
 };

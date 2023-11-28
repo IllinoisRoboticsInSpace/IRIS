@@ -1,44 +1,32 @@
 #include "MotorDriver.h"
 
+MotorDriver::MotorDriver()
+{
+    MotorDriver(DEFAULT_SERIAL_TRANSFER_BAUD_RATE, std::array<MotorDriverConfig, NUM_ARDUINO_PINS>(), 0);
+}
+
 /**
  * Initialize motor driver state
 */
-MotorDriver::MotorDriver()
+MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs, Sabertooth *st)
 {
-    //Apply default config for default constructor
-    MotorDriver(0, SERIAL_DEFAULT_BAUD_RATE);
-}
-
-MotorDriver::MotorDriver(Sabertooth *st, unsigned int baudRate)
-{
+    this->initialized = false;
+    this->serialTransferBaudRate = serialTransferBaudRate;
+    this->configs = configs;
     this->st = st;
-    initialized = false;
-    config.baudRate = baudRate;
-    config.mode_auto = true;
-}
-
-MotorDriver::MotorDriver(Sabertooth *st, MotorDriverConfig config)
-{
-    this->st = st;
-    this->config = config;
-    initialized = false;
 }
 
 // FUNCTIONS INCLUDED IN UPDATE():
 
-void MotorDriver::Read(){
+void MotorDriver::read(){
     
 }
 
-void MotorDriver::Parse(){ 
+void MotorDriver::parse(){ 
 
 }
 
-void MotorDriver::Execute(){
-
-}
-
-void MotorDriver::ReadEncoder(){
+void MotorDriver::execute(){
 
 }
 
@@ -47,45 +35,39 @@ void MotorDriver::ReadEncoder(){
 */
 void MotorDriver::update()
 {
-    Read();
-    Parse();
-    Execute();
+    read();
+    parse();
+    execute();
 
     //FUTURE:
     //read encoder data
-
     //send back encoder data
-
     //run PID loops
 }
 
 /**
  * Initialize motor driver communication lines and supporting devices
 */
-bool MotorDriver::init_motor_driver()
+bool MotorDriver::initMotorDriver()
 {
     if (st == 0)
     {
         return false;
     }
-    Serial.begin(config.baudRate); //! DUPLICATION: also in main.cpp
+    Serial.begin(serialTransferBaudRate); //! DUPLICATION: also in main.cpp
     Serial.println("Motor Driver Initialized");
     initialized = true;
     return true;
 }
 
-void MotorDriver::setMode(bool mode_auto)
+void MotorDriver::setSerialTransferBaudRate(unsigned int serialTransferBaudRate)
 {
-    this->config.mode_auto = mode_auto;
-}
+    this->serialTransferBaudRate = serialTransferBaudRate;
 
-void MotorDriver::setBaudRate(unsigned int baudRate)
-{
-    config.baudRate = baudRate;
     if (initialized) {
         initialized = false;
         Serial.end();
-        Serial.begin(config.baudRate);
+        Serial.begin(serialTransferBaudRate);
         Serial.println("baud rate changed");
         initialized = true;
     }
