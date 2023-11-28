@@ -6,11 +6,8 @@ syntax = "proto3";
 enum Opcode
 {
   CONFIG_MOTOR = 0;
-  TURN_MOTOR_1 = 1; //Do we want the motor ID to be in the opcode or the Turn_Motor message (it will take up less data this way? but more hard coded)
-  TURN_MOTOR_2 = 2;
-  TURN_MOTOR_3 = 3;
-  TURN_MOTOR_4 = 4;
-  STOP_ALL_MOTORS = 5;
+  TURN_MOTOR = 1; 
+  STOP_ALL_MOTORS = 2;
 }
 
 message Serial_Message
@@ -38,5 +35,6 @@ message Config_Data
 
 message Turn_Motor
 {
-    int32 percentSpeed = 6000;
+    uint32 motorID = 6000;
+    float percentOutput = 6001;
 }
