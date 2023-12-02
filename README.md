@@ -1,5 +1,7 @@
+```bash
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/home/YOUR_USERNAME/colcon_ws/src/sam_bot_description/models/
 ros2 launch sam_bot_description display.launch.py
+```
 
 
 
