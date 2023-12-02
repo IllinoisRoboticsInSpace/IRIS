@@ -12,14 +12,16 @@
 Sabertooth ST(DEFAULT_SABERTOOTH_PORT);
 MotorDriver driver;
 
+// Serial: line from us to arduino
+// Serial1: line from arduino to sabertooth
+
 void setup() {
   //? below block in the init_motor_driver_function? or the constructor itself in MotorDriver
-  driver = MotorDriver(DEFAULT_SERIAL_TRANSFER_BAUD_RATE, std::array<MotorDriver::MotorDriverConfig, NUM_ARDUINO_PINS>(), &ST);
-  SabertoothTXPinSerial.begin(DEFAULT_SABERTOOTH_BAUD_RATE);
-  Serial.begin(DEFAULT_SERIAL_TRANSFER_BAUD_RATE); //! DUPLICATION: also in motordriver class, original comment was "For printing"
-  ST.autobaud();
+  SabertoothTXPinSerial.begin(DEFAULT_SABERTOOTH_BAUD_RATE); // communicating over Serial1
+  ST.autobaud(); // sabertooth algorithm to determine its baudrate
 
-  // while (driver.init_motor_driver() == false)
+  driver = MotorDriver(DEFAULT_SERIAL_TRANSFER_BAUD_RATE, std::array<MotorDriver::MotorDriverConfig, NUM_ARDUINO_PINS>(), &ST);
+
   if (driver.initMotorDriver() == false)
   {
     Serial.println("init failed");

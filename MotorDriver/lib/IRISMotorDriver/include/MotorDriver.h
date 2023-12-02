@@ -91,9 +91,6 @@ class MotorDriver
     std::array<MotorDriverConfig, NUM_ARDUINO_PINS> getConfigs();
     void setConfigs(std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs);
 
-    void read();
-    void parse();
-    void execute();
     void update();
 
   private:
@@ -102,5 +99,10 @@ class MotorDriver
     unsigned int serialTransferBaudRate;
     std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs;
     Sabertooth *st; //? DESIGN: see above (line 6)
+
+    // helpers for update
+    void read();
+    void parse();
+    void execute();
 };
 #endif

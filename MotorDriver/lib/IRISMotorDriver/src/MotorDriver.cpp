@@ -81,12 +81,16 @@ void MotorDriver::execute(){
 */
 void MotorDriver::update()
 {
-    read();
-    parse();
-    execute();
+    if (!initialized)
+    {
+        return;
+    }
 
     //FUTURE:
     //read encoder data
     //send back encoder data
     //run PID loops
+    read();
+    parse();
+    execute();
 }
