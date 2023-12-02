@@ -81,24 +81,26 @@ class MotorDriver
       unsigned int arduinoSabertoothBaudRate;
     };
 
-    MotorDriver();
     MotorDriver(unsigned int serialTransferBaudRate, std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs, Sabertooth *st);
+    MotorDriver();
 
     bool initMotorDriver();
+    bool getInitialized();
+    unsigned int getSerialTransferBaudRate();
+    void setSerialTransferBaudRate(unsigned int serialTransferBaudRate);
+    std::array<MotorDriverConfig, NUM_ARDUINO_PINS> getConfigs();
+    void setConfigs(std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs);
 
     void read();
     void parse();
     void execute();
-
     void update();
 
-    void setSerialTransferBaudRate(unsigned int serialTransferBaudRate);
-
   private:
+
     bool initialized;
     unsigned int serialTransferBaudRate;
     std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs;
     Sabertooth *st; //? DESIGN: see above (line 6)
-
 };
 #endif
