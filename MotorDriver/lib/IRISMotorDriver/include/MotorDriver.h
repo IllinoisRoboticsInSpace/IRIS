@@ -7,10 +7,10 @@
 #undef max
 #include <array>
 
-#include "Sabertooth.h" //? DESIGN: is sabertooth necessary for motor driver to have?
+#include "Sabertooth.h"
 
-#define NUM_ARDUINO_PINS 4 // placeholder
-#define DEFAULT_SERIAL_TRANSFER_BAUD_RATE 112500 // was there already (previous comment said "for printing")
+#define MAX_MOTOR_ID 15 // Maximum number of motor ids 0 indexed
+#define DEFAULT_HOST_SERIAL_BAUD_RATE 112500 // Baud rate of serial communication with host
 
 /**
  * The MotorDriver class is responsible for keeping track of all in use
@@ -71,25 +71,27 @@ class MotorDriver
 
     struct MotorDriverConfig {
       // fields from commands.proto file
-      unsigned int motorID;
-      unsigned int serialPin;
+      UARTClass* serialLine = &Serial1;
       unsigned int motorNum;
       unsigned int address;
-      bool inverted;
+      bool inverted = false;
+      bool enabled = false; // Throw error if false
 
       // fields not in commands.proto file
       unsigned int arduinoSabertoothBaudRate;
+      Sabertooth sabertooth;
     };
 
-    MotorDriver(unsigned int serialTransferBaudRate, std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs, Sabertooth *st);
+    MotorDriver(unsigned int serialTransferBaudRate, std::array<MotorDriverConfig, MAX_MOTOR_ID + 1> configs);
     MotorDriver();
-
-    bool initMotorDriver();
+ 
+    // An init function allows user to update internal state of motor driver before it connects to attached devices.
+    bool initMotorDriver(); 
     bool getInitialized();
     unsigned int getSerialTransferBaudRate();
     void setSerialTransferBaudRate(unsigned int serialTransferBaudRate);
-    std::array<MotorDriverConfig, NUM_ARDUINO_PINS> getConfigs();
-    void setConfigs(std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs);
+    std::array<MotorDriverConfig, MAX_MOTOR_ID + 1> getConfigs();
+    void setConfigs(std::array<MotorDriverConfig, MAX_MOTOR_ID + 1> configs);
 
     void update();
 
@@ -97,8 +99,7 @@ class MotorDriver
 
     bool initialized;
     unsigned int serialTransferBaudRate;
-    std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs;
-    Sabertooth *st; //? DESIGN: see above (line 6)
+    std::array<MotorDriverConfig, MAX_MOTOR_ID + 1> configs; //
 
     // helpers for update
     void read();

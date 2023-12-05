@@ -3,17 +3,16 @@
 /**
  * Initialize motor driver state
 */
-MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs, Sabertooth *st)
+MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<MotorDriver::MotorDriverConfig, MAX_MOTOR_ID + 1> configs)
 {
     this->initialized = false;
     this->serialTransferBaudRate = serialTransferBaudRate;
     this->configs = configs;
-    this->st = st;
 }
 
 MotorDriver::MotorDriver()
 {
-    MotorDriver(DEFAULT_SERIAL_TRANSFER_BAUD_RATE, std::array<MotorDriverConfig, NUM_ARDUINO_PINS>(), nullptr);
+    MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE, std::array<MotorDriver::MotorDriverConfig, MAX_MOTOR_ID + 1>());
 }
 
 /**
@@ -21,10 +20,6 @@ MotorDriver::MotorDriver()
 */
 bool MotorDriver::initMotorDriver()
 {
-    if (st == nullptr)
-    {
-        return false;
-    }
     Serial.begin(serialTransferBaudRate); //! DUPLICATION: also in main.cpp
     Serial.println("Motor Driver Initialized");
     initialized = true;
@@ -54,12 +49,12 @@ void MotorDriver::setSerialTransferBaudRate(unsigned int serialTransferBaudRate)
     }
 }
 
-std::array<MotorDriver::MotorDriverConfig, NUM_ARDUINO_PINS> MotorDriver::getConfigs()
+std::array<MotorDriver::MotorDriverConfig, MAX_MOTOR_ID + 1> MotorDriver::getConfigs()
 {
     return configs;
 }
 
-void MotorDriver::setConfigs(std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs)
+void MotorDriver::setConfigs(std::array<MotorDriver::MotorDriverConfig, MAX_MOTOR_ID + 1> configs)
 {
     this->configs = configs;
 }
