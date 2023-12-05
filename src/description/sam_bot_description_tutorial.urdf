@@ -2,15 +2,15 @@
 <robot name="sam_bot" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <!-- Define robot constants -->
-  <xacro:property name="base_width" value="0.31"/>
-  <xacro:property name="base_length" value="0.42"/>
-  <xacro:property name="base_height" value="0.18"/>
+  <xacro:property name="base_width" value="0.75"/> <!-- y direction -->
+  <xacro:property name="base_length" value="1.5"/> <!-- x direction -->
+  <xacro:property name="base_height" value="0.75"/> <!-- z direction -->
 
-  <xacro:property name="wheel_radius" value="0.10"/>
-  <xacro:property name="wheel_width" value="0.04"/>
-  <xacro:property name="wheel_ygap" value="0.025"/>
-  <xacro:property name="wheel_zoff" value="0.05"/>
-  <xacro:property name="wheel_xoff" value="0.12"/>
+  <xacro:property name="wheel_radius" value="0.225"/>
+  <xacro:property name="wheel_width" value="0.16"/>
+  <xacro:property name="wheel_ygap" value="-0.08"/>
+  <xacro:property name="wheel_zoff" value="0.25"/>
+  <xacro:property name="wheel_xoff" value="0.295"/>
 
   <!-- Define some commonly used intertial properties  -->
   <xacro:macro name="box_inertia" params="m w h d">
@@ -259,7 +259,7 @@
   <joint name="lidar_joint" type="fixed">
     <parent link="base_link"/>
     <child link="lidar_link"/>
-    <origin xyz="0 0 0.12" rpy="0 0 0"/>
+    <origin xyz="0 0 0.4025" rpy="0 0 0"/>
   </joint>
     
   <gazebo reference="lidar_link">
@@ -322,7 +322,7 @@
   <joint name="camera_joint" type="fixed">
     <parent link="base_link"/>
     <child link="camera_link"/>
-    <origin xyz="0.215 0 0.05" rpy="0 0 0"/>
+    <origin xyz="0.7575 0 0.05" rpy="0 0 0"/>
   </joint>
 
   <link name="camera_depth_frame"/>
