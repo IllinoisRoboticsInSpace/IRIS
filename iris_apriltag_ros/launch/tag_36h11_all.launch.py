@@ -12,11 +12,17 @@ cfg_36h11 = {
     "refine-pose": False        # increase the accuracy of the extracted pose
 }
 
+arducam = {
+    'video_device': '/dev/video0',
+    'camera_info_url': '/home/iris/.ros/camera_info/arducam.yaml',
+}
+
 def generate_launch_description():
-    # 'usb_cam' node from https://github.com/ros-drivers/usb_cam.git
     cam_node = ComposableNode(
-        namespace='camera',
+        name='camera',
+        namespace='v4l2',
         package='v4l2_camera', plugin='v4l2_camera::V4L2Camera',
+        parameters=[arducam],
         extra_arguments=[{'use_intra_process_comms': True}],
     )
     tag_node = ComposableNode(
@@ -26,8 +32,8 @@ def generate_launch_description():
         remappings=[
             # This maps the 'raw' images for simplicity of demonstration.
             # In practice, this will have to be the rectified 'rect' images.
-            ("/apriltag/image_rect", "/camera/image_raw"),
-            ("/apriltag/camera_info", "/camera/camera_info"),
+            ("/apriltag/image_rect", "/v4l2/image_raw"),
+            ("/apriltag/camera_info", "/v4l2/camera_info"),
         ],
         parameters=[cfg_36h11],
         extra_arguments=[{'use_intra_process_comms': True}],
