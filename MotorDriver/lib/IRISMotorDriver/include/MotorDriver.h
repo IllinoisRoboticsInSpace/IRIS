@@ -8,8 +8,10 @@
 #include <array>
 
 #include "Sabertooth.h"
+#include "SabertoothConfig.h"
 
 #define MAX_MOTOR_ID 15 // Maximum number of motor ids 0 indexed
+#define MAX_MOTOR_CONFIGS (MAX_MOTOR_ID + 1)
 #define DEFAULT_HOST_SERIAL_BAUD_RATE 112500 // Baud rate of serial communication with host
 
 /**
@@ -56,50 +58,25 @@
  * all encoder updates that can not be serviced as a given moment will be queued
  * up for sending instead of being processed.
  */
-
-/** commands.proto file format
-  uint32 motorID = 4001;
-  uint32 serialPin = 4002;
-  uint32 motorNum = 4003;
-  uint32 address = 4004;
-  bool inverted = 4005;
-*/
-
 class MotorDriver
 {
   public:
-
-    struct MotorDriverConfig {
-      // fields from commands.proto file
-      UARTClass* serialLine = &Serial1;
-      unsigned int motorNum;
-      unsigned int address;
-      bool inverted = false;
-      bool enabled = false; // Throw error if false
-
-      // fields not in commands.proto file
-      unsigned int arduinoSabertoothBaudRate;
-      Sabertooth sabertooth;
-    };
-
-    MotorDriver(unsigned int serialTransferBaudRate, std::array<MotorDriverConfig, MAX_MOTOR_ID + 1> configs);
+    MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> configs);
+    MotorDriver(unsigned int serialTransferBaudRate);
     MotorDriver();
  
     // An init function allows user to update internal state of motor driver before it connects to attached devices.
     bool initMotorDriver(); 
-    bool getInitialized();
-    unsigned int getSerialTransferBaudRate();
     void setSerialTransferBaudRate(unsigned int serialTransferBaudRate);
-    std::array<MotorDriverConfig, MAX_MOTOR_ID + 1> getConfigs();
-    void setConfigs(std::array<MotorDriverConfig, MAX_MOTOR_ID + 1> configs);
+    std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> getConfigs();
+    void setConfigs(std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> configs);
 
     void update();
 
   private:
-
     bool initialized;
     unsigned int serialTransferBaudRate;
-    std::array<MotorDriverConfig, MAX_MOTOR_ID + 1> configs; //
+    std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> configs; //
 
     // helpers for update
     void read();

@@ -3,16 +3,21 @@
 /**
  * Initialize motor driver state
 */
-MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<MotorDriver::MotorDriverConfig, MAX_MOTOR_ID + 1> configs)
+MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> configs)
+    : initialized(false)
 {
-    this->initialized = false;
     this->serialTransferBaudRate = serialTransferBaudRate;
     this->configs = configs;
 }
 
+MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
+{
+    MotorDriver(serialTransferBaudRate, std::array<SabertoothConfig, MAX_MOTOR_CONFIGS>());
+}
+
 MotorDriver::MotorDriver()
 {
-    MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE, std::array<MotorDriver::MotorDriverConfig, MAX_MOTOR_ID + 1>());
+    MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE, std::array<SabertoothConfig, MAX_MOTOR_CONFIGS>());
 }
 
 /**
@@ -20,20 +25,10 @@ MotorDriver::MotorDriver()
 */
 bool MotorDriver::initMotorDriver()
 {
-    Serial.begin(serialTransferBaudRate); //! DUPLICATION: also in main.cpp
+    Serial.begin(serialTransferBaudRate);
     Serial.println("Motor Driver Initialized");
     initialized = true;
     return true;
-}
-
-bool MotorDriver::getInitialized()
-{
-    return initialized;
-}
-
-unsigned int MotorDriver::getSerialTransferBaudRate()
-{
-    return serialTransferBaudRate;
 }
 
 void MotorDriver::setSerialTransferBaudRate(unsigned int serialTransferBaudRate)
@@ -49,25 +44,28 @@ void MotorDriver::setSerialTransferBaudRate(unsigned int serialTransferBaudRate)
     }
 }
 
-std::array<MotorDriver::MotorDriverConfig, MAX_MOTOR_ID + 1> MotorDriver::getConfigs()
+std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> MotorDriver::getConfigs()
 {
     return configs;
 }
 
-void MotorDriver::setConfigs(std::array<MotorDriver::MotorDriverConfig, MAX_MOTOR_ID + 1> configs)
+void MotorDriver::setConfigs(std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> configs)
 {
     this->configs = configs;
 }
 
-void MotorDriver::read(){
+void MotorDriver::read()
+{
     
 }
 
-void MotorDriver::parse(){ 
+void MotorDriver::parse()
+{ 
 
 }
 
-void MotorDriver::execute(){
+void MotorDriver::execute()
+{
 
 }
 
