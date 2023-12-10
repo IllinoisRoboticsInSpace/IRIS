@@ -20,7 +20,7 @@ void setup() {
   SabertoothTXPinSerial.begin(DEFAULT_SABERTOOTH_BAUD_RATE); // communicating over Serial1
   ST.autobaud(); // sabertooth algorithm to determine its baudrate
 
-  driver = MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE, std::array<MotorDriver::MotorDriverConfig, MAX_MOTOR_ID + 1>());
+  // driver = MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE, std::array<MotorDriver::MotorDriverConfig, MAX_MOTOR_ID + 1>());
 
   if (driver.initMotorDriver() == false)
   {

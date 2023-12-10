@@ -30,6 +30,19 @@ Sabertooth::Sabertooth(byte address, SabertoothStream& port)
 
 }
 
+Sabertooth::Sabertooth(const Sabertooth& other)
+  : _address(other._address), _port(other._port)
+{
+
+}
+
+Sabertooth& Sabertooth::operator=(const Sabertooth& other)
+{
+  _address = other._address;
+  _port = other._port;
+  return *this;
+}
+
 void Sabertooth::autobaud(boolean dontWait) const
 {
   autobaud(port(), dontWait);
