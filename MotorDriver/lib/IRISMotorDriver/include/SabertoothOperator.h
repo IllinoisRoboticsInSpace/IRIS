@@ -11,16 +11,20 @@
 
 #define DEFAULT_SABERTOOTH_BAUD_RATE 9600
 
-class SabertoothConfig
+class SabertoothOperator
 {
   public:
-    SabertoothConfig();
-    SabertoothConfig(const SabertoothConfig& other);
+    SabertoothOperator();
+    SabertoothOperator(const SabertoothOperator& other);
     /*!
     Assigns current object to other object
     \param other SabertoothConfig
     */
-    SabertoothConfig& operator=(const SabertoothConfig& other);
+    SabertoothOperator& operator=(const SabertoothOperator& other);
+
+    // actuate()
+
+    // init()
 
   private:
     // General

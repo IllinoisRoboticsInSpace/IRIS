@@ -8,7 +8,7 @@
 #include <array>
 
 #include "Sabertooth.h"
-#include "SabertoothConfig.h"
+#include "SabertoothOperator.h"
 
 #define MAX_MOTOR_ID 15 // Maximum number of motor ids 0 indexed
 #define MAX_MOTOR_CONFIGS (MAX_MOTOR_ID + 1)
@@ -21,6 +21,8 @@
  * by processing the serial commands that are recieved from the host device.
  * The MotorDriver class is written to handle message errors such as corrupted
  * data and invalid commands.
+ * 
+ * @attention Must call initMotorDriver() function in arduino setup() function
  * 
  * @note All functionality in the Arduino Motor Driver must be verified and
  * synced up with development on the Python host driver.
@@ -61,20 +63,20 @@
 class MotorDriver
 {
   public:
-    MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> configs);
+    MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs);
     MotorDriver(unsigned int serialTransferBaudRate);
     MotorDriver();
  
     // An init function allows user to update internal state of motor driver before it connects to attached devices.
     bool initMotorDriver(); 
-    SabertoothConfig getConfig(unsigned int motorID);
-    void setConfig(unsigned int motorID, SabertoothConfig config);
+    SabertoothOperator getConfig(unsigned int motorID);
+    void setConfig(unsigned int motorID, SabertoothOperator config);
 
     void update();
 
   private:
     unsigned int serialTransferBaudRate;
-    std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> configs; // contains configs of connected devices
+    std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs; // contains configs of connected devices
 
     // helpers for update
     void read();

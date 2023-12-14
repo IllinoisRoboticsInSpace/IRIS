@@ -1,13 +1,13 @@
-#include "SabertoothConfig.h"
+#include "SabertoothOperator.h"
 
-SabertoothConfig::SabertoothConfig()
+SabertoothOperator::SabertoothOperator()
     : inverted(false), enabled(false), serialLine(&Serial1)
     , baudrate(DEFAULT_SABERTOOTH_BAUD_RATE), sabertooth(Sabertooth(130))
 {
     
 }
 
-SabertoothConfig::SabertoothConfig(const SabertoothConfig& other)
+SabertoothOperator::SabertoothOperator(const SabertoothOperator& other)
     : inverted(other.inverted), enabled(other.enabled)
     , serialLine(other.serialLine), address(other.address), baudrate(other.baudrate)
     , sabertooth(other.sabertooth)
@@ -15,7 +15,7 @@ SabertoothConfig::SabertoothConfig(const SabertoothConfig& other)
     //TODO: maybe make copy function to handle copying data in assignment operator and copy constructor
 }
 
-SabertoothConfig& SabertoothConfig::operator=(const SabertoothConfig& other)
+SabertoothOperator& SabertoothOperator::operator=(const SabertoothOperator& other)
 {
     inverted = other.inverted;
     enabled = other.enabled;

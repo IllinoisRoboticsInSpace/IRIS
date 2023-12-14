@@ -3,7 +3,7 @@
 /**
  * Initialize motor driver state
 */
-MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> configs)
+MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs)
     : serialTransferBaudRate(serialTransferBaudRate), configs(configs)
 {
 
@@ -11,12 +11,12 @@ MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<Saberto
 
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
 {
-    MotorDriver(serialTransferBaudRate, std::array<SabertoothConfig, MAX_MOTOR_CONFIGS>());
+    MotorDriver(serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>());
 }
 
 MotorDriver::MotorDriver()
 {
-    MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE, std::array<SabertoothConfig, MAX_MOTOR_CONFIGS>());
+    MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>());
 }
 
 /**
@@ -29,12 +29,12 @@ bool MotorDriver::initMotorDriver()
     return true;
 }
 
-SabertoothConfig MotorDriver::getConfig(unsigned int motorID)
+SabertoothOperator MotorDriver::getConfig(unsigned int motorID)
 {
     return configs[motorID];
 }
 
-void MotorDriver::setConfig(unsigned int motorID, SabertoothConfig config)
+void MotorDriver::setConfig(unsigned int motorID, SabertoothOperator config)
 {
     configs[motorID] = config;
 }
