@@ -68,8 +68,8 @@ class MotorDriver
     // An init function allows user to update internal state of motor driver before it connects to attached devices.
     bool initMotorDriver(); 
     void setSerialTransferBaudRate(unsigned int serialTransferBaudRate);
-    std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> getConfigs();
-    void setConfigs(std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> configs);
+    SabertoothConfig getConfig(unsigned int motorID);
+    void setConfig(unsigned int motorID, SabertoothConfig config);
 
     void update();
 

@@ -24,7 +24,6 @@ class SabertoothConfig
 
   private:
     // General
-    unsigned int motorNum;
     bool inverted;
     bool enabled; // Throw error if false
 

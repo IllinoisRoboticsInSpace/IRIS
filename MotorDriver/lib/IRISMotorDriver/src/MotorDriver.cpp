@@ -44,14 +44,14 @@ void MotorDriver::setSerialTransferBaudRate(unsigned int serialTransferBaudRate)
     }
 }
 
-std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> MotorDriver::getConfigs()
+SabertoothConfig MotorDriver::getConfig(unsigned int motorID)
 {
-    return configs;
+    return configs[motorID];
 }
 
-void MotorDriver::setConfigs(std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> configs)
+void MotorDriver::setConfig(unsigned int motorID, SabertoothConfig config)
 {
-    this->configs = configs;
+    configs[motorID] = config;
 }
 
 void MotorDriver::read()

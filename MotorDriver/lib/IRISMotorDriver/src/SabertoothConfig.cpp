@@ -8,7 +8,7 @@ SabertoothConfig::SabertoothConfig()
 }
 
 SabertoothConfig::SabertoothConfig(const SabertoothConfig& other)
-    : motorNum(other.motorNum), inverted(other.inverted), enabled(other.enabled)
+    : inverted(other.inverted), enabled(other.enabled)
     , serialLine(other.serialLine), address(other.address), baudrate(other.baudrate)
     , sabertooth(other.sabertooth)
 {
@@ -17,7 +17,6 @@ SabertoothConfig::SabertoothConfig(const SabertoothConfig& other)
 
 SabertoothConfig& SabertoothConfig::operator=(const SabertoothConfig& other)
 {
-    motorNum = other.motorNum;
     inverted = other.inverted;
     enabled = other.enabled;
     serialLine = other.serialLine;
