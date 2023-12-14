@@ -4,10 +4,9 @@
  * Initialize motor driver state
 */
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> configs)
-    : initialized(false)
+    : serialTransferBaudRate(serialTransferBaudRate), configs(configs), initialized(false)
 {
-    this->serialTransferBaudRate = serialTransferBaudRate;
-    this->configs = configs;
+    
 }
 
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
@@ -29,19 +28,6 @@ bool MotorDriver::initMotorDriver()
     Serial.println("Motor Driver Initialized");
     initialized = true;
     return true;
-}
-
-void MotorDriver::setSerialTransferBaudRate(unsigned int serialTransferBaudRate)
-{
-    this->serialTransferBaudRate = serialTransferBaudRate;
-
-    if (initialized) {
-        initialized = false;
-        Serial.end();
-        Serial.begin(serialTransferBaudRate);
-        Serial.println("baud rate changed");
-        initialized = true;
-    }
 }
 
 SabertoothConfig MotorDriver::getConfig(unsigned int motorID)
@@ -80,9 +66,9 @@ void MotorDriver::update()
     }
 
     //FUTURE:
-    //read encoder data
-    //send back encoder data
-    //run PID loops
+    // read encoder data
+    // send back encoder data
+    // run PID loops
     read();
     parse();
     execute();
