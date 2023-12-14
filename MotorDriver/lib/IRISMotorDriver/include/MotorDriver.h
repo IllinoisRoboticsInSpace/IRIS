@@ -73,7 +73,6 @@ class MotorDriver
     void update();
 
   private:
-    bool initialized;
     unsigned int serialTransferBaudRate;
     std::array<SabertoothConfig, MAX_MOTOR_CONFIGS> configs; // contains configs of connected devices
 
