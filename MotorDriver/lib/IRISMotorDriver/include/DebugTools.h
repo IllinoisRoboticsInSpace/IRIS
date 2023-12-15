@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 
+// Using debug tools with motor driver without
+// debug mode will cause unintended behavior.
 // Must start usb serial transfer by running:
 // Serial.begin(DEFAULT_HOST_SERIAL_BAUD_RATE);
 // Do not commit with ENABLE_DEBUG set to true

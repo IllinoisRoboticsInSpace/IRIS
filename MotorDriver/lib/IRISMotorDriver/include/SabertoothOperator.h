@@ -8,23 +8,34 @@
 #include <array>
 
 #include "Sabertooth.h"
+#include "generated/commands.h"
 
 #define DEFAULT_SABERTOOTH_BAUD_RATE 9600
+#define DEFAULT_SABERTOOTH_ADDRESS 130
+#define DEFAULT_SABERTOOTH_SERIAL_LINE Serial1
+#define DEFAULT_SABERTOOTH_MOTOR_NUM 1
+#define SABERTOOTH_MAX_OUTPUT 126
 
 class SabertoothOperator
 {
   public:
+    SabertoothOperator(byte address, unsigned int baudrate, byte motornum, USARTClass& serial, bool inverted, bool enabled);
+    SabertoothOperator(byte address, unsigned int baudrate, byte motornum, USARTClass& serial);
     SabertoothOperator();
     SabertoothOperator(const SabertoothOperator& other);
     /*!
     Assigns current object to other object
-    \param other SabertoothConfig
+    \param other SabertoothOperator
     */
     SabertoothOperator& operator=(const SabertoothOperator& other);
 
-    // actuate()
+    //Operation functions
+    void init();
+    void setOutput(float percentOutput);
+    bool applyConfigUpdate(const Sabertooth_Config_Data& update);
 
-    // init()
+    void setInverted(bool inverted);
+    void setEnabled(bool enabled);
 
   private:
     // General
@@ -32,9 +43,9 @@ class SabertoothOperator
     bool enabled; // Throw error if false
 
     // Sabertooth specific
-    UARTClass* serialLine;
-    unsigned int address;
+    USARTClass& serialLine;
     unsigned int baudrate;
+    byte motornum;
     Sabertooth sabertooth;
 };
 

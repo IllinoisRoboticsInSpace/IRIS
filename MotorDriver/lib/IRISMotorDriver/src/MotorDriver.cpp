@@ -1,4 +1,5 @@
 #include "MotorDriver.h"
+#include "DebugTools.h"
 
 /**
  * Initialize motor driver state
@@ -25,7 +26,6 @@ MotorDriver::MotorDriver()
 bool MotorDriver::initMotorDriver()
 {
     Serial.begin(serialTransferBaudRate);
-    Serial.println("Motor Driver Initialized");
     return true;
 }
 
