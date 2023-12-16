@@ -71,6 +71,7 @@ class MotorDriver
     bool initMotorDriver(); 
     SabertoothOperator getConfig(unsigned int motorID);
     void setConfig(unsigned int motorID, SabertoothOperator config);
+    void resetConfigs();
 
     void update();
 

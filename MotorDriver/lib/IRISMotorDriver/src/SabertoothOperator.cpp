@@ -78,7 +78,7 @@ void SabertoothOperator::setOutput(float percentOutput)
 */
 bool SabertoothOperator::applyConfigUpdate(const Sabertooth_Config_Data& update)
 {   
-    DEBUG_PRINT("Apply Config Update:\n")
+    DEBUG_PRINTLN("Apply Config Update:")
     DEBUG_PRINT_MESSAGE(update)
     
     // Always apply enabled change

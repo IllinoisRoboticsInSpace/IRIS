@@ -48,7 +48,13 @@ SabertoothOperator MotorDriver::getConfig(unsigned int motorID)
 
 void MotorDriver::setConfig(unsigned int motorID, SabertoothOperator config)
 {
-    configs[motorID] = config;
+    configs[motorID] = config;  // Does not init with new config init motor driver must be called again.
+}
+
+void MotorDriver::resetConfigs()
+{
+    // Maybe in future maintain the type of the config
+    configs = std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>();
 }
 
 void MotorDriver::read()
