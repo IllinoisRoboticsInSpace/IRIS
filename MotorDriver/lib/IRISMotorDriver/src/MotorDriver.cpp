@@ -11,13 +11,15 @@ MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<Saberto
 }
 
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
+    : serialTransferBaudRate(serialTransferBaudRate), configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
 {
-    MotorDriver(serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>());
+    
 }
 
 MotorDriver::MotorDriver()
+    : serialTransferBaudRate(DEFAULT_HOST_SERIAL_BAUD_RATE), configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
 {
-    MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>());
+
 }
 
 /**

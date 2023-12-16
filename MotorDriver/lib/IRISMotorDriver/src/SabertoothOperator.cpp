@@ -1,6 +1,7 @@
 #include "SabertoothOperator.h"
-// #include "Sabertooth.h"
 #include "DebugTools.h"
+#include "ProtobufUtilities.h"
+#include <mutex>
 
 SabertoothOperator::SabertoothOperator(byte address, unsigned int baudrate, byte motornum, USARTClass& serial, bool inverted, bool enabled)
     : inverted(inverted), enabled(enabled), serialLine(serial), baudrate(baudrate), motornum(motornum), sabertooth(Sabertooth(address, serial))
@@ -65,20 +66,50 @@ void SabertoothOperator::setOutput(float percentOutput)
     //casting back to a float once finished. This multiplies 2 floats and then casts to byte.
 }
 
+/**
+ * Will update the state of the sabertooth operator based on the provided Sabertooth_Config_Data.
+ * Will return false if the sabertooth operator is not enabled or if the Sabertooth_Config_Data
+ * does not contain data. 
+ * @param update protobuf message with config update data
+*/
 bool SabertoothOperator::applyConfigUpdate(const Sabertooth_Config_Data& update)
-{
+{   
+    DEBUG_PRINT("Apply Config Update:\n")
+    DEBUG_PRINT_MESSAGE(update)
+    
+    // Always apply enabled change
     auto key = update.get_which_values();
+    if (key == Sabertooth_Config_Data::FieldNumber::ENABLED)
+    {
+        setEnabled(update.get_enabled());
+        return true;
+    }
+
+    // Not allowed to apply config update to enabled operator
+    if (enabled == false)
+    {
+        return false;
+    }
+
     switch (key)
     {
-        case Sabertooth_Config_Data::FieldNumber::MOTORNUM:
-            motornum = (byte) update.get_motorNum();
-            break;
         case Sabertooth_Config_Data::FieldNumber::INVERTED:
             inverted = update.get_inverted();
             break;
-        // TODO: Finish config updating consider when config updates should be applied
-        // If address and serial line are changed then should init be run twice (once for each change) or once?
-        // Maybe best solution is to require that operator is disbaled before applying config updates.
+        case Sabertooth_Config_Data::FieldNumber::MOTORNUM:
+            motornum = (byte) update.get_motorNum();
+            break;
+        case Sabertooth_Config_Data::FieldNumber::ADDRESS:
+            {
+            sabertooth = Sabertooth(update.get_address(), serialLine);
+            break;
+            }
+        case Sabertooth_Config_Data::FieldNumber::SERIALLINE:
+            {
+            auto newSerialLine = getSabertoothSerial(update.get_serialLine());
+            sabertooth = Sabertooth(update.get_address(), newSerialLine);
+            break;
+            }
         default:
             return false;
             break;
@@ -93,4 +124,8 @@ void SabertoothOperator::setInverted(bool inverted)
 void SabertoothOperator::setEnabled(bool enabled)
 {
     enabled = enabled;
+    if (enabled == true)
+    {
+        init();
+    }
 }

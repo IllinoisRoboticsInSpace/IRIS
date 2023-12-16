@@ -10,25 +10,33 @@ enum Opcode
   STOP_ALL_MOTORS = 2;
 }
 
+enum SabertoothSerialLine
+{
+    Serial1 = 0;
+    Serial2 = 1;
+    Serial3 = 2;
+}
+
 message Serial_Message
 {
     Opcode opcode = 5000;
     oneof data
     {
-        Sabertooth_Config_Data configData = 5001;//Protobuf can actually see "Config_Data"
+        Sabertooth_Config_Data configData = 5001;
         Turn_Motor motorCommand = 5002;
     }
 }
 
 message Sabertooth_Config_Data
 {
-    uint32 motorNum = 4000;
+    uint32 motorID = 4000;
     oneof values
     {
-        uint32 motorID = 4001;
-        uint32 serialPin = 4002;
-        uint32 address = 4003;
-        bool inverted = 4004;
+        bool inverted = 4001;
+        bool enabled = 4002;
+        uint32 motorNum = 4003;
+        SabertoothSerialLine serialLine = 4004;
+        uint32 address = 4005;
     }
 }
 
