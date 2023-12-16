@@ -2,6 +2,7 @@
 #define _DEBUG_TOOLS_
 
 #include <Arduino.h>
+#include <Defines.h>
 
 // Using debug tools with motor driver without
 // debug mode will cause unintended behavior.
@@ -15,22 +16,44 @@
     #ifndef DEBUG_BUFFER_SIZE
         #define DEBUG_BUFFER_SIZE 256
         extern char debug_buffer[DEBUG_BUFFER_SIZE];
+        extern EmbeddedProto::string_view debug_buffer_string_view;
     #endif
 
     #define DEBUG_PRINTF(string, ...)               \
     {                                               \
     sprintf(debug_buffer, string, ##__VA_ARGS__);   \
-    Serial.println(debug_buffer);                   \
+    Serial.print(debug_buffer);                     \
     }
 
+    //Checks if environment variable has been set
+    #ifdef MSG_TO_STRING
+    #define DEBUG_PRINT_MESSAGE(proto)              \
+    {                                               \
+    proto.to_string(debug_buffer_string_view);      \
+    Serial.print(debug_buffer_string_view.data);    \
+    }
+    #else
+    #define DEBUG_PRINT_MESSAGE(proto)              \
+    {                                               \
+    Serial.print("MSG_TO_STRING not defined");      \
+    }
+    #endif
+
     #define DEBUG_PRINT(string)                     \
+    {                                               \
+    Serial.print(string);                           \
+    }
+
+    #define DEBUG_PRINTLN(string)                   \
     {                                               \
     Serial.println(string);                         \
     }
 
 #else
     #define DEBUG_PRINTF(string, ...) {}
+    #define DEBUG_PRINT_MESSAGE(proto) {}
     #define DEBUG_PRINT(string) {}
+    #define DEBUG_PRINTLN(string) {}
 #endif
 
 // Resource on counting number of input arguments in variadic macro:
