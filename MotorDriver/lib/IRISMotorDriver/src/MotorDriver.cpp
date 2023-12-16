@@ -27,7 +27,17 @@ MotorDriver::MotorDriver()
 */
 bool MotorDriver::initMotorDriver()
 {
-    Serial.begin(serialTransferBaudRate);
+    // Check if enabled configs need initialization.
+    for (SabertoothOperator sabertoothOperator : configs)
+    {
+        // Configs can be set and enabled before serial connection is made
+        // Otherwise configs can only become enabled by host driver.
+        if (sabertoothOperator.getEnabled() == true)
+        {
+            sabertoothOperator.init();
+        }
+    }
+    Serial.begin(serialTransferBaudRate); //Serial used for USB is reserved for communication with host
     return true;
 }
 

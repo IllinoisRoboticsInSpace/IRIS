@@ -30,17 +30,18 @@ class SabertoothOperator
     SabertoothOperator& operator=(const SabertoothOperator& other);
 
     //Operation functions
-    void init();
+    bool init();
     void setOutput(float percentOutput);
     bool applyConfigUpdate(const Sabertooth_Config_Data& update);
 
     void setInverted(bool inverted);
     void setEnabled(bool enabled);
+    bool getEnabled();
 
   private:
     // General
     bool inverted;
-    bool enabled; // Throw error if false
+    bool enabled;
 
     // Sabertooth specific
     USARTClass& serialLine;

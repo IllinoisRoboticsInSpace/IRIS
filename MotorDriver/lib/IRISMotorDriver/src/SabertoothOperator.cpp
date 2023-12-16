@@ -42,10 +42,14 @@ SabertoothOperator& SabertoothOperator::operator=(const SabertoothOperator& othe
     return *this;
 }
 
-void SabertoothOperator::init()
+bool SabertoothOperator::init()
 {
-    serialLine.begin(baudrate);
-    sabertooth.autobaud();
+    if (enabled == true)
+    {
+        serialLine.begin(baudrate);
+        sabertooth.autobaud();
+    }
+    return enabled;
 }
 
 void SabertoothOperator::setOutput(float percentOutput)
@@ -82,6 +86,10 @@ bool SabertoothOperator::applyConfigUpdate(const Sabertooth_Config_Data& update)
     if (key == Sabertooth_Config_Data::FieldNumber::ENABLED)
     {
         setEnabled(update.get_enabled());
+        if (enabled == true)
+        {
+            init();
+        }
         return true;
     }
 
@@ -121,11 +129,13 @@ void SabertoothOperator::setInverted(bool inverted)
 {
     inverted = inverted;    //need to check if this is setting the input variable to itself or the instance field
 }
+
 void SabertoothOperator::setEnabled(bool enabled)
 {
     enabled = enabled;
-    if (enabled == true)
-    {
-        init();
-    }
+}
+
+bool SabertoothOperator::getEnabled()
+{
+    return enabled;
 }
