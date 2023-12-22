@@ -374,3 +374,51 @@ void optional_message_test(void)
     }
     TEST_ASSERT_EQUAL_INT32(message.get_option(), deserialized_message.get_option());
 }
+
+void zero_extended_buffer_deserialization(void)
+{   
+    // zero extending a raw serialized data 
+    reset();
+
+    // Maybe test could be improved by using a more complex message
+    A message;
+    message.set_a(1);
+
+    const int max_extended_zeros = 20;
+
+    // Test a variable number of extended zeros.
+    for (int zeros = 1; zeros < max_extended_zeros; zeros++)
+    {
+        // Give unique value
+        message.set_a(zeros);
+
+        // Serialize Message
+        auto serialization_status = message.serialize(write_fixed_buffer);
+        if(::EmbeddedProto::Error::NO_ERRORS != serialization_status)
+        {
+            TEST_FAIL_MESSAGE("Serialization Produced Error");
+        }
+        
+        for (int i = 0; i < zeros; i++)
+        {
+            write_fixed_buffer.push(0);
+        }
+        uint8_t* write_data_ptr = write_fixed_buffer.get_data();
+        uint32_t write_data_size = write_fixed_buffer.get_size();
+
+        // Copy serialized data with extra zeros into buffer for deserialization
+        uint8_t* read_data_ptr = read_fixed_buffer.get_data();
+        memcpy(read_data_ptr, write_data_ptr, write_data_size);
+        read_fixed_buffer.set_bytes_written(write_data_size);
+
+        // Deserialize Message
+        A deserialized_message;
+        auto deserialize_status = deserialized_message.deserialize(read_fixed_buffer);
+        if(::EmbeddedProto::Error::INVALID_FIELD_ID != deserialize_status)
+        {
+            TEST_FAIL_MESSAGE("Zero Extended Message Failed to Deserialize");
+        }
+        TEST_ASSERT_EQUAL_INT32(zeros, deserialized_message.get_a());
+        reset();
+    }
+}
