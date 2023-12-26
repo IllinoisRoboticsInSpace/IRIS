@@ -3,7 +3,8 @@
 
 #include "unity.h"
 
-//Compile error: identifier "CLOCK_MONOTONIC" is undefined
+// https://github.com/ThrowTheSwitch/Unity/pull/278
+// Compile error: identifier "CLOCK_MONOTONIC" is undefined
 
 // #define RUN_TEST_TIMED(func)    \
 // {                               \
