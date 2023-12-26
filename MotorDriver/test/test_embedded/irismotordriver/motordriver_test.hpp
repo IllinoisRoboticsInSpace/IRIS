@@ -1,7 +1,7 @@
 #include "unity.h"
 #include "MotorDriver.h"
 
-void default_constructor_test(void)
+void motor_driver_default_constructor_test(void)
 {
     // Default all configs not enabled
     MotorDriver default_motor_driver;
