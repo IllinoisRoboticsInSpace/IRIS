@@ -127,12 +127,12 @@ bool SabertoothOperator::applyConfigUpdate(const Sabertooth_Config_Data& update)
 
 void SabertoothOperator::setInverted(bool inverted)
 {
-    inverted = inverted;    //need to check if this is setting the input variable to itself or the instance field
+    this->inverted = inverted;
 }
 
 void SabertoothOperator::setEnabled(bool enabled)
 {
-    enabled = enabled;
+    this->enabled = enabled;
 }
 
 bool SabertoothOperator::getEnabled()
