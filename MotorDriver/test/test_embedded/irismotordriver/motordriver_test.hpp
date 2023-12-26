@@ -73,3 +73,25 @@ void parse_serial_test(void)
     parse_error_status = default_motor_driver.parse(recieved_message, command_buffer);
     TEST_ASSERT_TRUE(parse_error_status == EmbeddedProto::Error::INVALID_FIELD_ID);
 }
+
+void execute_config_motor_message_test(void)
+{
+    reset();
+
+    MotorDriver default_motor_driver;
+    EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer;
+
+    Serial_Message recieved_message;
+    Sabertooth_Config_Data sabertooth_config_update;
+    sabertooth_config_update.set_enabled(true);
+    const int motorID = 0;
+    sabertooth_config_update.set_motorID(motorID);
+
+    recieved_message.set_configData(sabertooth_config_update);
+    recieved_message.set_opcode(Opcode::CONFIG_MOTOR);
+
+    TEST_ASSERT_FALSE(default_motor_driver.getConfig(motorID).getEnabled());
+
+    default_motor_driver.execute(recieved_message);
+    TEST_ASSERT_TRUE(default_motor_driver.getConfig(motorID).getEnabled());
+}
