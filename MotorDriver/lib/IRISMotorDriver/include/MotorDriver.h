@@ -9,10 +9,16 @@
 
 #include "Sabertooth.h"
 #include "SabertoothOperator.h"
+#include "WriteBufferFixedSize.h"
+#include "ReadBufferFixedSize.h"
 
 #define MAX_MOTOR_ID 15 // Maximum number of motor ids 0 indexed
 #define MAX_MOTOR_CONFIGS (MAX_MOTOR_ID + 1)
 #define DEFAULT_HOST_SERIAL_BAUD_RATE 112500 // Baud rate of serial communication with host
+
+//TODO: Write unit test to always check that this is valid
+#define FIXED_RECEIVED_MESSAGE_LENGTH 16 // The number of bytes of a message received from host
+#define COMMAND_BUFFER_SIZE (FIXED_RECEIVED_MESSAGE_LENGTH * 2) // Size of commands ring buffer, data comes from host
 
 /**
  * The MotorDriver class is responsible for keeping track of all in use
@@ -75,13 +81,16 @@ class MotorDriver
 
     void update();
 
+    // helpers for update
+    // These are public because otherwise they can't be unit tested
+    // A more proper solution is to use Unity CMock in unit tests and move these methods to private
+    void read();
+    EmbeddedProto::Error parse(Serial_Message& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer);
+    void execute(Serial_Message& deserialized_message);
+
   private:
     unsigned int serialTransferBaudRate;
     std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs; // contains configs of connected devices
-
-    // helpers for update
-    void read();
-    void parse();
-    void execute();
+    EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer; //Operates on uint8
 };
 #endif

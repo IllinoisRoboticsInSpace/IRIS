@@ -38,6 +38,8 @@ bool MotorDriver::initMotorDriver()
         }
     }
     Serial.begin(serialTransferBaudRate); //Serial used for USB is reserved for communication with host
+    while (!Serial) {} //Wait till connection to host is made
+    DEBUG_PRINTLN("Initialized Motor Driver")
     return true;
 }
 
@@ -57,19 +59,79 @@ void MotorDriver::resetConfigs()
     configs = std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>();
 }
 
+/**
+ * Reads enough bytes for a fixed length message defined FIXED_RECEIVED_MESSAGE_LENGTH
+ * Expects that parse() will be run afterwards so there will always be space in the command buffer.
+ * 
+*/
 void MotorDriver::read()
 {
-    
+    int bytes = Serial.available();
+    // Buffer should never become full
+    if (bytes > 0)
+    {
+        int current_buf_size = command_buffer.get_size();
+        int bytes_to_read = bytes;
+        // Read only enough bytes to fill message
+        if ((current_buf_size + bytes) - FIXED_RECEIVED_MESSAGE_LENGTH > 0)
+        {
+            bytes_to_read = FIXED_RECEIVED_MESSAGE_LENGTH - current_buf_size;
+        }
+        // Write bytes to command_buffer
+        int bytes_written = Serial.readBytes(command_buffer.get_data() + current_buf_size, bytes_to_read);
+        command_buffer.set_bytes_written(current_buf_size + bytes_written);
+    }
 }
 
-void MotorDriver::parse()
+EmbeddedProto::Error MotorDriver::parse(Serial_Message& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer)
 { 
-
+    // Maybe add more error handling
+    auto deserialize_status = deserialized_message.deserialize(buffer);
+    // DeMorgan's Law
+    // not (NO_ERRORS or INVALID_FIELD_ID) = (not NO_ERRORS and not INVALID_FIELD_ID)
+    // If field id is zero then this means the message is zero extended and will parse correctly
+    if(EmbeddedProto::Error::NO_ERRORS != deserialize_status && EmbeddedProto::Error::INVALID_FIELD_ID != deserialize_status)
+    {
+        DEBUG_PRINTLN("Deserialization Produced Error")
+    }
+    return deserialize_status;
 }
 
-void MotorDriver::execute()
+void MotorDriver::execute(Serial_Message& deserialized_message)
 {
-
+    Opcode opcode = deserialized_message.get_opcode();
+    switch (opcode)
+    {
+        case Opcode::TURN_MOTOR:
+        {
+            auto turn_motor = deserialized_message.get_motorCommand();
+            int motorID = turn_motor.get_motorID();
+            configs[motorID].setOutput(turn_motor.get_percentOutput());
+            break;
+        }
+        case Opcode::STOP_ALL_MOTORS:
+        {
+            // Maybe make special stop function in operator
+            for (SabertoothOperator config : configs)
+            {
+                if (config.getEnabled())
+                {
+                    config.setOutput(0);
+                }
+            }
+            break;
+        }
+        case Opcode::CONFIG_MOTOR:
+        {
+            auto config_update = deserialized_message.get_configData();
+            int motorID = config_update.get_motorID();
+            bool error = configs[motorID].applyConfigUpdate(config_update);
+            break;
+        }
+        //Impossible to have invalid opcode unless deserialization did not work.
+        default:
+            break;
+    }
 }
 
 /**
@@ -81,7 +143,13 @@ void MotorDriver::update()
     // read encoder data
     // send back encoder data
     // run PID loops
-    read();
-    parse();
-    execute();
+
+    read(); // Places serial data into command buffer
+    if (command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH)
+    {
+        Serial_Message message;
+        auto parse_error_status = parse(message, command_buffer);
+        execute(message);
+        command_buffer.clear();
+    }
 }
