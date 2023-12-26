@@ -84,7 +84,7 @@ class MotorDriver
     // helpers for update
     // These are public because otherwise they can't be unit tested
     // A more proper solution is to use Unity CMock in unit tests and move these methods to private
-    void read();
+    unsigned int read();
     EmbeddedProto::Error parse(Serial_Message& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer);
     void execute(Serial_Message& deserialized_message);
 

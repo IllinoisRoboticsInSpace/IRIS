@@ -62,9 +62,9 @@ void MotorDriver::resetConfigs()
 /**
  * Reads enough bytes for a fixed length message defined FIXED_RECEIVED_MESSAGE_LENGTH
  * Expects that parse() will be run afterwards so there will always be space in the command buffer.
- * 
+ * @return number of bytes read
 */
-void MotorDriver::read()
+unsigned int MotorDriver::read()
 {
     int bytes = Serial.available();
     // Buffer should never become full
@@ -80,7 +80,9 @@ void MotorDriver::read()
         // Write bytes to command_buffer
         int bytes_written = Serial.readBytes(command_buffer.get_data() + current_buf_size, bytes_to_read);
         command_buffer.set_bytes_written(current_buf_size + bytes_written);
+        return bytes_to_read;
     }
+    return 0;
 }
 
 EmbeddedProto::Error MotorDriver::parse(Serial_Message& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer)
@@ -145,8 +147,8 @@ void MotorDriver::update()
     // send back encoder data
     // run PID loops
 
-    read(); // Places serial data into command buffer
-    if (command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH)
+    unsigned int bytes_read = read(); // Places serial data into command buffer
+    if ((bytes_read != 0) && (command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH))
     {
         Serial_Message message;
         auto parse_error_status = parse(message, command_buffer);
