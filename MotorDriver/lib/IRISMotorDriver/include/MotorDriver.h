@@ -24,7 +24,7 @@
  * The MotorDriver class is responsible for keeping track of all in use
  * encoders, motors, PID loops, and other devices/services that would be
  * used with the arduino. It is responsible for configuring these resources
- * by processing the serial commands that are recieved from the host device.
+ * by processing the serial commands that are received from the host device.
  * The MotorDriver class is written to handle message errors such as corrupted
  * data and invalid commands.
  * 
@@ -52,7 +52,7 @@
  * controller to an encoder and motor.
  * 
  * - Debugging mode/support such as print statements back to host, or echoing
- * back of all recieved commands.
+ * back of all received commands.
  * 
  * - Create interfaces to abstract the implementation of encoders and motors.
  * 

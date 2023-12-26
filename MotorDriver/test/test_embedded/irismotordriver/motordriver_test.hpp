@@ -39,16 +39,16 @@ void parse_serial_test(void)
     MotorDriver default_motor_driver;
     EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer;
 
-    Serial_Message recieved_message;
+    Serial_Message received_message;
     Sabertooth_Config_Data sabertooth_config_update;
     sabertooth_config_update.set_enabled(true);
     sabertooth_config_update.set_motorID(0);
 
-    recieved_message.set_configData(sabertooth_config_update);
-    recieved_message.set_opcode(Opcode::CONFIG_MOTOR);
+    received_message.set_configData(sabertooth_config_update);
+    received_message.set_opcode(Opcode::CONFIG_MOTOR);
     
     // Serialize Message
-    auto serialization_status = recieved_message.serialize(write_fixed_buffer);
+    auto serialization_status = received_message.serialize(write_fixed_buffer);
 
     // Copy over message
     uint8_t* write_data_ptr = write_fixed_buffer.get_data();
@@ -61,7 +61,7 @@ void parse_serial_test(void)
 
     // Parse and deserialize
     // Testing when the serialized data is not zero extended.
-    auto parse_error_status = default_motor_driver.parse(recieved_message, command_buffer);
+    auto parse_error_status = default_motor_driver.parse(received_message, command_buffer);
     TEST_ASSERT_TRUE(parse_error_status == EmbeddedProto::Error::NO_ERRORS);
 
     const int zeros = FIXED_RECEIVED_MESSAGE_LENGTH - write_data_size; // number of uint8_t (bytes) set to 0
@@ -70,7 +70,7 @@ void parse_serial_test(void)
         command_buffer.push(0);
     }
 
-    parse_error_status = default_motor_driver.parse(recieved_message, command_buffer);
+    parse_error_status = default_motor_driver.parse(received_message, command_buffer);
     TEST_ASSERT_TRUE(parse_error_status == EmbeddedProto::Error::INVALID_FIELD_ID);
 }
 
@@ -81,17 +81,17 @@ void execute_config_motor_message_test(void)
     MotorDriver default_motor_driver;
     EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer;
 
-    Serial_Message recieved_message;
+    Serial_Message received_message;
     Sabertooth_Config_Data sabertooth_config_update;
     sabertooth_config_update.set_enabled(true);
     const int motorID = 0;
     sabertooth_config_update.set_motorID(motorID);
 
-    recieved_message.set_configData(sabertooth_config_update);
-    recieved_message.set_opcode(Opcode::CONFIG_MOTOR);
+    received_message.set_configData(sabertooth_config_update);
+    received_message.set_opcode(Opcode::CONFIG_MOTOR);
 
     TEST_ASSERT_FALSE(default_motor_driver.getConfig(motorID).getEnabled());
 
-    default_motor_driver.execute(recieved_message);
+    default_motor_driver.execute(received_message);
     TEST_ASSERT_TRUE(default_motor_driver.getConfig(motorID).getEnabled());
 }

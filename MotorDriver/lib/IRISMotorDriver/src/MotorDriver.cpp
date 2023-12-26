@@ -130,6 +130,7 @@ void MotorDriver::execute(Serial_Message& deserialized_message)
         }
         //Impossible to have invalid opcode unless deserialization did not work.
         default:
+            DEBUG_PRINTLN("Impossible OPCODE!")
             break;
     }
 }

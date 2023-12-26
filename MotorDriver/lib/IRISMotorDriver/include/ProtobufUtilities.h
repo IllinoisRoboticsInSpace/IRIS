@@ -25,7 +25,7 @@ inline USARTClass& getSabertoothSerial(SabertoothSerialLine serial)
 }
 
 // // Computes the maximum Protobuf message size in bytes
-// uint32_t maxRecieveProtoMessageBytesSize()
+// uint32_t maxReceiveProtoMessageBytesSize()
 // {
 //     Serial_Message message;
 
