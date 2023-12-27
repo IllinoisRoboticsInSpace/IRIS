@@ -78,6 +78,7 @@ class MotorDriver
     SabertoothOperator getConfig(unsigned int motorID);
     void setConfig(unsigned int motorID, SabertoothOperator config);
     void resetConfigs();
+    void setDebugMode(bool enabled);
 
     void update();
 
@@ -92,5 +93,6 @@ class MotorDriver
     unsigned int serialTransferBaudRate;
     std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs; // contains configs of connected devices
     EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer; //Operates on uint8
+    bool debug_mode_enabled;
 };
 #endif

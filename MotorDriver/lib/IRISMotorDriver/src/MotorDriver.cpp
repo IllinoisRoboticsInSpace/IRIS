@@ -5,19 +5,19 @@
  * Initialize motor driver state
 */
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs)
-    : serialTransferBaudRate(serialTransferBaudRate), configs(configs)
+    : serialTransferBaudRate(serialTransferBaudRate), configs(configs), debug_mode_enabled(false)
 {
 
 }
 
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
-    : serialTransferBaudRate(serialTransferBaudRate), configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
+    : serialTransferBaudRate(serialTransferBaudRate), configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>()), debug_mode_enabled(false)
 {
     
 }
 
 MotorDriver::MotorDriver()
-    : serialTransferBaudRate(DEFAULT_HOST_SERIAL_BAUD_RATE), configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
+    : serialTransferBaudRate(DEFAULT_HOST_SERIAL_BAUD_RATE), configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>()), debug_mode_enabled(false)
 {
 
 }
@@ -57,6 +57,11 @@ void MotorDriver::resetConfigs()
 {
     // Maybe in future maintain the type of the config
     configs = std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>();
+}
+
+void MotorDriver::setDebugMode(bool enabled)
+{
+    debug_mode_enabled = enabled;
 }
 
 /**
@@ -130,6 +135,11 @@ void MotorDriver::execute(Serial_Message& deserialized_message)
             bool error = configs[motorID].applyConfigUpdate(config_update);
             break;
         }
+        case Opcode::SET_DEBUG_MODE:
+        {
+            debug_mode_enabled = deserialized_message.get_debugMode().get_enabled();
+            break;
+        }
         //Impossible to have invalid opcode unless deserialization did not work.
         default:
             DEBUG_PRINTLN("Impossible OPCODE!")
@@ -148,11 +158,16 @@ void MotorDriver::update()
     // run PID loops
 
     unsigned int bytes_read = read(); // Places serial data into command buffer
+    
     if ((bytes_read != 0) && (command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH))
     {
         Serial_Message message;
         auto parse_error_status = parse(message, command_buffer);
         execute(message);
+        if (debug_mode_enabled == true) // Send back data on debug mode on
+        {
+            Serial.write(command_buffer.get_data(), command_buffer.get_size());
+        }
         command_buffer.clear();
     }
 }
