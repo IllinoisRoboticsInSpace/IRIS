@@ -113,7 +113,10 @@ void MotorDriver::execute(Serial_Message& deserialized_message)
         {
             auto turn_motor = deserialized_message.get_motorCommand();
             int motorID = turn_motor.get_motorID();
-            configs[motorID].setOutput(turn_motor.get_percentOutput());
+            if (configs[motorID].getEnabled() == true)
+            {
+                configs[motorID].setOutput(turn_motor.get_percentOutput());
+            }
             break;
         }
         case Opcode::STOP_ALL_MOTORS:
