@@ -14,3 +14,6 @@
 [submodule "MotorDriver/lib/EmbeddedProto"]
 	path = MotorDriver/lib/EmbeddedProto
 	url = https://github.com/Embedded-AMS/EmbeddedProto.git
+[submodule "MotorDriver/lib/lwrb"]
+	path = MotorDriver/lib/lwrb
+	url = https://github.com/MaJerle/lwrb.git
