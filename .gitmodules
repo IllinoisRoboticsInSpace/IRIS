@@ -7,3 +7,6 @@
 [submodule "apriltag_msgs"]
 	path = apriltag_msgs
 	url = https://github.com/christianrauch/apriltag_msgs
+[submodule "apriltag_viz"]
+	path = apriltag_viz
+	url = https://github.com/christianrauch/apriltag_viz.git
