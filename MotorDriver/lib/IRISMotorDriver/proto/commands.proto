@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Log 
+{
+  uint32 count        = 1;
+  int32  range        = 2;
+  bool   active       = 3;
+  float  temperature  = 4;
+  double speed        = 5; 
+}

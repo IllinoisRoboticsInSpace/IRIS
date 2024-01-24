@@ -1,12 +1,21 @@
+[submodule "dependencies/realsense-ros"]
+	path = dependencies/realsense-ros
+	url = https://github.com/IntelRealSense/realsense-ros.git
+	branch = ros2-legacy
 [submodule "apriltag"]
 	path = apriltag
-	url = https://github.com/AprilRobotics/apriltag.git
-[submodule "apriltag_ros"]
-	path = apriltag_ros
+[submodule "dependencies/apriltag_ros"]
+	path = dependencies/apriltag_ros
 	url = https://github.com/christianrauch/apriltag_ros
-[submodule "apriltag_msgs"]
-	path = apriltag_msgs
+[submodule "dependencies/apriltag_msgs"]
+	path = dependencies/apriltag_msgs
 	url = https://github.com/christianrauch/apriltag_msgs
-[submodule "apriltag_viz"]
-	path = apriltag_viz
+[submodule "dependencies/apriltag_viz"]
+	path = dependences/apriltag_viz
 	url = https://github.com/christianrauch/apriltag_viz.git
+[submodule "dependencies/imu_tools"]
+	path = dependencies/imu_tools
+	url = https://github.com/IllinoisRoboticsInSpace/imu_tools
+[submodule "MotorDriver/lib/EmbeddedProto"]
+	path = MotorDriver/lib/EmbeddedProto
+	url = https://github.com/Embedded-AMS/EmbeddedProto.git
