@@ -45,7 +45,8 @@ def generate_launch_description():
         remappings=[
             # This maps the 'raw' images for simplicity of demonstration.
             # In practice, this will have to be the rectified 'rect' images.
-            ("/apriltag/image_rect", "/v4l2/image_raw"),
+            # ("/apriltag/image", "/apriltag/image_rect"),
+            ("/apriltag/image", "/v4l2/image_raw"),
         ],
         extra_arguments=[{'use_intra_process_comms': True}],
     )
