@@ -203,7 +203,7 @@
   <gazebo>
     <plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
       <ros>
-        <namespace>/demo</namespace>
+        <namespace>/</namespace>
       </ros>
 
       <num_wheel_pairs>2</num_wheel_pairs>
@@ -223,7 +223,7 @@
 
       <!-- output -->
       <publish_odom>true</publish_odom>
-      <publish_odom_tf>false</publish_odom_tf>
+      <publish_odom_tf>true</publish_odom_tf>
       <publish_wheel_tf>true</publish_wheel_tf>
 
       <odometry_frame>odom</odometry_frame>
