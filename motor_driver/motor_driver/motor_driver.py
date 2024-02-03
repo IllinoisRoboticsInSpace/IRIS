@@ -7,7 +7,7 @@ SERIAL_BUFFER_BYTES = 64 # What is this for
 MIN_MOTOR_ID = 0
 MAX_MOTOR_ID = 3
 
-class Debug_Reader(threading.Thread):
+class Serial_Reader(threading.Thread):
     #Do last due to threading NOT processing
     #While loop reading same serial line
     
@@ -23,8 +23,7 @@ class Debug_Reader(threading.Thread):
         while not self._stop_event.is_set():
             echoed_message = self.serialLine.read(FIXED_RECEIVED_MESSAGE_LENGTH)
             if self.debugState == True:
-                print(hex(echoed_message)) 
-            time.sleep(1)
+                print(echoed_message.hex()) 
 
     def debug_flag(self, toggle: bool):
         self.debugState = toggle
@@ -55,12 +54,12 @@ class MotorConfig:
 class MotorDriver:
 
     def __init__(self, debugMode: bool = False, port = '/dev/ttyACM0', baudrate = 115200, timeout = .1) -> None:
-        self.debugState = False
         self.serialLine = serial.Serial(port = port, baudrate = baudrate, timeout = timeout)
         # List of Motor configs
         self.motorConfigs = [None] * MAX_MOTOR_ID
         #Start debug thread here?
-        self.debugPrinter = Debug_Reader(self.serialLine)
+        self.debugPrinter = Serial_Reader(self.serialLine)
+        self.setDebugMode(debugMode)
         self.debugPrinter.start()
         
     def __del__(self):
@@ -76,6 +75,15 @@ class MotorDriver:
 
     def setDebugMode(self, toggle: bool):
         self.debugPrinter.debug_flag(toggle)
+        message = commands_pb2.Serial_Message()
+        message.opcode = commands_pb2.SET_DEBUG_MODE
+
+        if toggle == True:
+            message.debugMode.enabled = True
+        else: 
+            message.debugMode.enabled = False
+
+        self.serialLine.write(message.SerializeToString())
 
     def setMotorConfig(self, config: MotorConfig):
         self.motorConfigs[config.motorID] = config
