@@ -26,13 +26,20 @@
 
 ### Package Usage
 ### AprilTags
-Camera Node:
+Camera Only Node:
 ```bash
 ros2 run v4l2_camera v4l2_camera_node
 ```
 AprilTag Node:
 ```bash
 ros2 launch iris_apriltag_ros tag_36h11_all.launch.py
+```
+Published Node Information (see via `ros2 topic list` cmd):
+```bash
+/v4l2/image_raw # image taken from camera driver
+/v4l2/camera_info # camera info from camera driver, e.g. height, width, intrinsics
+/apriltag/detections # tag family, tag id, corner & center (x,y) coordinates, homography, decision margin
+/apriltag/tag_detections_image # visualization of four corners and coordinate axis
 ```
 
 ### Navigation
