@@ -2,6 +2,9 @@
 	path = dependencies/realsense-ros
 	url = https://github.com/IntelRealSense/realsense-ros.git
 	branch = ros2-legacy
+[submodule "dependencies/apriltag"]
+	path = dependencies/apriltag
+	url = https://github.com/AprilRobotics/apriltag.git
 [submodule "dependencies/apriltag_ros"]
 	path = dependencies/apriltag_ros
 	url = https://github.com/christianrauch/apriltag_ros
