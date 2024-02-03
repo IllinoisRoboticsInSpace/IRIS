@@ -19,7 +19,7 @@ class MotorOperator
         // (pure) virtual
         virtual bool init() = 0;
 
-    private:
+    protected:
         // general
         bool inverted;
         bool enabled;

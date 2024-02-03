@@ -4,19 +4,19 @@
 #include <mutex>
 
 SabertoothOperator::SabertoothOperator(byte address, unsigned int baudrate, byte motornum, USARTClass& serial, bool inverted, bool enabled)
-    : inverted(inverted), enabled(enabled), serialLine(serial), baudrate(baudrate), motornum(motornum), sabertooth(Sabertooth(address, serial))
+    : MotorOperator(inverted, enabled), serialLine(serial), baudrate(baudrate), motornum(motornum), sabertooth(Sabertooth(address, serial))
 {
     
 }
 
 SabertoothOperator::SabertoothOperator(byte address, unsigned int baudrate, byte motornum, USARTClass& serial)
-    : inverted(false), enabled(false), serialLine(serial), baudrate(baudrate), motornum(motornum), sabertooth(Sabertooth(address, serial))
+    : MotorOperator(false, false), serialLine(serial), baudrate(baudrate), motornum(motornum), sabertooth(Sabertooth(address, serial))
 {
 
 }
 
 SabertoothOperator::SabertoothOperator()
-    : inverted(false), enabled(false), serialLine(DEFAULT_SABERTOOTH_SERIAL_LINE)
+    : MotorOperator(false, false), serialLine(DEFAULT_SABERTOOTH_SERIAL_LINE)
     , baudrate(DEFAULT_SABERTOOTH_BAUD_RATE), motornum(DEFAULT_SABERTOOTH_MOTOR_NUM)
     , sabertooth(Sabertooth(DEFAULT_SABERTOOTH_ADDRESS, DEFAULT_SABERTOOTH_SERIAL_LINE))
 {
@@ -24,7 +24,7 @@ SabertoothOperator::SabertoothOperator()
 }
 
 SabertoothOperator::SabertoothOperator(const SabertoothOperator& other)
-    : inverted(other.inverted), enabled(other.enabled)
+    : MotorOperator(other.inverted, other.enabled)
     , serialLine(other.serialLine), baudrate(other.baudrate), motornum(other.motornum)
     , sabertooth(other.sabertooth)
 {
@@ -124,19 +124,4 @@ bool SabertoothOperator::applyConfigUpdate(const Sabertooth_Config_Data& update)
             break;
     }
     return true;
-}
-
-void SabertoothOperator::setInverted(bool inverted)
-{
-    this->inverted = inverted;
-}
-
-void SabertoothOperator::setEnabled(bool enabled)
-{
-    this->enabled = enabled;
-}
-
-bool SabertoothOperator::getEnabled()
-{
-    return enabled;
 }
