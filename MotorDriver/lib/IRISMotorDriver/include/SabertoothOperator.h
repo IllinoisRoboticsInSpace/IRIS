@@ -34,6 +34,7 @@ class SabertoothOperator
     void setOutput(float percentOutput);
     bool applyConfigUpdate(const Sabertooth_Config_Data& update);
 
+    // general
     void setInverted(bool inverted);
     void setEnabled(bool enabled);
     bool getEnabled();
