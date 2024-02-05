@@ -7,7 +7,7 @@
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs)
     : serialTransferBaudRate(serialTransferBaudRate), configs(configs), debug_mode_enabled(false)
 {
-
+    
 }
 
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
@@ -155,11 +155,6 @@ void MotorDriver::execute(Serial_Message& deserialized_message)
 */
 void MotorDriver::update()
 {
-    //FUTURE:
-    // read encoder data
-    // send back encoder data
-    // run PID loops
-
     unsigned int bytes_read = read(); // Places serial data into command buffer
     
     if ((bytes_read != 0) && (command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH))
