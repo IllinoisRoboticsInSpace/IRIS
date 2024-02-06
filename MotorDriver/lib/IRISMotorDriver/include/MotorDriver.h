@@ -11,9 +11,14 @@
 #include "SabertoothOperator.h"
 #include "WriteBufferFixedSize.h"
 #include "ReadBufferFixedSize.h"
+#include "PIDHandler.h"
 
 #define MAX_MOTOR_ID 15 // Maximum number of motor ids 0 indexed
 #define MAX_MOTOR_CONFIGS (MAX_MOTOR_ID + 1)
+
+#define MAX_PID_ID 15
+#define MAX_PID_CONGIFS (MAX_PID_ID + 1)
+
 #define DEFAULT_HOST_SERIAL_BAUD_RATE 112500 // Baud rate of serial communication with host
 
 //TODO: Write unit test to always check that this is valid
@@ -69,7 +74,7 @@
 class MotorDriver
 {
   public:
-    MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs);
+    MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs, std::array<PIDHandler, MAX_PID_CONGIFS> PID_configs);
     MotorDriver(unsigned int serialTransferBaudRate);
     MotorDriver();
  
@@ -91,6 +96,7 @@ class MotorDriver
 
   private:
     unsigned int serialTransferBaudRate;
+    std::array<PIDHandler, MAX_PID_CONGIFS> pid_configs;
     std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs; // contains configs of connected devices
     EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer; //Operates on uint8
     bool debug_mode_enabled;

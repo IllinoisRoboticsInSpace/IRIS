@@ -10,6 +10,9 @@ enum Opcode
     TURN_MOTOR = 1; 
     STOP_ALL_MOTORS = 2;
     SET_DEBUG_MODE = 3;
+    CONFIG_PID = 4;
+    SET_MOTOR_PID = 5;
+    SET_PID_SETPOINT = 6;
 }
 
 enum SabertoothSerialLine
@@ -27,6 +30,10 @@ message Serial_Message
         Sabertooth_Config_Data configData = 5001;
         Turn_Motor motorCommand = 5002;
         Debug_Mode debugMode = 5003;
+        PID_Config_Data pidConfigData = 5004;
+        Set_PID_Setpoint setPIDSetpoint = 5005;
+        Set_PID_Control setPIDControl = 5006;
+
     }
 }
 
@@ -42,7 +49,6 @@ message Sabertooth_Config_Data
         uint32 address = 4005;
     }
 }
-
 message Turn_Motor
 {
     uint32 motorID = 6000;
@@ -52,4 +58,27 @@ message Turn_Motor
 message Debug_Mode
 {
     bool enabled = 7000;
+}
+message PID_Config_Data
+{
+    uint32 PID_ID = 8000;
+    oneof values
+    {
+        bool inverted = 8001;
+        bool enabled = 8002;
+        uint32 motorID = 4003;
+        double kp = 4004;
+        double ki = 4005;
+        double kd = 4006;
+    }
+}
+message Set_PID_Setpoint
+{
+    uint32 PID_ID = 9000;
+    double set_point = 9001;
+}
+message Set_PID_Control
+{
+    uint32 PID_ID = 10000;
+    bool pid_control_enabled = 10001;
 }

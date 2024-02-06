@@ -4,8 +4,8 @@
 /**
  * Initialize motor driver state
 */
-MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs)
-    : serialTransferBaudRate(serialTransferBaudRate), configs(configs), debug_mode_enabled(false)
+MotorDriver::MotorDriver(unsigned int serialTransferBaudRate,  std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> Sabertooth_configs, std::array<PIDHandler, MAX_PID_CONGIFS> PID_configs)
+    : serialTransferBaudRate(serialTransferBaudRate), configs(Sabertooth_configs), pid_configs(PID_configs), debug_mode_enabled(false)
 {
 
 }
@@ -143,6 +143,28 @@ void MotorDriver::execute(Serial_Message& deserialized_message)
             debug_mode_enabled = deserialized_message.get_debugMode().get_enabled();
             break;
         }
+        case Opcode::CONFIG_PID:
+        {
+            auto config_update = deserialized_message.get_pidConfigData();
+            int pidID = config_update.get_PID_ID();
+            bool error = pid_configs[pidID].applyConfigUpdate(config_update);
+
+            break;
+        }
+        case Opcode::SET_PID_SETPOINT:
+        {
+            auto set_point_command = deserialized_message.get_setPIDSetpoint();
+            int pidID = set_point_command.get_PID_ID();
+            bool error = pid_configs[pidID].applySetPoint(set_point_command);
+            break;
+        }
+        case Opcode::SET_MOTOR_PID:
+        {
+            auto set_pid_command = deserialized_message.get_setPIDControl();
+            int pidID = set_pid_command.get_PID_ID();
+            bool error = pid_configs[pidID].applyMotorControl(set_pid_command);
+            break;
+        }
         //Impossible to have invalid opcode unless deserialization did not work.
         default:
             DEBUG_PRINTLN("Impossible OPCODE!")
@@ -156,9 +178,16 @@ void MotorDriver::execute(Serial_Message& deserialized_message)
 void MotorDriver::update()
 {
     //FUTURE:
-    // read encoder data
-    // send back encoder data
-    // run PID loops
+    // read encoder data (OTHER BRANCH)
+    // run PID loops DONE (NOT TESETD)
+    // give motors pid output DONE (NOT TESTED)
+
+    for(auto pid : pid_configs){
+        pid.update_pid(0.0); //change the input to the encoder output
+        if(pid.getControllingMotor()){
+            configs[pid.getControllingMotor()].setOutput(pid.get_motor_value());
+        }
+    }
 
     unsigned int bytes_read = read(); // Places serial data into command buffer
     
