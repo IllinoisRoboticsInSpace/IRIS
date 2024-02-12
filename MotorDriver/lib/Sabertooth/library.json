@@ -1,0 +1,7 @@
+{
+    "name": "Sabertooth",
+    "version": "1.0.0",
+    "description": "Sabertooth Library for IRIS",
+    "frameworks": "arduino",
+    "platforms": "atmelsam"
+  }

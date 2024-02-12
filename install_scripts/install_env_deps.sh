@@ -24,7 +24,7 @@ echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
 source /opt/ros/galactic/setup.bash
 
 # Utilities
-sudo apt-get install -y python3-colcon-common-extensions python3-rosdep
+sudo apt-get install -y python3-colcon-common-extensions python3-rosdep python3-pip
 sudo rosdep init # Can fail if already initialized previously, therefore disregard error
 rosdep update --rosdistro=$ROS_DISTRO
 
@@ -34,6 +34,9 @@ sudo apt install -y ros-$ROS_DISTRO-navigation2 ros-$ROS_DISTRO-nav2-bringup
 # Install RTAB-MAP
 # https://github.com/introlab/rtabmap_ros/tree/ros2#binaries
 sudo apt-get install -y ros-$ROS_DISTRO-rtabmap-ros
+
+# Motor Driver Dependencies
+pip3 install pyserial==3.4 protobuf==4.21.5 crccheck==1.3.0
 
 # Extra Installation Instructions
 echo "source ~/colcon_ws/install/setup.bash" >> ~/.bashrc
