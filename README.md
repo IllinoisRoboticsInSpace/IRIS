@@ -1,9 +1,23 @@
+# Configuration
 ```bash
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/home/YOUR_USERNAME/colcon_ws/src/sam_bot_description/models/
+```
+# Launch
+
+### 1-Launch Simulation:
+```bash
 ros2 launch sam_bot_description display.launch.py
 ```
 
+### 2-Launch Navigation2:
+```bash
+ros2 launch nav2_bringup navigation_launch.py
+```
 
+### 3-Launch SLAM:
+```bash
+ros2 launch slam_toolbox online_async_launch.py
+```
 
 # Nav2 URDF Setup Tutorial - Differential Drive Robot
 Tutorial code referenced in https://navigation.ros.org/setup_guides/urdf/setup_urdf.html
