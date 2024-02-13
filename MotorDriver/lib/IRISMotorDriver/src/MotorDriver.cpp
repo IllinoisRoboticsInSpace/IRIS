@@ -184,8 +184,8 @@ void MotorDriver::update()
 
     for(auto pid : pid_configs){
         pid.update_pid(0.0); //change the input to the encoder output
-        if(pid.getControllingMotor()){
-            configs[pid.getControllingMotor()].setOutput(pid.get_motor_value());
+        if(pid.get_in_control()){
+            configs[pid.get_motorID()].setOutput(pid.get_motor_value());
         }
     }
 

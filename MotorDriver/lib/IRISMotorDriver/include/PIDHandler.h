@@ -13,11 +13,10 @@
 
 #define DEFAULT_TUNINGS 0,0,0
 #define DEFAULT_MOTOR_MAX 1
-#define DEFAULT_MOTOR_MIN 0
+#define DEFAULT_MOTOR_MIN -1
 
 class PIDHandler{ //rough outline 
     public:
-        PIDHandler(double kp, double ki, double kd, double motor_min, double motor_max, int inverted);
         PIDHandler();
 
         double get_motor_value() const {return output_;}
@@ -25,13 +24,18 @@ class PIDHandler{ //rough outline
         void set_new_setpoint(double setpoint);
 
         void update_pid(double input);
-        
-
-        void setInverted(bool inverted);
+        bool get_inverted() {return motor_pid.GetDirection();}
         void setEnabled(bool enabled);
+        bool getEnabled() const {return enabled;}
 
-        bool getControllingMotor() const {return controling_motor_;}
-        byte getMotorID() const {return motor_ID_;}
+        bool get_in_control() const {return in_control;}
+        byte get_motorID() const {return motor_ID_;}
+
+        //for some reason the get methods for PID are not const. they are literaly const, but they are not marked as such 
+        const double& get_kd() {return motor_pid.GetKd();}
+        const double& get_ki() {return motor_pid.GetKi();}
+        const double& get_kp() {return motor_pid.GetKd();}
+        const double& get_setPoint() const {return setpoint_;}
 
         bool applyConfigUpdate(const PID_Config_Data& update);
         bool applySetPoint(const Set_PID_Setpoint& update_setpoint);
@@ -40,14 +44,13 @@ class PIDHandler{ //rough outline
 
 
     private:
-        bool inverted;
         bool enabled;
 
         double input_ = 0;
         double output_ = 0; 
         double setpoint_ = 0;
 
-        bool controling_motor_;
+        bool in_control;
         byte motor_ID_;
         PID motor_pid;
 };

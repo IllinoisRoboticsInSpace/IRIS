@@ -75,10 +75,10 @@ message PID_Config_Data
 message Set_PID_Setpoint
 {
     uint32 PID_ID = 9000;
-    double set_point = 9001;
+    double setPoint = 9001;
 }
 message Set_PID_Control
 {
     uint32 PID_ID = 10000;
-    bool pid_control_enabled = 10001;
+    bool in_control = 10001;
 }

@@ -1,6 +1,7 @@
 #include "motordriver_test.hpp"
 #include "sabertoothoperator_test.hpp"
 #include "protobufutilities_test.hpp"
+#include "pidhandler_test.hpp"
 
 void RUN_IRISMOTORDRIVER_TESTS(void)
 {
@@ -17,4 +18,10 @@ void RUN_IRISMOTORDRIVER_TESTS(void)
 
     // ProtobufUtilities
     RUN_TEST(saberooth_serial_line_conversion_test);
+
+    // PIDHandler
+    RUN_TEST(pid_handler_default_constructor_test);
+    RUN_TEST(require_disabled_for_update_test);
+    RUN_TEST(correct_PID_message_assign_test);
+    RUN_TEST(PID_update_test);
 }
