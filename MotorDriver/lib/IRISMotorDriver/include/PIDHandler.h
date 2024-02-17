@@ -23,7 +23,7 @@ class PIDHandler{ //rough outline
         //void set_encoder_value(double encoder_value);
         void set_new_setpoint(double setpoint);
 
-        void update_pid(double input);
+        bool update_pid(double input);
         bool get_inverted() {return motor_pid.GetDirection();}
         void setEnabled(bool enabled);
         bool getEnabled() const {return enabled;}
@@ -32,10 +32,10 @@ class PIDHandler{ //rough outline
         byte get_motorID() const {return motor_ID_;}
 
         //for some reason the get methods for PID are not const. they are literaly const, but they are not marked as such 
-        const double& get_kd() {return motor_pid.GetKd();}
-        const double& get_ki() {return motor_pid.GetKi();}
-        const double& get_kp() {return motor_pid.GetKd();}
-        const double& get_setPoint() const {return setpoint_;}
+        double get_kd() {return motor_pid.GetKd();}
+        double get_ki() {return motor_pid.GetKi();}
+        double get_kp() {return motor_pid.GetKd();}
+        double get_setPoint() const {return setpoint_;}
 
         bool applyConfigUpdate(const PID_Config_Data& update);
         bool applySetPoint(const Set_PID_Setpoint& update_setpoint);

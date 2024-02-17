@@ -7,7 +7,7 @@ void pid_handler_default_constructor_test(void){
     TEST_ASSERT_FALSE(default_pid_handler.getEnabled());
 }
 
-void require_disabled_for_update_test(void){
+void require_PID_disabled_for_update_test(void){
     //mirrored after sabertooth operator tests 
     PIDHandler default_pid_handler; // Enabled is false
     PID_Config_Data update_kd;
@@ -46,7 +46,10 @@ void correct_PID_message_assign_test(void){
     PID_Config_Data update_enabled;
     update_enabled.set_enabled(true);
     default_pid_handler.applyConfigUpdate(update_enabled);
+    TEST_ASSERT_TRUE(default_pid_handler.getEnabled());
 
+    // PID_Config_Data update_kd; update_kd.set_kd(1);
+    // TEST_ASSERT_TRUE(default_pid_handler.applyConfigUpdate(update_kd));
     assignment_test_(PID_Config_Data, kd, 1, applyConfigUpdate);
     assignment_test_(PID_Config_Data, ki, 1, applyConfigUpdate);
     assignment_test_(PID_Config_Data, kp, 1, applyConfigUpdate);
@@ -63,10 +66,14 @@ void PID_update_test(void){
     PID_Config_Data update_kp; update_kp.set_kp(1);
     default_pid_handler.applyConfigUpdate(update_kp);
     default_pid_handler.set_new_setpoint(100);
-    default_pid_handler.update_pid(20);
-    TEST_ASSERT_TRUE(default_pid_handler.get_motor_value() > 0);
+    for(size_t a = 0; a < 20; a++){
+        TEST_ASSERT_TRUE_MESSAGE(default_pid_handler.update_pid(a), "UPDATE PID");
+        Serial.println(default_pid_handler.get_motor_value());
+        Wait(1000);
+    }
+    Serial.println(default_pid_handler.get_motor_value());
+    TEST_ASSERT_TRUE_MESSAGE(default_pid_handler.get_motor_value() > 0, "POSITIVE PID OUTPUT");
     default_pid_handler.set_new_setpoint(-100);
     default_pid_handler.update_pid(0);
-    TEST_ASSERT_TRUE(default_pid_handler.get_motor_value() < 0);
-
+    TEST_ASSERT_TRUE_MESSAGE(default_pid_handler.get_motor_value() < 0, "NEGATIVE PID OUTPUT");
 }

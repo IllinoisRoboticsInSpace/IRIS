@@ -21,7 +21,7 @@ void RUN_IRISMOTORDRIVER_TESTS(void)
 
     // PIDHandler
     RUN_TEST(pid_handler_default_constructor_test);
-    RUN_TEST(require_disabled_for_update_test);
+    RUN_TEST(require_PID_disabled_for_update_test);
     RUN_TEST(correct_PID_message_assign_test);
     RUN_TEST(PID_update_test);
 }

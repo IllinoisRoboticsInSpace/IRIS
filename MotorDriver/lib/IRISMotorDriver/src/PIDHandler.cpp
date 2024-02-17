@@ -15,9 +15,9 @@ void PIDHandler::setEnabled(bool enabled){
     this->enabled = enabled;
 }
 
-void PIDHandler::update_pid(double input) {
+bool PIDHandler::update_pid(double input) {
     this->input_ = input;
-    motor_pid.Compute();
+    return motor_pid.Compute();
 }
 
 bool PIDHandler::applyConfigUpdate(const PID_Config_Data& update)
@@ -76,4 +76,5 @@ bool PIDHandler::applySetPoint(const Set_PID_Setpoint& update_setpoint){
 }
 bool PIDHandler::applyMotorControl(const Set_PID_Control& update_control){
     in_control = update_control.get_in_control();
+    motor_pid.SetMode(in_control);
 }
