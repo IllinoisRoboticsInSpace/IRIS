@@ -1,3 +1,13 @@
+# Prerequiste
+```bash
+sudo apt install ros-galactic-gazebo*
+```
+```bash
+sudo apt install ros-galactic-robot-localization*
+```
+```bash
+sudo apt install ros-galactic-rtabmap-ros*
+```
 # Configuration
 ```bash
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/home/YOUR_USERNAME/colcon_ws/src/sam_bot_description/models/
@@ -14,10 +24,16 @@ ros2 launch sam_bot_description display.launch.py
 ros2 launch nav2_bringup navigation_launch.py
 ```
 
-### 3-Launch SLAM:
+### 3-Launch SLAM (Option A):
 ```bash
 ros2 launch slam_toolbox online_async_launch.py
 ```
+
+### 3-Launch RTAB-Map (Option B):
+```bash
+ros2 launch rtabmap_ros turtlebot3_rgbd.launch.py
+```
+
 
 # Nav2 URDF Setup Tutorial - Differential Drive Robot
 Tutorial code referenced in https://navigation.ros.org/setup_guides/urdf/setup_urdf.html
