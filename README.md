@@ -1,4 +1,4 @@
-# Prerequiste
+# Prerequisite
 ```bash
 sudo apt install ros-galactic-gazebo*
 ```
