@@ -1,0 +1,90 @@
+syntax = "proto3";
+enum Opcode {
+    CONFIG_MOTOR = 0;
+    TURN_MOTOR = 1; 
+    STOP_ALL_MOTORS = 2;
+    SET_DEBUG_MODE = 3;
+    CONFIG_PID = 4;
+    SET_MOTOR_PID = 5;
+    SET_PID_SETPOINT = 6;
+    CONFIG_ENCODER = 7;
+
+}
+enum SabertoothSerialLine
+{
+    Serial1 = 0;
+    Serial2 = 1;
+    Serial3 = 2
+} 
+
+message Serial_Message {
+    Opcode opcode = 5000;
+    oneof data {
+        Sabertooth_Config_Data configData = 5001;
+        Turn_Motor motorCommand = 5001;
+        Debug_Mode debugMode = 5003;
+        PID_Config_Data pidConfigData = 5004;
+        Set_PID_Setpoint setPIDSetpoint = 5005;
+        Set_PID_Control setPIDControl = 5006;
+        Encoder_Config_Data encoderConfigData = 5007;
+    }
+}
+
+message Sabertooth_Config_Data {
+    uint32 motorID = 4000;
+    oneof values {
+        bool inverted = 4001;
+        bool enabled = 4002;
+        uint32 motorNum = 4003;
+        SabertoothSerialLine serialLine = 4004;
+        uint32 address = 4005;
+
+    }
+}
+message Turn_Motor
+{
+    uint32 motorID = 6000;
+    float percentOutput = 6001;
+}
+
+message Debug_Mode
+{
+    bool enabled = 7000;
+}
+message PID_Config_Data
+{
+    uint32 PID_ID = 8000;
+    oneof values
+    {
+        bool inverted = 8001;
+        bool enabled = 8002;
+        uint32 motorID = 4003;
+        double kp = 4004;
+        double ki = 4005;
+        double kd = 4006;
+    }
+}
+message Set_PID_Setpoint
+{
+    uint32 PID_ID = 9000;
+    double setPoint = 9001;
+}
+message Set_PID_Control
+{
+    uint32 PID_ID = 10000;
+    bool in_control = 10001;
+}
+
+message Encoder_Config_Data {
+    uint32 ENCODER_ID = 11000;
+    oneof values
+    {
+        bool inverted = 10002;
+        bool enabled = 10003;
+        uint32 motorID = 4003;
+        uint32 pinIn = 10005;
+        uint32 pinOut = 10006;
+        uint32 latchMode = 10007;
+
+    }
+}

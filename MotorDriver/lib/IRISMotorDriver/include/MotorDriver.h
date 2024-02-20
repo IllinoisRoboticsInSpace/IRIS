@@ -7,10 +7,23 @@
 #undef max
 #include <array>
 
-#include "Sabertooth.h" //? DESIGN: is sabertooth necessary for motor driver to have?
+#include "Sabertooth.h" 
+#include <SabertoothOperator.h>
+#include "WriteBufferFixedSize.h"
+#include "ReadBufferFixedSize.h"
+#include "RotaryEncoderOperator.h"
 
-#define NUM_ARDUINO_PINS 4 // placeholder
-#define DEFAULT_SERIAL_TRANSFER_BAUD_RATE 112500 // was there already (previous comment said "for printing")
+#define MAX_MOTOR_ID 15 // Maximum number of motor ids 0 indexed
+#define MAX_MOTOR_CONFIGS (MAX_MOTOR_ID + 1)
+
+#define MAX_ENCODER_ID 15
+#define MAX_ENCODER_CONFIGS (MAX_ENCODER_ID + 1)
+
+#define DEFAULT_SERIAL_TRANSFER_BAUD_RATE 112500 // Baud rate of serial communication with host
+
+//TODO: Write unit test to always check that this is valid
+#define FIXED_RECEIVED_MESSAGE_LENGTH 16 // The number of bytes of a message received from host
+#define COMMAND_BUFFER_SIZE (FIXED_RECEIVED_MESSAGE_LENGTH * 2) // Size of commands ring buffer, data comes from host
 
 /**
  * The MotorDriver class is responsible for keeping track of all in use
@@ -57,52 +70,35 @@
  * up for sending instead of being processed.
  */
 
-/** commands.proto file format
-  uint32 motorID = 4001;
-  uint32 serialPin = 4002;
-  uint32 motorNum = 4003;
-  uint32 address = 4004;
-  bool inverted = 4005;
-*/
 
 class MotorDriver
 {
   public:
-
-    struct MotorDriverConfig {
-      // fields from commands.proto file
-      unsigned int motorID;
-      unsigned int serialPin;
-      unsigned int motorNum;
-      unsigned int address;
-      bool inverted;
-
-      // fields not in commands.proto file
-      unsigned int arduinoSabertoothBaudRate;
-    };
-
-    MotorDriver(unsigned int serialTransferBaudRate, std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs, Sabertooth *st);
+    MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs, std:array<RotaryEncoderOperator,MAX_ENCODER_CONFIGS> encoder_configs);
+    MotorDriver(unsigned int serialTransferBaudRate);
     MotorDriver();
 
+    // An init function allows user to update internal state of motor driver before it connects to attached devices.
     bool initMotorDriver();
-    bool getInitialized();
-    unsigned int getSerialTransferBaudRate();
-    void setSerialTransferBaudRate(unsigned int serialTransferBaudRate);
-    std::array<MotorDriverConfig, NUM_ARDUINO_PINS> getConfigs();
-    void setConfigs(std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs);
+    SabertoothOperator getConfig(unsigned int motorID);
+    void setConfig(unsigned int motorID, SabertoothOperator config);
+    void resetConfigs();
+    void setDebugMode(bool enabled);
 
     void update();
-
-  private:
-
-    bool initialized;
-    unsigned int serialTransferBaudRate;
-    std::array<MotorDriverConfig, NUM_ARDUINO_PINS> configs;
-    Sabertooth *st; //? DESIGN: see above (line 6)
-
     // helpers for update
-    void read();
-    void parse();
-    void execute();
-};
+    // These are public because otherwise they can't be unit tested
+    // A more proper solution is to use Unity CMock in unit tests and move these methods to private
+    unsigned int read();
+    EmbeddedProto::Error parse(Serial_Message& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer);
+    void execute(Serial_Message& deserialized_message);
+  
+  private:
+    unsigned int serialTransferBaudRate;
+    std::array<RotaryEncoderOperator,MAX_ENCODER_CONFIGS> encoder_configs;
+    std::array<SabertoothOperator,MAX_MOTOR_CONFIGS> configs; // contains configs of connected devices
+    EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer; //Operates on uint8
+    bool debug_mode_enabled;
+    };
+
 #endif
