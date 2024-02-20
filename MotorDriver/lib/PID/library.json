@@ -1,0 +1,7 @@
+{
+    "name": "PID",
+    "version": "1.0.0",
+    "description": "PID Library for IRIS adapted from br3ttb/PID@^1.2.1",
+    "frameworks": "arduino",
+    "platforms": "atmelsam"
+  }
