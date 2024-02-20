@@ -15,4 +15,4 @@ Driver = MotorDriver()
 
 Driver.resetDevice
 Driver.initMotorDriver() # TODO
-Driver.setMotorConfig() # TODO
+Driver.setMotorConfig(config) # TODO
