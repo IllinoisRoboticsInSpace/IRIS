@@ -24,7 +24,7 @@ ros2 launch navigation-c display.launch.py
 ### RTAB-Map SLAM
 Realsense Data Command:
 ```bash
-ros2 launch realsense2_camera rs_launch.py enable_accel:=true enable_gyro:=true unite_imu_method:=2
+ros2 launch realsense2_camera rs_launch.py enable_accel:=true enable_gyro:=true unite_imu_method:=linear_interpolation
 ```
 IMU Filter Command:
 ```bash
