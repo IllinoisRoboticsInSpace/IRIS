@@ -8,7 +8,7 @@
 #include <array>
 
 
-#include "PID_v1.h"
+#include "PID.h"
 #include "generated/commands.h"
 
 #define DEFAULT_TUNINGS 0,0,0
@@ -24,7 +24,7 @@ class PIDHandler{ //rough outline
         void set_new_setpoint(double setpoint);
 
         bool update_pid(double input);
-        bool get_inverted() {return motor_pid.GetDirection();}
+        //bool get_inverted() {return motor_pid.GetDirection();}
         void setEnabled(bool enabled);
         bool getEnabled() const {return enabled;}
 

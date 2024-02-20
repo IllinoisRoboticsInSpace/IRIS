@@ -2,7 +2,7 @@
 #include "DebugTools.h"
 #include "ProtobufUtilities.h"
 
-PIDHandler::PIDHandler() : motor_pid(&input_, &output_, &setpoint_, DEFAULT_TUNINGS, P_ON_E, DIRECT), enabled(false), in_control(false) {
+PIDHandler::PIDHandler() : motor_pid(&input_, &output_, &setpoint_, DEFAULT_TUNINGS, true), enabled(false), in_control(false) {
     motor_pid.SetOutputLimits(DEFAULT_MOTOR_MIN, DEFAULT_MOTOR_MAX);
 }
 
@@ -41,10 +41,6 @@ bool PIDHandler::applyConfigUpdate(const PID_Config_Data& update)
 
     switch (key)
     {
-        case PID_Config_Data::FieldNumber::INVERTED:{
-                motor_pid.SetControllerDirection(update.get_inverted());
-                break;
-            }
         case PID_Config_Data::FieldNumber::MOTORID:
             {
                 motor_ID_ = update.get_motorID();
@@ -76,5 +72,4 @@ bool PIDHandler::applySetPoint(const Set_PID_Setpoint& update_setpoint){
 }
 bool PIDHandler::applyMotorControl(const Set_PID_Control& update_control){
     in_control = update_control.get_in_control();
-    motor_pid.SetMode(in_control);
 }

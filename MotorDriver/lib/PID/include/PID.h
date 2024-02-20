@@ -1,5 +1,5 @@
-#ifndef IRIS_PID_h
-#define IRIS_PID_CPP
+#ifndef _PID_
+#define _PID_
 
 class PID
 {
@@ -14,22 +14,21 @@ class PID
   #define REVERSE  1
   #define CALCULATE_BY_MEASUREMENT true
   #define CALCULATE_BY_ERROR false
+  #define DEFAULT_MOTOR_MIN -1
+  #define DEFAULT_MOTOR_MAX 1
 
   //commonly used functions **************************************************************************
     PID(double*, double*, double*,        // * constructor.  links the PID to the Input, Output, and 
-        double, double, double, int, int);//   Setpoint.  Initial tuning parameters are also set here.
+        double, double, double, bool);//   Setpoint.  Initial tuning parameters are also set here.
                                           //   (overload for specifying proportional mode)
 
-    PID(double*, double*, double*,        // * constructor.  links the PID to the Input, Output, and 
-        double, double, double, int);     //   Setpoint.  Initial tuning parameters are also set here
-	
     void SetMode(bool);               // * sets PID to either Manual (false) or Auto (true)
 
     bool Compute();                       // * performs the PID calculation.  it should be
                                           //   called every time loop() cycles. ON/OFF and
                                           //   calculation frequency can be set using SetMode
                                           //   SetSampleTime respectively
-
+    
     void SetOutputLimits(double, double); // * clamps the output to a specific range. 0-255 by default, but
 										                      //   it's likely the user will want to change this depending on
 										                      //   the application
@@ -57,27 +56,20 @@ class PID
 	double GetKi() const ;						  //  they were created mainly for the pid front-end,
 	double GetKd() const ;						  // where it's important to know what is actually 
 	bool get_in_auto() const;						  //  inside the PID.
-	//bool is_forward() const;					  //
 
   private:
 	void Initialize();
-	
-	// double dispKp;				// * we'll hold on to the tuning parameters in user-entered 
-	// double dispKi;				//   format for display purposes
-	// double dispKd;				//
     
 	double kp;                  // * (P)roportional Tuning Parameter
   double ki_given;                  // * (I)ntegral Tuning Parameter given by the user
   double kd_given;                  // * (D)erivative Tuning Parameter given by the yser
 
-  double ki_time_adjusted;
+  double ki_time_adjusted; //these are so the frequency of updates don't effect the effective ki and kd values but it might not be nessisary if we're never changing the sample rate 
   double kd_time_adjusted;
 
-	//int pOn;
-
-    double *myInput;              // * Pointers to the Input, Output, and Setpoint variables
-    double *myOutput;             //   This creates a hard link between the variables and the 
-    double *mySetpoint;           //   PID, freeing the user from having to constantly tell us
+  double *input_ptr;              // * Pointers to the Input, Output, and Setpoint variables
+  double *output_ptr;             //   This creates a hard link between the variables and the 
+  double *setpoint_ptr;           //   PID, freeing the user from having to constantly tell us
                                   //   what these values are.  with pointers we'll just know.
 			  
 	unsigned long lastTime;
@@ -85,7 +77,7 @@ class PID
 
 	unsigned long SampleTime;
 	double outMin, outMax;
-	bool inAuto, calculate_by_measurement;
+	bool use_proportional_measurement; //in_Auto is if 
 };
 #endif
 

@@ -30,6 +30,9 @@ enum Opcode_To_Arduino
     TURN_MOTOR = 1; 
     STOP_ALL_MOTORS = 2;
     SET_DEBUG_MODE = 3;
+    CONFIG_PID = 4;
+    SET_SETPOINT = 5;
+    SET_CONTROL = 6;
 }
 
 message Serial_Message_To_Arduino
@@ -74,7 +77,6 @@ message PID_Config_Data
     uint32 PID_ID = 8000;
     oneof values
     {
-        bool inverted = 8001;
         bool enabled = 8002;
         uint32 motorID = 4003;
         double kp = 4004;

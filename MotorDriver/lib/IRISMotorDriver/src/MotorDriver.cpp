@@ -143,7 +143,7 @@ void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
             debug_mode_enabled = deserialized_message.get_debugMode().get_enabled();
             break;
         }
-        case Opcode::CONFIG_PID:
+        case Opcode_To_Arduino::CONFIG_PID:
         {
             auto config_update = deserialized_message.get_pidConfigData();
             int pidID = config_update.get_PID_ID();
@@ -151,14 +151,14 @@ void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
 
             break;
         }
-        case Opcode::SET_PID_SETPOINT:
+        case Opcode_To_Arduino::SET_SETPOINT:
         {
             auto set_point_command = deserialized_message.get_setPIDSetpoint();
             int pidID = set_point_command.get_PID_ID();
             bool error = pid_configs[pidID].applySetPoint(set_point_command);
             break;
         }
-        case Opcode::SET_MOTOR_PID:
+        case Opcode_To_Arduino::SET_CONTROL:
         {
             auto set_pid_command = deserialized_message.get_setPIDControl();
             int pidID = set_pid_command.get_PID_ID();
