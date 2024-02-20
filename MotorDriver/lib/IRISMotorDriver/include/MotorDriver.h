@@ -7,6 +7,7 @@
 #undef max
 #include <array>
 
+<<<<<<< HEAD
 #include "Sabertooth.h" 
 #include <SabertoothOperator.h>
 #include "WriteBufferFixedSize.h"
@@ -20,6 +21,16 @@
 #define MAX_ENCODER_CONFIGS (MAX_ENCODER_ID + 1)
 
 #define DEFAULT_SERIAL_TRANSFER_BAUD_RATE 112500 // Baud rate of serial communication with host
+=======
+#include "Sabertooth.h"
+#include "SabertoothOperator.h"
+#include "WriteBufferFixedSize.h"
+#include "ReadBufferFixedSize.h"
+
+#define MAX_MOTOR_ID 15 // Maximum number of motor ids 0 indexed
+#define MAX_MOTOR_CONFIGS (MAX_MOTOR_ID + 1)
+#define DEFAULT_HOST_SERIAL_BAUD_RATE 112500 // Baud rate of serial communication with host
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
 
 //TODO: Write unit test to always check that this is valid
 #define FIXED_RECEIVED_MESSAGE_LENGTH 16 // The number of bytes of a message received from host
@@ -29,9 +40,11 @@
  * The MotorDriver class is responsible for keeping track of all in use
  * encoders, motors, PID loops, and other devices/services that would be
  * used with the arduino. It is responsible for configuring these resources
- * by processing the serial commands that are recieved from the host device.
+ * by processing the serial commands that are received from the host device.
  * The MotorDriver class is written to handle message errors such as corrupted
  * data and invalid commands.
+ * 
+ * @attention Must call initMotorDriver() function in arduino setup() function
  * 
  * @note All functionality in the Arduino Motor Driver must be verified and
  * synced up with development on the Python host driver.
@@ -55,7 +68,7 @@
  * controller to an encoder and motor.
  * 
  * - Debugging mode/support such as print statements back to host, or echoing
- * back of all recieved commands.
+ * back of all received commands.
  * 
  * - Create interfaces to abstract the implementation of encoders and motors.
  * 
@@ -69,6 +82,7 @@
  * all encoder updates that can not be serviced as a given moment will be queued
  * up for sending instead of being processed.
  */
+<<<<<<< HEAD
 
 
 class MotorDriver
@@ -80,16 +94,32 @@ class MotorDriver
 
     // An init function allows user to update internal state of motor driver before it connects to attached devices.
     bool initMotorDriver();
+=======
+class MotorDriver
+{
+  public:
+    MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs);
+    MotorDriver(unsigned int serialTransferBaudRate);
+    MotorDriver();
+ 
+    // An init function allows user to update internal state of motor driver before it connects to attached devices.
+    bool initMotorDriver(); 
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
     SabertoothOperator getConfig(unsigned int motorID);
     void setConfig(unsigned int motorID, SabertoothOperator config);
     void resetConfigs();
     void setDebugMode(bool enabled);
 
     void update();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
     // helpers for update
     // These are public because otherwise they can't be unit tested
     // A more proper solution is to use Unity CMock in unit tests and move these methods to private
     unsigned int read();
+<<<<<<< HEAD
     EmbeddedProto::Error parse(Serial_Message& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer);
     void execute(Serial_Message& deserialized_message);
   
@@ -101,4 +131,15 @@ class MotorDriver
     bool debug_mode_enabled;
     };
 
+=======
+    EmbeddedProto::Error parse(Serial_Message_To_Arduino& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer);
+    void execute(Serial_Message_To_Arduino& deserialized_message);
+
+  private:
+    unsigned int serialTransferBaudRate;
+    std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs; // contains configs of connected devices
+    EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer; //Operates on uint8
+    bool debug_mode_enabled;
+};
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
 #endif

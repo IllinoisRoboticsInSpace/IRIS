@@ -55,6 +55,18 @@ public:
   \param port    The port to use.
   */
   Sabertooth(byte address, SabertoothStream& port);
+  
+  /*!
+  Copies instance of other Sabertooth to current one
+  \param other Sabertooth
+  */
+  Sabertooth(const Sabertooth& other);
+
+  /*!
+  Assigns current object to other object
+  \param other Sabertooth
+  */
+  Sabertooth& operator=(const Sabertooth& other);
 
 public:
   /*!
@@ -172,7 +184,7 @@ private:
   void throttleCommand(byte command, int power) const;
   
 private:
-  const byte        _address;
+  byte              _address;
   SabertoothStream& _port; 
 };
 
