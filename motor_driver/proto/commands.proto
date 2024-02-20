@@ -5,9 +5,17 @@ syntax = "proto3";
 
 enum Opcode
 {
-  CONFIG_MOTOR = 0;
-  TURN_MOTOR = 1; 
-  STOP_ALL_MOTORS = 2;
+    CONFIG_MOTOR = 0;
+    TURN_MOTOR = 1; 
+    STOP_ALL_MOTORS = 2;
+    SET_DEBUG_MODE = 3;
+}
+
+enum SabertoothSerialLine
+{
+    Serial1 = 0;
+    Serial2 = 1;
+    Serial3 = 2;
 }
 
 message Serial_Message
@@ -15,21 +23,22 @@ message Serial_Message
     Opcode opcode = 5000;
     oneof data
     {
-        Config_Data configData = 5001;//Protobuf can actually see "Config_Data"
+        Sabertooth_Config_Data configData = 5001;
         Turn_Motor motorCommand = 5002;
+        Debug_Mode debugMode = 5003;
     }
 }
 
-message Config_Data
+message Sabertooth_Config_Data
 {
-    // Config_Param key = 4000;
+    uint32 motorID = 4000;
     oneof values
     {
-        uint32 motorID = 4001;
-        uint32 serialPin = 4002;
+        bool inverted = 4001;
+        bool enabled = 4002;
         uint32 motorNum = 4003;
-        uint32 address = 4004;
-        bool inverted = 4005;
+        SabertoothSerialLine serialLine = 4004;
+        uint32 address = 4005;
     }
 }
 
@@ -37,4 +46,9 @@ message Turn_Motor
 {
     uint32 motorID = 6000;
     float percentOutput = 6001;
+}
+
+message Debug_Mode
+{
+    bool enabled = 7000;
 }

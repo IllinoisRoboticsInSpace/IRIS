@@ -7,7 +7,7 @@
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate,  std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> Sabertooth_configs, std::array<PIDHandler, MAX_PID_CONGIFS> PID_configs)
     : serialTransferBaudRate(serialTransferBaudRate), configs(Sabertooth_configs), pid_configs(PID_configs), debug_mode_enabled(false)
 {
-
+    
 }
 
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
@@ -90,7 +90,7 @@ unsigned int MotorDriver::read()
     return 0;
 }
 
-EmbeddedProto::Error MotorDriver::parse(Serial_Message& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer)
+EmbeddedProto::Error MotorDriver::parse(Serial_Message_To_Arduino& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer)
 { 
     // Maybe add more error handling
     auto deserialize_status = deserialized_message.deserialize(buffer);
@@ -104,12 +104,12 @@ EmbeddedProto::Error MotorDriver::parse(Serial_Message& deserialized_message, Em
     return deserialize_status;
 }
 
-void MotorDriver::execute(Serial_Message& deserialized_message)
+void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
 {
-    Opcode opcode = deserialized_message.get_opcode();
+    Opcode_To_Arduino opcode = deserialized_message.get_opcode();
     switch (opcode)
     {
-        case Opcode::TURN_MOTOR:
+        case Opcode_To_Arduino::TURN_MOTOR:
         {
             auto turn_motor = deserialized_message.get_motorCommand();
             int motorID = turn_motor.get_motorID();
@@ -119,7 +119,7 @@ void MotorDriver::execute(Serial_Message& deserialized_message)
             }
             break;
         }
-        case Opcode::STOP_ALL_MOTORS:
+        case Opcode_To_Arduino::STOP_ALL_MOTORS:
         {
             // Maybe make special stop function in operator
             for (SabertoothOperator config : configs)
@@ -131,14 +131,14 @@ void MotorDriver::execute(Serial_Message& deserialized_message)
             }
             break;
         }
-        case Opcode::CONFIG_MOTOR:
+        case Opcode_To_Arduino::CONFIG_MOTOR:
         {
             auto config_update = deserialized_message.get_configData();
             int motorID = config_update.get_motorID();
             bool error = configs[motorID].applyConfigUpdate(config_update);
             break;
         }
-        case Opcode::SET_DEBUG_MODE:
+        case Opcode_To_Arduino::SET_DEBUG_MODE:
         {
             debug_mode_enabled = deserialized_message.get_debugMode().get_enabled();
             break;
@@ -193,7 +193,7 @@ void MotorDriver::update()
     
     if ((bytes_read != 0) && (command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH))
     {
-        Serial_Message message;
+        Serial_Message_To_Arduino message;
         auto parse_error_status = parse(message, command_buffer);
         execute(message);
         if (debug_mode_enabled == true) // Send back data on debug mode on
