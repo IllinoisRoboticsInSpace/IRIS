@@ -5,6 +5,10 @@
     - ```bash
         sudo apt install ros-$ROS_DISTRO-v4l2-camera
         ```
+- OpenCV 4.6.0
+    - `export OPENCV_INSTALL_DIR=/home/iris/IRIS_dependencies/opencv/build`
+    - `export OpenCV_INCLUDE_DIRS=/home/iris/IRIS_dependencies/opencv/build/include`
+    - `export OpenCV_LIBS=/home/iris/IRIS_dependencies/opencv/build/lib`
 ## Getting Started
 > **Note**
 > It is highly recommended to develop in a virtual machine because our install procedures are not isolated and can be invasive ([VM Instructions](url))

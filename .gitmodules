@@ -14,6 +14,9 @@
 [submodule "dependencies/apriltag_viz"]
 	path = dependencies/apriltag_viz
 	url = https://github.com/IllinoisRoboticsInSpace/apriltag_viz.git
+[submodule "dependencies/vision_opencv"]
+	path = dependencies/vision_opencv
+	url = https://github.com/ros-perception/vision_opencv.git
 [submodule "dependencies/imu_tools"]
 	path = dependencies/imu_tools
 	url = https://github.com/IllinoisRoboticsInSpace/imu_tools
