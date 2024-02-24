@@ -24,7 +24,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'twist_serial = jetson.twist_serial:main'
+            'arduino_comms_node = jetson.arduino_comms_node:main'
         ],
     },
 )

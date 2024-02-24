@@ -27,9 +27,9 @@ def generate_launch_description():
             }]),
         # JOYSTICK (TWIST) MODE
         # Node(
-        #     package='teleop_twist_joy', executable='teleop_node',
+        #     package='teleop_twist_joy', executable='gamepad_node',
         #     name='teleop_twist_joy_node', parameters=[config_filepath]),
         Node(
-            package='teleop', executable='teleop_node',
+            package='teleop', executable='gamepad_node',
             name='TeleopNode', parameters=[]),
     ])

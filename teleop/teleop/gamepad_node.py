@@ -9,10 +9,10 @@ from std_msgs.msg import String
 
 import serial
 
-class twist_serial(Node):
+class gamepad_node(Node):
 
     def __init__(self):
-        super().__init__('twist_serial')
+        super().__init__('gamepad_node')
 
         # self.subscription = self.create_subscription(
         #     Twist, '/rover/cmd_vel', self.twist_callback, 10) #subscribes to cmd_vel topic
@@ -186,7 +186,7 @@ class twist_serial(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    contro = twist_serial()
+    contro = gamepad_node()
     try:
         rclpy.spin(contro)
     except KeyboardInterrupt:

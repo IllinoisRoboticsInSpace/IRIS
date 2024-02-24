@@ -26,7 +26,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'teleop_node = teleop.teleop_node:main', # name = package.file:method/
+            'gamepad_node = teleop.gamepad_node:main', # name = package.file:method/
         ],
     },
 )

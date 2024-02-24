@@ -8,6 +8,6 @@ def generate_launch_description():
 
     return LaunchDescription([
         Node(
-            package='jetson', executable='twist_serial',
-            name='twist_serial')
+            package='jetson', executable='arduino_comms_node',
+            name='arduino_comms_node')
     ])
