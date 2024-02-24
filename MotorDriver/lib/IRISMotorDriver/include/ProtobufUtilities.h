@@ -24,6 +24,8 @@ inline USARTClass& getSabertoothSerial(SabertoothSerialLine serial)
     }
 }
 
+//TODO: Add latchmode converter helper function from protobuf type to latchmode type using in encoder library
+
 // // Computes the maximum Protobuf message size in bytes
 // uint32_t maxReceiveProtoMessageBytesSize()
 // {
