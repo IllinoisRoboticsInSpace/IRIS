@@ -66,11 +66,6 @@ git submodule update --init --recursive
 cd ~/colcon_ws
 rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 -r --rosdistro $ROS_DISTRO -y --include-eol-distros
 
-# for apriltags opencv installation
-export OPENCV_INSTALL_DIR=/home/iris/IRIS_dependencies/opencv/build
-export OpenCV_INCLUDE_DIRS=/home/iris/IRIS_dependencies/opencv/build/include
-export OpenCV_LIBS=/home/iris/IRIS_dependencies/opencv/build/lib
-
 # export MAKEFLAGS="-j$(nproc)" #Uncomment to use all cpu cores
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --executor sequential
 # colcon build # Should be run after running "install_jetson_deps.sh"
