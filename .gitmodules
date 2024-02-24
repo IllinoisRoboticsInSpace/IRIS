@@ -7,7 +7,7 @@
 	url = https://github.com/AprilRobotics/apriltag.git
 [submodule "dependencies/apriltag_ros"]
 	path = dependencies/apriltag_ros
-	url = https://github.com/christianrauch/apriltag_ros
+	url = https://github.com/IllinoisRoboticsInSpace/apriltag_ros
 [submodule "dependencies/apriltag_msgs"]
 	path = dependencies/apriltag_msgs
 	url = https://github.com/christianrauch/apriltag_msgs
