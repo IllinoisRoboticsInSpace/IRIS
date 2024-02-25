@@ -17,6 +17,26 @@ RotaryEncoderOperator::RotaryEncoderOperator()
     encoder = new RotaryEncoder(DEFAULT_PIN1, DEFAULT_PIN2, DEFAULT_LATCHMODE);
 }
 
+void RotaryEncoderOperator::setInverted(bool inverted)
+{
+    this->inverted = inverted;
+}
+
+void RotaryEncoderOperator::setEnabled(bool enabled)
+{
+    this->enabled = enabled;
+}
+
+bool RotaryEncoderOperator::getInverted()
+{
+    return inverted;
+}
+
+bool RotaryEncoderOperator::getEnabled()
+{
+    return enabled;
+}
+
 void RotaryEncoderOperator::pin1InterruptHandler()
 {
     encoder->tick();
@@ -32,7 +52,7 @@ bool RotaryEncoderOperator::init()
     if (enabled == true)
     {
         reallocateInterruptHandlers();
-        
+
     }
     return enabled;
 }
@@ -110,11 +130,19 @@ bool RotaryEncoderOperator::applyConfigUpdate(const Encoder_Config_Data& update)
     DEBUG_PRINTLN("")
 
     auto key = update.get_which_values();
-    if(key == Encoder_Config_Data::FieldNumber::ENABLED){
-        //setEnabled(update.get_enabled()); //TODO: Implement in RotaryEncoderOperator
+    if (key == Encoder_Config_Data::FieldNumber::ENABLED)
+    {
+        setEnabled(update.get_enabled());
+        if (enabled == true)
+        {
+            init();
+        }
         return true;
     }
-    if(enabled==false){
+    
+    // Not allowed to apply config update to enabled operator
+    if (enabled == true)
+    {
         return false;
     }
 

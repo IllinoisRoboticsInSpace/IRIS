@@ -28,7 +28,15 @@ class RotaryEncoderOperator {
         RotaryEncoderOperator();
         bool update_Encoder(double input);
 
+        // general
+        void setInverted(bool inverted);
+        void setEnabled(bool enabled);
+        bool getInverted();
+        bool getEnabled();
+
         bool init();
+
+        // Specific
         bool applyConfigUpdate(const Encoder_Config_Data& update);
 
         void pin1InterruptHandler();
@@ -37,6 +45,7 @@ class RotaryEncoderOperator {
     private:
         //General to encoders
         bool enabled;
+        bool inverted;
 
         // Rotary Encoder specific
         int pin_In, pin_Out;
