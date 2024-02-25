@@ -168,6 +168,11 @@ long RotaryEncoderOperator::get_encoder_tick_count()
     }
 }
 
+void RotaryEncoderOperator::set_encoder_tick_count(long count)
+{
+    encoder->setPosition(count);
+}
+
 long RotaryEncoderOperator::get_encoder_RPM()
 {
     //TODO: Get RPM using RotaryEncoder function and correct RPM direction based on inverted and encoder direction

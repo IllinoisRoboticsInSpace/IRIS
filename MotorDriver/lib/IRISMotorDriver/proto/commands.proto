@@ -42,7 +42,7 @@ enum Opcode_To_Arduino
     SET_PID_SETPOINT = 6;
     CONFIG_ENCODER = 7;
     // GET_ENCODER_COUNT = 8;
-    // ZERO_ENCODER_COUNT = 9;
+    ZERO_ENCODER = 9;
 }
 
 message Serial_Message_To_Arduino
@@ -50,13 +50,14 @@ message Serial_Message_To_Arduino
     Opcode_To_Arduino opcode = 5000;
     oneof data
     {
-        Sabertooth_Config_Data configData = 5001;
+        Sabertooth_Config_Data sabertoothConfigData = 5001;
         Turn_Motor motorCommand = 5002;
         Debug_Mode debugMode = 5003;
         PID_Config_Data pidConfigData = 5004;
         Set_PID_Setpoint setPIDSetpoint = 5005;
         Set_PID_Control setPIDControl = 5006;
         Encoder_Config_Data encoderConfigData = 5007;
+        Zero_Encoder_Command zeroEncoderCommand = 5008;
     }
 }
 
@@ -120,6 +121,11 @@ message Encoder_Config_Data {
         uint32 pinOut = 11005;
         LatchMode latchMode = 11006;
     }
+}
+
+message Zero_Encoder_Command
+{
+    uint32 encoderID = 12000;
 }
 
 //--------------------------------------------------------------------//

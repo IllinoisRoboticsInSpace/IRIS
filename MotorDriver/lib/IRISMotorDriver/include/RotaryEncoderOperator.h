@@ -38,6 +38,7 @@ class RotaryEncoderOperator {
         // Specific
         bool applyConfigUpdate(const Encoder_Config_Data& update);
         long get_encoder_tick_count();
+        void set_encoder_tick_count(long count);
         long get_encoder_RPM();
 
         void pin1InterruptHandler();
