@@ -125,6 +125,7 @@ bool RotaryEncoderOperator::reallocateInterruptHandlers()
 bool RotaryEncoderOperator::deallocateInterruptHandlers()
 {
     // Set default allocation pin
+    // On enable, the previous pins will be restored and their interrupts set
     new_pin_In = _current_pin_In;
     new_pin_Out = _current_pin_Out;
 
@@ -134,6 +135,7 @@ bool RotaryEncoderOperator::deallocateInterruptHandlers()
         detachInterrupt(digitalPinToInterrupt(_current_pin_In));
         // Free object binding
         bindArgGateFree(interruptGate_pin1);
+        interruptGate_pin1 = nullptr;
         // Deallocate resource
         RotaryEncoderOperator::digitalPinAllocations[_current_pin_In] = false;
     }
@@ -144,6 +146,7 @@ bool RotaryEncoderOperator::deallocateInterruptHandlers()
         detachInterrupt(digitalPinToInterrupt(_current_pin_Out));
         // Free object binding
         bindArgGateFree(interruptGate_pin2);
+        interruptGate_pin2 = nullptr;
         // Deallocate resource
         RotaryEncoderOperator::digitalPinAllocations[_current_pin_Out] = false;
     }
