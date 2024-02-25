@@ -10,6 +10,7 @@
 #include "RotaryEncoder.h"
 #include "ProtobufUtilities.h"
 #include "generated/commands.h"
+#include "BindArg.h"
 
 
 #define TICKS_TO_DEG 0.3515625 
@@ -29,15 +30,32 @@ class RotaryEncoderOperator {
 
         bool init();
         bool applyConfigUpdate(const Encoder_Config_Data& update);
+
+        void pin1InterruptHandler();
+        void pin2InterruptHandler();
     
     private:
         //General to encoders
         bool enabled;
-        // int8_t motor_ID; //Does not necessarily exist because encoder could be on axle that does not have motor. So default is -1.
 
         // Rotary Encoder specific
-        int pin_In;
-        int pin_Out;
+        int pin_In, pin_Out;
+        int _old_pin_In, _old_pin_Out;  // Used for detaching previous interrupt
         RotaryEncoder::LatchMode latch_Mode;
+        RotaryEncoder* encoder;
+
+        // Manage digital pin interrupt allocation
+        bool reallocateInterruptHandlers();
+        // https://stackoverflow.com/questions/56389249/how-to-use-a-c-member-function-as-an-interrupt-handler-in-arduino
+        // https://github.com/openlab-vn-ua/BindArg
+        bindArgVoidFunc_t interruptGate_pin1 = nullptr;
+        bindArgVoidFunc_t interruptGate_pin2 = nullptr;
+
+        // IMPORTANT NOTE:
+        // Need to be careful with resource allocations order because
+        // Reallocating multiple resources requires order checking
+        // to avoid conflicts of allocating to pins that are scheduled
+        // to be deallocated
+        static std::array<bool, NUM_DIGITAL_PINS> digitalPinAllocations;
 };
 #endif
