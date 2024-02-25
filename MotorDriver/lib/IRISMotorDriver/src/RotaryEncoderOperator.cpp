@@ -5,14 +5,12 @@ std::array<bool, NUM_DIGITAL_PINS> RotaryEncoderOperator::digitalPinAllocations;
 
 RotaryEncoderOperator::RotaryEncoderOperator(int pin1, int pin2, RotaryEncoder::LatchMode mode)
     : enabled(false), new_pin_In(pin1), new_pin_Out(pin2), _current_pin_In(-1), _current_pin_Out(-1)
-    , latch_Mode(mode)
 {
-    encoder = new RotaryEncoder(new_pin_In, new_pin_Out, latch_Mode);
+    encoder = new RotaryEncoder(new_pin_In, new_pin_Out, mode);
 }
 
 RotaryEncoderOperator::RotaryEncoderOperator()
     : enabled(false), new_pin_In(DEFAULT_PIN1), new_pin_Out(DEFAULT_PIN2), _current_pin_In(-1), _current_pin_Out(-1)
-    , latch_Mode(DEFAULT_LATCHMODE)
 {
     encoder = new RotaryEncoder(DEFAULT_PIN1, DEFAULT_PIN2, DEFAULT_LATCHMODE);
 }
@@ -190,18 +188,37 @@ bool RotaryEncoderOperator::applyConfigUpdate(const Encoder_Config_Data& update)
     }
 
     switch(key){
-        case Encoder_Config_Data::FieldNumber::LATCHMODE:{
-            // latch_Mode = update.get_latchMode();
-            break;
-        }
-        case Encoder_Config_Data::FieldNumber::PININ:{
+        case Encoder_Config_Data::FieldNumber::PININ:
+            {
+            delete encoder;
+            RotaryEncoder::LatchMode new_latchmode = getLatchMode(update.get_latchMode());
             new_pin_In = update.get_pinIn();
+            encoder = new RotaryEncoder(new_pin_In, _current_pin_Out, new_latchmode);
             break;
-        }
-        case Encoder_Config_Data::FieldNumber::PINOUT:{
+            }
+        case Encoder_Config_Data::FieldNumber::PINOUT:
+            {
+            delete encoder;
+            RotaryEncoder::LatchMode new_latchmode = getLatchMode(update.get_latchMode());
             new_pin_Out = update.get_pinOut();
+            encoder = new RotaryEncoder(_current_pin_In, new_pin_Out, new_latchmode);
+            
             break;
-        }
-       
+            }
+        case Encoder_Config_Data::FieldNumber::LATCHMODE:
+            {
+            delete encoder;
+            RotaryEncoder::LatchMode new_latchmode = getLatchMode(update.get_latchMode());
+            encoder = new RotaryEncoder(_current_pin_In, _current_pin_Out, new_latchmode); 
+            break;
+            }
+        case Encoder_Config_Data::FieldNumber::INVERTED:
+            {
+            inverted = update.get_inverted();
+            break;
+            }  
+        default:
+            return false;
+            break;  
     }
 }

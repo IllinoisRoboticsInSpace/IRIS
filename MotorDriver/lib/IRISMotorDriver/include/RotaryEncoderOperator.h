@@ -50,7 +50,6 @@ class RotaryEncoderOperator {
         // Rotary Encoder specific
         int new_pin_In, new_pin_Out;
         int _current_pin_In, _current_pin_Out;  // Used for detaching previous interrupt
-        RotaryEncoder::LatchMode latch_Mode;
         RotaryEncoder* encoder;
 
         // Manage digital pin interrupt allocation
