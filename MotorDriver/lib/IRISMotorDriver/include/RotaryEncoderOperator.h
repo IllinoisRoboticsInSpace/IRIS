@@ -1,5 +1,5 @@
-#ifndef _ENCODER_CONFIG_
-#define _ENCODER_CONFIG_
+#ifndef _ROTARY_ENCODER_OPERATOR_
+#define _ROTARY_ENCODER_OPERATOR_
 
 #include <Arduino.h>
 
@@ -38,6 +38,7 @@ class RotaryEncoderOperator {
         // Specific
         bool applyConfigUpdate(const Encoder_Config_Data& update);
         long get_encoder_tick_count();
+        long get_encoder_RPM();
 
         void pin1InterruptHandler();
         void pin2InterruptHandler();

@@ -156,7 +156,8 @@ bool RotaryEncoderOperator::deallocateInterruptHandlers()
 }
 
 
-long RotaryEncoderOperator::get_encoder_tick_count(){
+long RotaryEncoderOperator::get_encoder_tick_count()
+{
     if (inverted)
     {
         return -1 * (encoder->getPosition());
@@ -165,6 +166,12 @@ long RotaryEncoderOperator::get_encoder_tick_count(){
     {
         return (encoder->getPosition());
     }
+}
+
+long RotaryEncoderOperator::get_encoder_RPM()
+{
+    //TODO: Get RPM using RotaryEncoder function and correct RPM direction based on inverted and encoder direction
+    return 0;
 }
 
 bool RotaryEncoderOperator::applyConfigUpdate(const Encoder_Config_Data& update){
@@ -208,7 +215,6 @@ bool RotaryEncoderOperator::applyConfigUpdate(const Encoder_Config_Data& update)
             RotaryEncoder::LatchMode new_latchmode = getLatchMode(update.get_latchMode());
             new_pin_Out = update.get_pinOut();
             encoder = new RotaryEncoder(_current_pin_In, new_pin_Out, new_latchmode);
-            
             break;
             }
         case Encoder_Config_Data::FieldNumber::LATCHMODE:
