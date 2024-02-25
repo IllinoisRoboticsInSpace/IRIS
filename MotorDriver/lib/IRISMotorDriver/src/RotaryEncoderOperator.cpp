@@ -156,9 +156,15 @@ bool RotaryEncoderOperator::deallocateInterruptHandlers()
 }
 
 
-bool RotaryEncoderOperator::update_Encoder(double input){
-    // ENCODER_READ_LONG = encoder.getPosition();
-    // ENCODER_READ = (double)ENCODER_READ_LONG;
+long RotaryEncoderOperator::get_encoder_tick_count(){
+    if (inverted)
+    {
+        return -1 * (encoder->getPosition());
+    }
+    else
+    {
+        return (encoder->getPosition());
+    }
 }
 
 bool RotaryEncoderOperator::applyConfigUpdate(const Encoder_Config_Data& update){

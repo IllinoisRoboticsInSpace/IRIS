@@ -26,7 +26,6 @@ class RotaryEncoderOperator {
     public:
         RotaryEncoderOperator(int pin1, int pin2, RotaryEncoder::LatchMode mode);
         RotaryEncoderOperator();
-        bool update_Encoder(double input);
 
         // general
         void setInverted(bool inverted);
@@ -38,6 +37,7 @@ class RotaryEncoderOperator {
 
         // Specific
         bool applyConfigUpdate(const Encoder_Config_Data& update);
+        long get_encoder_tick_count();
 
         void pin1InterruptHandler();
         void pin2InterruptHandler();
