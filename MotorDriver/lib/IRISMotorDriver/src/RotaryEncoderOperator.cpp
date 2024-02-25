@@ -3,8 +3,15 @@
 // #include "ProtobufUtilities.h"
 
 RotaryEncoderOperator::RotaryEncoderOperator(int pin1, int pin2, RotaryEncoder::LatchMode mode)
+    : enabled(false), pin_In(pin1), pin_Out(pin2), latch_Mode(mode)
 {
-    mode = RotaryEncoder::LatchMode::FOUR0;
+    
+}
+
+RotaryEncoderOperator::RotaryEncoderOperator()
+    : enabled(false), pin_In(DEFAULT_PIN1), pin_Out(DEFAULT_PIN2), latch_Mode(DEFAULT_LATCHMODE)
+{
+    
 }
 
 bool RotaryEncoderOperator::update_Encoder(double input){
@@ -27,10 +34,6 @@ bool RotaryEncoderOperator::applyConfigUpdate(const Encoder_Config_Data& update)
     }
 
     switch(key){
-        case Encoder_Config_Data::FieldNumber::MOTORID:{
-            motor_ID = update.get_motorID();
-            break;
-        }
         case Encoder_Config_Data::FieldNumber::LATCHMODE:{
             // latch_Mode = update.get_latchMode();
             break;
