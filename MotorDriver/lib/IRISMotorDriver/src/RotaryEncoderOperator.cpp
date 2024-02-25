@@ -63,7 +63,7 @@ bool RotaryEncoderOperator::reallocateInterruptHandlers()
 {
     if (new_pin_In != _current_pin_In && (new_pin_In != -1)) // Update to pin 1 has been requested
     {
-        if ((RotaryEncoderOperator::digitalPinAllocations[new_pin_In] == false) && (new_pin_In != -1)) // Pin is available
+        if ((new_pin_In != -1) && (RotaryEncoderOperator::digitalPinAllocations[new_pin_In] == false)) // Pin is available
         {
             // Detach old interrupt
             if (_current_pin_In != -1)
@@ -86,12 +86,13 @@ bool RotaryEncoderOperator::reallocateInterruptHandlers()
 
             // Allocate resource
             RotaryEncoderOperator::digitalPinAllocations[new_pin_In] = true;
+            _current_pin_In = new_pin_In;
         }
     }
 
     if (new_pin_Out != _current_pin_Out && (new_pin_Out != -1)) // Update to pin2 has been requested
     {
-        if ((RotaryEncoderOperator::digitalPinAllocations[new_pin_Out] == false) && (new_pin_Out != -1)) // Pout is available
+        if ((new_pin_Out != -1) && (RotaryEncoderOperator::digitalPinAllocations[new_pin_Out] == false)) // Pout is available
         {
             // Detach old interrupt
             if (_current_pin_Out != -1)
@@ -114,6 +115,7 @@ bool RotaryEncoderOperator::reallocateInterruptHandlers()
 
             // Allocate resource
             RotaryEncoderOperator::digitalPinAllocations[new_pin_Out] = true;
+            _current_pin_Out = new_pin_Out;
         }
     }
 
@@ -122,7 +124,34 @@ bool RotaryEncoderOperator::reallocateInterruptHandlers()
 
 bool RotaryEncoderOperator::deallocateInterruptHandlers()
 {
-    return true;
+    // Set default allocation pin
+    new_pin_In = _current_pin_In;
+    new_pin_Out = _current_pin_Out;
+
+    if (_current_pin_In != -1 && RotaryEncoderOperator::digitalPinAllocations[_current_pin_In] == true)
+    {
+        // Detach old interrupt
+        detachInterrupt(digitalPinToInterrupt(_current_pin_In));
+        // Free object binding
+        bindArgGateFree(interruptGate_pin1);
+        // Deallocate resource
+        RotaryEncoderOperator::digitalPinAllocations[_current_pin_In] = false;
+    }
+
+    if (_current_pin_Out != -1 && RotaryEncoderOperator::digitalPinAllocations[_current_pin_Out] == true)
+    {
+        // Detach old interrupt
+        detachInterrupt(digitalPinToInterrupt(_current_pin_Out));
+        // Free object binding
+        bindArgGateFree(interruptGate_pin2);
+        // Deallocate resource
+        RotaryEncoderOperator::digitalPinAllocations[_current_pin_Out] = false;
+    }
+
+    _current_pin_In = -1;
+    _current_pin_Out = -1;
+
+    return true;//TODO: Add failure logic if deemed necessary
 }
 
 
