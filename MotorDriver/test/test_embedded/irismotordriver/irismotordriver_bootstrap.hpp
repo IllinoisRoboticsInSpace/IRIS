@@ -17,4 +17,5 @@ void RUN_IRISMOTORDRIVER_TESTS(void)
 
     // ProtobufUtilities
     RUN_TEST(saberooth_serial_line_conversion_test);
+    RUN_TEST(latchmode_conversion_test);
 }
