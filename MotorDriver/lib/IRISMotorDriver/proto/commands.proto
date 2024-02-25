@@ -21,6 +21,13 @@ enum SabertoothSerialLine
     Serial3 = 2;
 }
 
+enum LatchMode
+{
+    FOUR3 = 0; // 4 steps, Latch at position 3 only (compatible to older versions)
+    FOUR0 = 1; // 4 steps, Latch at position 0 (reverse wirings)
+    TWO03 = 2; // 2 steps, Latch at position 0 and 3 
+}
+
 //--------------------------------------------------------------------//
 // Messages to Arduino
 
