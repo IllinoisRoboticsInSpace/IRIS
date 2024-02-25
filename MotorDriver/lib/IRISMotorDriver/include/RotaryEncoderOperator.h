@@ -48,13 +48,14 @@ class RotaryEncoderOperator {
         bool inverted;
 
         // Rotary Encoder specific
-        int pin_In, pin_Out;
-        int _old_pin_In, _old_pin_Out;  // Used for detaching previous interrupt
+        int new_pin_In, new_pin_Out;
+        int _current_pin_In, _current_pin_Out;  // Used for detaching previous interrupt
         RotaryEncoder::LatchMode latch_Mode;
         RotaryEncoder* encoder;
 
         // Manage digital pin interrupt allocation
         bool reallocateInterruptHandlers();
+        bool deallocateInterruptHandlers();
         // https://stackoverflow.com/questions/56389249/how-to-use-a-c-member-function-as-an-interrupt-handler-in-arduino
         // https://github.com/openlab-vn-ua/BindArg
         bindArgVoidFunc_t interruptGate_pin1 = nullptr;
