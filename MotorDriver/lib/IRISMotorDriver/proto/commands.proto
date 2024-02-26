@@ -4,13 +4,15 @@ syntax = "proto3";
 // to smallest values so everytime a new version of motor driver
 // is released to decrease message length.
 
-enum Opcode
-{
-    CONFIG_MOTOR = 0;
-    TURN_MOTOR = 1; 
-    STOP_ALL_MOTORS = 2;
-    SET_DEBUG_MODE = 3;
-}
+// This proto file is split into three sections meant to isolate messages
+// sent from the arduino the jetson and messages from the jetson to the arduino.
+// Section 1: Messages that are shared between the sections.
+// Section 2: Messages that are sent from the jetson to the arduino.
+// Section 3: Messages that are sent from the arduino to the jetson.
+
+
+//--------------------------------------------------------------------//
+// General messages
 
 enum SabertoothSerialLine
 {
@@ -19,9 +21,20 @@ enum SabertoothSerialLine
     Serial3 = 2;
 }
 
-message Serial_Message
+//--------------------------------------------------------------------//
+// Messages to Arduino
+
+enum Opcode_To_Arduino
 {
-    Opcode opcode = 5000;
+    CONFIG_MOTOR = 0;
+    TURN_MOTOR = 1; 
+    STOP_ALL_MOTORS = 2;
+    SET_DEBUG_MODE = 3;
+}
+
+message Serial_Message_To_Arduino
+{
+    Opcode_To_Arduino opcode = 5000;
     oneof data
     {
         Sabertooth_Config_Data configData = 5001;
@@ -53,3 +66,21 @@ message Debug_Mode
 {
     bool enabled = 7000;
 }
+
+//--------------------------------------------------------------------//
+// Message to Jetson
+
+enum Opcode_To_Jetson
+{
+    DEBUG_MESSAGE = 0;
+}
+
+// Uncomment when ready to use
+// message Serial_Message_To_Jetson
+// {
+//     Opcode_To_Jetson opcode = 15000;
+//     oneof data
+//     {
+        
+//     }
+// }
