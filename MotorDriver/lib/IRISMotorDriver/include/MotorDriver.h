@@ -7,6 +7,21 @@
 #undef max
 #include <array>
 
+<<<<<<< HEAD
+#include "Sabertooth.h" 
+#include <SabertoothOperator.h>
+#include "WriteBufferFixedSize.h"
+#include "ReadBufferFixedSize.h"
+#include "RotaryEncoderOperator.h"
+
+#define MAX_MOTOR_ID 15 // Maximum number of motor ids 0 indexed
+#define MAX_MOTOR_CONFIGS (MAX_MOTOR_ID + 1)
+
+#define MAX_ENCODER_ID 15
+#define MAX_ENCODER_CONFIGS (MAX_ENCODER_ID + 1)
+
+#define DEFAULT_SERIAL_TRANSFER_BAUD_RATE 112500 // Baud rate of serial communication with host
+=======
 #include "Sabertooth.h"
 #include "SabertoothOperator.h"
 #include "WriteBufferFixedSize.h"
@@ -20,6 +35,7 @@
 #define MAX_PID_CONGIFS (MAX_PID_ID + 1)
 
 #define DEFAULT_HOST_SERIAL_BAUD_RATE 112500 // Baud rate of serial communication with host
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
 
 //TODO: Write unit test to always check that this is valid
 #define FIXED_RECEIVED_MESSAGE_LENGTH 16 // The number of bytes of a message received from host
@@ -71,6 +87,19 @@
  * all encoder updates that can not be serviced as a given moment will be queued
  * up for sending instead of being processed.
  */
+<<<<<<< HEAD
+
+
+class MotorDriver
+{
+  public:
+    MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs, std:array<RotaryEncoderOperator,MAX_ENCODER_CONFIGS> encoder_configs);
+    MotorDriver(unsigned int serialTransferBaudRate);
+    MotorDriver();
+
+    // An init function allows user to update internal state of motor driver before it connects to attached devices.
+    bool initMotorDriver();
+=======
 class MotorDriver
 {
   public:
@@ -80,17 +109,34 @@ class MotorDriver
  
     // An init function allows user to update internal state of motor driver before it connects to attached devices.
     bool initMotorDriver(); 
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
     SabertoothOperator getConfig(unsigned int motorID);
     void setConfig(unsigned int motorID, SabertoothOperator config);
     void resetConfigs();
     void setDebugMode(bool enabled);
 
     void update();
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
     // helpers for update
     // These are public because otherwise they can't be unit tested
     // A more proper solution is to use Unity CMock in unit tests and move these methods to private
     unsigned int read();
+<<<<<<< HEAD
+    EmbeddedProto::Error parse(Serial_Message& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer);
+    void execute(Serial_Message& deserialized_message);
+  
+  private:
+    unsigned int serialTransferBaudRate;
+    std::array<RotaryEncoderOperator,MAX_ENCODER_CONFIGS> encoder_configs;
+    std::array<SabertoothOperator,MAX_MOTOR_CONFIGS> configs; // contains configs of connected devices
+    EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer; //Operates on uint8
+    bool debug_mode_enabled;
+    };
+
+=======
     EmbeddedProto::Error parse(Serial_Message_To_Arduino& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer);
     void execute(Serial_Message_To_Arduino& deserialized_message);
 
@@ -101,4 +147,5 @@ class MotorDriver
     EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer; //Operates on uint8
     bool debug_mode_enabled;
 };
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
 #endif

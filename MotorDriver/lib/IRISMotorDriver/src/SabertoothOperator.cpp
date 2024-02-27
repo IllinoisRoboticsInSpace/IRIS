@@ -4,19 +4,31 @@
 #include <mutex>
 
 SabertoothOperator::SabertoothOperator(byte address, unsigned int baudrate, byte motornum, USARTClass& serial, bool inverted, bool enabled)
+<<<<<<< HEAD
+    : inverted(inverted), enabled(enabled), serialLine(serial), baudrate(baudrate), motornum(motornum), sabertooth(Sabertooth(address, serial))
+=======
     : MotorOperator(inverted, enabled), serialLine(serial), baudrate(baudrate), motornum(motornum), sabertooth(Sabertooth(address, serial))
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
 {
     
 }
 
 SabertoothOperator::SabertoothOperator(byte address, unsigned int baudrate, byte motornum, USARTClass& serial)
+<<<<<<< HEAD
+    : inverted(false), enabled(false), serialLine(serial), baudrate(baudrate), motornum(motornum), sabertooth(Sabertooth(address, serial))
+=======
     : MotorOperator(false, false), serialLine(serial), baudrate(baudrate), motornum(motornum), sabertooth(Sabertooth(address, serial))
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
 {
 
 }
 
 SabertoothOperator::SabertoothOperator()
+<<<<<<< HEAD
+    : inverted(false), enabled(false), serialLine(DEFAULT_SABERTOOTH_SERIAL_LINE)
+=======
     : MotorOperator(false, false), serialLine(DEFAULT_SABERTOOTH_SERIAL_LINE)
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
     , baudrate(DEFAULT_SABERTOOTH_BAUD_RATE), motornum(DEFAULT_SABERTOOTH_MOTOR_NUM)
     , sabertooth(Sabertooth(DEFAULT_SABERTOOTH_ADDRESS, DEFAULT_SABERTOOTH_SERIAL_LINE))
 {
@@ -24,7 +36,11 @@ SabertoothOperator::SabertoothOperator()
 }
 
 SabertoothOperator::SabertoothOperator(const SabertoothOperator& other)
+<<<<<<< HEAD
+    : inverted(other.inverted), enabled(other.enabled)
+=======
     : MotorOperator(other.inverted, other.enabled)
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
     , serialLine(other.serialLine), baudrate(other.baudrate), motornum(other.motornum)
     , sabertooth(other.sabertooth)
 {
@@ -125,3 +141,21 @@ bool SabertoothOperator::applyConfigUpdate(const Sabertooth_Config_Data& update)
     }
     return true;
 }
+<<<<<<< HEAD
+
+void SabertoothOperator::setInverted(bool inverted)
+{
+    this->inverted = inverted;
+}
+
+void SabertoothOperator::setEnabled(bool enabled)
+{
+    this->enabled = enabled;
+}
+
+bool SabertoothOperator::getEnabled()
+{
+    return enabled;
+}
+=======
+>>>>>>> 7ddc728f055b7a4d3a5ac2a5c0de5ec5b0dd2fa9
