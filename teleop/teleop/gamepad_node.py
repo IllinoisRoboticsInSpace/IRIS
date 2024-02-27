@@ -5,7 +5,7 @@ from geometry_msgs.msg import Vector3, Twist
 
 from sensor_msgs.msg import Joy
 
-from std_msgs.msg import String
+from std_msgs.msg import String, Float32MultiArray
 
 import serial
 
@@ -20,10 +20,10 @@ class gamepad_node(Node):
         self.get_logger().info(f"Created node {self.get_name()}")
 
         # publishes to 'gamepad' topic
-        self.publisher_ = self.create_publisher(String, '/gamepad', 10)
+        self.publisher_ = self.create_publisher(Float32MultiArray, '/gamepad', 10)
 
-        self.input_scale = 80
-        self.noise_allowance = 0.5
+        # self.software_scale = 80
+        # self.software_deadzone = 0.5
 
         # Motor ID:
         # * 0: Left Drive
@@ -44,34 +44,33 @@ class gamepad_node(Node):
 
         self.stop = False
 
+        self.prev_state = Float32MultiArray()
         self.prev_state = [0,0,0,0,0,0]
+        self.curr_state = Float32MultiArray()
         self.curr_state = [0,0,0,0,0,0]
 
     def joy_callback(self, joy_msg: Joy):
 
         if self.stop | (joy_msg.buttons[8] == 1):
             self.stop = True
-            for i in range(len(self.curr_state)):
-                self.curr_state[i] = 0
+            for i in range(len(self.curr_state.data)):
+                self.curr_state.data[i] = 0
 
         else:
-            self.curr_state[self.LEFT_DRIVE] = joy_msg.axes[1]
-            self.curr_state[self.RIGHT_DRIVE] = joy_msg.axes[4]
-            self.curr_state[self.LEFT_BACK_COLL] = joy_msg.buttons[4]
-            self.curr_state[self.RIGHT_BACK_COLL] = joy_msg.buttons[5]
-            self.curr_state[self.EXC_INTERNAL] = joy_msg.buttons[0]
-            self.curr_state[self.EXC_THREAD_ROD] = joy_msg.buttons[1]
-            self.curr_state[self.EXC_PIVOT_LIN] = joy_msg.buttons[2]
+            # indexed according to above
+            self.curr_state.data[self.LEFT_DRIVE] = float(joy_msg.axes[1])
+            self.curr_state.data[self.RIGHT_DRIVE] = float(joy_msg.axes[4])
+            self.curr_state.data[self.LEFT_BACK_COLL] = float(joy_msg.buttons[4])
+            self.curr_state.data[self.RIGHT_BACK_COLL] = float(joy_msg.buttons[5])
+            self.curr_state.data[self.EXC_INTERNAL] = float(joy_msg.buttons[0])
+            self.curr_state.data[self.EXC_THREAD_ROD] = float(joy_msg.buttons[1])
+            self.curr_state.data[self.EXC_PIVOT_LIN] = float(joy_msg.buttons[2])
 
-        for i in range(len(self.curr_state)):
-            if (self.prev_state[i] != self.curr_state[i]):
-                self.prev_state[i] = self.curr_state[i]
-
-                #! TEMPORARY
-                returnMsg = String()
-                returnMsg.data = 'power = ' + str(self.curr_state[i])
-                self.publisher_.publish(returnMsg)
-
+        for i in range(len(self.curr_state.data)):
+            if (self.prev_state.data[i] != self.curr_state.data[i]):
+                self.prev_state.data[i] = self.curr_state.data[i]
+        
+        self.publisher_.publish(self.curr_state)
 
 def main(args=None):
     rclpy.init(args=args)
