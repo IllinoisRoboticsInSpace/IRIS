@@ -9,7 +9,7 @@
 // Must start usb serial transfer by running:
 // Serial.begin(DEFAULT_HOST_SERIAL_BAUD_RATE);
 // Do not commit with ENABLE_DEBUG set to true
-#define ENABLE_DEBUG true
+#define ENABLE_DEBUG false
 
 #if ENABLE_DEBUG == true
 
