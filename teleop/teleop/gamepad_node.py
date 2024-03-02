@@ -19,13 +19,15 @@ class gamepad_node(Node):
         # self.software_deadzone = 0.5
 
         # Motor ID:
-        # * 0: Left Drive
-        # * 1: Right Drive
-        # * 2: Left Back Collection Motor
-        # * 3: Right Back Collection Motor
-        # * 4: Excavator Internal Motor
-        # * 5: Excavator Threaded Rod Actuator
-        # * 6: Excavator Pivoting Linear Actuator
+        # * 0: Left Drive -> left joystick
+        # * 1: Right Drive -> right joystick
+        # * 2: Left Back Collection Motor -> LB
+        # * 3: Right Back Collection Motor -> RB
+        # * 4: Excavator Internal Motor -> A
+        # * 5: Excavator Threaded Rod Actuator -> B
+        # * 6: Excavator Pivoting Linear Actuator -> X
+        # * 7: Auto Mode -> Y
+        # * 8: Stop Mode -> Xbox button
 
         self.LEFT_DRIVE = 0
         self.RIGHT_DRIVE = 1
@@ -83,7 +85,7 @@ class gamepad_node(Node):
 
             # WRONG! FOR DEBUGGING
             self.curr_state[self.AUTO_MODE] = joy_msg.buttons[3]
-            self.gamepad_publishers[self.STOP_MODE] = joy_msg.buttons[8]
+            self.curr_state[self.STOP_MODE] = joy_msg.buttons[8]
 
         for i in range(len(self.curr_state)):
             if (self.prev_state[i] != self.curr_state[i]):
