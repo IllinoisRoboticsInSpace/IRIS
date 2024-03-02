@@ -95,7 +95,7 @@ bool SabertoothOperator::applyConfigUpdate(const Sabertooth_Config_Data& update)
     }
 
     // Not allowed to apply config update to enabled operator
-    if (enabled == false)
+    if (enabled == true)
     {
         return false;
     }
