@@ -94,6 +94,7 @@ message PID_Config_Data
         double kp = 8004;
         double ki = 8005;
         double kd = 8006;
+        uint32 encoderID = 8007;
     }
 }
 

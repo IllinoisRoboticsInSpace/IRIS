@@ -8,11 +8,16 @@ PIDHandler::PIDHandler() : motor_pid(&input_, &output_, &setpoint_, DEFAULT_TUNI
 
 
 void PIDHandler::set_new_setpoint(double setpoint) {
-    setpoint_ = setpoint;
+    this->setpoint_ = setpoint;
 }
 
 void PIDHandler::setEnabled(bool enabled){
     this->enabled = enabled;
+    motor_pid.SetDoCompute(enabled);
+}
+
+void PIDHandler::set_sample_time(unsigned int sample_time){
+    motor_pid.SetSampleTime(sample_time);
 }
 
 bool PIDHandler::update_pid(double input) {
@@ -59,6 +64,11 @@ bool PIDHandler::applyConfigUpdate(const PID_Config_Data& update)
         case PID_Config_Data::FieldNumber::KD:
             {
                 motor_pid.SetTunings(motor_pid.GetKp(), motor_pid.GetKi(), update.get_kd());
+                break;
+            }
+        case PID_Config_Data::FieldNumber::ENCODERID:
+            {
+                encoder_ID_ = update.get_encoderID();
                 break;
             }
         default:

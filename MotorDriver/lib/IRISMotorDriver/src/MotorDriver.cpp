@@ -199,16 +199,14 @@ void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
  * Run motor driver update loop
 */
 void MotorDriver::update(){
-    //FUTURE:
-    // read encoder data (OTHER BRANCH)
-    // run PID loops DONE (NOT TESETD)
-    // give motors pid output DONE (NOT TESTED)
-
     for(auto pid : pid_configs){
-        pid.update_pid(0.0); //change the input to the encoder output
-        if(pid.get_in_control()){
-            motor_configs[pid.get_motorID()].setOutput(pid.get_motor_value());
+        if(pid.getEnabled()){
+            pid.update_pid(encoder_configs[pid.get_encoderID()].get_encoder_tick_count());
+            if(pid.get_in_control()){
+                motor_configs[pid.get_motorID()].setOutput(pid.get_motor_value());
+            } 
         }
+        
     }
 
     unsigned int bytes_read = read(); // Places serial data into command buffer

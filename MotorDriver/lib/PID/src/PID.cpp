@@ -51,9 +51,10 @@ bool PID::Compute() {
    unsigned long timeChange = (now - lastTime);
    if(timeChange>=SampleTime){
       /*Compute all the working error variables*/
-      double error = *setpoint_ptr - *input_ptr;
-      double dInput = (*input_ptr - lastInput);
-      outputSum+= (ki_time_adjusted * error);
+      double error = (*setpoint_ptr) - (*input_ptr);
+      double dInput = (*input_ptr) - lastInput;
+      // outputSum+= (ki_time_adjusted * error);
+      outputSum+= (ki_given * error);
 
       /*Add Proportional on Measurement, if P_ON_M is specified*/
       if(use_proportional_measurement){
@@ -77,7 +78,8 @@ bool PID::Compute() {
       } 
 
       /*Compute Rest of PID Output*/
-      output += outputSum - (kd_time_adjusted * dInput);
+      // output += outputSum - (kd_time_adjusted * dInput);
+      output += outputSum - (kd_given * dInput);
 
 	    if(output > outMax) {
             output = outMax;
@@ -92,7 +94,7 @@ bool PID::Compute() {
         lastTime = now;
 	    return true;
    }
-   else return false;
+   return false;
 }
 
 /* SetTunings(...)*************************************************************
@@ -105,8 +107,8 @@ void PID::SetTunings(double Kp, double Ki, double Kd) {
    ki_given = Ki; 
    kd_given = Kd;
 
-   ki_time_adjusted = (Ki / 1000) * SampleTime; // adjusting the constants to keep the same behavior when the sample time changes (might change as we won't change the sample rate). ddivides by 1000 since the Sample time is in milliseconds and we don't want the actual pid constants to be change by to much 
-   kd_time_adjusted = (Kd * 1000) / SampleTime;
+  //  ki_time_adjusted = (Ki / 1000) * SampleTime; // adjusting the constants to keep the same behavior when the sample time changes (might change as we won't change the sample rate). ddivides by 1000 since the Sample time is in milliseconds and we don't want the actual pid constants to be change by to much 
+  //  kd_time_adjusted = (Kd * 1000) / SampleTime;
 }
 
 /* SetSampleTime(...) *********************************************************
@@ -155,14 +157,11 @@ void PID::SetOutputLimits(double Min, double Max)
 //     inAuto = newAuto;
 // }
 
-void PID::DoCompute(bool set_do_compute){
-  if(set_do_compute != set_do_compute){
+void PID::SetDoCompute(bool set_do_compute){
+  if(set_do_compute == do_compute){
     return;
   }
-  if(!set_do_compute){
-    do_compute = false;
-    return;
-  }
+  do_compute = set_do_compute;
   outputSum = 0;
   lastInput = 0;
   lastTime = millis();
@@ -185,5 +184,8 @@ double PID::GetKp() const { return kp; }
 double PID::GetKi() const { return ki_given;}
 double PID::GetKd() const { return kd_given;}
 double PID::GetKiReal() const {return ki_time_adjusted;}
-double PID::GetKdReal() const {return kd_time_adjusted;};
+double PID::GetKdReal() const {return kd_time_adjusted;}
+
+bool PID::GetDoCompute() const {return do_compute;}
+
 

@@ -2,11 +2,6 @@
 #include "DebugTools.h"
 #include "ProtobufUtilities.h"
 
-RotaryEncoderOperator::RotaryEncoderOperator(int pin1, int pin2, LatchMode mode = LatchMode::FOUR0):
-bool RotaryEncoderOperator::update_Encoder(double input){
-    ENCODER_READ_LONG = encoder.getPosition();
-    ENCODER_READ = (double)ENCODER_READ_LONG;
-
 std::array<bool, NUM_DIGITAL_PINS> RotaryEncoderOperator::digitalPinAllocations;
 
 RotaryEncoderOperator::RotaryEncoderOperator(int pin1, int pin2, RotaryEncoder::LatchMode mode)

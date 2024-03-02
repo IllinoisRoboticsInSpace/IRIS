@@ -22,6 +22,7 @@ void require_PID_disabled_for_update_test(void){
     successful = default_pid_handler.applyConfigUpdate(update_enabled);
     TEST_ASSERT_TRUE(successful);
     TEST_ASSERT_TRUE(default_pid_handler.getEnabled());
+    TEST_ASSERT_TRUE(default_pid_handler.get_do_compute());
 
     // Apply update
     successful = default_pid_handler.applyConfigUpdate(update_kd);
@@ -50,10 +51,13 @@ void correct_PID_message_assign_test(void){
 
     // PID_Config_Data update_kd; update_kd.set_kd(1);
     // TEST_ASSERT_TRUE(default_pid_handler.applyConfigUpdate(update_kd));
+    //PID_Config_Data update_kd; update_kd.set_kd(1); TEST_ASSERT_TRUE(default_pid_handler.applyConfigUpdate(update_kd)); TEST_ASSERT_TRUE(default_pid_handler.get_kd() == 1);
+
     assignment_test_(PID_Config_Data, kd, 1, applyConfigUpdate);
     assignment_test_(PID_Config_Data, ki, 1, applyConfigUpdate);
     assignment_test_(PID_Config_Data, kp, 1, applyConfigUpdate);
     assignment_test_(PID_Config_Data, motorID, 1, applyConfigUpdate);
+    assignment_test_(PID_Config_Data, encoderID, 1, applyConfigUpdate);
     assignment_test_(Set_PID_Setpoint, setPoint, 10, applySetPoint);
     assignment_test_(Set_PID_Control, in_control, true, applyMotorControl);
 
@@ -63,17 +67,26 @@ void correct_PID_message_assign_test(void){
 void PID_update_test(void){
     PIDHandler default_pid_handler;
     default_pid_handler.setEnabled(true);
-    PID_Config_Data update_kp; update_kp.set_kp(1);
+    PID_Config_Data update_kp; update_kp.set_kp(0.5);
     default_pid_handler.applyConfigUpdate(update_kp);
+    PID_Config_Data update_ki; update_ki.set_ki(2);
+    default_pid_handler.applyConfigUpdate(update_ki);
+    PID_Config_Data update_kd; update_kd.set_kd(0.1);
+    default_pid_handler.applyConfigUpdate(update_kd);
     default_pid_handler.set_new_setpoint(100);
-    for(size_t a = 0; a < 20; a++){
-        TEST_ASSERT_TRUE_MESSAGE(default_pid_handler.update_pid(a), "UPDATE PID");
+    default_pid_handler.set_sample_time(0);
+    for(double a = 0; a < 20; a++){
+        //default_pid_handler.update_pid(a);
+        TEST_ASSERT_TRUE_MESSAGE(default_pid_handler.update_pid(a), "UPDATE PID POS");
         Serial.println(default_pid_handler.get_motor_value());
-        Wait(1000);
     }
     Serial.println(default_pid_handler.get_motor_value());
     TEST_ASSERT_TRUE_MESSAGE(default_pid_handler.get_motor_value() > 0, "POSITIVE PID OUTPUT");
     default_pid_handler.set_new_setpoint(-100);
-    default_pid_handler.update_pid(0);
+    for(double a = 20; a > 0; a--){
+        //default_pid_handler.update_pid(a);
+        TEST_ASSERT_TRUE_MESSAGE(default_pid_handler.update_pid(a), "UPDATE PID NEG");
+        Serial.println(default_pid_handler.get_motor_value());
+    }
     TEST_ASSERT_TRUE_MESSAGE(default_pid_handler.get_motor_value() < 0, "NEGATIVE PID OUTPUT");
 }

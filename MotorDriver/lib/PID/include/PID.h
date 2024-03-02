@@ -44,12 +44,14 @@ class PID
     void SetSampleTime(unsigned);              // * sets the frequency, in Milliseconds, with which 
                                           //   the PID calculation is performed.  default is 100
 										  
-		void DoCompute(bool);
+		void SetDoCompute(bool);
 
   //Display functions ****************************************************************
 	double GetKp() const ;						  // These functions query the pid for interal values.
 	double GetKi() const ;						  //  they were created mainly for the pid front-end,
 	double GetKd() const ;						  // where it's important to know what is actually inside the PID
+
+  bool GetDoCompute() const ;
 
   double GetKiReal() const ;
   double GetKdReal() const ;

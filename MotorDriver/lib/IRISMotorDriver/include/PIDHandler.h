@@ -28,9 +28,13 @@ class PIDHandler{ //rough outline
         void setEnabled(bool enabled);
         bool getEnabled() const {return enabled;}
 
+        void set_sample_time(unsigned int sample_time);
+
+        bool get_do_compute() const {return motor_pid.GetDoCompute();}
+
         bool get_in_control() const {return in_control;}
         byte get_motorID() const {return motor_ID_;}
-
+        byte get_encoderID() const {return encoder_ID_;}
         //for some reason the get methods for PID are not const. they are literaly const, but they are not marked as such 
         double get_kd() {return motor_pid.GetKd();}
         double get_ki() {return motor_pid.GetKi();}
@@ -52,6 +56,7 @@ class PIDHandler{ //rough outline
 
         bool in_control;
         byte motor_ID_;
+        byte encoder_ID_;
         PID motor_pid;
 };
 
