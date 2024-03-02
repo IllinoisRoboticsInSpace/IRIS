@@ -39,50 +39,52 @@ class gamepad_node(Node):
         self.EXC_THREAD_ROD = 5
         self.EXC_PIVOT_LIN = 6
 
-        self.STOP_MODE = 7
-        self.AUTO_MODE = 8
+        self.AUTO_MODE = 7
+        self.STOP_MODE = 8
 
-        self.stop = False
-        self.auto = True
-
-        self.prev_state = [0.0] * 6
-        self.curr_state = [0.0] * 6
+        self.prev_state = [0.0] * 9 + [False] * 0
+        self.curr_state = [0.0] * 9 + [False] * 0
 
         # publishes to 'gamepad' topic
         self.gamepad_publishers = [None] * 9
 
         self.gamepad_publishers[self.LEFT_DRIVE] = self.create_publisher(Float32, '/gamepad/left_drive', 10)
         self.gamepad_publishers[self.RIGHT_DRIVE] = self.create_publisher(Float32, '/gamepad/right_drive', 10)
-        self.gamepad_publishers[self.LEFT_BACK_COLL] = self.create_publisher(Float32, '/gamepad/left_back_coll', 10)
-        self.gamepad_publishers[self.RIGHT_BACK_COLL] = self.create_publisher(Float32, '/gamepad/right_back_coll', 10)
-        self.gamepad_publishers[self.EXC_INTERNAL] = self.create_publisher(Float32, '/gamepad/exc_internal', 10)    
-        self.gamepad_publishers[self.EXC_THREAD_ROD] = self.create_publisher(Float32, '/gamepad/exc_thread_rod', 10)
-        self.gamepad_publishers[self.EXC_PIVOT_LIN] = self.create_publisher(Float32, '/gamepad/exc_pivot_lin', 10)
-    
-        self.gamepad_publishers[self.STOP_MODE] = self.create_publisher(Bool, '/gamepad/stop_mode', 10)
+
+        self.gamepad_publishers[self.LEFT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/left_back_coll', 10)
+        self.gamepad_publishers[self.RIGHT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/right_back_coll', 10)
+        self.gamepad_publishers[self.EXC_INTERNAL] = self.create_publisher(Bool, '/gamepad/exc_internal', 10)    
+        self.gamepad_publishers[self.EXC_THREAD_ROD] = self.create_publisher(Bool, '/gamepad/exc_thread_rod', 10)
+        self.gamepad_publishers[self.EXC_PIVOT_LIN] = self.create_publisher(Bool, '/gamepad/exc_pivot_lin', 10)
         self.gamepad_publishers[self.AUTO_MODE] = self.create_publisher(Bool, '/gamepad/auto_mode', 10)
+
+        self.gamepad_publishers[self.STOP_MODE] = self.create_publisher(Bool, '/gamepad/stop_mode', 10)
+        
 
     def joy_callback(self, joy_msg: Joy):
 
-        if (joy_msg.buttons[self.STOP_MODE] == 1):
-            self.stop = True
+        if (joy_msg.buttons[8] == 1):
+            self.curr_state[self.STOP_MODE] = Bool(True)
+            self.gamepad_publishers[self.STOP_MODE].publish(self.curr_state[self.STOP_MODE])
 
-        if (joy_msg.button[self.AUTO_MODE] == 1):
-            self.auto = not self.auto
+        if (joy_msg.buttons[self.AUTO_MODE] == 1):
+            self.curr_state[self.AUTO_MODE] = Bool(not self.curr_state[self.AUTO_MODE])
 
-        if self.stop:
-            for i in range(len(self.curr_state)):
-                self.curr_state[i] = 0.0
+        # BEHAVIOR?
+        # if self.stop:
+        #     for i in range(len(self.curr_state) - 1):
+        #         self.curr_state[i] = Float32(0.0)
 
         else:
             # indexed according to above
-            self.curr_state[self.LEFT_DRIVE] = joy_msg.axes[1]
-            self.curr_state[self.RIGHT_DRIVE] = joy_msg.axes[4]
-            self.curr_state[self.LEFT_BACK_COLL] = joy_msg.buttons[4]
-            self.curr_state[self.RIGHT_BACK_COLL] = joy_msg.buttons[5]
-            self.curr_state[self.EXC_INTERNAL] = joy_msg.buttons[0]
-            self.curr_state[self.EXC_THREAD_ROD] = joy_msg.buttons[1]
-            self.curr_state[self.EXC_PIVOT_LIN] = joy_msg.buttons[2]
+            self.get_logger().info(f"joy msg axes 1 type: {type(Float32(joy_msg.axes[1]))}")
+            self.curr_state[self.LEFT_DRIVE] = Float32(joy_msg.axes[1])
+            self.curr_state[self.RIGHT_DRIVE] = Float32(joy_msg.axes[4])
+            self.curr_state[self.LEFT_BACK_COLL] = Bool(joy_msg.buttons[4])
+            self.curr_state[self.RIGHT_BACK_COLL] = Bool(joy_msg.buttons[5])
+            self.curr_state[self.EXC_INTERNAL] = Bool(joy_msg.buttons[0])
+            self.curr_state[self.EXC_THREAD_ROD] = Bool(joy_msg.buttons[1])
+            self.curr_state[self.EXC_PIVOT_LIN] = Bool(joy_msg.buttons[2])
 
         for i in range(len(self.curr_state)):
             if (self.prev_state[i] != self.curr_state[i]):
