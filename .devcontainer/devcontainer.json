@@ -1,0 +1,28 @@
+{
+    "name": "IRIS-uiuc",
+    // "image": "osrf/ros:galactic-desktop",
+    "image": "dandandooo/iris-uiuc:main",
+    "remoteUser": "root",
+    "workspaceFolder": "/root/colcon_ws/src",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/root/colcon_ws/src,type=bind,consistency=cached",
+    "runArgs": [
+        "-e DISPLAY=host.docker.internal:0.0"
+    ],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            },
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-themes",
+                "ms-vscode.cpptools-extension-pack",
+                "ms-python.vscode-pylance",
+                "ms-python.pylint",
+                "ms-python.python",
+                "ms-vscode.cmake-tools",
+                // "platformio.platformio-ide"
+            ]
+        }
+    }
+}
