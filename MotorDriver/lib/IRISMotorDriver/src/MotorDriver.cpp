@@ -75,7 +75,7 @@ unsigned int MotorDriver::read()
     // Buffer should never become full
     if (bytes > 0)
     {
-        int current_buf_size = command_buffer.get_size();
+        int current_buf_size = receive_command_buffer.get_size();
         int bytes_to_read = bytes;
         // Read only enough bytes to fill message
         if ((current_buf_size + bytes) - FIXED_RECEIVED_MESSAGE_LENGTH > 0)
@@ -83,14 +83,14 @@ unsigned int MotorDriver::read()
             bytes_to_read = FIXED_RECEIVED_MESSAGE_LENGTH - current_buf_size;
         }
         // Write bytes to command_buffer
-        int bytes_written = Serial.readBytes(command_buffer.get_data() + current_buf_size, bytes_to_read);
-        command_buffer.set_bytes_written(current_buf_size + bytes_written);
+        int bytes_written = Serial.readBytes(receive_command_buffer.get_data() + current_buf_size, bytes_to_read);
+        receive_command_buffer.set_bytes_written(current_buf_size + bytes_written);
         return bytes_to_read;
     }
     return 0;
 }
 
-EmbeddedProto::Error MotorDriver::parse(Serial_Message_To_Arduino& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer)
+EmbeddedProto::Error MotorDriver::parse(Serial_Message_To_Arduino& deserialized_message, EmbeddedProto::ReadBufferFixedSize<RECEIVED_COMMAND_BUFFER_SIZE>& buffer)
 { 
     // Maybe add more error handling
     auto deserialize_status = deserialized_message.deserialize(buffer);
@@ -157,15 +157,21 @@ void MotorDriver::update()
 {
     unsigned int bytes_read = read(); // Places serial data into command buffer
     
-    if ((bytes_read != 0) && (command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH))
+    if ((bytes_read != 0) && (receive_command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH))
     {
         Serial_Message_To_Arduino message;
-        auto parse_error_status = parse(message, command_buffer);
+        auto parse_error_status = parse(message, receive_command_buffer);
         execute(message);
         if (debug_mode_enabled == true) // Send back data on debug mode on
         {
-            Serial.write(command_buffer.get_data(), command_buffer.get_size());
+            Serial.write(receive_command_buffer.get_data(), receive_command_buffer.get_size());
         }
-        command_buffer.clear();
+        receive_command_buffer.clear();
     }
+}
+
+static bool send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES> message_to_jetson)
+{
+    
+    return true;
 }

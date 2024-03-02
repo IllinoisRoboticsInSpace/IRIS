@@ -18,7 +18,17 @@
 
 //TODO: Write unit test to always check that this is valid
 #define FIXED_RECEIVED_MESSAGE_LENGTH 16 // The number of bytes of a message received from host
-#define COMMAND_BUFFER_SIZE (FIXED_RECEIVED_MESSAGE_LENGTH * 2) // Size of commands ring buffer, data comes from host
+#define RECEIVED_COMMAND_BUFFER_SIZE (FIXED_RECEIVED_MESSAGE_LENGTH * 2) // Size of commands buffer, data comes from host
+
+#define FIXED_SEND_MESSAGE_LENGTH 8 // The number of bytes of a message to send to host
+#define SEND_COMMAND_BUFFER_SIZE (FIXED_SEND_MESSAGE_LENGTH) // Size of buffer for data that goes to host
+
+// Debug functionality message defines
+#define MAX_DEBUG_STRING_SIZE_BYTES 4
+
+// TODO: Figure out how to alias the Serial_Message_To_Jetson type to decrease clutter.
+// https://learn.microsoft.com/en-us/cpp/cpp/aliases-and-typedefs-cpp?view=msvc-170
+// using Serial_Message_To_Jetson = Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>;
 
 /**
  * The MotorDriver class is responsible for keeping track of all in use
@@ -86,13 +96,19 @@ class MotorDriver
     // These are public because otherwise they can't be unit tested
     // A more proper solution is to use Unity CMock in unit tests and move these methods to private
     unsigned int read();
-    EmbeddedProto::Error parse(Serial_Message_To_Arduino& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer);
+    EmbeddedProto::Error parse(Serial_Message_To_Arduino& deserialized_message, EmbeddedProto::ReadBufferFixedSize<RECEIVED_COMMAND_BUFFER_SIZE>& buffer);
     void execute(Serial_Message_To_Arduino& deserialized_message);
+
+    // helpers for sending messages from Arduino to the Jetson
+    static bool send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES> message_to_jetson);
 
   private:
     unsigned int serialTransferBaudRate;
     std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs; // contains configs of connected devices
-    EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer; //Operates on uint8
+    EmbeddedProto::ReadBufferFixedSize<RECEIVED_COMMAND_BUFFER_SIZE> receive_command_buffer; //Operates on uint8
     bool debug_mode_enabled;
+
+    // Sending message from Arduino to the Jetson
+    static EmbeddedProto::ReadBufferFixedSize<SEND_COMMAND_BUFFER_SIZE> send_command_buffer;
 };
 #endif
