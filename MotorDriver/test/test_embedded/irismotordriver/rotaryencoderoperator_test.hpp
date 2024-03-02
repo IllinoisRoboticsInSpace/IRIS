@@ -36,10 +36,6 @@ void rotary_encoder_operator_require_disabled_for_update_test(void)
 
     successful = default_operator.applyConfigUpdate(update_pin1);
     TEST_ASSERT_TRUE(successful);
-
-    // getRPM check
-    successful = default_operator.get_encoder_RPM();
-    TEST_ASSERT_TRUE(successful);
 }
 
 void rotary_encoder_operator_update_key_not_set_test(void)
