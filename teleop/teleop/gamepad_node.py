@@ -1,13 +1,9 @@
 import rclpy
 from rclpy.node import Node
 
-from geometry_msgs.msg import Vector3, Twist
-
 from sensor_msgs.msg import Joy
 
 from std_msgs.msg import Bool, Float32
-
-import serial
 
 class gamepad_node(Node):
 
@@ -42,8 +38,8 @@ class gamepad_node(Node):
         self.AUTO_MODE = 7
         self.STOP_MODE = 8
 
-        self.prev_state = [0.0] * 9 + [False] * 0
-        self.curr_state = [0.0] * 9 + [False] * 0
+        self.prev_state = [0.0] * 2 + [False] * 7
+        self.curr_state = [0.0] * 2 + [False] * 7
 
         # publishes to 'gamepad' topic
         self.gamepad_publishers = [None] * 9
@@ -64,11 +60,11 @@ class gamepad_node(Node):
     def joy_callback(self, joy_msg: Joy):
 
         if (joy_msg.buttons[8] == 1):
-            self.curr_state[self.STOP_MODE] = Bool(True)
-            self.gamepad_publishers[self.STOP_MODE].publish(self.curr_state[self.STOP_MODE])
+            self.curr_state[self.STOP_MODE] = True
+        #     self.gamepad_publishers[self.STOP_MODE].publish(self.curr_state[self.STOP_MODE])
 
-        if (joy_msg.buttons[self.AUTO_MODE] == 1):
-            self.curr_state[self.AUTO_MODE] = Bool(not self.curr_state[self.AUTO_MODE])
+        # if (joy_msg.buttons[self.AUTO_MODE] == 1):
+        #     self.curr_state[self.AUTO_MODE] = not self.curr_state[self.AUTO_MODE]
 
         # BEHAVIOR?
         # if self.stop:
@@ -77,19 +73,32 @@ class gamepad_node(Node):
 
         else:
             # indexed according to above
-            self.get_logger().info(f"joy msg axes 1 type: {type(Float32(joy_msg.axes[1]))}")
-            self.curr_state[self.LEFT_DRIVE] = Float32(joy_msg.axes[1])
-            self.curr_state[self.RIGHT_DRIVE] = Float32(joy_msg.axes[4])
-            self.curr_state[self.LEFT_BACK_COLL] = Bool(joy_msg.buttons[4])
-            self.curr_state[self.RIGHT_BACK_COLL] = Bool(joy_msg.buttons[5])
-            self.curr_state[self.EXC_INTERNAL] = Bool(joy_msg.buttons[0])
-            self.curr_state[self.EXC_THREAD_ROD] = Bool(joy_msg.buttons[1])
-            self.curr_state[self.EXC_PIVOT_LIN] = Bool(joy_msg.buttons[2])
+            self.curr_state[self.LEFT_DRIVE] = joy_msg.axes[1]
+            self.curr_state[self.RIGHT_DRIVE] = joy_msg.axes[4]
+            self.curr_state[self.LEFT_BACK_COLL] = joy_msg.buttons[4]
+            self.curr_state[self.RIGHT_BACK_COLL] = joy_msg.buttons[5]
+            self.curr_state[self.EXC_INTERNAL] = joy_msg.buttons[0]
+            self.curr_state[self.EXC_THREAD_ROD] = joy_msg.buttons[1]
+            self.curr_state[self.EXC_PIVOT_LIN] = joy_msg.buttons[2]
+
+            # WRONG! FOR DEBUGGING
+            self.curr_state[self.AUTO_MODE] = joy_msg.buttons[3]
+            self.gamepad_publishers[self.STOP_MODE] = joy_msg.buttons[8]
 
         for i in range(len(self.curr_state)):
             if (self.prev_state[i] != self.curr_state[i]):
                 self.prev_state[i] = self.curr_state[i]
-                self.gamepad_publishers[i].publish(self.curr_state[i])
+
+                if i < 2:
+                    pub_msg = Float32()
+                    pub_msg.data = float(self.curr_state[i])
+                    
+                else:
+                    pub_msg = Bool()
+                    pub_msg.data = bool(self.curr_state[i])
+                
+                self.get_logger().info(f"index: {i}, value: {self.curr_state[i]}")
+                self.gamepad_publishers[i].publish(pub_msg)
         
 def main(args=None):
     rclpy.init(args=args)
