@@ -176,6 +176,12 @@ void RotaryEncoderOperator::set_encoder_tick_count(long count)
 long RotaryEncoderOperator::get_encoder_RPM()
 {
     //TODO: Get RPM using RotaryEncoder function and correct RPM direction based on inverted and encoder direction
+    if(!inverted){
+        return RotaryEncoder::getRPM();
+    }
+    else{
+        return(-1)*RotaryEncoder::getRPM();
+    }
     return 0;
 }
 
