@@ -2,7 +2,7 @@
 #include "DebugTools.h"
 #include "ProtobufUtilities.h"
 
-PIDHandler::PIDHandler() : motor_pid(&input_, &output_, &setpoint_, DEFAULT_TUNINGS, true), enabled(false), in_control(false) {
+PIDHandler::PIDHandler() : motor_pid(&input_, &output_, &setpoint_, DEFAULT_TUNINGS, true, false), enabled(false), in_control(false) {
     motor_pid.SetOutputLimits(DEFAULT_MOTOR_MIN, DEFAULT_MOTOR_MAX);
 }
 

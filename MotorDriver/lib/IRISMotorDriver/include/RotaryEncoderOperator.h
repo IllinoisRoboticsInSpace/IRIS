@@ -23,13 +23,13 @@
 class RotaryEncoderOperator {
     public:
 
-    RotaryEncoderOperator(int pin1, int pin2, LatchMode mode = LatchMode::FOUR0);
+    RotaryEncoderOperator(int pin1, int pin2, RotaryEncoder::LatchMode mode = RotaryEncoder::LatchMode::FOUR0);
     RotaryEncoderOperator();
     bool update_Encoder(double input);
 
     bool init();
     bool applyConfigUpdate(const Encoder_Config_Data& update);
-    byte getEncoderID() const {return encoder_ID};
+    byte getEncoderID() const {return encoder_ID;};
     
     private:
     bool enabled;
@@ -37,9 +37,8 @@ class RotaryEncoderOperator {
     byte motor_ID;
     int pin_In;
     int pin_Out;
-    LatchMode latch_Mode;
+    RotaryEncoder::LatchMode latch_Mode;
 
+};
 
-
-
-}
+#endif

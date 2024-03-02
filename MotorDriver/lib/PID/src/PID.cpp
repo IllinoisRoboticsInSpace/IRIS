@@ -18,13 +18,14 @@
  *    reliable defaults, so we need to have the user set them.
  ***************************************************************************/
 PID::PID(double* Input, double* Output, double* Setpoint,
-        double Kp, double Ki, double Kd, bool use_proportional_measurement)
+        double Kp, double Ki, double Kd, bool use_proportional_measurement, bool do_compute)
 {
     output_ptr = Output;
     input_ptr = Input;
     setpoint_ptr = Setpoint;
 
     this->use_proportional_measurement = use_proportional_measurement;
+    this->do_compute = do_compute;
 
     outMin = DEFAULT_MOTOR_MIN;
     outMax = DEFAULT_MOTOR_MAX;
@@ -33,6 +34,7 @@ PID::PID(double* Input, double* Output, double* Setpoint,
     PID::SetTunings(Kp, Ki, Kd);
 
     lastTime = millis() - SampleTime;
+    lastInput = 0;
 }
 
 /* Compute() **********************************************************************
@@ -42,16 +44,16 @@ PID::PID(double* Input, double* Output, double* Setpoint,
  *   false when nothing has been done.
  **********************************************************************************/
 bool PID::Compute() {
+  if(!do_compute){
+    return false;
+  }
    unsigned long now = millis();
    unsigned long timeChange = (now - lastTime);
    if(timeChange>=SampleTime){
       /*Compute all the working error variables*/
-      double input = *input_ptr;
       double error = *setpoint_ptr - *input_ptr;
       double dInput = (*input_ptr - lastInput);
       outputSum+= (ki_time_adjusted * error);
-
-      //if(error < 10) outputSum = 0; resets error count if close enough to setpoint
 
       /*Add Proportional on Measurement, if P_ON_M is specified*/
       if(use_proportional_measurement){
@@ -153,6 +155,20 @@ void PID::SetOutputLimits(double Min, double Max)
 //     inAuto = newAuto;
 // }
 
+void PID::DoCompute(bool set_do_compute){
+  if(set_do_compute != set_do_compute){
+    return;
+  }
+  if(!set_do_compute){
+    do_compute = false;
+    return;
+  }
+  outputSum = 0;
+  lastInput = 0;
+  lastTime = millis();
+
+}
+
 /* Initialize()****************************************************************
  *	does all the things that need to happen to ensure a bumpless transfer
  *  from manual to automatic mode.
@@ -165,12 +181,9 @@ void PID::Initialize()
    else if(outputSum < outMin) outputSum = outMin;
 }
 
-/* Status Funcions*************************************************************
- * Just because you set the Kp=-1 doesn't mean it actually happened.  these
- * functions query the internal state of the PID.  they're here for display
- * purposes.  this are the functions the PID Front-end uses for example
- ******************************************************************************/
 double PID::GetKp() const { return kp; }
 double PID::GetKi() const { return ki_given;}
 double PID::GetKd() const { return kd_given;}
+double PID::GetKiReal() const {return ki_time_adjusted;}
+double PID::GetKdReal() const {return kd_time_adjusted;};
 

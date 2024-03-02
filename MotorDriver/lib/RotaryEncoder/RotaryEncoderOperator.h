@@ -4,7 +4,8 @@
 #include <Arduino.h>
 
 #ifndef _ENCODER_CONFIG_
-#define _ENCODER_CONFIG_
+    #define _ENCODER_CONFIG_
+#endif
 
 #define ENCODER_PIN_A
 #define ENCODER_PIN_B
