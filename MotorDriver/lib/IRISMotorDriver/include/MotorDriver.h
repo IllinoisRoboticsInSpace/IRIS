@@ -20,7 +20,7 @@
 #define FIXED_RECEIVED_MESSAGE_LENGTH 16 // The number of bytes of a message received from host
 #define RECEIVED_COMMAND_BUFFER_SIZE (FIXED_RECEIVED_MESSAGE_LENGTH * 2) // Size of commands buffer, data comes from host
 
-#define FIXED_SEND_MESSAGE_LENGTH 8 // The number of bytes of a message to send to host
+#define FIXED_SEND_MESSAGE_LENGTH 12 // The number of bytes of a message to send to host
 #define SEND_COMMAND_BUFFER_SIZE (FIXED_SEND_MESSAGE_LENGTH) // Size of buffer for data that goes to host
 
 // Debug functionality message defines
@@ -109,6 +109,6 @@ class MotorDriver
     bool debug_mode_enabled;
 
     // Sending message from Arduino to the Jetson
-    static EmbeddedProto::ReadBufferFixedSize<SEND_COMMAND_BUFFER_SIZE> send_command_buffer;
+    static EmbeddedProto::WriteBufferFixedSize<SEND_COMMAND_BUFFER_SIZE> send_command_buffer;
 };
 #endif

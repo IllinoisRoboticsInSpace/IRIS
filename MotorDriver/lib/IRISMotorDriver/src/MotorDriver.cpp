@@ -1,6 +1,8 @@
 #include "MotorDriver.h"
 #include "DebugTools.h"
 
+static EmbeddedProto::WriteBufferFixedSize<SEND_COMMAND_BUFFER_SIZE> send_command_buffer;
+
 /**
  * Initialize motor driver state
 */
@@ -170,8 +172,46 @@ void MotorDriver::update()
     }
 }
 
+/**
+ * This function will stay run in loop until the entire message is sent. This is a problem in terms of timing because
+ * Serial data transfer is much slower than the CPU, so the CPU will be stalling until the transfer finished.
+*/
 static bool send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES> message_to_jetson)
 {
-    
+    // Make space
+    send_command_buffer.clear();
+
+    // Serialize message into buffer
+    auto serialization_status = message_to_jetson.serialize(send_command_buffer);
+    if(::EmbeddedProto::Error::NO_ERRORS != serialization_status)
+    {
+        DEBUG_PRINTLN("Serialization Produced Error");
+        return false;
+    }
+
+    // Write entire message at once
+    int message_bytes = send_command_buffer.get_size();
+
+    int bytes_left_to_write = message_bytes;
+    // int bytes_written = 
+    while (bytes_left_to_write > 0)
+    {
+        // Get currently available bytes in serial to write to
+        int available_serial_bytes = Serial.availableForWrite();
+        
+        // Don't write more than available serial bytes
+        int bytes_to_write = bytes_left_to_write;
+        if (bytes_to_write > available_serial_bytes)
+        {
+            bytes_to_write = available_serial_bytes;
+        }
+
+        // Get the starting pointer of the bytes left to write
+        int pointer_offset = message_bytes - bytes_left_to_write;
+        uint8_t* pointer = send_command_buffer.get_data();
+        Serial.write(pointer + pointer_offset, bytes_to_write);
+        bytes_left_to_write = bytes_left_to_write - bytes_to_write;
+    }
+
     return true;
 }
