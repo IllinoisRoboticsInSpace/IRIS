@@ -1,9 +1,9 @@
 import rclpy
+import time
 from rclpy.node import Node
-
 from sensor_msgs.msg import Joy
-
 from std_msgs.msg import Bool, Float32
+
 
 class gamepad_node(Node):
 
@@ -12,8 +12,14 @@ class gamepad_node(Node):
 
         # subscribes to 'joy' topic
         self.subscription = self.create_subscription(Joy, '/joy', self.joy_callback, 10)
-        
+
+        # Check if arduino node has recieved stop message so we can stop sending it, need to see how to get 2 nodes in callback
+        # self.stop_receive = self.create_subscription(Bool, '/arduino_comms/stop_received', self.joy_callback, 10)
+
         self.get_logger().info(f"Created node {self.get_name()}")
+        self.auto_button_prev_state = False
+        self.stop = False
+
 
         # self.software_scale = 80
         # self.software_deadzone = 0.5
@@ -48,14 +54,13 @@ class gamepad_node(Node):
 
         self.gamepad_publishers[self.LEFT_DRIVE] = self.create_publisher(Float32, '/gamepad/left_drive', 10)
         self.gamepad_publishers[self.RIGHT_DRIVE] = self.create_publisher(Float32, '/gamepad/right_drive', 10)
-
         self.gamepad_publishers[self.LEFT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/left_back_coll', 10)
         self.gamepad_publishers[self.RIGHT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/right_back_coll', 10)
         self.gamepad_publishers[self.EXC_INTERNAL] = self.create_publisher(Bool, '/gamepad/exc_internal', 10)    
         self.gamepad_publishers[self.EXC_THREAD_ROD] = self.create_publisher(Bool, '/gamepad/exc_thread_rod', 10)
         self.gamepad_publishers[self.EXC_PIVOT_LIN] = self.create_publisher(Bool, '/gamepad/exc_pivot_lin', 10)
-        self.gamepad_publishers[self.AUTO_MODE] = self.create_publisher(Bool, '/gamepad/auto_mode', 10)
 
+        self.gamepad_publishers[self.AUTO_MODE] = self.create_publisher(Bool, '/gamepad/auto_mode', 10)
         self.gamepad_publishers[self.STOP_MODE] = self.create_publisher(Bool, '/gamepad/stop_mode', 10)
         
 
@@ -63,15 +68,15 @@ class gamepad_node(Node):
 
         if (joy_msg.buttons[8] == 1):
             self.curr_state[self.STOP_MODE] = True
-        #     self.gamepad_publishers[self.STOP_MODE].publish(self.curr_state[self.STOP_MODE])
 
-        # if (joy_msg.buttons[self.AUTO_MODE] == 1):
-        #     self.curr_state[self.AUTO_MODE] = not self.curr_state[self.AUTO_MODE]
 
-        # BEHAVIOR?
-        # if self.stop:
-        #     for i in range(len(self.curr_state) - 1):
-        #         self.curr_state[i] = Float32(0.0)
+        if (joy_msg.buttons[self.AUTO_MODE] == 1 and self.auto_button_prev_state == False):
+            self.curr_state[self.AUTO_MODE] = not self.curr_state[self.AUTO_MODE]
+            self.auto_button_prev_state = True
+
+        if self.stop:
+            for i in range(len(self.curr_state) - 1):
+                self.curr_state[i] = 0
 
         else:
             # indexed according to above
@@ -82,10 +87,7 @@ class gamepad_node(Node):
             self.curr_state[self.EXC_INTERNAL] = joy_msg.buttons[0]
             self.curr_state[self.EXC_THREAD_ROD] = joy_msg.buttons[1]
             self.curr_state[self.EXC_PIVOT_LIN] = joy_msg.buttons[2]
-
-            # WRONG! FOR DEBUGGING
-            self.curr_state[self.AUTO_MODE] = joy_msg.buttons[3]
-            self.curr_state[self.STOP_MODE] = joy_msg.buttons[8]
+            self.auto_button_prev_state = joy_msg.buttons[self.AUTO_MODE]
 
         for i in range(len(self.curr_state)):
             if (self.prev_state[i] != self.curr_state[i]):
