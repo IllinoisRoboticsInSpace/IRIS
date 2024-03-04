@@ -100,7 +100,7 @@ class MotorDriver
     void execute(Serial_Message_To_Arduino& deserialized_message);
 
     // helpers for sending messages from Arduino to the Jetson
-    static bool send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES> message_to_jetson);
+    static bool send_message(const Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>& message_to_jetson);
 
   private:
     unsigned int serialTransferBaudRate;
