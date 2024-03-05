@@ -8,14 +8,14 @@ MotorDriver::MotorDriver(unsigned int serialTransferBaudRate,  std::array<Sabert
     : serialTransferBaudRate(serialTransferBaudRate), motor_configs(Sabertooth_configs), pid_configs(PID_configs), debug_mode_enabled(false), encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()) {}
 
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
-    : serialTransferBaudRate(serialTransferBaudRate), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
+    : serialTransferBaudRate(serialTransferBaudRate), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>()), pid_configs(std::array<PIDHandler, MAX_PID_CONGIFS>())
     , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false)
 {
     
 }
 
 MotorDriver::MotorDriver()
-    : serialTransferBaudRate(DEFAULT_HOST_SERIAL_BAUD_RATE), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
+    : serialTransferBaudRate(DEFAULT_HOST_SERIAL_BAUD_RATE), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>()), pid_configs(std::array<PIDHandler, MAX_PID_CONGIFS>())
     , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false)
 {
 
@@ -58,11 +58,22 @@ SabertoothOperator MotorDriver::getConfig(unsigned int motorID)
     return motor_configs[motorID];
 }
 
+
+double MotorDriver::get_pid_output(unsigned int pid_id){
+    return pid_configs[pid_id].get_motor_value();
+}
+void MotorDriver::set_encoder_ticks(unsigned int encoderID, long ticks){
+    encoder_configs[encoderID].set_encoder_tick_count(ticks);
+}
+long MotorDriver::get_encoder_ticks(unsigned int encoderID){
+    return encoder_configs[encoderID].get_encoder_tick_count();
+}
+
+
 void MotorDriver::setConfig(unsigned int motorID, SabertoothOperator config)
 {
     motor_configs[motorID] = config;  // Does not init with new config init motor driver must be called again.
 }
-
 void MotorDriver::resetConfigs()
 {
     // Maybe in future maintain the type of the config
@@ -200,15 +211,18 @@ void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
 */
 void MotorDriver::update(){
     for(auto pid : pid_configs){
+        Serial.print("pid is enabled: "); Serial.println(pid.getEnabled() ? "true" : "false");
         if(pid.getEnabled()){
-            pid.update_pid(encoder_configs[pid.get_encoderID()].get_encoder_tick_count());
+            Serial.print("update pid : ");
+            Serial.println(pid.update_pid(encoder_configs[pid.get_encoderID()].get_encoder_tick_count()));
+            //pid.update_pid(encoder_configs[pid.get_encoderID()].get_encoder_tick_count());
             if(pid.get_in_control()){
                 motor_configs[pid.get_motorID()].setOutput(pid.get_motor_value());
             } 
         }
         
     }
-
+    Serial.println(encoder_configs[0].get_encoder_tick_count());
     unsigned int bytes_read = read(); // Places serial data into command buffer
     
     if ((bytes_read != 0) && (command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH))

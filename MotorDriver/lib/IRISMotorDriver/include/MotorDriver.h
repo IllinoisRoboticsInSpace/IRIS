@@ -84,6 +84,13 @@ class MotorDriver
     // An init function allows user to update internal state of motor driver before it connects to attached devices.
     bool initMotorDriver(); 
     SabertoothOperator getConfig(unsigned int motorID);
+    //for testing
+    double get_pid_output(unsigned int pid_id);
+    long get_encoder_ticks(unsigned int encoderID);
+    void set_encoder_ticks(unsigned int encoderID, long ticks);
+
+
+
     void setConfig(unsigned int motorID, SabertoothOperator config);
     void resetConfigs();
     void setDebugMode(bool enabled);

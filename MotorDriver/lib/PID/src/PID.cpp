@@ -68,7 +68,7 @@ bool PID::Compute() {
         outputSum = outMin;
       } 
 
-      /*Add Proportional on Error, if P_ON_E is specified*/
+      /*Add Proportional on Error, if use_proportiional_measurement is  false specified*/
 	  double output;
       if(!use_proportional_measurement){
         output = kp * error;
@@ -76,6 +76,9 @@ bool PID::Compute() {
       else{
         output = 0;
       } 
+      
+      // outputSum -= kp * error * use_measurement_ratio;
+      // double output = kp * error * (1 - use_measurement_ratio); change to use a ratio of muesurement and error 
 
       /*Compute Rest of PID Output*/
       // output += outputSum - (kd_time_adjusted * dInput);

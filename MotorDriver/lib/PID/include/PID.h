@@ -70,7 +70,10 @@ class PID
   double *output_ptr;             //   This creates a hard link between the variables and the 
   double *setpoint_ptr;           //   PID, freeing the user from having to constantly tell us
                                   //   what these values are.  with pointers we'll just know.
-			  
+	
+  //double use_measurement_ratio; // for if we want a mixed proportion on measurement and proportion on error 
+
+
 	unsigned long lastTime;
 	double outputSum, lastInput;
 
