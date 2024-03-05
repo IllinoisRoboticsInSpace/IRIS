@@ -2,8 +2,9 @@ import serial
 import threading
 import time
 from motor_driver.generated import commands_pb2
-FIXED_RECEIVED_MESSAGE_LENGTH = 16 # The number of bytes of a message received from host
-SERIAL_BUFFER_BYTES = 64 # What is this for
+FIXED_RECEIVED_MESSAGE_LENGTH = 12  # The number of bytes of a message received from arduino
+FIXED_SEND_MESSAGE_LENGTH = 16      # 
+SERIAL_BUFFER_BYTES = 64 
 MIN_MOTOR_ID = 0
 MAX_MOTOR_ID = 3
 
@@ -21,9 +22,10 @@ class Serial_Reader(threading.Thread):
 
     def run(self):
         while not self._stop_event.is_set():
-            echoed_message = self.serialLine.read(FIXED_RECEIVED_MESSAGE_LENGTH)
-            if self.debugState == True:
-                print(echoed_message.hex()) 
+            if self.serialLine.in_waiting() >= FIXED_RECEIVED_MESSAGE_LENGTH:
+                echoed_message = self.serialLine.read(FIXED_RECEIVED_MESSAGE_LENGTH)
+                if self.debugState == True:
+                    print(echoed_message.hex()) 
 
     def debug_flag(self, toggle: bool):
         self.debugState = toggle
@@ -53,7 +55,7 @@ class MotorConfig:
 
 class MotorDriver:
 
-    def __init__(self, debugMode: bool = False, port = '/dev/ttyACM0', baudrate = 115200, timeout = .1) -> None:
+    def __init__(self, debugMode: bool = False, port = '/dev/ttyACM0', baudrate = 115200, timeout = 0) -> None:
         self.serialLine = serial.Serial(port = port, baudrate = baudrate, timeout = timeout)
         # List of Motor configs
         self.motorConfigs = [None] * MAX_MOTOR_ID
