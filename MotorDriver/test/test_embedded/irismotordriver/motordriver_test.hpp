@@ -37,7 +37,7 @@ void parse_serial_test(void)
     reset();
 
     MotorDriver default_motor_driver;
-    EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer;
+    EmbeddedProto::ReadBufferFixedSize<RECEIVED_COMMAND_BUFFER_SIZE> command_buffer;
 
     Serial_Message_To_Arduino received_message;
     Sabertooth_Config_Data sabertooth_config_update;
@@ -79,7 +79,7 @@ void execute_config_motor_message_test(void)
     reset();
 
     MotorDriver default_motor_driver;
-    EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer;
+    EmbeddedProto::ReadBufferFixedSize<RECEIVED_COMMAND_BUFFER_SIZE> command_buffer;
 
     Serial_Message_To_Arduino received_message;
     Sabertooth_Config_Data sabertooth_config_update;

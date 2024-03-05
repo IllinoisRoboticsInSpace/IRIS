@@ -1,6 +1,8 @@
 #include "MotorDriver.h"
 #include "DebugTools.h"
 
+EmbeddedProto::WriteBufferFixedSize<SEND_COMMAND_BUFFER_SIZE> MotorDriver::send_command_buffer = EmbeddedProto::WriteBufferFixedSize<SEND_COMMAND_BUFFER_SIZE>();
+
 /**
  * Initialize motor driver state
 */
@@ -89,7 +91,7 @@ unsigned int MotorDriver::read()
     // Buffer should never become full
     if (bytes > 0)
     {
-        int current_buf_size = command_buffer.get_size();
+        int current_buf_size = receive_command_buffer.get_size();
         int bytes_to_read = bytes;
         // Read only enough bytes to fill message
         if ((current_buf_size + bytes) - FIXED_RECEIVED_MESSAGE_LENGTH > 0)
@@ -97,14 +99,14 @@ unsigned int MotorDriver::read()
             bytes_to_read = FIXED_RECEIVED_MESSAGE_LENGTH - current_buf_size;
         }
         // Write bytes to command_buffer
-        int bytes_written = Serial.readBytes(command_buffer.get_data() + current_buf_size, bytes_to_read);
-        command_buffer.set_bytes_written(current_buf_size + bytes_written);
+        int bytes_written = Serial.readBytes(receive_command_buffer.get_data() + current_buf_size, bytes_to_read);
+        receive_command_buffer.set_bytes_written(current_buf_size + bytes_written);
         return bytes_to_read;
     }
     return 0;
 }
 
-EmbeddedProto::Error MotorDriver::parse(Serial_Message_To_Arduino& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer)
+EmbeddedProto::Error MotorDriver::parse(Serial_Message_To_Arduino& deserialized_message, EmbeddedProto::ReadBufferFixedSize<RECEIVED_COMMAND_BUFFER_SIZE>& buffer)
 { 
     // Maybe add more error handling
     auto deserialize_status = deserialized_message.deserialize(buffer);
@@ -184,15 +186,64 @@ void MotorDriver::update()
 {
     unsigned int bytes_read = read(); // Places serial data into command buffer
     
-    if ((bytes_read != 0) && (command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH))
+    if ((bytes_read != 0) && (receive_command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH))
     {
         Serial_Message_To_Arduino message;
-        auto parse_error_status = parse(message, command_buffer);
+        auto parse_error_status = parse(message, receive_command_buffer);
         execute(message);
         if (debug_mode_enabled == true) // Send back data on debug mode on
         {
-            Serial.write(command_buffer.get_data(), command_buffer.get_size());
+            Serial.write(receive_command_buffer.get_data(), receive_command_buffer.get_size());
         }
-        command_buffer.clear();
+        receive_command_buffer.clear();
     }
+}
+
+/**
+ * This function will stay run in loop until the entire message is sent. This is a problem in terms of timing because
+ * Serial data transfer is much slower than the CPU, so the CPU will be stalling until the transfer finished.
+*/
+bool MotorDriver::send_message(const Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>& message_to_jetson)
+{
+    // Make space
+    send_command_buffer.clear();
+
+    // Serialize message into buffer
+    auto serialization_status = message_to_jetson.serialize(send_command_buffer);
+    if(::EmbeddedProto::Error::NO_ERRORS != serialization_status)
+    {
+        DEBUG_PRINTLN("Serialization Produced Error");
+        return false;
+    }
+
+    // Write entire message at once
+    int message_bytes = send_command_buffer.get_size();
+
+    int bytes_left_to_write = message_bytes;
+    // int bytes_written = 
+    while (bytes_left_to_write > 0)
+    {
+        // Debug
+        // Serial.print("AAAA");
+        // Get currently available bytes in serial to write to
+        int available_serial_bytes = Serial.availableForWrite();
+        
+        // Don't write more than available serial bytes
+        int bytes_to_write = bytes_left_to_write;
+        if (bytes_to_write > available_serial_bytes)
+        {
+            bytes_to_write = available_serial_bytes;
+        }
+
+        // Get the starting pointer of the bytes left to write
+        int pointer_offset = message_bytes - bytes_left_to_write;
+        uint8_t* pointer = send_command_buffer.get_data();
+        Serial.write(pointer + pointer_offset, bytes_to_write);
+        bytes_left_to_write = bytes_left_to_write - bytes_to_write;
+
+        // Debug
+        // Serial.print("BBBB");
+    }
+
+    return true;
 }

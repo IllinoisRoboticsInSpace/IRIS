@@ -137,11 +137,16 @@ enum Opcode_To_Jetson
 }
 
 // Uncomment when ready to use
-// message Serial_Message_To_Jetson
-// {
-//     Opcode_To_Jetson opcode = 15000;
-//     oneof data
-//     {
-        
-//     }
-// }
+message Serial_Message_To_Jetson
+{
+    Opcode_To_Jetson opcode = 15000;
+    oneof data
+    {
+        Debug_Message debug_message = 15001;
+    }
+}
+
+message Debug_Message
+{
+    string debug_data = 16000;
+}
