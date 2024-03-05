@@ -2,33 +2,41 @@ import rclpy
 from rclpy.node import Node
 
 from geometry_msgs.msg import Vector3, Twist
+from std_msgs.msg import Bool, Float32
 
 from sensor_msgs.msg import Joy
 
 from std_msgs.msg import String
 
 import serial
+from teleop import gamepad_node
 
 class arduino_comms_node(Node):
 
     def __init__(self):
         super().__init__('arduino_comms_node')
 
-        # self.subscription = self.create_subscription(
-        #     Twist, '/rover/cmd_vel', self.twist_callback, 10) #subscribes to cmd_vel topic
+        self.gamepad_subscribers = [None] * 9
 
-        self.subscription = self.create_subscription(
-            Joy, '/joy', self.joy_callback, 10) #subscribes to joy topic
+        self.gamepad_subscribers[gamepad_node.LEFT_DRIVE] = self.create_publisher(Float32, '/gamepad/left_drive', 10)
+        self.gamepad_subscribers[gamepad_node.RIGHT_DRIVE] = self.create_publisher(Float32, '/gamepad/right_drive', 10)
+        self.gamepad_subscribers[gamepad_node.LEFT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/left_back_coll', 10)
+        self.gamepad_subscribers[gamepad_node.RIGHT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/right_back_coll', 10)
+        self.gamepad_subscribers[gamepad_node.EXC_INTERNAL] = self.create_publisher(Bool, '/gamepad/exc_internal', 10)    
+        self.gamepad_subscribers[gamepad_node.EXC_THREAD_ROD] = self.create_publisher(Bool, '/gamepad/exc_thread_rod', 10)
+        self.gamepad_subscribers[gamepad_node.EXC_PIVOT_LIN] = self.create_publisher(Bool, '/gamepad/exc_pivot_lin', 10)
+
+        self.gamepad_subscribers[gamepad_node.AUTO_MODE] = self.create_publisher(Bool, '/gamepad/auto_mode', 10)
+        self.gamepad_subscribers[gamepad_node.STOP_MODE] = self.create_publisher(Bool, '/gamepad/stop_mode', 10)
         
         self.get_logger().info(f"Created node {self.get_name()}")
 
-        self.publisher_ = self.create_publisher(String, 'controller', 10) #publishes to 'controller' topic
+        # self.publisher = self.create_publisher(String, 'controller', 10) #publishes to 'controller' topic
 
         # USB Cable should be connected to programming port from the jetson
-        self.arduino = serial.Serial(port = '/dev/ttyACM0',baudrate = 9600, timeout = .1) #initializes arduino serial port. make sure baudrate is same for arduino and python code
-
-
-    ####################################################################################################
+        # initializes arduino serial port. make sure baudrate is same for arduino and python code
+        
+        self.arduino = serial.Serial(port = '/dev/ttyACM0',baudrate = 9600, timeout = .1)
 
     #IMPORTANT FUNCTIONS:
     def power_to_bytes(self, i) -> bytes:      #converts self.power into bytes
