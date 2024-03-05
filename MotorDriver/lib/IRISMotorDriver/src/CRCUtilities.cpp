@@ -7,11 +7,16 @@ ChecksumUtil::ChecksumUtil(uint8_t polynome, uint8_t XORstart, uint8_t XORend, b
     ChecksumUtil::setLen(CRC.getEndXOR() - CRC.getStartXOR());
 }
 
-void ChecksumUtil::convertValues(Serial_Message_To_Arduino& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer){ //grab uint8_t converted values from message
-    ChecksumUtil::bytes = Serial.readBytes(ChecksumUtil::messageConv, ChecksumUtil::getLen());
+void ChecksumUtil::convertValues(){ //grab uint8_t converted values from Serial
+    Serial.readBytes(ChecksumUtil::bytes, FIXED_RECEIVED_MESSAGE_LENGTH); //only read the message length
+    int n = 0;
+    for(int i = FIXED_RECEIVED_MESSAGE_LENGTH - ChecksumUtil::getLen(); i < FIXED_RECEIVED_MESSAGE_LENGTH; i++){
+        messageConv[n] = bytes[i];
+        n++;
+    }
 }
 
-uint8_t ChecksumUtil::Checksum(Serial_Message_To_Arduino& message){
+uint8_t ChecksumUtil::Checksum(){
     for(int i = 0; i < ChecksumUtil::getLen(); i++){
         CRC.add(ChecksumUtil::messageConv[i]);
     }
