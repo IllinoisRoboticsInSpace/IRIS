@@ -92,8 +92,8 @@ unsigned int MotorDriver::read()
 
 EmbeddedProto::Error MotorDriver::parse(Serial_Message_To_Arduino& deserialized_message, EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE>& buffer)
 { 
-    // Maybe add more error handling
-    auto deserialize_status = deserialized_message.deserialize(buffer);
+    // Maybe add more error handling - AQ: add checksum, potentially auto-fix erroneous value?
+    auto deserialize_status = deserialized_message.deserialize(buffer); // checksum test w/ 0 for no error, 5 for invalid
     // DeMorgan's Law
     // not (NO_ERRORS or INVALID_FIELD_ID) = (not NO_ERRORS and not INVALID_FIELD_ID)
     // If field id is zero then this means the message is zero extended and will parse correctly
@@ -106,7 +106,8 @@ EmbeddedProto::Error MotorDriver::parse(Serial_Message_To_Arduino& deserialized_
 
 void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
 {
-    Opcode_To_Arduino opcode = deserialized_message.get_opcode();
+    Opcode_To_Arduino opcode = deserialized_message.get_opcode(); //replace with fixed opcode?
+
     switch (opcode)
     {
         case Opcode_To_Arduino::TURN_MOTOR:
