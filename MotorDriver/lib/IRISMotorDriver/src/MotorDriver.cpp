@@ -196,7 +196,8 @@ bool MotorDriver::send_message(const Serial_Message_To_Jetson<MAX_DEBUG_STRING_S
     // int bytes_written = 
     while (bytes_left_to_write > 0)
     {
-        Serial.print("AAAA");
+        // Debug
+        // Serial.print("AAAA");
         // Get currently available bytes in serial to write to
         int available_serial_bytes = Serial.availableForWrite();
         
@@ -214,7 +215,7 @@ bool MotorDriver::send_message(const Serial_Message_To_Jetson<MAX_DEBUG_STRING_S
         bytes_left_to_write = bytes_left_to_write - bytes_to_write;
 
         // Debug
-        Serial.print("BBBB");
+        // Serial.print("BBBB");
     }
 
     return true;
