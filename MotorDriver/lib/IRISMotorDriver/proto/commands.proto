@@ -21,6 +21,13 @@ enum SabertoothSerialLine
     Serial3 = 2;
 }
 
+enum LatchMode
+{
+    FOUR3 = 0; // 4 steps, Latch at position 3 only (compatible to older versions)
+    FOUR0 = 1; // 4 steps, Latch at position 0 (reverse wirings)
+    TWO03 = 2; // 2 steps, Latch at position 0 and 3 
+}
+
 //--------------------------------------------------------------------//
 // Messages to Arduino
 
@@ -30,6 +37,12 @@ enum Opcode_To_Arduino
     TURN_MOTOR = 1; 
     STOP_ALL_MOTORS = 2;
     SET_DEBUG_MODE = 3;
+    CONFIG_PID = 4;
+    SET_MOTOR_PID = 5;
+    SET_PID_SETPOINT = 6;
+    CONFIG_ENCODER = 7;
+    // GET_ENCODER_COUNT = 8;
+    ZERO_ENCODER = 9;
 }
 
 message Serial_Message_To_Arduino
@@ -37,9 +50,14 @@ message Serial_Message_To_Arduino
     Opcode_To_Arduino opcode = 5000;
     oneof data
     {
-        Sabertooth_Config_Data configData = 5001;
+        Sabertooth_Config_Data sabertoothConfigData = 5001;
         Turn_Motor motorCommand = 5002;
         Debug_Mode debugMode = 5003;
+        PID_Config_Data pidConfigData = 5004;
+        Set_PID_Setpoint setPIDSetpoint = 5005;
+        Set_PID_Control setPIDControl = 5006;
+        Encoder_Config_Data encoderConfigData = 5007;
+        Zero_Encoder_Command zeroEncoderCommand = 5008;
     }
 }
 
@@ -67,8 +85,51 @@ message Debug_Mode
     bool enabled = 7000;
 }
 
+message PID_Config_Data
+{
+    uint32 PID_ID = 8000;
+    oneof values
+    {
+        bool inverted = 8001;
+        bool enabled = 8002;
+        uint32 motorID = 8003;
+        double kp = 8004;
+        double ki = 8005;
+        double kd = 8006;
+    }
+}
+
+message Set_PID_Setpoint
+{
+    uint32 PID_ID = 9000;
+    double setPoint = 9001;
+}
+
+message Set_PID_Control
+{
+    uint32 PID_ID = 10000;
+    bool in_control = 10001;
+}
+
+message Encoder_Config_Data {
+    uint32 encoderID = 11000;
+    oneof values
+    {
+        bool inverted = 11002;
+        bool enabled = 11003;
+        uint32 pinIn = 11004;
+        uint32 pinOut = 11005;
+        LatchMode latchMode = 11006;
+    }
+}
+
+message Zero_Encoder_Command
+{
+    uint32 encoderID = 12000;
+}
+
 //--------------------------------------------------------------------//
-// Message to Jetson
+// Messages to Jetson
 
 enum Opcode_To_Jetson
 {
@@ -76,11 +137,16 @@ enum Opcode_To_Jetson
 }
 
 // Uncomment when ready to use
-// message Serial_Message_To_Jetson
-// {
-//     Opcode_To_Jetson opcode = 15000;
-//     oneof data
-//     {
-        
-//     }
-// }
+message Serial_Message_To_Jetson
+{
+    Opcode_To_Jetson opcode = 15000;
+    oneof data
+    {
+        Debug_Message debug_message = 15001;
+    }
+}
+
+message Debug_Message
+{
+    string debug_data = 16000;
+}
