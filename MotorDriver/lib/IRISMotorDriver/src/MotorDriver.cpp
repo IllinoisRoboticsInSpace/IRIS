@@ -189,33 +189,51 @@ bool MotorDriver::send_message(const Serial_Message_To_Jetson<MAX_DEBUG_STRING_S
         return false;
     }
 
-    // Write entire message at once
+    // Write entire message without stopping
     int message_bytes = send_command_buffer.get_size();
 
-    int bytes_left_to_write = message_bytes;
-    // int bytes_written = 
-    while (bytes_left_to_write > 0)
+    int bytes_written = 0;
+    while (bytes_written < SEND_COMMAND_BUFFER_SIZE)
     {
-        // Debug
-        // Serial.print("AAAA");
         // Get currently available bytes in serial to write to
         int available_serial_bytes = Serial.availableForWrite();
         
-        // Don't write more than available serial bytes
-        int bytes_to_write = bytes_left_to_write;
-        if (bytes_to_write > available_serial_bytes)
+        // If this is true we want to print zeros till the end of the
+        // max message length.
+        if (bytes_written >= message_bytes)
         {
-            bytes_to_write = available_serial_bytes;
+            int bytes_to_write = available_serial_bytes;
+            // Enforce correct length of bytes
+            if (SEND_COMMAND_BUFFER_SIZE - bytes_written < available_serial_bytes)
+            {
+                bytes_to_write = SEND_COMMAND_BUFFER_SIZE - bytes_written;
+            }
+
+            // Get the starting pointer of the bytes left to write
+            for (int i = 0; i < bytes_to_write; i++)
+            {
+                Serial.write((byte)0x0);
+            }
+            
+            bytes_written = bytes_written + bytes_to_write;
         }
+        else
+        {
+            // Don't write more than available serial bytes
+            int bytes_to_write = available_serial_bytes;
+            if (message_bytes - bytes_written < available_serial_bytes)
+            {
+                // Set difference to end of proto buf data
+                bytes_to_write = message_bytes - bytes_written;
+            }
 
-        // Get the starting pointer of the bytes left to write
-        int pointer_offset = message_bytes - bytes_left_to_write;
-        uint8_t* pointer = send_command_buffer.get_data();
-        Serial.write(pointer + pointer_offset, bytes_to_write);
-        bytes_left_to_write = bytes_left_to_write - bytes_to_write;
+            // Get the starting pointer of the bytes left to write
+            int pointer_offset = bytes_written;
+            uint8_t* pointer = send_command_buffer.get_data();
+            Serial.write(pointer + pointer_offset, bytes_to_write);
 
-        // Debug
-        // Serial.print("BBBB");
+            bytes_written = bytes_written + bytes_to_write;
+        }
     }
 
     return true;

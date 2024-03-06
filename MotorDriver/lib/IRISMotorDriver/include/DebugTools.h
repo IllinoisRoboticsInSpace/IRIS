@@ -48,7 +48,7 @@
         #define DEBUG_PRINT_MESSAGE(proto)                                              \
         {                                                                               \
         EmbeddedProto::string_view view = proto.to_string(debug_buffer_string_view);    \
-        print_message_serialized(view.size);                                            \
+        print_message_serialized(DEBUG_BUFFER_SIZE - view.size);                        \
         }
         #else
         #define DEBUG_PRINT_MESSAGE(proto)              \
@@ -68,7 +68,7 @@
 
         #define DEBUG_PRINT(string)                                         \
         {                                                                   \
-        char message[] = string;                                      \
+        char message[] = string;                                            \
         print_message_serialized_constant_string(message, length(string));  \
         }
 
@@ -77,7 +77,7 @@
 
         #define DEBUG_PRINTLN(string)                                       \
         {                                                                   \
-        char message[] = string;                                      \
+        char message[] = string;                                            \
         print_message_serialized_constant_string(message, length(string));  \
         debug_buffer[0] = '\n';                                             \
         print_message_serialized(1);                                        \

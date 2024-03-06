@@ -182,8 +182,10 @@ void string_message_test(void)
 
     Text<128> message;
     
+    // Internally, embedded protobuf compute strlen which requires a
+    // null character at the end of your string.
     char test_message[] = "String Message Test!";
-    message.mutable_text_data() = test_message;
+    message.mutable_text_data() = (char*) test_message;
 
     TEST_ASSERT_EQUAL_STRING(test_message, message.text_data());
     

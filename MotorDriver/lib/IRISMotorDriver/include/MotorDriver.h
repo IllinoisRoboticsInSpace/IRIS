@@ -20,11 +20,11 @@
 #define FIXED_RECEIVED_MESSAGE_LENGTH 16 // The number of bytes of a message received from host
 #define RECEIVED_COMMAND_BUFFER_SIZE (FIXED_RECEIVED_MESSAGE_LENGTH * 2) // Size of commands buffer, data comes from host
 
-#define FIXED_SEND_MESSAGE_LENGTH 12 // The number of bytes of a message to send to host
+#define FIXED_SEND_MESSAGE_LENGTH 16 // The number of bytes of a message to send to host
 #define SEND_COMMAND_BUFFER_SIZE (FIXED_SEND_MESSAGE_LENGTH) // Size of buffer for data that goes to host
 
 // Debug functionality message defines
-#define MAX_DEBUG_STRING_SIZE_BYTES 4
+#define MAX_DEBUG_STRING_SIZE_BYTES 6
 
 // TODO: Figure out how to alias the Serial_Message_To_Jetson type to decrease clutter.
 // https://learn.microsoft.com/en-us/cpp/cpp/aliases-and-typedefs-cpp?view=msvc-170
