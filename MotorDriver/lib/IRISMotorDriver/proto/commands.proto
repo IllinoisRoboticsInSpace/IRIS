@@ -41,7 +41,7 @@ enum Opcode_To_Arduino
     SET_MOTOR_PID = 5;
     SET_PID_SETPOINT = 6;
     CONFIG_ENCODER = 7;
-    // GET_ENCODER_COUNT = 8;
+    GET_ENCODER_COUNT = 8;
     ZERO_ENCODER = 9;
 }
 
@@ -58,6 +58,7 @@ message Serial_Message_To_Arduino
         Set_PID_Control setPIDControl = 5006;
         Encoder_Config_Data encoderConfigData = 5007;
         Zero_Encoder_Command zeroEncoderCommand = 5008;
+        Encoder_Count_Request encoderCountRequest = 5009;
     }
 }
 
@@ -128,12 +129,18 @@ message Zero_Encoder_Command
     uint32 encoderID = 12000;
 }
 
+message Encoder_Count_Request
+{
+    uint32 encoderID = 13000;
+}
+
 //--------------------------------------------------------------------//
 // Messages to Jetson
 
 enum Opcode_To_Jetson
 {
     DEBUG_MESSAGE = 0;
+    ENCODER_COUNT = 1;
 }
 
 // Uncomment when ready to use
@@ -143,10 +150,20 @@ message Serial_Message_To_Jetson
     oneof data
     {
         Debug_Message debug_message = 15001;
+        Encoder_Count encoder_count_data = 15002;
     }
 }
 
 message Debug_Message
 {
     string debug_data = 16000;
+}
+
+message Encoder_Count
+{
+    // Maybe remove encoder ID from here because
+    // encoder counts should eventually be returned
+    // in the order that they are received.
+    uint32 encoderID = 17000;
+    int32 tick_count = 17001;
 }

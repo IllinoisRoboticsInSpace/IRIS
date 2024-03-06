@@ -8,7 +8,7 @@ EmbeddedProto::WriteBufferFixedSize<SEND_COMMAND_BUFFER_SIZE> MotorDriver::send_
 */
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs)
     : serialTransferBaudRate(serialTransferBaudRate), motor_configs(configs), encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>())
-    , debug_mode_enabled(false)
+    , debug_mode_enabled(false), proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
     
 }
@@ -16,6 +16,7 @@ MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<Saberto
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
     : serialTransferBaudRate(serialTransferBaudRate), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
     , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false)
+    , proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
     
 }
@@ -23,6 +24,7 @@ MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
 MotorDriver::MotorDriver()
     : serialTransferBaudRate(DEFAULT_HOST_SERIAL_BAUD_RATE), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
     , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false)
+    , proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
 
 }
@@ -170,6 +172,18 @@ void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
         {
             int encoderID = deserialized_message.get_zeroEncoderCommand().get_encoderID();
             encoder_configs[encoderID].set_encoder_tick_count(0);
+            break;
+        }
+        case Opcode_To_Arduino::GET_ENCODER_COUNT:
+        {
+            proto_send_message.set_opcode(Opcode_To_Jetson::ENCODER_COUNT);
+            // Maybe place in some preallocated memory in MotorDriver class
+            Encoder_Count encoder_count;
+            int encoderID = deserialized_message.get_encoderCountRequest().get_encoderID();
+            encoder_count.set_encoderID(encoderID);
+            encoder_count.set_tick_count(encoder_configs[encoderID].get_encoder_tick_count());
+            proto_send_message.set_encoder_count_data(encoder_count);
+            send_message(proto_send_message);
             break;
         }
         //Impossible to have invalid opcode unless deserialization did not work.

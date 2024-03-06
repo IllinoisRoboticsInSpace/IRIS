@@ -113,6 +113,9 @@ class MotorDriver
     EmbeddedProto::ReadBufferFixedSize<RECEIVED_COMMAND_BUFFER_SIZE> receive_command_buffer; //Operates on uint8
     bool debug_mode_enabled;
 
+    // Preallocated memory
+    Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES> proto_send_message;
+
     // Sending message from Arduino to the Jetson
     static EmbeddedProto::WriteBufferFixedSize<SEND_COMMAND_BUFFER_SIZE> send_command_buffer;
 };
