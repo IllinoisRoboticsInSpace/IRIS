@@ -44,7 +44,7 @@ void parse_serial_test(void)
     sabertooth_config_update.set_enabled(true);
     sabertooth_config_update.set_motorID(0);
 
-    received_message.set_configData(sabertooth_config_update);
+    received_message.set_sabertoothConfigData(sabertooth_config_update);
     received_message.set_opcode(Opcode_To_Arduino::CONFIG_MOTOR);
     
     // Serialize Message
@@ -87,7 +87,7 @@ void execute_config_motor_message_test(void)
     const int motorID = 0;
     sabertooth_config_update.set_motorID(motorID);
 
-    received_message.set_configData(sabertooth_config_update);
+    received_message.set_sabertoothConfigData(sabertooth_config_update);
     received_message.set_opcode(Opcode_To_Arduino::CONFIG_MOTOR);
 
     TEST_ASSERT_FALSE(default_motor_driver.getConfig(motorID).getEnabled());

@@ -7,19 +7,22 @@ EmbeddedProto::WriteBufferFixedSize<SEND_COMMAND_BUFFER_SIZE> MotorDriver::send_
  * Initialize motor driver state
 */
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs)
-    : serialTransferBaudRate(serialTransferBaudRate), configs(configs), debug_mode_enabled(false)
+    : serialTransferBaudRate(serialTransferBaudRate), motor_configs(configs), encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>())
+    , debug_mode_enabled(false)
 {
     
 }
 
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
-    : serialTransferBaudRate(serialTransferBaudRate), configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>()), debug_mode_enabled(false)
+    : serialTransferBaudRate(serialTransferBaudRate), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
+    , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false)
 {
     
 }
 
 MotorDriver::MotorDriver()
-    : serialTransferBaudRate(DEFAULT_HOST_SERIAL_BAUD_RATE), configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>()), debug_mode_enabled(false)
+    : serialTransferBaudRate(DEFAULT_HOST_SERIAL_BAUD_RATE), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
+    , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false)
 {
 
 }
@@ -30,7 +33,7 @@ MotorDriver::MotorDriver()
 bool MotorDriver::initMotorDriver()
 {
     // Check if enabled configs need initialization.
-    for (SabertoothOperator sabertoothOperator : configs)
+    for (SabertoothOperator sabertoothOperator : motor_configs)
     {
         // Configs can be set and enabled before serial connection is made
         // Otherwise configs can only become enabled by host driver.
@@ -39,6 +42,17 @@ bool MotorDriver::initMotorDriver()
             sabertoothOperator.init();
         }
     }
+     // Check if enabled configs need initialization.
+    for (RotaryEncoderOperator rotaryEncoderOperator : encoder_configs)
+    {
+        // Configs can be set and enabled before serial connection is made
+        // Otherwise configs can only become enabled by host driver.
+        if (rotaryEncoderOperator.getEnabled() == true)
+        {
+            rotaryEncoderOperator.init();
+        }
+    }
+
     Serial.begin(serialTransferBaudRate); //Serial used for USB is reserved for communication with host
     while (!Serial) {} //Wait till connection to host is made
     DEBUG_PRINTLN("Initialized Motor Driver")
@@ -47,18 +61,18 @@ bool MotorDriver::initMotorDriver()
 
 SabertoothOperator MotorDriver::getConfig(unsigned int motorID)
 {
-    return configs[motorID];
+    return motor_configs[motorID];
 }
 
 void MotorDriver::setConfig(unsigned int motorID, SabertoothOperator config)
 {
-    configs[motorID] = config;  // Does not init with new config init motor driver must be called again.
+    motor_configs[motorID] = config;  // Does not init with new config init motor driver must be called again.
 }
 
 void MotorDriver::resetConfigs()
 {
     // Maybe in future maintain the type of the config
-    configs = std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>();
+    motor_configs = std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>();
 }
 
 void MotorDriver::setDebugMode(bool enabled)
@@ -115,16 +129,16 @@ void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
         {
             auto turn_motor = deserialized_message.get_motorCommand();
             int motorID = turn_motor.get_motorID();
-            if (configs[motorID].getEnabled() == true)
+            if (motor_configs[motorID].getEnabled() == true)
             {
-                configs[motorID].setOutput(turn_motor.get_percentOutput());
+                motor_configs[motorID].setOutput(turn_motor.get_percentOutput());
             }
             break;
         }
         case Opcode_To_Arduino::STOP_ALL_MOTORS:
         {
             // Maybe make special stop function in operator
-            for (SabertoothOperator config : configs)
+            for (SabertoothOperator config : motor_configs)
             {
                 if (config.getEnabled())
                 {
@@ -135,14 +149,27 @@ void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
         }
         case Opcode_To_Arduino::CONFIG_MOTOR:
         {
-            auto config_update = deserialized_message.get_configData();
+            auto config_update = deserialized_message.get_sabertoothConfigData();
             int motorID = config_update.get_motorID();
-            bool error = configs[motorID].applyConfigUpdate(config_update);
+            bool error = motor_configs[motorID].applyConfigUpdate(config_update);
             break;
         }
         case Opcode_To_Arduino::SET_DEBUG_MODE:
         {
             debug_mode_enabled = deserialized_message.get_debugMode().get_enabled();
+            break;
+        }
+        case Opcode_To_Arduino::CONFIG_ENCODER:
+        {
+            auto config_update = deserialized_message.get_encoderConfigData();
+            int encoderID = config_update.get_encoderID();
+            bool error = encoder_configs[encoderID].applyConfigUpdate(config_update);
+            break;
+        }
+        case Opcode_To_Arduino::ZERO_ENCODER:
+        {
+            int encoderID = deserialized_message.get_zeroEncoderCommand().get_encoderID();
+            encoder_configs[encoderID].set_encoder_tick_count(0);
             break;
         }
         //Impossible to have invalid opcode unless deserialization did not work.
