@@ -1,10 +1,15 @@
 #include "CRCUtilities.h"
 
+ChecksumUtil::ChecksumUtil(uint8_t XORstart, uint8_t XORend){
+    CRC.reset();
+    ChecksumUtil::setLen(XORend - XORstart);
+}
+
 ChecksumUtil::ChecksumUtil(uint8_t polynome, uint8_t XORstart, uint8_t XORend, bool reverseIn, bool reverseOut){
     CRC.reset();
     ChecksumUtil::CRC = CRC8(polynome, XORstart, XORend, reverseIn, reverseOut);
 
-    ChecksumUtil::setLen(CRC.getEndXOR() - CRC.getStartXOR());
+    ChecksumUtil::setLen(XORend - XORstart);
 }
 
 void ChecksumUtil::convertValues(){ //grab uint8_t converted values from Serial
@@ -20,5 +25,6 @@ uint8_t ChecksumUtil::Checksum(){
     for(int i = 0; i < ChecksumUtil::getLen(); i++){
         CRC.add(ChecksumUtil::messageConv[i]);
     }
+    Serial.println(CRC.getCRC(), HEX);  /** @note DEBUG ALL THE DEBUGS */
     return CRC.getCRC();
 }

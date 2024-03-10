@@ -1,4 +1,5 @@
 #include "MotorDriver.h"
+#include "CRCUtilities.h"
 #include "DebugTools.h"
 
 /**
@@ -39,6 +40,7 @@ bool MotorDriver::initMotorDriver()
     }
     Serial.begin(serialTransferBaudRate); //Serial used for USB is reserved for communication with host
     while (!Serial) {} //Wait till connection to host is made
+    ChecksumUtil checksum = ChecksumUtil(FIXED_RECEIVED_MESSAGE_LENGTH - RECIEVED_MESSAGE_CHECKSUM_START, FIXED_RECEIVED_MESSAGE_LENGTH);
     DEBUG_PRINTLN("Initialized Motor Driver")
     return true;
 }
@@ -157,6 +159,8 @@ void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
 void MotorDriver::update()
 {
     unsigned int bytes_read = read(); // Places serial data into command buffer
+
+
     
     if ((bytes_read != 0) && (command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH))
     {

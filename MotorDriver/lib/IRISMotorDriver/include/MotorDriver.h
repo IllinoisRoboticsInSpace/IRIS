@@ -17,6 +17,7 @@
 #define DEFAULT_HOST_SERIAL_BAUD_RATE 112500 // Baud rate of serial communication with host
 
 //TODO: Write unit test to always check that this is valid
+#define RECIEVED_MESSAGE_CHECKSUM_START 8 // What bit does the checksum in the message start?
 #define FIXED_RECEIVED_MESSAGE_LENGTH 16 // The number of bytes of a message received from host
 #define COMMAND_BUFFER_SIZE (FIXED_RECEIVED_MESSAGE_LENGTH * 2) // Size of commands ring buffer, data comes from host
 
