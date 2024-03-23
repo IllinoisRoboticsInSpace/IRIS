@@ -1,36 +1,68 @@
 import serial
+from serial.threaded import ReaderThread, LineReader
 import threading
 import time
 from motor_driver.generated import commands_pb2
+import logging
+from time import sleep
+
+try:
+    import queue
+except ImportError:
+    import Queue as queue
+
 FIXED_RECEIVED_MESSAGE_LENGTH = 16 # The number of bytes of a message received from host
 SERIAL_BUFFER_BYTES = 64 # What is this for
 MIN_MOTOR_ID = 0
 MAX_MOTOR_ID = 3
 
-class Serial_Reader(threading.Thread):
-    #Do last due to threading NOT processing
-    #While loop reading same serial line
-    
-    #Have a toggle that when on, will print raw data to terminal, otherwise will just ignore it
-    #Copy the one from the arduino side
-    def __init__(self, serialObj: serial):
-        super().__init__()
-        self._stop_event = threading.Event()
-        self.serialLine = serialObj
-        self.debugState = False
 
-    def run(self):
-        while not self._stop_event.is_set():
-            echoed_message = self.serialLine.read(FIXED_RECEIVED_MESSAGE_LENGTH)
-            if self.debugState == True:
-                print(echoed_message.hex()) 
+class SerialReader(LineReader):
 
-    def debug_flag(self, toggle: bool):
-        self.debugState = toggle
+    TERMINATOR = b'\r\n'
+
+    def __init__(self):
+        super(SerialReader, self).__init__()
+        self.alive = True
+        self.events = queue.Queue()
+        self._event_thread = threading.Thread(target=self._run_event)
+        self._event_thread.daemon = True
+        self._event_thread.name = 'serialreader-event'
+        self._event_thread.start()
+        self.lock = threading.Lock()
+        self.debug_mode = True
 
     def stop(self):
-        self._stop_event.set()
+        self.alive = False
+        self.events.put(None)
 
+    def run_event(self):
+        while self.alive:
+            try:
+                event = self.events.get()
+                if self.debug_mode == True:
+                    print("event received: ", event)
+            except:
+                logging.exception("could not run event")
+
+    def set_debug_mode(self, state: bool):
+        self.debug_mode = state
+
+    def connection_made(self, transport: ReaderThread) -> None:
+        super(SerialReader, self).connection_made(transport)
+        print("connected, ready to receive data")
+    
+    def handle_line(self, line: str) -> None:
+        if len(line) <= FIXED_RECEIVED_MESSAGE_LENGTH:
+            self.events.put(line)
+        else:
+            line_chunks = [line[i:i+FIXED_RECEIVED_MESSAGE_LENGTH] for i in range(0, len(line), FIXED_RECEIVED_MESSAGE_LENGTH)]
+            for chunk in line_chunks:
+                self.events.put(chunk)
+
+    def connection_lost(self, exc: BaseException | None) -> None:
+        super().connection_lost(exc)
+        print("disconnected")
 
 
 class MotorConfig: 
@@ -58,23 +90,34 @@ class MotorDriver:
         # List of Motor configs
         self.motorConfigs = [None] * MAX_MOTOR_ID
         #Start debug thread here?
-        self.debugPrinter = Serial_Reader(self.serialLine)
+        # self.debugPrinter = SerialReader(self.serialLine)
+        self.debugReader = ReaderThread(self.serialLine, SerialReader)
         self.setDebugMode(debugMode)
-        self.debugPrinter.start()
+        # self.debugPrinter.start()
+        self.debugReader.start()
         
     def __del__(self):
-        self.debugPrinter.stop()
-        self.debugPrinter.join()
+        # self.debugPrinter.stop()
+        # self.debugPrinter.join()
+        self.debugReader.stop()
 
     def initMotorDriver(self):
-        pass # Send all configurations?
+        # send all motor configs
+        for motor_id in range(len(self.motorConfigs)):
+            if self.motorConfigs[motor_id] is not None:
+                self.sendMotorConfig(motor_id)
+        # pass # Send all configurations?
         
     def resetDevice(self):
-        pass # Send Arduino a reset command?
+        self.serialLine.setDTR(False)
+        sleep(0.022)
+        self.serialLine.setDTR(True)
+        # pass # Send Arduino a reset command?
         # Reset Arduino to original state
 
     def setDebugMode(self, toggle: bool):
-        self.debugPrinter.debug_flag(toggle)
+        # self.debugPrinter.debug_flag(toggle)
+        self.debugReader.set_debug_mode(toggle)
         message = commands_pb2.Serial_Message()
         message.opcode = commands_pb2.SET_DEBUG_MODE
 
@@ -130,5 +173,3 @@ class MotorDriver:
         message.motorCommand.motorID = motorID
 
         self.serialLine.write(message.SerializeToString())
-
-

@@ -9,85 +9,60 @@ from sensor_msgs.msg import Joy
 from std_msgs.msg import String
 
 import serial
-from teleop import gamepad_node
+from teleop import get_gamepad_mapping
+
+from motor_driver import MotorDriver
+
+N_INPUTS = 9
 
 class arduino_comms_node(Node):
 
     def __init__(self):
         super().__init__('arduino_comms_node')
 
-        self.gamepad_subscribers = [None] * 9
+        self.motor_driver = MotorDriver(debugMode=True)
 
-        self.gamepad_subscribers[gamepad_node.LEFT_DRIVE] = self.create_publisher(Float32, '/gamepad/left_drive', 10)
-        self.gamepad_subscribers[gamepad_node.RIGHT_DRIVE] = self.create_publisher(Float32, '/gamepad/right_drive', 10)
-        self.gamepad_subscribers[gamepad_node.LEFT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/left_back_coll', 10)
-        self.gamepad_subscribers[gamepad_node.RIGHT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/right_back_coll', 10)
-        self.gamepad_subscribers[gamepad_node.EXC_INTERNAL] = self.create_publisher(Bool, '/gamepad/exc_internal', 10)    
-        self.gamepad_subscribers[gamepad_node.EXC_THREAD_ROD] = self.create_publisher(Bool, '/gamepad/exc_thread_rod', 10)
-        self.gamepad_subscribers[gamepad_node.EXC_PIVOT_LIN] = self.create_publisher(Bool, '/gamepad/exc_pivot_lin', 10)
+        self.gamepad_subscribers = [None] * N_INPUTS
 
-        self.gamepad_subscribers[gamepad_node.AUTO_MODE] = self.create_publisher(Bool, '/gamepad/auto_mode', 10)
-        self.gamepad_subscribers[gamepad_node.STOP_MODE] = self.create_publisher(Bool, '/gamepad/stop_mode', 10)
+        # self.mapping = {"left drive": LEFT_DRIVE, "right drive": RIGHT_DRIVE, "left back cltn motor": LEFT_BACK_COLL, 
+        #                         "right back cltn motor": RIGHT_BACK_COLL, "exc internal motor": EXC_INTERNAL, "exc thread rod act": EXC_THREAD_ROD,
+        #                         "exc pivot lin act": EXC_PIVOT_LIN, "auto mode": AUTO_MODE, "stop mode": STOP_MODE}
+        self.gamepad_mapping = get_gamepad_mapping()
+
+        self.gamepad_subscribers[self.gamepad_mapping["left drive"]] = self.create_publisher(Float32, '/gamepad/left_drive', self.motor_driver_callback, 10)
+        self.gamepad_subscribers[self.gamepad_mapping["right drive"]] = self.create_publisher(Float32, '/gamepad/right_drive', self.motor_driver_callback, 10)
+        self.gamepad_subscribers[self.gamepad_mapping["left back cltn motor"]] = self.create_publisher(Bool, '/gamepad/left_back_coll', self.motor_driver_callback, 10)
+        self.gamepad_subscribers[self.gamepad_mapping["right back cltn motor"]] = self.create_publisher(Bool, '/gamepad/right_back_coll', self.motor_driver_callback, 10)
+        self.gamepad_subscribers[self.gamepad_mapping["exc internal motor"]] = self.create_publisher(Bool, '/gamepad/exc_internal', self.motor_driver_callback, 10)    
+        self.gamepad_subscribers[self.gamepad_mapping["exc thread rod act"]] = self.create_publisher(Bool, '/gamepad/exc_thread_rod', self.motor_driver_callback, 10)
+        self.gamepad_subscribers[self.gamepad_mapping["exc pivot lin act"]] = self.create_publisher(Bool, '/gamepad/exc_pivot_lin', self.motor_driver_callback, 10)
+
+        self.gamepad_subscribers[self.gamepad_mapping["auto mode"]] = self.create_publisher(Bool, '/gamepad/auto_mode', self.motor_driver_callback, 10)
+        self.gamepad_subscribers[self.gamepad_mapping["stop mode"]] = self.create_publisher(Bool, '/gamepad/stop_mode', self.motor_driver_callback, 10)
         
         self.get_logger().info(f"Created node {self.get_name()}")
-
-        # self.publisher = self.create_publisher(String, 'controller', 10) #publishes to 'controller' topic
 
         # USB Cable should be connected to programming port from the jetson
         # initializes arduino serial port. make sure baudrate is same for arduino and python code
         
-        self.arduino = serial.Serial(port = '/dev/ttyACM0',baudrate = 9600, timeout = .1)
+        self.arduino = serial.Serial(port = '/dev/ttyACM0', baudrate = 9600, timeout = .1)
 
-    #IMPORTANT FUNCTIONS:
-    def power_to_bytes(self, i) -> bytes:      #converts self.power into bytes
-        def largestOneIndex(curr:int):
-            curr = int(curr)
-            i = 15
-            while (i >= 0):
-                if (curr & int(1 << i)):
-                    break
-                i-= 1
-            return i
-        x = int(abs(self.power[i]) + 256 * self.numMotor[i])
-        #x is two bits, power must be between -127 and 127. probably.
-        #first byte should be # of motor + CRC
-        #second byte is power (most significant bit is negative sign)
-        if(self.power[i] < 0):
-            x += 128
-        CRC = 18
-        msg = int(x % 2048)
-        checksum = int(x / 2048)
-        curr = int(msg*32 + checksum)
-        a = 0
-        index = 0
-        while (curr >= 32):
-            index = largestOneIndex(curr)
-            a = CRC << (index - 4)
-            curr ^= a
-        y = x + curr*256*8
-        return y.to_bytes((y.bit_length() + 7) // 8, 'big')
-    # def sendPower(self):
-    #     for i in range(len(self.power)):
-    #         self.arduino.write(self.power_to_bytes(i)) #writes power to serial0
-    
-    ####################################################################################################
-    def limitPower(self):
-        for p in self.power:
-            if(p > 127):
-                p = 127
-            elif(p< -127):
-                p = -127
+    def motor_driver_callback(self, msg):
+        self.get_logger().info("Data received: %s" % msg.data)
+
+        if()
+
 
 def main(args=None):
     rclpy.init(args=args)
 
-    contro = arduino_comms_node()
+    arduino_com_subscriber = arduino_comms_node()
     try:
-        rclpy.spin(contro)
+        rclpy.spin(arduino_com_subscriber)
     except KeyboardInterrupt:
         pass
     finally:
-        contro.destroy_node()
+        arduino_com_subscriber.destroy_node()
         rclpy.shutdown()
 
 
