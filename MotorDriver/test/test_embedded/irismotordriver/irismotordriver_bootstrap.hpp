@@ -11,6 +11,7 @@ void RUN_IRISMOTORDRIVER_TESTS(void)
     RUN_TEST(set_reset_config_test);
     RUN_TEST(parse_serial_test);
     RUN_TEST(execute_config_motor_message_test);
+    RUN_TEST(check_proto_buf_size);
 
     // SabertoothOperator
     RUN_TEST(sabertooth_operator_default_constructor_test);

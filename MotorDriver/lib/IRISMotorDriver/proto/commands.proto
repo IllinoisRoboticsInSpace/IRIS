@@ -41,90 +41,89 @@ enum Opcode_To_Arduino
     SET_PID_CONTROL = 5;
     SET_PID_SETPOINT = 6;
     CONFIG_ENCODER = 7;
-    // GET_ENCODER_COUNT = 8;
     ZERO_ENCODER = 9;
 }
 
 message Serial_Message_To_Arduino
 {
-    Opcode_To_Arduino opcode = 5000;
+    Opcode_To_Arduino opcode = 1;
     oneof data
     {
-        Sabertooth_Config_Data sabertoothConfigData = 5001;
-        Turn_Motor motorCommand = 5002;
-        Debug_Mode debugMode = 5003;
-        PID_Config_Data pidConfigData = 5004;
-        Set_PID_Setpoint setPIDSetpoint = 5005;
-        Set_PID_Control setPIDControl = 5006;
-        Encoder_Config_Data encoderConfigData = 5007;
-        Zero_Encoder_Command zeroEncoderCommand = 5008;
+        Sabertooth_Config_Data sabertoothConfigData = 2;
+        Turn_Motor motorCommand = 3;
+        Debug_Mode debugMode = 4;
+        PID_Config_Data pidConfigData = 5;
+        Set_PID_Setpoint setPIDSetpoint = 6;
+        Set_PID_Control setPIDControl = 7;
+        Encoder_Config_Data encoderConfigData = 8;
+        Zero_Encoder_Command zeroEncoderCommand = 9;
     }
 }
 
 message Sabertooth_Config_Data
 {
-    uint32 motorID = 4000;
+    uint32 motorID = 10;
     oneof values
     {
-        bool inverted = 4001;
-        bool enabled = 4002;
-        uint32 motorNum = 4003;
-        SabertoothSerialLine serialLine = 4004;
-        uint32 address = 4005;
+        bool inverted = 11;
+        bool enabled = 12;
+        uint32 motorNum = 13;
+        SabertoothSerialLine serialLine = 14;
+        uint32 address = 15;
     }
 }
 message Turn_Motor
 {
-    uint32 motorID = 6000;
-    float percentOutput = 6001;
+    uint32 motorID = 16;
+    float percentOutput = 17;
 }
 
 message Debug_Mode
 {
-    bool enabled = 7000;
+    bool enabled = 18;
 }
 message PID_Config_Data
 {
-    uint32 PID_ID = 8000;
+    uint32 PID_ID = 19;
     oneof values
     {
-        bool inverted = 8001;
-        bool enabled = 8002;
-        uint32 motorID = 8003;
-        double kp = 8004;
-        double ki = 8005;
-        double kd = 8006;
-        uint32 encoderID = 8007;
+        bool inverted = 20;
+        bool enabled = 21;
+        uint32 motorID = 22;
+        float kp = 23;
+        float ki = 24;
+        float kd = 25;
+        uint32 encoderID = 26;
     }
 }
 
 message Set_PID_Setpoint
 {
-    uint32 PID_ID = 9000;
-    double setPoint = 9001;
+    uint32 PID_ID = 27;
+    float setPoint = 28;
 }
 
 message Set_PID_Control
 {
-    uint32 PID_ID = 10000;
-    bool in_control = 10001;
+    uint32 PID_ID = 29;
+    bool in_control = 30;
 }
 
 message Encoder_Config_Data {
-    uint32 encoderID = 11000;
+    uint32 encoderID = 31;
     oneof values
     {
-        bool inverted = 11002;
-        bool enabled = 11003;
-        uint32 pinIn = 11004;
-        uint32 pinOut = 11005;
-        LatchMode latchMode = 11006;
+        bool inverted = 32;
+        bool enabled = 33;
+        uint32 pinIn = 34;
+        uint32 pinOut = 35;
+        LatchMode latchMode = 36;
     }
 }
 
 message Zero_Encoder_Command
 {
-    uint32 encoderID = 12000;
+    uint32 encoderID = 37;
 }
 
 //--------------------------------------------------------------------//

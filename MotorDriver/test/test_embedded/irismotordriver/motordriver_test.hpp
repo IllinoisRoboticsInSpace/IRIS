@@ -1,5 +1,6 @@
 #include "unity.h"
 #include "MotorDriver.h"
+#include "DebugTools.h"
 
 void motor_driver_default_constructor_test(void)
 {
@@ -94,4 +95,137 @@ void execute_config_motor_message_test(void)
 
     default_motor_driver.execute(received_message);
     TEST_ASSERT_TRUE(default_motor_driver.getConfig(motorID).getEnabled());
+}
+
+
+/*
+    CONFIG_MOTOR = 0;
+    TURN_MOTOR = 1; 
+    STOP_ALL_MOTORS = 2;
+    SET_DEBUG_MODE = 3;
+    CONFIG_PID = 4;
+    SET_PID_CONTROL = 5;
+    SET_PID_SETPOINT = 6;
+    CONFIG_ENCODER = 7;
+    ZERO_ENCODER = 9;
+*/
+
+
+void check_proto_buf_size(void){
+
+    Serial_Message_To_Arduino received_message;
+    received_message.set_opcode(Opcode_To_Arduino::CONFIG_MOTOR);
+
+    Sabertooth_Config_Data motor_config;
+    
+    motor_config.set_motorID(15);
+    motor_config.set_address(15);
+
+    received_message.set_sabertoothConfigData(motor_config);
+
+    TEST_ASSERT_TRUE_MESSAGE(received_message.serialized_size() <= FIXED_RECEIVED_MESSAGE_LENGTH, "Sabertooth_config, address");
+
+    motor_config.clear();
+    received_message.clear();
+    
+
+
+    motor_config.set_motorID(15);
+    motor_config.set_serialLine(SabertoothSerialLine::Serial3);
+
+    received_message.set_sabertoothConfigData(motor_config);
+
+    TEST_ASSERT_TRUE_MESSAGE(received_message.serialized_size() <= FIXED_RECEIVED_MESSAGE_LENGTH, "Sabertooth_config, SerialLine");
+
+    Serial_Message_To_Arduino received_message_;
+
+    received_message = Serial_Message_To_Arduino();
+
+    received_message_.set_opcode(Opcode_To_Arduino::TURN_MOTOR);
+
+    Turn_Motor motor_command;
+    motor_command.set_motorID(15);
+    motor_command.set_percentOutput(0.9);
+
+    received_message_.set_motorCommand(motor_command);
+
+    std::string msg = "Turn Motor, Perecnt Output";
+
+    msg += std::to_string(received_message_.serialized_size());
+
+    TEST_ASSERT_TRUE_MESSAGE(received_message_.serialized_size() <= FIXED_RECEIVED_MESSAGE_LENGTH, msg.c_str());
+
+
+
+    received_message = Serial_Message_To_Arduino();
+
+    received_message.set_opcode(Opcode_To_Arduino::STOP_ALL_MOTORS);
+
+    TEST_ASSERT_TRUE_MESSAGE(received_message.serialized_size() <= FIXED_RECEIVED_MESSAGE_LENGTH, "STOP ALL");
+
+
+
+    received_message = Serial_Message_To_Arduino();
+
+    received_message.set_opcode(Opcode_To_Arduino::SET_DEBUG_MODE);
+
+    Debug_Mode mode; mode.set_enabled(true); 
+
+    received_message.set_debugMode(mode);
+
+    TEST_ASSERT_TRUE_MESSAGE(received_message.serialized_size() <= FIXED_RECEIVED_MESSAGE_LENGTH, "SET_DEBUG_MODE");
+
+
+
+    received_message = Serial_Message_To_Arduino();
+
+
+
+    received_message.set_opcode(Opcode_To_Arduino::CONFIG_PID);
+
+   PID_Config_Data pid_config; pid_config.set_PID_ID(15); pid_config.set_kp(2);
+
+    received_message.set_pidConfigData(pid_config);
+
+    TEST_ASSERT_TRUE_MESSAGE(received_message.serialized_size() <= FIXED_RECEIVED_MESSAGE_LENGTH, "PID_CONFIG, kp");
+
+    pid_config.clear_kp();
+    received_message = Serial_Message_To_Arduino();
+
+    received_message.set_opcode(Opcode_To_Arduino::CONFIG_PID);
+
+    pid_config.set_motorID(15);
+
+    received_message.set_pidConfigData(pid_config);
+
+    TEST_ASSERT_TRUE_MESSAGE(received_message.serialized_size() <= FIXED_RECEIVED_MESSAGE_LENGTH, "PID_CONGIF, motorID");
+
+
+
+    received_message = Serial_Message_To_Arduino();
+
+    received_message.set_opcode(Opcode_To_Arduino::SET_PID_SETPOINT);
+
+   Set_PID_Setpoint pid_set; pid_set.set_PID_ID(15); pid_set.set_setPoint(100);
+
+    received_message.set_setPIDSetpoint(pid_set);
+
+    std::string msg_ = "PID SETPOINT" + std::to_string(received_message.serialized_size());
+
+    TEST_ASSERT_TRUE_MESSAGE(received_message.serialized_size() <= FIXED_RECEIVED_MESSAGE_LENGTH, msg_.c_str());
+    //TEST_ASSERT_TRUE_MESSAGE(false, std::to_string(received_message.serialized_size()).c_str()); 
+
+
+    received_message = Serial_Message_To_Arduino();
+
+    received_message.set_opcode(Opcode_To_Arduino::CONFIG_ENCODER);
+
+    Encoder_Config_Data encoder_config; encoder_config.set_encoderID(15); encoder_config.set_pinIn(53);
+
+    received_message.set_encoderConfigData(encoder_config);
+
+    TEST_ASSERT_TRUE_MESSAGE(received_message.serialized_size() <= FIXED_RECEIVED_MESSAGE_LENGTH, "ENCODER CONFIG, pinIn");
+
+
+
 }

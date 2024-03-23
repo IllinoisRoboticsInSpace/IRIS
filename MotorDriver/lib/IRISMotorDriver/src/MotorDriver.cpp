@@ -211,18 +211,18 @@ void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
 */
 void MotorDriver::update(){
     for(auto pid : pid_configs){
-        Serial.print("pid is enabled: "); Serial.println(pid.getEnabled() ? "true" : "false");
+        // Serial.print("pid is enabled: "); Serial.println(pid.getEnabled() ? "true" : "false");
         if(pid.getEnabled()){
-            Serial.print("update pid : ");
-            Serial.println(pid.update_pid(encoder_configs[pid.get_encoderID()].get_encoder_tick_count()));
-            //pid.update_pid(encoder_configs[pid.get_encoderID()].get_encoder_tick_count());
-            if(pid.get_in_control()){
+            // Serial.print("update pid : ");
+            // Serial.println(pid.update_pid(encoder_configs[pid.get_encoderID()].get_encoder_tick_count()));
+            pid.update_pid(encoder_configs[pid.get_encoderID()].get_encoder_tick_count());
+            if(pid.get_in_control() && motor_configs[pid.get_motorID()].getEnabled()){
                 motor_configs[pid.get_motorID()].setOutput(pid.get_motor_value());
             } 
         }
         
     }
-    Serial.println(encoder_configs[0].get_encoder_tick_count());
+    //Serial.println(encoder_configs[0].get_encoder_tick_count());
     unsigned int bytes_read = read(); // Places serial data into command buffer
     
     if ((bytes_read != 0) && (command_buffer.get_size() == FIXED_RECEIVED_MESSAGE_LENGTH))

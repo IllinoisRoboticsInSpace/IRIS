@@ -23,8 +23,8 @@ class PID
   */
 
   //commonly used functions **************************************************************************
-    PID(double*, double*, double*,        // * constructor.  links the PID to the Input, Output, and 
-        double, double, double, bool, bool);//   Setpoint.  Initial tuning parameters are also set here.
+    PID(float*, float*, float*,        // * constructor.  links the PID to the Input, Output, and 
+        float, float, float, bool, bool);//   Setpoint.  Initial tuning parameters are also set here.
                                           //   (overload for specifying proportional mode)
 
     bool Compute();                       // * performs the PID calculation.  it should be
@@ -32,13 +32,13 @@ class PID
                                           //   calculation frequency can be set using SetMode
                                           //   SetSampleTime respectively
     
-    void SetOutputLimits(double, double); // * clamps the output to a specific range. 0-255 by default, but
+    void SetOutputLimits(float, float); // * clamps the output to a specific range. 0-255 by default, but
 										                      //   it's likely the user will want to change this depending on
 										                      //   the application
 	
   //available but not commonly used functions ********************************************************
-    void SetTunings(double, double,       // * While most users will set the tunings once in the 
-                    double);         	    //   constructor, this function gives the user the option
+    void SetTunings(float, float,       // * While most users will set the tunings once in the 
+                    float);         	    //   constructor, this function gives the user the option
                                           //   of changing tunings during runtime for Adaptive control       	  
 
     void SetSampleTime(unsigned);              // * sets the frequency, in Milliseconds, with which 
@@ -47,38 +47,38 @@ class PID
 		void SetDoCompute(bool);
 
   //Display functions ****************************************************************
-	double GetKp() const ;						  // These functions query the pid for interal values.
-	double GetKi() const ;						  //  they were created mainly for the pid front-end,
-	double GetKd() const ;						  // where it's important to know what is actually inside the PID
+	float GetKp() const ;						  // These functions query the pid for interal values.
+	float GetKi() const ;						  //  they were created mainly for the pid front-end,
+	float GetKd() const ;						  // where it's important to know what is actually inside the PID
 
   bool GetDoCompute() const ;
 
-  double GetKiReal() const ;
-  double GetKdReal() const ;
+  float GetKiReal() const ;
+  float GetKdReal() const ;
 
   private:
 	void Initialize();
     
-	double kp;                  // * (P)roportional Tuning Parameter
-  double ki_given;                  // * (I)ntegral Tuning Parameter given by the user
-  double kd_given;                  // * (D)erivative Tuning Parameter given by the yser
+	float kp;                  // * (P)roportional Tuning Parameter
+  float ki_given;                  // * (I)ntegral Tuning Parameter given by the user
+  float kd_given;                  // * (D)erivative Tuning Parameter given by the yser
 
-  double ki_time_adjusted; //these are so the frequency of updates don't effect the effective ki and kd values but it might not be nessisary if we're never changing the sample rate 
-  double kd_time_adjusted;
+  float ki_time_adjusted; //these are so the frequency of updates don't effect the effective ki and kd values but it might not be nessisary if we're never changing the sample rate 
+  float kd_time_adjusted;
 
-  double *input_ptr;              // * Pointers to the Input, Output, and Setpoint variables
-  double *output_ptr;             //   This creates a hard link between the variables and the 
-  double *setpoint_ptr;           //   PID, freeing the user from having to constantly tell us
+  float *input_ptr;              // * Pointers to the Input, Output, and Setpoint variables
+  float *output_ptr;             //   This creates a hard link between the variables and the 
+  float *setpoint_ptr;           //   PID, freeing the user from having to constantly tell us
                                   //   what these values are.  with pointers we'll just know.
 	
-  //double use_measurement_ratio; // for if we want a mixed proportion on measurement and proportion on error 
+  //float use_measurement_ratio; // for if we want a mixed proportion on measurement and proportion on error 
 
 
 	unsigned long lastTime;
-	double outputSum, lastInput;
+	float outputSum, lastInput;
 
 	unsigned long SampleTime;
-	double outMin, outMax;
+	float outMin, outMax;
 	bool use_proportional_measurement; 
   bool do_compute;
 };

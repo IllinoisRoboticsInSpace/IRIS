@@ -17,8 +17,8 @@
  *    The parameters specified here are those for for which we can't set up
  *    reliable defaults, so we need to have the user set them.
  ***************************************************************************/
-PID::PID(double* Input, double* Output, double* Setpoint,
-        double Kp, double Ki, double Kd, bool use_proportional_measurement, bool do_compute)
+PID::PID(float* Input, float* Output, float* Setpoint,
+        float Kp, float Ki, float Kd, bool use_proportional_measurement, bool do_compute)
 {
     output_ptr = Output;
     input_ptr = Input;
@@ -51,12 +51,12 @@ bool PID::Compute() {
    unsigned long timeChange = (now - lastTime);
    if(timeChange>=SampleTime){
       /*Compute all the working error variables*/
-      double error = (*setpoint_ptr) - (*input_ptr);
-      double dInput = (*input_ptr) - lastInput;
+      float error = (*setpoint_ptr) - (*input_ptr);
+      float dInput = (*input_ptr) - lastInput;
       // outputSum+= (ki_time_adjusted * error);
       outputSum+= (ki_given * error);
 
-      /*Add Proportional on Measurement, if P_ON_M is specified*/
+    
       if(use_proportional_measurement){
         outputSum-= kp * dInput;
       } 
@@ -68,8 +68,7 @@ bool PID::Compute() {
         outputSum = outMin;
       } 
 
-      /*Add Proportional on Error, if use_proportiional_measurement is  false specified*/
-	  double output;
+	  float output;
       if(!use_proportional_measurement){
         output = kp * error;
       }
@@ -78,10 +77,11 @@ bool PID::Compute() {
       } 
       
       // outputSum -= kp * error * use_measurement_ratio;
-      // double output = kp * error * (1 - use_measurement_ratio); change to use a ratio of muesurement and error 
+      // float output = kp * error * (1 - use_measurement_ratio); change to use a ratio of muesurement and error 
 
       /*Compute Rest of PID Output*/
       // output += outputSum - (kd_time_adjusted * dInput);
+      
       output += outputSum - (kd_given * dInput);
 
 	    if(output > outMax) {
@@ -105,7 +105,7 @@ bool PID::Compute() {
  * it's called automatically from the constructor, but tunings can also
  * be adjusted on the fly during normal operation
  ******************************************************************************/
-void PID::SetTunings(double Kp, double Ki, double Kd) {
+void PID::SetTunings(float Kp, float Ki, float Kd) {
    kp = Kp;
    ki_given = Ki; 
    kd_given = Kd;
@@ -118,7 +118,7 @@ void PID::SetTunings(double Kp, double Ki, double Kd) {
  * sets the period, in Milliseconds, at which the calculation is performed
  ******************************************************************************/
 void PID::SetSampleTime(unsigned NewSampleTime){
-      double ratio  = (double)NewSampleTime / (double)SampleTime;
+      float ratio  = (float)NewSampleTime / (float)SampleTime;
       ki_time_adjusted *= ratio;
       kd_time_adjusted /= ratio;
       SampleTime = NewSampleTime;
@@ -132,7 +132,7 @@ void PID::SetSampleTime(unsigned NewSampleTime){
  *  want to clamp it from 0-125.  who knows.  at any rate, that can all be done
  *  here.
  **************************************************************************/
-void PID::SetOutputLimits(double Min, double Max)
+void PID::SetOutputLimits(float Min, float Max)
 {
    if(Min >= Max) return;
    outMin = Min;
@@ -183,11 +183,11 @@ void PID::Initialize()
    else if(outputSum < outMin) outputSum = outMin;
 }
 
-double PID::GetKp() const { return kp; }
-double PID::GetKi() const { return ki_given;}
-double PID::GetKd() const { return kd_given;}
-double PID::GetKiReal() const {return ki_time_adjusted;}
-double PID::GetKdReal() const {return kd_time_adjusted;}
+float PID::GetKp() const { return kp; }
+float PID::GetKi() const { return ki_given;}
+float PID::GetKd() const { return kd_given;}
+float PID::GetKiReal() const {return ki_time_adjusted;}
+float PID::GetKdReal() const {return kd_time_adjusted;}
 
 bool PID::GetDoCompute() const {return do_compute;}
 

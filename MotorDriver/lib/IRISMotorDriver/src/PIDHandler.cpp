@@ -7,7 +7,7 @@ PIDHandler::PIDHandler() : motor_pid(&input_, &output_, &setpoint_, DEFAULT_TUNI
 }
 
 
-void PIDHandler::set_new_setpoint(double setpoint) {
+void PIDHandler::set_new_setpoint(float setpoint) {
     this->setpoint_ = setpoint;
 }
 
@@ -20,9 +20,11 @@ void PIDHandler::set_sample_time(unsigned int sample_time){
     motor_pid.SetSampleTime(sample_time);
 }
 
-bool PIDHandler::update_pid(double input) {
+bool PIDHandler::update_pid(float input) {
     this->input_ = input;
-    return motor_pid.Compute();
+    if(this->enabled){
+        return motor_pid.Compute();
+    }
 }
 
 bool PIDHandler::applyConfigUpdate(const PID_Config_Data& update)
