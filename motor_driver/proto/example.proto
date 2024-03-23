@@ -26,13 +26,12 @@ message Nested
 
 // Repeated messages are different from the standard protobuf messages
 // https://embeddedproto.com/documentation/using-a-message/repeated-fields/
-// import "embedded_proto_options.proto";
-// message Repeated
-// {
-//   // In this example the maximum length is 10 elements
-//   repeated int32 repeated_int = 3001 [(EmbeddedProto.options).maxLength = 10];
-//   // repeated int32 repeated_int = 3001;
-// }
+import "embedded_proto_options.proto";
+message Repeated
+{
+  // In this example the maximum length is 10 elements
+  repeated int32 repeated_int = 3001 [(EmbeddedProto.options).maxLength = 10];
+}
 
 message Text
 {
