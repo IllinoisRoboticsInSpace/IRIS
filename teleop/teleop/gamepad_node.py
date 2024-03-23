@@ -60,17 +60,16 @@ class gamepad_node(Node):
         # self.stop_receive = self.create_subscription(Bool, '/arduino_comms/stop_received', self.joy_callback, 10)
 
         self.get_logger().info(f"Created node {self.get_name()}")
-        self.auto_button_prev_state = False # what is this for??
-        # self.stop = False
 
         # self.software_scale = 80
         # self.software_deadzone = 0.5
 
-        self.prev_state, self.curr_state = [0.0] * N_AXIS_USED + [False] * N_BUTTONS_USED
+        self.curr_state = [0.0] * N_AXIS_USED + [False] * N_BUTTONS_USED
+        self.auto_button_prev_state = False
         
 
-        # publishes to 'gamepad' topic
-        self.gamepad_publishers = [None] * 9
+        # publisher init to 'gamepad' topic
+        self.gamepad_publishers = [None] * (N_AXIS_USED + N_BUTTONS_USED)
 
         for key, value in self.gamepad_map.items():
             if key in ["left_drive", "right_drive"]:
@@ -79,18 +78,6 @@ class gamepad_node(Node):
                 msg_type = Bool
 
             self.gamepad_publishers[value] = self.create_publisher(msg_type, f"/gamepad/{key}", 10)
-
-        # self.gamepad_publishers[LEFT_DRIVE] = self.create_publisher(Float32, '/gamepad/left_drive', 10)
-        # self.gamepad_publishers[RIGHT_DRIVE] = self.create_publisher(Float32, '/gamepad/right_drive', 10)
-        # self.gamepad_publishers[LEFT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/left_back_coll', 10)
-        # self.gamepad_publishers[RIGHT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/right_back_coll', 10)
-        # self.gamepad_publishers[EXC_INTERNAL] = self.create_publisher(Bool, '/gamepad/exc_internal', 10)    
-        # self.gamepad_publishers[EXC_THREAD_ROD] = self.create_publisher(Bool, '/gamepad/exc_thread_rod', 10)
-        # self.gamepad_publishers[EXC_PIVOT_LIN] = self.create_publisher(Bool, '/gamepad/exc_pivot_lin', 10)
-
-        # self.gamepad_publishers[AUTO_MODE] = self.create_publisher(Bool, '/gamepad/auto_mode', 10)
-        # self.gamepad_publishers[STOP_MODE] = self.create_publisher(Bool, '/gamepad/stop_mode', 10)
-
 
         self.joystick_button_mapping = {"A": 0, "B": 1, "X": 2, "Y": 3, "LB": 4,
                                  "RB": 5, "back": 6, "start": 7, "power": 8,
@@ -112,14 +99,11 @@ class gamepad_node(Node):
             self.curr_state[STOP_MODE] = True
 
         # auto mode
-        if (joy_msg.buttons[self.joystick_button_mapping["start"]] == 1 and self.auto_button_prev_state == False):
-            self.curr_state[AUTO_MODE] = not self.curr_state[AUTO_MODE]
-            self.auto_button_prev_state = True # ??
+        if (joy_msg.buttons[self.joystick_button_mapping["start"]] == 1):
+            self.curr_state[AUTO_MODE] = not self.auto_button_prev_state
+            self.auto_button_prev_state = self.curr_state[AUTO_MODE]
 
-        # if self.stop:
         if self.curr_state[STOP_MODE] == True:
-            # for i in range(len(self.curr_state) - 1):
-            #     self.curr_state[i] = 0
             for i in range(len(self.curr_state)):
                 if i != STOP_MODE:
                     self.curr_state[i] = 0

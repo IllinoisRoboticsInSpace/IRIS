@@ -14,6 +14,7 @@ from teleop import get_gamepad_mapping
 from motor_driver import MotorDriver
 
 from functools import partial
+from threading import Lock
 
 N_INPUTS = 9
 
@@ -22,13 +23,11 @@ class arduino_comms_node(Node):
     def __init__(self):
         super().__init__('arduino_comms_node')
 
+        self.lock = Lock()
         self.motor_driver = MotorDriver(debugMode=True)
 
         self.gamepad_subscribers = [None] * N_INPUTS
 
-        # self.mapping = {"left drive": LEFT_DRIVE, "right drive": RIGHT_DRIVE, "left back cltn motor": LEFT_BACK_COLL, 
-        #                         "right back cltn motor": RIGHT_BACK_COLL, "exc internal motor": EXC_INTERNAL, "exc thread rod act": EXC_THREAD_ROD,
-        #                         "exc pivot lin act": EXC_PIVOT_LIN, "auto mode": AUTO_MODE, "stop mode": STOP_MODE}
         self.gamepad_mapping = get_gamepad_mapping()
 
         for key, value in self.gamepad_mapping.items():
@@ -38,19 +37,8 @@ class arduino_comms_node(Node):
                 msg_type = Bool
 
             callback = partial(self.motor_driver_callback, motor=key)
-            self.gamepad_subscribers[key] = self.create_subscription(msg_type, f"/gamepad/{key}", callback, 10)
+            self.gamepad_subscribers[value] = self.create_subscription(msg_type, f"/gamepad/{key}", callback, 10)
 
-        # self.gamepad_subscribers[self.gamepad_mapping["left_drive"]] = self.create_publisher(Float32, '/gamepad/left_drive', self.motor_driver_callback, 10)
-        # self.gamepad_subscribers[self.gamepad_mapping["right_drive"]] = self.create_publisher(Float32, '/gamepad/right_drive', self.motor_driver_callback, 10)
-        # self.gamepad_subscribers[self.gamepad_mapping["left_back_cltn_mtr"]] = self.create_publisher(Bool, '/gamepad/left_back_coll', self.motor_driver_callback, 10)
-        # self.gamepad_subscribers[self.gamepad_mapping["right_back_cltn_mtr"]] = self.create_publisher(Bool, '/gamepad/right_back_coll', self.motor_driver_callback, 10)
-        # self.gamepad_subscribers[self.gamepad_mapping["exc_intrnl_mtr"]] = self.create_publisher(Bool, '/gamepad/exc_internal', self.motor_driver_callback, 10)    
-        # self.gamepad_subscribers[self.gamepad_mapping["exc_thrd_rod_actr"]] = self.create_publisher(Bool, '/gamepad/exc_thread_rod', self.motor_driver_callback, 10)
-        # self.gamepad_subscribers[self.gamepad_mapping["exc_pvt_lin_actr"]] = self.create_publisher(Bool, '/gamepad/exc_pivot_lin', self.motor_driver_callback, 10)
-
-        # self.gamepad_subscribers[self.gamepad_mapping["auto_mode"]] = self.create_publisher(Bool, '/gamepad/auto_mode', self.motor_driver_callback, 10)
-        # self.gamepad_subscribers[self.gamepad_mapping["stop_mode"]] = self.create_publisher(Bool, '/gamepad/stop_mode', self.motor_driver_callback, 10)
-        
         self.get_logger().info(f"Created node {self.get_name()}")
 
         # USB Cable should be connected to programming port from the jetson
@@ -58,11 +46,42 @@ class arduino_comms_node(Node):
         
         self.arduino = serial.Serial(port = '/dev/ttyACM0', baudrate = 9600, timeout = .1)
 
-    def motor_driver_callback(self, motor, msg):
-        self.get_logger().info(f"Data received on {motor}: %s" % msg.data)
 
-        if(motor == "left_drive"):
-            None
+    # mapping = {"left_drive": LEFT_DRIVE, "right_drive": RIGHT_DRIVE, "left_back_cltn_mtr": LEFT_BACK_COLL, 
+    #                             "right_back_cltn_mtr": RIGHT_BACK_COLL, "exc_intrnl_mtr": EXC_INTERNAL, "exc_thrd_rod_actr": EXC_THREAD_ROD,
+    #                             "exc_pvt_lin_actr": EXC_PIVOT_LIN, "auto_mode": AUTO_MODE, "stop_mode": STOP_MODE}
+    
+    def motor_driver_callback(self, motor, msg):
+        with self.lock:
+            self.get_logger().info(f"Data received on {motor}: %s" % msg.data)
+
+            if motor == "left_drive":
+                pass
+
+            elif motor == "right_drive":
+                pass
+
+            elif motor == "left_back_cltn_mtr":
+                pass
+
+            elif motor == "right_back_cltn_mtr":
+                pass
+
+            elif motor == "exc_intrnl_mtr":
+                pass
+
+            elif motor == "exc_thrd_rod_actr":
+                pass
+
+            elif motor == "exc_pvt_lin_actr":
+                pass
+
+            elif motor == "auto_mode":
+                pass
+
+            elif motor == "stop_mode":
+                self.motor_driver.stopMotors()
+            
         
 
 
