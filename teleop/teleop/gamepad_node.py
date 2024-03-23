@@ -34,9 +34,9 @@ AUTO_MODE = 7
 STOP_MODE = 8
 
 def get_gamepad_mapping():
-    mapping = {"left drive": LEFT_DRIVE, "right drive": RIGHT_DRIVE, "left back cltn motor": LEFT_BACK_COLL, 
-                                "right back cltn motor": RIGHT_BACK_COLL, "exc internal motor": EXC_INTERNAL, "exc thread rod act": EXC_THREAD_ROD,
-                                "exc pivot lin act": EXC_PIVOT_LIN, "auto mode": AUTO_MODE, "stop mode": STOP_MODE}
+    mapping = {"left_drive": LEFT_DRIVE, "right_drive": RIGHT_DRIVE, "left_back_cltn_mtr": LEFT_BACK_COLL, 
+                                "right_back_cltn_mtr": RIGHT_BACK_COLL, "exc_intrnl_mtr": EXC_INTERNAL, "exc_thrd_rod_actr": EXC_THREAD_ROD,
+                                "exc_pvt_lin_actr": EXC_PIVOT_LIN, "auto_mode": AUTO_MODE, "stop_mode": STOP_MODE}
     
     return mapping
 
@@ -50,6 +50,7 @@ class gamepad_node(Node):
     def __init__(self):
         super().__init__('gamepad_node')
 
+        self.gamepad_map = get_gamepad_mapping()
         self.inv_gamepad_map = get_inverse_gamepad_mapping()
 
         # subscribes to 'joy' topic
@@ -71,16 +72,24 @@ class gamepad_node(Node):
         # publishes to 'gamepad' topic
         self.gamepad_publishers = [None] * 9
 
-        self.gamepad_publishers[LEFT_DRIVE] = self.create_publisher(Float32, '/gamepad/left_drive', 10)
-        self.gamepad_publishers[RIGHT_DRIVE] = self.create_publisher(Float32, '/gamepad/right_drive', 10)
-        self.gamepad_publishers[LEFT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/left_back_coll', 10)
-        self.gamepad_publishers[RIGHT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/right_back_coll', 10)
-        self.gamepad_publishers[EXC_INTERNAL] = self.create_publisher(Bool, '/gamepad/exc_internal', 10)    
-        self.gamepad_publishers[EXC_THREAD_ROD] = self.create_publisher(Bool, '/gamepad/exc_thread_rod', 10)
-        self.gamepad_publishers[EXC_PIVOT_LIN] = self.create_publisher(Bool, '/gamepad/exc_pivot_lin', 10)
+        for key, value in self.gamepad_map.items():
+            if key in ["left_drive", "right_drive"]:
+                msg_type = Float32
+            else:
+                msg_type = Bool
 
-        self.gamepad_publishers[AUTO_MODE] = self.create_publisher(Bool, '/gamepad/auto_mode', 10)
-        self.gamepad_publishers[STOP_MODE] = self.create_publisher(Bool, '/gamepad/stop_mode', 10)
+            self.gamepad_publishers[value] = self.create_publisher(msg_type, f"/gamepad/{key}", 10)
+
+        # self.gamepad_publishers[LEFT_DRIVE] = self.create_publisher(Float32, '/gamepad/left_drive', 10)
+        # self.gamepad_publishers[RIGHT_DRIVE] = self.create_publisher(Float32, '/gamepad/right_drive', 10)
+        # self.gamepad_publishers[LEFT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/left_back_coll', 10)
+        # self.gamepad_publishers[RIGHT_BACK_COLL] = self.create_publisher(Bool, '/gamepad/right_back_coll', 10)
+        # self.gamepad_publishers[EXC_INTERNAL] = self.create_publisher(Bool, '/gamepad/exc_internal', 10)    
+        # self.gamepad_publishers[EXC_THREAD_ROD] = self.create_publisher(Bool, '/gamepad/exc_thread_rod', 10)
+        # self.gamepad_publishers[EXC_PIVOT_LIN] = self.create_publisher(Bool, '/gamepad/exc_pivot_lin', 10)
+
+        # self.gamepad_publishers[AUTO_MODE] = self.create_publisher(Bool, '/gamepad/auto_mode', 10)
+        # self.gamepad_publishers[STOP_MODE] = self.create_publisher(Bool, '/gamepad/stop_mode', 10)
 
 
         self.joystick_button_mapping = {"A": 0, "B": 1, "X": 2, "Y": 3, "LB": 4,

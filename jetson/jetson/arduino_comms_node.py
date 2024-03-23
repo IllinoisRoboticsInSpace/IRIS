@@ -13,6 +13,8 @@ from teleop import get_gamepad_mapping
 
 from motor_driver import MotorDriver
 
+from functools import partial
+
 N_INPUTS = 9
 
 class arduino_comms_node(Node):
@@ -29,16 +31,25 @@ class arduino_comms_node(Node):
         #                         "exc pivot lin act": EXC_PIVOT_LIN, "auto mode": AUTO_MODE, "stop mode": STOP_MODE}
         self.gamepad_mapping = get_gamepad_mapping()
 
-        self.gamepad_subscribers[self.gamepad_mapping["left drive"]] = self.create_publisher(Float32, '/gamepad/left_drive', self.motor_driver_callback, 10)
-        self.gamepad_subscribers[self.gamepad_mapping["right drive"]] = self.create_publisher(Float32, '/gamepad/right_drive', self.motor_driver_callback, 10)
-        self.gamepad_subscribers[self.gamepad_mapping["left back cltn motor"]] = self.create_publisher(Bool, '/gamepad/left_back_coll', self.motor_driver_callback, 10)
-        self.gamepad_subscribers[self.gamepad_mapping["right back cltn motor"]] = self.create_publisher(Bool, '/gamepad/right_back_coll', self.motor_driver_callback, 10)
-        self.gamepad_subscribers[self.gamepad_mapping["exc internal motor"]] = self.create_publisher(Bool, '/gamepad/exc_internal', self.motor_driver_callback, 10)    
-        self.gamepad_subscribers[self.gamepad_mapping["exc thread rod act"]] = self.create_publisher(Bool, '/gamepad/exc_thread_rod', self.motor_driver_callback, 10)
-        self.gamepad_subscribers[self.gamepad_mapping["exc pivot lin act"]] = self.create_publisher(Bool, '/gamepad/exc_pivot_lin', self.motor_driver_callback, 10)
+        for key, value in self.gamepad_mapping.items():
+            if key in ["left_drive", "right_drive"]:
+                msg_type = Float32
+            else:
+                msg_type = Bool
 
-        self.gamepad_subscribers[self.gamepad_mapping["auto mode"]] = self.create_publisher(Bool, '/gamepad/auto_mode', self.motor_driver_callback, 10)
-        self.gamepad_subscribers[self.gamepad_mapping["stop mode"]] = self.create_publisher(Bool, '/gamepad/stop_mode', self.motor_driver_callback, 10)
+            callback = partial(self.motor_driver_callback, motor=key)
+            self.gamepad_subscribers[key] = self.create_subscription(msg_type, f"/gamepad/{key}", callback, 10)
+
+        # self.gamepad_subscribers[self.gamepad_mapping["left_drive"]] = self.create_publisher(Float32, '/gamepad/left_drive', self.motor_driver_callback, 10)
+        # self.gamepad_subscribers[self.gamepad_mapping["right_drive"]] = self.create_publisher(Float32, '/gamepad/right_drive', self.motor_driver_callback, 10)
+        # self.gamepad_subscribers[self.gamepad_mapping["left_back_cltn_mtr"]] = self.create_publisher(Bool, '/gamepad/left_back_coll', self.motor_driver_callback, 10)
+        # self.gamepad_subscribers[self.gamepad_mapping["right_back_cltn_mtr"]] = self.create_publisher(Bool, '/gamepad/right_back_coll', self.motor_driver_callback, 10)
+        # self.gamepad_subscribers[self.gamepad_mapping["exc_intrnl_mtr"]] = self.create_publisher(Bool, '/gamepad/exc_internal', self.motor_driver_callback, 10)    
+        # self.gamepad_subscribers[self.gamepad_mapping["exc_thrd_rod_actr"]] = self.create_publisher(Bool, '/gamepad/exc_thread_rod', self.motor_driver_callback, 10)
+        # self.gamepad_subscribers[self.gamepad_mapping["exc_pvt_lin_actr"]] = self.create_publisher(Bool, '/gamepad/exc_pivot_lin', self.motor_driver_callback, 10)
+
+        # self.gamepad_subscribers[self.gamepad_mapping["auto_mode"]] = self.create_publisher(Bool, '/gamepad/auto_mode', self.motor_driver_callback, 10)
+        # self.gamepad_subscribers[self.gamepad_mapping["stop_mode"]] = self.create_publisher(Bool, '/gamepad/stop_mode', self.motor_driver_callback, 10)
         
         self.get_logger().info(f"Created node {self.get_name()}")
 
@@ -47,10 +58,12 @@ class arduino_comms_node(Node):
         
         self.arduino = serial.Serial(port = '/dev/ttyACM0', baudrate = 9600, timeout = .1)
 
-    def motor_driver_callback(self, msg):
-        self.get_logger().info("Data received: %s" % msg.data)
+    def motor_driver_callback(self, motor, msg):
+        self.get_logger().info(f"Data received on {motor}: %s" % msg.data)
 
-        if()
+        if(motor == "left_drive"):
+            None
+        
 
 
 def main(args=None):
