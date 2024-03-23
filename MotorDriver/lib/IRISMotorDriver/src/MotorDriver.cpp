@@ -2,13 +2,14 @@
 #include "DebugTools.h"
 
 EmbeddedProto::WriteBufferFixedSize<SEND_COMMAND_BUFFER_SIZE> MotorDriver::send_command_buffer = EmbeddedProto::WriteBufferFixedSize<SEND_COMMAND_BUFFER_SIZE>();
+Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES> MotorDriver::proto_send_message = Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>();
 
 /**
  * Initialize motor driver state
 */
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs)
     : serialTransferBaudRate(serialTransferBaudRate), motor_configs(configs), encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>())
-    , debug_mode_enabled(false), proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
+    , debug_mode_enabled(false)//, proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
     
 }
@@ -16,7 +17,7 @@ MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<Saberto
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
     : serialTransferBaudRate(serialTransferBaudRate), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
     , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false)
-    , proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
+    //, proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
     
 }
@@ -24,7 +25,7 @@ MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
 MotorDriver::MotorDriver()
     : serialTransferBaudRate(DEFAULT_HOST_SERIAL_BAUD_RATE), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
     , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false)
-    , proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
+    //, proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
 
 }

@@ -15,8 +15,25 @@ MotorDriver driver;
 // Serial: line from us to arduino
 // Serial1: line from arduino to sabertooth
 
+std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> motor_configs;
+std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS> encoder_configs;
+
+
 void setup() {
   Serial.begin(DEFAULT_HOST_SERIAL_BAUD_RATE);
+
+  // Set configs
+  motor_configs[0] = SabertoothOperator(128, DEFAULT_SABERTOOTH_BAUD_RATE, 2, Serial1, false, true);
+  motor_configs[1] = SabertoothOperator(128, DEFAULT_SABERTOOTH_BAUD_RATE, 1, Serial1, false, true);
+  motor_configs[2] = SabertoothOperator(129, DEFAULT_SABERTOOTH_BAUD_RATE, 1, Serial1, false, true);
+  // Needs to be set to cytron implementation
+  // motor_configs[3] = SabertoothOperator(130, DEFAULT_SABERTOOTH_BAUD_RATE, 2, Serial1, false, true);
+
+  // encoder_configs[0] = RotaryEncoderOperator(1, 2, RotaryEncoder::LatchMode::TWO03);
+  // encoder_configs[1] = RotaryEncoderOperator(1, 2, RotaryEncoder::LatchMode::TWO03);
+  // encoder_configs[2] = RotaryEncoderOperator(1, 2, RotaryEncoder::LatchMode::TWO03);
+  // encoder_configs[3] = RotaryEncoderOperator(1, 2, RotaryEncoder::LatchMode::TWO03);
+
 
   driver = MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE);
 
@@ -27,5 +44,18 @@ void setup() {
 }
 
 void loop() {
-  driver.update();
+  // driver.update();
+
+  Serial_Message_To_Arduino command;
+  command.set_opcode(Opcode_To_Arduino::TURN_MOTOR);
+  Turn_Motor turn_motor_command;
+  turn_motor_command.set_motorID(0);
+  turn_motor_command.set_percentOutput(.25);
+
+  driver.execute(command);
+  delay(2000);
+  turn_motor_command.set_percentOutput(0);
+  driver.execute(command);
+  
+  delay(5000);
 }
