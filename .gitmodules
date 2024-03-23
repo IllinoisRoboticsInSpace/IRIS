@@ -17,3 +17,6 @@
 [submodule "MotorDriver/lib/lwrb"]
 	path = MotorDriver/lib/lwrb
 	url = https://github.com/MaJerle/lwrb.git
+[submodule "MotorDriver/lib/BindArg"]
+	path = MotorDriver/lib/BindArg
+	url = https://github.com/openlab-vn-ua/BindArg.git

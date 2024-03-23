@@ -37,15 +37,15 @@ void parse_serial_test(void)
     reset();
 
     MotorDriver default_motor_driver;
-    EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer;
+    EmbeddedProto::ReadBufferFixedSize<RECEIVED_COMMAND_BUFFER_SIZE> command_buffer;
 
-    Serial_Message received_message;
+    Serial_Message_To_Arduino received_message;
     Sabertooth_Config_Data sabertooth_config_update;
     sabertooth_config_update.set_enabled(true);
     sabertooth_config_update.set_motorID(0);
 
-    received_message.set_configData(sabertooth_config_update);
-    received_message.set_opcode(Opcode::CONFIG_MOTOR);
+    received_message.set_sabertoothConfigData(sabertooth_config_update);
+    received_message.set_opcode(Opcode_To_Arduino::CONFIG_MOTOR);
     
     // Serialize Message
     auto serialization_status = received_message.serialize(write_fixed_buffer);
@@ -79,16 +79,16 @@ void execute_config_motor_message_test(void)
     reset();
 
     MotorDriver default_motor_driver;
-    EmbeddedProto::ReadBufferFixedSize<COMMAND_BUFFER_SIZE> command_buffer;
+    EmbeddedProto::ReadBufferFixedSize<RECEIVED_COMMAND_BUFFER_SIZE> command_buffer;
 
-    Serial_Message received_message;
+    Serial_Message_To_Arduino received_message;
     Sabertooth_Config_Data sabertooth_config_update;
     sabertooth_config_update.set_enabled(true);
     const int motorID = 0;
     sabertooth_config_update.set_motorID(motorID);
 
-    received_message.set_configData(sabertooth_config_update);
-    received_message.set_opcode(Opcode::CONFIG_MOTOR);
+    received_message.set_sabertoothConfigData(sabertooth_config_update);
+    received_message.set_opcode(Opcode_To_Arduino::CONFIG_MOTOR);
 
     TEST_ASSERT_FALSE(default_motor_driver.getConfig(motorID).getEnabled());
 

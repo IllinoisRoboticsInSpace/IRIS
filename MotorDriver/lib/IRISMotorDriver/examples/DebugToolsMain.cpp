@@ -3,7 +3,7 @@
 #include "generated/commands.h"
 
 void setup() {
-  Serial.begin(112500);//For printing
+  Serial.begin(115200);//For printing
 
   // Must set ENABLE_DEBUG in DebugTools.h to true
   DEBUG_PRINTLN("DEBUG_PRINTLN");
