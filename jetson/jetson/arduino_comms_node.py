@@ -53,51 +53,55 @@ class arduino_comms_node(Node):
     #                             "right_back_cltn_mtr": RIGHT_BACK_COLL, "exc_intrnl_mtr": EXC_INTERNAL, "exc_thrd_rod_actr": EXC_THREAD_ROD,
     #                             "exc_pvt_lin_actr": EXC_PIVOT_LIN, "auto_mode": AUTO_MODE, "stop_mode": STOP_MODE}
     
-    def motor_driver_callback(self, motor, msg):
+    def motor_driver_callback(self, msg, motor):
         with self.lock:
             self.get_logger().info(f"Data received on {motor}: %s" % msg.data)
 
             if motor == "left_drive":
                 self.motor_driver.turnMotor(self.gamepad_mapping[motor], msg.data)
+                return
 
             elif motor == "right_drive":
                 self.motor_driver.turnMotor(self.gamepad_mapping[motor], msg.data)
+                return
 
             elif motor == "left_back_cltn_mtr":
-                pass
+                return
 
             elif motor == "right_back_cltn_mtr":
-                pass
+                return
 
             elif motor == "exc_intrnl_mtr":
-                pass
+                return
 
             elif motor == "exc_thrd_rod_actr":
                 # self.motor_driver.turnMotor(self.gamepad_mapping[motor], FULL_MTR_PWR)
-                pass
+                return
 
             elif motor == "exc_pvt_lin_actr":
                 # self.motor_driver.turnMotor(self.gamepad_mapping[motor], FULL_MTR_PWR)
-                pass
+                return
 
             elif motor == "auto_mode":
                 self.switch_to_auto_mode()
+                return
 
             elif motor == "stop_mode":
                 self.motor_driver.stopMotors()
+                return
 
     def switch_to_auto_mode(self):
         # TODO: update subscription to nav2 nodes
-        for key, value in self.gamepad_mapping.items():
-            if key in ["left_drive", "right_drive"]:
-                msg_type = Float32
-            else:
-                msg_type = Bool
+        # for key, value in self.gamepad_mapping.items():
+        #     if key in ["left_drive", "right_drive"]:
+        #         msg_type = Float32
+        #     else:
+        #         msg_type = Bool
 
-            callback = partial(self.motor_driver_callback, motor=key)
-            self.gamepad_subscribers[value] = self.create_subscription(msg_type, f"/gamepad/{key}", callback, 10)
+        #     callback = partial(self.motor_driver_callback, motor=key)
+        #     self.gamepad_subscribers[value] = self.create_subscription(msg_type, f"/gamepad/{key}", callback, 10)
             
-        
+        return
 
 
 def main(args=None):

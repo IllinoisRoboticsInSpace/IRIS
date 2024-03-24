@@ -64,8 +64,10 @@ class gamepad_node(Node):
         # self.software_scale = 80
         # self.software_deadzone = 0.5
 
+        self.prev_state = [0.0] * N_AXIS_USED + [False] * N_BUTTONS_USED
         self.curr_state = [0.0] * N_AXIS_USED + [False] * N_BUTTONS_USED
-        self.auto_button_prev_state = False
+        # self.get_logger().info(f"prev: {self.prev_state}")
+        # self.get_logger().info(f"prev: {self.curr_state}")
         
 
         # publisher init to 'gamepad' topic
@@ -96,12 +98,13 @@ class gamepad_node(Node):
 
         # power off
         if (joy_msg.buttons[self.joystick_button_mapping["power"]] == 1):
+            self.prev_state[STOP_MODE] = self.curr_state[STOP_MODE]
             self.curr_state[STOP_MODE] = True
 
         # auto mode
         if (joy_msg.buttons[self.joystick_button_mapping["start"]] == 1):
-            self.curr_state[AUTO_MODE] = not self.auto_button_prev_state
-            self.auto_button_prev_state = self.curr_state[AUTO_MODE]
+            self.curr_state[AUTO_MODE] = not self.prev_state[AUTO_MODE]
+            self.prev_state[AUTO_MODE] = self.curr_state[AUTO_MODE]
 
         if self.curr_state[STOP_MODE] == True:
             for i in range(len(self.curr_state)):
@@ -115,7 +118,6 @@ class gamepad_node(Node):
             self.curr_state[EXC_INTERNAL] = joy_msg.buttons[self.joystick_button_mapping["A"]]
             self.curr_state[EXC_THREAD_ROD] = joy_msg.buttons[self.joystick_button_mapping["B"]]
             self.curr_state[EXC_PIVOT_LIN] = joy_msg.buttons[self.joystick_button_mapping["X"]]
-            self.auto_button_prev_state = joy_msg.buttons[self.joystick_button_mapping["start"]] # ??????
 
         for i in range(len(self.curr_state)):
             if (self.prev_state[i] != self.curr_state[i]):
