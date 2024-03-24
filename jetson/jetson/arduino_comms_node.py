@@ -9,12 +9,13 @@ from sensor_msgs.msg import Joy
 from std_msgs.msg import String
 
 import serial
-from teleop import get_gamepad_mapping
 
 from motor_driver import MotorDriver
 
 from functools import partial
 from threading import Lock
+
+from teleop.gamepad_node import *
 
 N_INPUTS = 9
 FULL_MTR_PWR = 0.8 # so we dont break things

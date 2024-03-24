@@ -15,6 +15,7 @@ FIXED_RECEIVED_MESSAGE_LENGTH = 16 # The number of bytes of a message received f
 SERIAL_BUFFER_BYTES = 64 # What is this for
 MIN_MOTOR_ID = 0
 MAX_MOTOR_ID = 3
+DEBUG_MODE = True
 
 
 class SerialReader(LineReader):
@@ -30,23 +31,23 @@ class SerialReader(LineReader):
         self._event_thread.name = 'serialreader-event'
         self._event_thread.start()
         self.lock = threading.Lock()
-        self.debug_mode = True
+        # self.debug_mode = True
 
     def stop(self):
         self.alive = False
         self.events.put(None)
 
-    def run_event(self):
+    def _run_event(self):
         while self.alive:
             try:
                 event = self.events.get()
-                if self.debug_mode == True:
+                if DEBUG_MODE == True:
                     print("event received: ", event)
             except:
                 logging.exception("could not run event")
 
-    def set_debug_mode(self, state: bool):
-        self.debug_mode = state
+    # def set_debug_mode(self, state: bool):
+    #     self.debug_mode = state
 
     def connection_made(self, transport: ReaderThread) -> None:
         super(SerialReader, self).connection_made(transport)
@@ -60,7 +61,7 @@ class SerialReader(LineReader):
             for chunk in line_chunks:
                 self.events.put(chunk)
 
-    def connection_lost(self, exc: BaseException | None) -> None:
+    def connection_lost(self, exc: BaseException) -> None:
         super().connection_lost(exc)
         print("disconnected")
 
@@ -96,10 +97,10 @@ class MotorDriver:
         # self.debugPrinter.start()
         self.debugReader.start()
         
-    def __del__(self):
-        # self.debugPrinter.stop()
-        # self.debugPrinter.join()
-        self.debugReader.stop()
+    # def __del__(self):
+    #     # self.debugPrinter.stop()
+    #     # self.debugPrinter.join()
+    #     self.debugReader.stop()
 
     def initMotorDriver(self):
         # send all motor configs
@@ -117,8 +118,9 @@ class MotorDriver:
 
     def setDebugMode(self, toggle: bool):
         # self.debugPrinter.debug_flag(toggle)
-        self.debugReader.set_debug_mode(toggle)
-        message = commands_pb2.Serial_Message()
+        # self.debugReader.set_debug_mode(toggle)
+        DEBUG_MODE = toggle
+        message = commands_pb2.Serial_Message_To_Arduino()
         message.opcode = commands_pb2.SET_DEBUG_MODE
 
         if toggle == True:
@@ -135,7 +137,7 @@ class MotorDriver:
         if motorID < MIN_MOTOR_ID or motorID > MAX_MOTOR_ID:
             raise ValueError("Invalid Motor ID")
 
-        message = commands_pb2.Serial_Message()
+        message = commands_pb2.Serial_Message_To_Arduino()
         message.opcode = commands_pb2.CONFIG_MOTOR
         message.Sabertooth_Config_Data.motorID = self.motorConfigs[motorID].motorID
         message.Sabertooth_Config_Data.enabled = False
@@ -157,7 +159,7 @@ class MotorDriver:
         self.serialLine.write(message.SerializeToString())
 
     def stopMotors(self):
-        message = commands_pb2.Serial_Message()
+        message = commands_pb2.Serial_Message_To_Arduino()
         message.opcode = commands_pb2.STOP_ALL_MOTORS
         self.serialLine.write(message.SerializeToString())
 
@@ -167,7 +169,7 @@ class MotorDriver:
         if motorID < MIN_MOTOR_ID or motorID > MAX_MOTOR_ID:
             raise ValueError("Invalid Motor ID")
 
-        message = commands_pb2.Serial_Message()
+        message = commands_pb2.Serial_Message_To_Arduino()
         message.opcode = commands_pb2.TURN_MOTOR
         message.motorCommand.percentOutput = output
         message.motorCommand.motorID = motorID
