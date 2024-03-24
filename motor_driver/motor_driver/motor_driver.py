@@ -139,23 +139,23 @@ class MotorDriver:
 
         message = commands_pb2.Serial_Message_To_Arduino()
         message.opcode = commands_pb2.CONFIG_MOTOR
-        message.Sabertooth_Config_Data.motorID = self.motorConfigs[motorID].motorID
-        message.Sabertooth_Config_Data.enabled = False
+        message.sabertoothConfigData.motorID = self.motorConfigs[motorID].motorID
+        message.sabertoothConfigData.enabled = False
         self.serialLine.write(message.SerializeToString())
         
-        message.Sabertooth_Config_Data.serialLine = self.motorConfigs[motorID].serialLine
+        message.sabertoothConfigData.serialLine = self.motorConfigs[motorID].serialLine
         self.serialLine.write(message.SerializeToString())
 
-        message.Sabertooth_Config_Data.motorNum = self.motorConfigs[motorID].motorNum
+        message.sabertoothConfigData.motorNum = self.motorConfigs[motorID].motorNum
         self.serialLine.write(message.SerializeToString())
 
-        message.Sabertooth_Config_Data.address = self.motorConfigs[motorID].address
+        message.sabertoothConfigData.address = self.motorConfigs[motorID].address
         self.serialLine.write(message.SerializeToString())
 
-        message.Sabertooth_Config_Data.inverted = self.motorConfigs[motorID].inverted
+        message.sabertoothConfigData.inverted = self.motorConfigs[motorID].inverted
         self.serialLine.write(message.SerializeToString())
 
-        message.Sabertooth_Config_Data.enabled = True
+        message.sabertoothConfigData.enabled = True
         self.serialLine.write(message.SerializeToString())
 
     def stopMotors(self):

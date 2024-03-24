@@ -11,6 +11,9 @@ from std_msgs.msg import String
 import serial
 
 from motor_driver import MotorDriver
+from motor_driver import MotorConfig
+
+from motor_driver.generated import commands_pb2
 
 from functools import partial
 from threading import Lock
@@ -26,7 +29,6 @@ class arduino_comms_node(Node):
         super().__init__('arduino_comms_node')
 
         self.lock = Lock()
-        self.motor_driver = MotorDriver(debugMode=True)
 
         self.gamepad_subscribers = [None] * N_INPUTS
 
@@ -47,6 +49,18 @@ class arduino_comms_node(Node):
         # initializes arduino serial port. make sure baudrate is same for arduino and python code
         
         self.arduino = serial.Serial(port = '/dev/ttyACM0', baudrate = 9600, timeout = .1)
+
+        self.motor_driver = MotorDriver(debugMode=True)
+
+        left_drive_config = MotorConfig(self.gamepad_mapping["left_drive"], commands_pb2.Serial1, 2, 128, False)
+        self.motor_driver.setMotorConfig(left_drive_config)
+        self.motor_driver.sendMotorConfig(self.gamepad_mapping["left_drive"])
+        self.get_logger().info(f'left config complete on id {self.gamepad_mapping["left_drive"]}')
+
+        right_drive_config = MotorConfig(self.gamepad_mapping["right_drive"], commands_pb2.Serial1, 1, 128, False)
+        self.motor_driver.setMotorConfig(right_drive_config)
+        self.motor_driver.sendMotorConfig(self.gamepad_mapping["right_drive"])
+        self.get_logger().info(f'right config complete on id {self.gamepad_mapping["right_drive"]}')
 
 
     # mapping = {"left_drive": LEFT_DRIVE, "right_drive": RIGHT_DRIVE, "left_back_cltn_mtr": LEFT_BACK_COLL, 

@@ -104,7 +104,7 @@ class gamepad_node(Node):
         # auto mode
         if (joy_msg.buttons[self.joystick_button_mapping["start"]] == 1):
             self.curr_state[AUTO_MODE] = not self.prev_state[AUTO_MODE]
-            self.prev_state[AUTO_MODE] = self.curr_state[AUTO_MODE]
+            self.prev_state[AUTO_MODE] = not self.curr_state[AUTO_MODE]
 
         if self.curr_state[STOP_MODE] == True:
             for i in range(len(self.curr_state)):
