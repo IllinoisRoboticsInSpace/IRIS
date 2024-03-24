@@ -17,6 +17,7 @@ from functools import partial
 from threading import Lock
 
 N_INPUTS = 9
+FULL_MTR_PWR = 0.8 # so we dont break things
 
 class arduino_comms_node(Node):
 
@@ -56,10 +57,10 @@ class arduino_comms_node(Node):
             self.get_logger().info(f"Data received on {motor}: %s" % msg.data)
 
             if motor == "left_drive":
-                pass
+                self.motor_driver.turnMotor(self.gamepad_mapping[motor], msg.data)
 
             elif motor == "right_drive":
-                pass
+                self.motor_driver.turnMotor(self.gamepad_mapping[motor], msg.data)
 
             elif motor == "left_back_cltn_mtr":
                 pass
@@ -71,16 +72,29 @@ class arduino_comms_node(Node):
                 pass
 
             elif motor == "exc_thrd_rod_actr":
+                # self.motor_driver.turnMotor(self.gamepad_mapping[motor], FULL_MTR_PWR)
                 pass
 
             elif motor == "exc_pvt_lin_actr":
+                # self.motor_driver.turnMotor(self.gamepad_mapping[motor], FULL_MTR_PWR)
                 pass
 
             elif motor == "auto_mode":
-                pass
+                self.switch_to_auto_mode()
 
             elif motor == "stop_mode":
                 self.motor_driver.stopMotors()
+
+    def switch_to_auto_mode(self):
+        # TODO: update subscription to nav2 nodes
+        for key, value in self.gamepad_mapping.items():
+            if key in ["left_drive", "right_drive"]:
+                msg_type = Float32
+            else:
+                msg_type = Bool
+
+            callback = partial(self.motor_driver_callback, motor=key)
+            self.gamepad_subscribers[value] = self.create_subscription(msg_type, f"/gamepad/{key}", callback, 10)
             
         
 
