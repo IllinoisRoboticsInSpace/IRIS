@@ -37,6 +37,9 @@ SEND_COMMAND_BUFFER_SIZE = (FIXED_SEND_MESSAGE_LENGTH) # Size of buffer for data
 # Debug functionality message defines
 MAX_DEBUG_STRING_SIZE_BYTES = 6
 
+# string end char for queue
+STR_END = "e"
+
 
 class SerialReader(LineReader):
 
@@ -61,7 +64,10 @@ class SerialReader(LineReader):
             try:
                 event = self.events.get()
                 if DEBUG_MODE == True:
-                    print(f"{event}")
+                    if(event == STR_END):
+                        print("")
+                    else:
+                        print(f"{event}", end="")
             except:
                 logging.exception("could not run event")
 
@@ -76,6 +82,7 @@ class SerialReader(LineReader):
             line_chunks = [line[i:i+FIXED_RECEIVED_MESSAGE_LENGTH] for i in range(0, len(line), FIXED_RECEIVED_MESSAGE_LENGTH)]
             for chunk in line_chunks:
                 self.events.put(chunk)
+            self.events.put(STR_END)
 
     def connection_lost(self, exc: BaseException) -> None:
         super().connection_lost(exc)
@@ -116,6 +123,8 @@ class MotorDriver:
             if self.motorConfigs[motor_id] is not None:
                 self.sendMotorConfig(motor_id)
                 print("motor config update")
+
+        self.turnMotor(0, 0.5)
         
     def resetDevice(self):
         self.serialLine.setDTR(False)

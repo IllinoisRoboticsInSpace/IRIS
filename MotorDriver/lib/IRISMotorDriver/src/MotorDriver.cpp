@@ -131,6 +131,9 @@ void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
         case Opcode_To_Arduino::TURN_MOTOR:
         {
             auto turn_motor = deserialized_message.get_motorCommand();
+            DEBUG_PRINTLN("Turn Motor Command:")
+            DEBUG_PRINT_MESSAGE(turn_motor)
+            DEBUG_PRINTLN("")
             int motorID = turn_motor.get_motorID();
             if (motor_configs[motorID].getEnabled() == true)
             {
