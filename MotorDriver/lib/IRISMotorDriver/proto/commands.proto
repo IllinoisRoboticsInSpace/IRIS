@@ -43,6 +43,8 @@ enum Opcode_To_Arduino
     CONFIG_ENCODER = 7;
     GET_ENCODER_COUNT = 8;
     ZERO_ENCODER = 9;
+    CONFIG_CYTRON = 10;
+    TURN_CYTRON = 11;
 }
 
 message Serial_Message_To_Arduino
@@ -59,6 +61,8 @@ message Serial_Message_To_Arduino
         Encoder_Config_Data encoderConfigData = 5007;
         Zero_Encoder_Command zeroEncoderCommand = 5008;
         Encoder_Count_Request encoderCountRequest = 5009;
+        Cytron_Config_Data cytronConfigData = 5010;
+        Turn_Cytron_Motor cytronMotorCommand = 5011;
     }
 }
 
@@ -133,6 +137,23 @@ message Encoder_Count_Request
 {
     uint32 encoderID = 13000;
 }
+
+message Cytron_Config_Data{
+    uint32 motorID = 14000;
+    oneof values 
+    {
+        bool inverted = 14001;
+        bool enabled = 14002;
+        uint32 pwm_pin = 14003;
+        uint32 dir_pin = 14004;
+    }
+}
+message Turn_Cytron_Motor
+{
+    uint32 motorID = 15000;
+    float percentOutput = 15001;
+}
+
 
 //--------------------------------------------------------------------//
 // Messages to Jetson

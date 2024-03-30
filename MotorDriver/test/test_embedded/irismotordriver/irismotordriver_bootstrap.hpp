@@ -2,6 +2,7 @@
 #include "sabertoothoperator_test.hpp"
 #include "rotaryencoderoperator_test.hpp"
 #include "protobufutilities_test.hpp"
+#include "cytronoperator_test.hpp"
 
 void RUN_IRISMOTORDRIVER_TESTS(void)
 {
@@ -24,4 +25,8 @@ void RUN_IRISMOTORDRIVER_TESTS(void)
     // ProtobufUtilities
     RUN_TEST(saberooth_serial_line_conversion_test);
     RUN_TEST(latchmode_conversion_test);
+
+    RUN_TEST(cytron_operator_default_constructor_test);
+    RUN_TEST(cytron_operator_require_disabled_for_update_test);
+    RUN_TEST(cytron_operator_update_key_not_set_test);
 }

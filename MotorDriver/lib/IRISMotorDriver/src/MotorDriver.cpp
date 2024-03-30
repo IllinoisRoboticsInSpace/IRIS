@@ -8,13 +8,15 @@ EmbeddedProto::WriteBufferFixedSize<SEND_COMMAND_BUFFER_SIZE> MotorDriver::send_
 */
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs)
     : serialTransferBaudRate(serialTransferBaudRate), motor_configs(configs), encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>())
+    , cytron_configs(std::array<CytronOperator, MAX_CYTRON_MOTOR_CONFIGS>())
     , debug_mode_enabled(false), proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
     
 }
 
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
-    : serialTransferBaudRate(serialTransferBaudRate), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
+    : serialTransferBaudRate(serialTransferBaudRate), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>()) 
+    , cytron_configs(std::array<CytronOperator, MAX_CYTRON_MOTOR_CONFIGS>())
     , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false)
     , proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
@@ -23,6 +25,7 @@ MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
 
 MotorDriver::MotorDriver()
     : serialTransferBaudRate(DEFAULT_HOST_SERIAL_BAUD_RATE), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
+    , cytron_configs(std::array<CytronOperator, MAX_CYTRON_MOTOR_CONFIGS>())
     , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false)
     , proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
@@ -44,6 +47,11 @@ bool MotorDriver::initMotorDriver()
             sabertoothOperator.init();
         }
     }
+    for(CytronOperator cytron_operator : cytron_configs){
+        if(cytron_operator.getEnabled() == true){
+            cytron_operator.init();
+        }
+    }
      // Check if enabled configs need initialization.
     for (RotaryEncoderOperator rotaryEncoderOperator : encoder_configs)
     {
@@ -57,7 +65,7 @@ bool MotorDriver::initMotorDriver()
 
     Serial.begin(serialTransferBaudRate); //Serial used for USB is reserved for communication with host
     while (!Serial) {} //Wait till connection to host is made
-    DEBUG_PRINTLN("Initialized Motor Driver")
+    DEBUG_PRINTLN("Initialized Motor Driver") // dose not finish this statment
     return true;
 }
 
@@ -125,6 +133,7 @@ EmbeddedProto::Error MotorDriver::parse(Serial_Message_To_Arduino& deserialized_
 void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
 {
     Opcode_To_Arduino opcode = deserialized_message.get_opcode();
+    Serial.println((int)opcode);
     switch (opcode)
     {
         case Opcode_To_Arduino::TURN_MOTOR:
@@ -184,6 +193,23 @@ void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
             encoder_count.set_tick_count(encoder_configs[encoderID].get_encoder_tick_count());
             proto_send_message.set_encoder_count_data(encoder_count);
             send_message(proto_send_message);
+            break;
+        }
+        case Opcode_To_Arduino::CONFIG_CYTRON:
+        {
+            auto config_update = deserialized_message.get_cytronConfigData();
+            int motorID = config_update.get_motorID();
+            bool error = cytron_configs[motorID].applyConfigUpdate(config_update);
+            break; 
+        }
+        case Opcode_To_Arduino::TURN_CYTRON:
+        {
+            auto turn_motor = deserialized_message.get_cytronMotorCommand();
+            int motorID = turn_motor.get_motorID();
+            if (motor_configs[motorID].getEnabled() == true)
+            {
+                cytron_configs[motorID].setOutput(turn_motor.get_percentOutput());
+            }
             break;
         }
         //Impossible to have invalid opcode unless deserialization did not work.

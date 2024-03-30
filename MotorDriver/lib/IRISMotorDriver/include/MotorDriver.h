@@ -9,12 +9,16 @@
 
 #include "Sabertooth.h"
 #include "SabertoothOperator.h"
+#include "CytronOperator.h"
 #include "RotaryEncoderOperator.h"
 #include "WriteBufferFixedSize.h"
 #include "ReadBufferFixedSize.h"
 
 #define MAX_MOTOR_ID 15 // Maximum number of motor ids 0 indexed
 #define MAX_MOTOR_CONFIGS (MAX_MOTOR_ID + 1)
+
+#define MAX_CYTRON_MOTOR_ID 15 
+#define MAX_CYTRON_MOTOR_CONFIGS (MAX_CYTRON_MOTOR_ID + 1)
 
 #define MAX_ENCODER_ID 14 // Maximum number of encoders ids 0 indexed
 #define MAX_ENCODER_CONFIGS (MAX_ENCODER_ID + 1)
@@ -109,6 +113,7 @@ class MotorDriver
   private:
     unsigned int serialTransferBaudRate;
     std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> motor_configs; // contains configs of sabertooths
+    std::array<CytronOperator, MAX_CYTRON_MOTOR_CONFIGS> cytron_configs;
     std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS> encoder_configs;
     EmbeddedProto::ReadBufferFixedSize<RECEIVED_COMMAND_BUFFER_SIZE> receive_command_buffer; //Operates on uint8
     bool debug_mode_enabled;
