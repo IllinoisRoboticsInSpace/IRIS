@@ -1,3 +1,4 @@
+import sys
 import serial
 from serial.threaded import ReaderThread, LineReader
 import threading
@@ -5,17 +6,36 @@ import time
 from motor_driver.generated import commands_pb2
 import logging
 from time import sleep
+import string
 
 try:
     import queue
 except ImportError:
     import Queue as queue
 
-FIXED_RECEIVED_MESSAGE_LENGTH = 16 # The number of bytes of a message received from host
-SERIAL_BUFFER_BYTES = 64 # What is this for
-MIN_MOTOR_ID = 0
-MAX_MOTOR_ID = 3
+# Modifyable
 DEBUG_MODE = True
+
+# Constant
+SERIAL_BUFFER_BYTES = 64 # Max hardware serial buffer size
+
+MIN_MOTOR_ID = 0
+MAX_MOTOR_ID = 15 # Maximum number of motor ids 0 indexed
+MAX_MOTOR_CONFIGS = (MAX_MOTOR_ID + 1)
+
+MAX_ENCODER_ID = 14 # Maximum number of encoders ids 0 indexed
+MAX_ENCODER_CONFIGS = (MAX_ENCODER_ID + 1)
+DEFAULT_HOST_SERIAL_BAUD_RATE = 112500 # Baud rate of serial communication with host
+
+#TODO: Write unit test to always check that this is valid
+FIXED_RECEIVED_MESSAGE_LENGTH = 16 # The number of bytes of a message received from host
+RECEIVED_COMMAND_BUFFER_SIZE = (FIXED_RECEIVED_MESSAGE_LENGTH * 2) # Size of commands buffer, data comes from host
+
+FIXED_SEND_MESSAGE_LENGTH = 16 # The number of bytes of a message to send to host
+SEND_COMMAND_BUFFER_SIZE = (FIXED_SEND_MESSAGE_LENGTH) # Size of buffer for data that goes to host
+
+# Debug functionality message defines
+MAX_DEBUG_STRING_SIZE_BYTES = 6
 
 
 class SerialReader(LineReader):
@@ -31,7 +51,6 @@ class SerialReader(LineReader):
         self._event_thread.name = 'serialreader-event'
         self._event_thread.start()
         self.lock = threading.Lock()
-        # self.debug_mode = True
 
     def stop(self):
         self.alive = False
@@ -42,12 +61,9 @@ class SerialReader(LineReader):
             try:
                 event = self.events.get()
                 if DEBUG_MODE == True:
-                    print("event received: ", event)
+                    print(f"{event}")
             except:
                 logging.exception("could not run event")
-
-    # def set_debug_mode(self, state: bool):
-    #     self.debug_mode = state
 
     def connection_made(self, transport: ReaderThread) -> None:
         super(SerialReader, self).connection_made(transport)
@@ -90,36 +106,26 @@ class MotorDriver:
         self.serialLine = serial.Serial(port = port, baudrate = baudrate, timeout = timeout)
         # List of Motor configs
         self.motorConfigs = [None] * MAX_MOTOR_ID
-        #Start debug thread here?
-        # self.debugPrinter = SerialReader(self.serialLine)
         self.debugReader = ReaderThread(self.serialLine, SerialReader)
         self.setDebugMode(debugMode)
-        # self.debugPrinter.start()
         self.debugReader.start()
-        
-    # def __del__(self):
-    #     # self.debugPrinter.stop()
-    #     # self.debugPrinter.join()
-    #     self.debugReader.stop()
+        sleep(1)
 
     def initMotorDriver(self):
-        # send all motor configs
         for motor_id in range(len(self.motorConfigs)):
             if self.motorConfigs[motor_id] is not None:
                 self.sendMotorConfig(motor_id)
-        # pass # Send all configurations?
+                print("motor config update")
         
     def resetDevice(self):
         self.serialLine.setDTR(False)
         sleep(0.022)
         self.serialLine.setDTR(True)
-        # pass # Send Arduino a reset command?
-        # Reset Arduino to original state
 
     def setDebugMode(self, toggle: bool):
-        # self.debugPrinter.debug_flag(toggle)
-        # self.debugReader.set_debug_mode(toggle)
+        global DEBUG_MODE
         DEBUG_MODE = toggle
+
         message = commands_pb2.Serial_Message_To_Arduino()
         message.opcode = commands_pb2.SET_DEBUG_MODE
 
@@ -128,7 +134,13 @@ class MotorDriver:
         else: 
             message.debugMode.enabled = False
 
-        self.serialLine.write(message.SerializeToString())
+        # print(type(self.stringFill(message)))
+        self.serialLine.write(self.stringFill(message))
+        # self.serialLine.write(message.SerializeToString())
+
+    def stringFill(self, msg):
+        new_msg = str(msg).ljust(FIXED_RECEIVED_MESSAGE_LENGTH-1)[:FIXED_RECEIVED_MESSAGE_LENGTH-1]
+        return new_msg.encode('utf-8')
 
     def setMotorConfig(self, config: MotorConfig):
         self.motorConfigs[config.motorID] = config

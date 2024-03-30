@@ -8,6 +8,10 @@ def generate_launch_description():
 
     return LaunchDescription([
         Node(
-            package='jetson', executable='arduino_comms_node',
-            name='arduino_comms_node')
+            package='jetson', 
+            executable='arduino_comms_node',
+            name='arduino_comms_node',
+            output='screen',
+            emulate_tty=True,
+            )
     ])

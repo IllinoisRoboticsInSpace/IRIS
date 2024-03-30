@@ -17,6 +17,9 @@ MotorDriver driver;
 
 void setup() {
   Serial.begin(DEFAULT_HOST_SERIAL_BAUD_RATE);
+  pinMode(LED_BUILTIN, OUTPUT);
+  delay(1000);
+  digitalWrite(LED_BUILTIN, HIGH);
 
   driver = MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE);
 
@@ -24,8 +27,11 @@ void setup() {
   {
     DEBUG_PRINTLN("Initialization Failed");
   }
+  digitalWrite(LED_BUILTIN, LOW);
+  Serial.flush();
 }
 
 void loop() {
   driver.update();
+  // DEBUG_PRINT(".")s;
 }

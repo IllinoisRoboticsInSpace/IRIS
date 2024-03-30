@@ -57,6 +57,7 @@ bool MotorDriver::initMotorDriver()
 
     Serial.begin(serialTransferBaudRate); //Serial used for USB is reserved for communication with host
     while (!Serial) {} //Wait till connection to host is made
+    delay(1000);
     DEBUG_PRINTLN("Initialized Motor Driver")
     return true;
 }

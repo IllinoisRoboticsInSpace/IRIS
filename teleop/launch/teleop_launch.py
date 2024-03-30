@@ -27,5 +27,8 @@ def generate_launch_description():
             }]),
         Node(
             package='teleop', executable='gamepad_node',
-            name='gamepad_node', parameters=[]),
+            name='gamepad_node', parameters=[],
+            output='screen',
+            emulate_tty=True,
+            ),
     ])

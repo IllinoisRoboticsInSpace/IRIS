@@ -44,6 +44,7 @@ SabertoothOperator& SabertoothOperator::operator=(const SabertoothOperator& othe
 
 bool SabertoothOperator::init()
 {
+    DEBUG_PRINTLN("Initialized Sabertooth");
     if (enabled == true)
     {
         serialLine.begin(baudrate);
