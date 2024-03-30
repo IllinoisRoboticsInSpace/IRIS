@@ -7,8 +7,15 @@ Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES> MotorDriver::proto_send_me
 /**
  * Initialize motor driver state
 */
-MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs)
-    : serialTransferBaudRate(serialTransferBaudRate), motor_configs(configs), encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>())
+MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> motor_configs, std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS> encoder_configs)
+    : serialTransferBaudRate(serialTransferBaudRate), motor_configs(motor_configs), encoder_configs(encoder_configs)
+    , debug_mode_enabled(false)//, proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
+{
+    
+}
+
+MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> motor_configs)
+    : serialTransferBaudRate(serialTransferBaudRate), motor_configs(motor_configs), encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>())
     , debug_mode_enabled(false)//, proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
     
@@ -125,6 +132,9 @@ EmbeddedProto::Error MotorDriver::parse(Serial_Message_To_Arduino& deserialized_
 
 void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
 {
+    DEBUG_PRINTLN("EXECUTING:");
+    DEBUG_PRINT_MESSAGE(deserialized_message);
+    DEBUG_PRINTLN("");
     Opcode_To_Arduino opcode = deserialized_message.get_opcode();
     switch (opcode)
     {

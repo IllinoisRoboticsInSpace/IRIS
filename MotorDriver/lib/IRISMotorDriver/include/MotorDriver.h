@@ -83,7 +83,8 @@
 class MotorDriver
 {
   public:
-    MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> configs);
+    MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> motor_configs, std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS> encoder_configs);
+    MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> motor_configs);
     MotorDriver(unsigned int serialTransferBaudRate);
     MotorDriver();
  
