@@ -22,8 +22,9 @@ def generate_launch_description():
             package='joy', executable='joy_node', name='joy_node',
             parameters=[{
                 'dev': joy_dev,
-                'deadzone': 0.3,
-                'autorepeat_rate': 20.0,
+                'deadzone': 0.2,
+                'autorepeat_rate': 1.0,
+                'coalesce_interval': .5,
             }]),
         Node(
             package='teleop', executable='gamepad_node',

@@ -54,7 +54,7 @@ class gamepad_node(Node):
         self.inv_gamepad_map = get_inverse_gamepad_mapping()
 
         # subscribes to 'joy' topic
-        self.subscription = self.create_subscription(Joy, '/joy', self.joy_callback, 10)
+        self.subscription = self.create_subscription(Joy, '/joy', self.joy_callback, 1)
 
         # Check if arduino node has recieved stop message so we can stop sending it, need to see how to get 2 nodes in callback
         # self.stop_receive = self.create_subscription(Bool, '/arduino_comms/stop_received', self.joy_callback, 10)
