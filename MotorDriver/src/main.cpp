@@ -28,7 +28,7 @@ void setup() {
   // Set configs
   motor_configs[0] = SabertoothOperator(128, DEFAULT_SABERTOOTH_BAUD_RATE, 2, Serial1, false, true);
   motor_configs[1] = SabertoothOperator(128, DEFAULT_SABERTOOTH_BAUD_RATE, 1, Serial1, false, true);
-  // motor_configs[2] = SabertoothOperator(129, DEFAULT_SABERTOOTH_BAUD_RATE, 1, Serial1, false, true);
+  motor_configs[2] = SabertoothOperator(129, DEFAULT_SABERTOOTH_BAUD_RATE, 1, Serial1, false, true);
   // Needs to be set to cytron implementation
   // motor_configs[3] = SabertoothOperator(130, DEFAULT_SABERTOOTH_BAUD_RATE, 2, Serial1, false, true);
 
@@ -42,7 +42,7 @@ void setup() {
   encoder_configs[3].setEnabled(true);
 
 
-  driver = MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE, motor_configs, encoder_configs);
+  driver = MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE, motor_configs);//, encoder_configs);
 
 
   if (driver.initMotorDriver() == false)
@@ -50,7 +50,6 @@ void setup() {
     DEBUG_PRINTLN("Initialization Failed");
   }
   digitalWrite(LED_BUILTIN, LOW);
-  Serial.flush();
 }
 
 void loop() {
@@ -69,7 +68,6 @@ void loop() {
   turn_motor_command.set_percentOutput(-.50);
   command.set_motorCommand(turn_motor_command);
   driver.execute(command);
-  DEBUG_PRINTLN("Spin Slow");
   delay(2000);
   turn_motor_command.set_motorID(0);
   turn_motor_command.set_percentOutput(0);
@@ -80,9 +78,7 @@ void loop() {
   turn_motor_command.set_percentOutput(0);
   command.set_motorCommand(turn_motor_command);
   driver.execute(command);
-  DEBUG_PRINTLN("Spin Stop");
   delay(5000);
-
 
 
   // DEBUG_PRINTF("1:%ld\t2:%ld\t3:%ld\t4:%ld\n", driver.encoder_configs[0].get_encoder_tick_count() 
@@ -98,5 +94,5 @@ void loop() {
   // long a = millis();                                     
   // DEBUG_PRINTF("%ld", a);
 
-  delay(1000);
+  // delay(1000);
 }

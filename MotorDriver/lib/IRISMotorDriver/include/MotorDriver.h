@@ -21,10 +21,10 @@
 #define DEFAULT_HOST_SERIAL_BAUD_RATE 112500 // Baud rate of serial communication with host
 
 //TODO: Write unit test to always check that this is valid
-#define FIXED_RECEIVED_MESSAGE_LENGTH 16 // The number of bytes of a message received from host
+#define FIXED_RECEIVED_MESSAGE_LENGTH 24 // The number of bytes of a message received from host
 #define RECEIVED_COMMAND_BUFFER_SIZE (FIXED_RECEIVED_MESSAGE_LENGTH * 2) // Size of commands buffer, data comes from host
 
-#define FIXED_SEND_MESSAGE_LENGTH 16 // The number of bytes of a message to send to host
+#define FIXED_SEND_MESSAGE_LENGTH 24 // The number of bytes of a message to send to host
 #define SEND_COMMAND_BUFFER_SIZE (FIXED_SEND_MESSAGE_LENGTH) // Size of buffer for data that goes to host
 
 // Debug functionality message defines
