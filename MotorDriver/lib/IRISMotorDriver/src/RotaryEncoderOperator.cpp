@@ -4,13 +4,13 @@
 std::array<bool, NUM_DIGITAL_PINS> RotaryEncoderOperator::digitalPinAllocations;
 
 RotaryEncoderOperator::RotaryEncoderOperator(int pin1, int pin2, RotaryEncoder::LatchMode mode)
-    : enabled(false), new_pin_In(pin1), new_pin_Out(pin2), _current_pin_In(-1), _current_pin_Out(-1)
+    : enabled(false), inverted(false), new_pin_In(pin1), new_pin_Out(pin2), _current_pin_In(-1), _current_pin_Out(-1)
 {
     encoder = new RotaryEncoder(new_pin_In, new_pin_Out, mode);
 }
 
 RotaryEncoderOperator::RotaryEncoderOperator()
-    : enabled(false), new_pin_In(DEFAULT_PIN1), new_pin_Out(DEFAULT_PIN2), _current_pin_In(-1), _current_pin_Out(-1)
+    : enabled(false), inverted(false), new_pin_In(DEFAULT_PIN1), new_pin_Out(DEFAULT_PIN2), _current_pin_In(-1), _current_pin_Out(-1)
 {
     encoder = new RotaryEncoder(DEFAULT_PIN1, DEFAULT_PIN2, DEFAULT_LATCHMODE);
 }
@@ -49,6 +49,7 @@ bool RotaryEncoderOperator::init()
 {
     if (enabled == true)
     {
+        DEBUG_PRINTF("Initializing Encoder Pins: (%d, %d), Encoder Pointer: %p\n", new_pin_In, new_pin_Out, encoder);
         bool successfull = reallocateInterruptHandlers();
 
     }
