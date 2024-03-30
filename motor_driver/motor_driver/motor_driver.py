@@ -1,36 +1,92 @@
+import sys
 import serial
+from serial.threaded import ReaderThread, LineReader
 import threading
 import time
 from motor_driver.generated import commands_pb2
-FIXED_RECEIVED_MESSAGE_LENGTH = 16 # The number of bytes of a message received from host
-SERIAL_BUFFER_BYTES = 64 # What is this for
+import logging
+from time import sleep
+import string
+
+try:
+    import queue
+except ImportError:
+    import Queue as queue
+
+# Modifyable
+DEBUG_MODE = True
+
+# Constant
+SERIAL_BUFFER_BYTES = 64 # Max hardware serial buffer size
+
 MIN_MOTOR_ID = 0
-MAX_MOTOR_ID = 3
+MAX_MOTOR_ID = 15 # Maximum number of motor ids 0 indexed
+MAX_MOTOR_CONFIGS = (MAX_MOTOR_ID + 1)
 
-class Serial_Reader(threading.Thread):
-    #Do last due to threading NOT processing
-    #While loop reading same serial line
-    
-    #Have a toggle that when on, will print raw data to terminal, otherwise will just ignore it
-    #Copy the one from the arduino side
-    def __init__(self, serialObj: serial):
-        super().__init__()
-        self._stop_event = threading.Event()
-        self.serialLine = serialObj
-        self.debugState = False
+MAX_ENCODER_ID = 14 # Maximum number of encoders ids 0 indexed
+MAX_ENCODER_CONFIGS = (MAX_ENCODER_ID + 1)
+DEFAULT_HOST_SERIAL_BAUD_RATE = 112500 # Baud rate of serial communication with host
 
-    def run(self):
-        while not self._stop_event.is_set():
-            echoed_message = self.serialLine.read(FIXED_RECEIVED_MESSAGE_LENGTH)
-            if self.debugState == True:
-                print(echoed_message.hex()) 
+#TODO: Write unit test to always check that this is valid
+FIXED_RECEIVED_MESSAGE_LENGTH = 16 # The number of bytes of a message received from host
+RECEIVED_COMMAND_BUFFER_SIZE = (FIXED_RECEIVED_MESSAGE_LENGTH * 2) # Size of commands buffer, data comes from host
 
-    def debug_flag(self, toggle: bool):
-        self.debugState = toggle
+FIXED_SEND_MESSAGE_LENGTH = 16 # The number of bytes of a message to send to host
+SEND_COMMAND_BUFFER_SIZE = (FIXED_SEND_MESSAGE_LENGTH) # Size of buffer for data that goes to host
+
+# Debug functionality message defines
+MAX_DEBUG_STRING_SIZE_BYTES = 6
+
+# string end char for queue
+STR_END = "e"
+
+
+class SerialReader(LineReader):
+
+    TERMINATOR = b'\r\n'
+
+    def __init__(self):
+        super(SerialReader, self).__init__()
+        self.alive = True
+        self.events = queue.Queue()
+        self._event_thread = threading.Thread(target=self._run_event)
+        self._event_thread.daemon = True
+        self._event_thread.name = 'serialreader-event'
+        self._event_thread.start()
+        self.lock = threading.Lock()
 
     def stop(self):
-        self._stop_event.set()
+        self.alive = False
+        self.events.put(None)
 
+    def _run_event(self):
+        while self.alive:
+            try:
+                event = self.events.get()
+                if DEBUG_MODE == True:
+                    if(event == STR_END):
+                        print("")
+                    else:
+                        print(f"{event}", end="")
+            except:
+                logging.exception("could not run event")
+
+    def connection_made(self, transport: ReaderThread) -> None:
+        super(SerialReader, self).connection_made(transport)
+        print("connected, ready to receive data")
+    
+    def handle_line(self, line: str) -> None:
+        if len(line) <= FIXED_RECEIVED_MESSAGE_LENGTH:
+            self.events.put(line)
+        else:
+            line_chunks = [line[i:i+FIXED_RECEIVED_MESSAGE_LENGTH] for i in range(0, len(line), FIXED_RECEIVED_MESSAGE_LENGTH)]
+            for chunk in line_chunks:
+                self.events.put(chunk)
+            self.events.put(STR_END)
+
+    def connection_lost(self, exc: BaseException) -> None:
+        super().connection_lost(exc)
+        print("disconnected")
 
 
 class MotorConfig: 
@@ -57,25 +113,29 @@ class MotorDriver:
         self.serialLine = serial.Serial(port = port, baudrate = baudrate, timeout = timeout)
         # List of Motor configs
         self.motorConfigs = [None] * MAX_MOTOR_ID
-        #Start debug thread here?
-        self.debugPrinter = Serial_Reader(self.serialLine)
+        self.debugReader = ReaderThread(self.serialLine, SerialReader)
         self.setDebugMode(debugMode)
-        self.debugPrinter.start()
-        
-    def __del__(self):
-        self.debugPrinter.stop()
-        self.debugPrinter.join()
+        self.debugReader.start()
+        sleep(1)
 
     def initMotorDriver(self):
-        pass # Send all configurations?
+        for motor_id in range(len(self.motorConfigs)):
+            if self.motorConfigs[motor_id] is not None:
+                self.sendMotorConfig(motor_id)
+                print("motor config update")
+
+        self.turnMotor(0, 0.5)
         
     def resetDevice(self):
-        pass # Send Arduino a reset command?
-        # Reset Arduino to original state
+        self.serialLine.setDTR(False)
+        sleep(0.022)
+        self.serialLine.setDTR(True)
 
     def setDebugMode(self, toggle: bool):
-        self.debugPrinter.debug_flag(toggle)
-        message = commands_pb2.Serial_Message()
+        global DEBUG_MODE
+        DEBUG_MODE = toggle
+
+        message = commands_pb2.Serial_Message_To_Arduino()
         message.opcode = commands_pb2.SET_DEBUG_MODE
 
         if toggle == True:
@@ -83,7 +143,16 @@ class MotorDriver:
         else: 
             message.debugMode.enabled = False
 
-        self.serialLine.write(message.SerializeToString())
+        # print(type(self.stringFill(message)))
+        self.serialLine.write(self.stringFill(message))
+        # self.serialLine.write(self.stringFill(message))
+
+    def stringFill(self, msg):
+        serialized_str = msg.SerializeToString()
+        # print(serialized_str)
+        new_msg = serialized_str.ljust(FIXED_RECEIVED_MESSAGE_LENGTH, b'\x00')[:FIXED_RECEIVED_MESSAGE_LENGTH]
+        # print(new_msg)
+        return new_msg
 
     def setMotorConfig(self, config: MotorConfig):
         self.motorConfigs[config.motorID] = config
@@ -92,31 +161,31 @@ class MotorDriver:
         if motorID < MIN_MOTOR_ID or motorID > MAX_MOTOR_ID:
             raise ValueError("Invalid Motor ID")
 
-        message = commands_pb2.Serial_Message()
+        message = commands_pb2.Serial_Message_To_Arduino()
         message.opcode = commands_pb2.CONFIG_MOTOR
-        message.Sabertooth_Config_Data.motorID = self.motorConfigs[motorID].motorID
-        message.Sabertooth_Config_Data.enabled = False
-        self.serialLine.write(message.SerializeToString())
+        message.sabertoothConfigData.motorID = self.motorConfigs[motorID].motorID
+        message.sabertoothConfigData.enabled = False
+        self.serialLine.write(self.stringFill(message))
         
-        message.Sabertooth_Config_Data.serialLine = self.motorConfigs[motorID].serialLine
-        self.serialLine.write(message.SerializeToString())
+        message.sabertoothConfigData.serialLine = self.motorConfigs[motorID].serialLine
+        self.serialLine.write(self.stringFill(message))
 
-        message.Sabertooth_Config_Data.motorNum = self.motorConfigs[motorID].motorNum
-        self.serialLine.write(message.SerializeToString())
+        message.sabertoothConfigData.motorNum = self.motorConfigs[motorID].motorNum
+        self.serialLine.write(self.stringFill(message))
 
-        message.Sabertooth_Config_Data.address = self.motorConfigs[motorID].address
-        self.serialLine.write(message.SerializeToString())
+        message.sabertoothConfigData.address = self.motorConfigs[motorID].address
+        self.serialLine.write(self.stringFill(message))
 
-        message.Sabertooth_Config_Data.inverted = self.motorConfigs[motorID].inverted
-        self.serialLine.write(message.SerializeToString())
+        message.sabertoothConfigData.inverted = self.motorConfigs[motorID].inverted
+        self.serialLine.write(self.stringFill(message))
 
-        message.Sabertooth_Config_Data.enabled = True
-        self.serialLine.write(message.SerializeToString())
+        message.sabertoothConfigData.enabled = True
+        self.serialLine.write(self.stringFill(message))
 
     def stopMotors(self):
-        message = commands_pb2.Serial_Message()
+        message = commands_pb2.Serial_Message_To_Arduino()
         message.opcode = commands_pb2.STOP_ALL_MOTORS
-        self.serialLine.write(message.SerializeToString())
+        self.serialLine.write(self.stringFill(message))
 
     def turnMotor(self, motorID: int, output: float):
         if (output < -1.0 or output > 1.0):
@@ -124,11 +193,9 @@ class MotorDriver:
         if motorID < MIN_MOTOR_ID or motorID > MAX_MOTOR_ID:
             raise ValueError("Invalid Motor ID")
 
-        message = commands_pb2.Serial_Message()
+        message = commands_pb2.Serial_Message_To_Arduino()
         message.opcode = commands_pb2.TURN_MOTOR
         message.motorCommand.percentOutput = output
         message.motorCommand.motorID = motorID
 
-        self.serialLine.write(message.SerializeToString())
-
-
+        self.serialLine.write(self.stringFill(message))

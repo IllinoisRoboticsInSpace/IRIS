@@ -12,7 +12,7 @@
 // Serial.begin(DEFAULT_HOST_SERIAL_BAUD_RATE);
 // Do not commit with ENABLE_DEBUG set to true
 #ifndef ENABLE_DEBUG
-#define ENABLE_DEBUG false
+#define ENABLE_DEBUG true
 #endif
 
 // Option to transfer data inside serialized
