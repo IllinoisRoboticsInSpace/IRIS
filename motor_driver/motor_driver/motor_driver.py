@@ -28,10 +28,10 @@ MAX_ENCODER_CONFIGS = (MAX_ENCODER_ID + 1)
 DEFAULT_HOST_SERIAL_BAUD_RATE = 112500 # Baud rate of serial communication with host
 
 #TODO: Write unit test to always check that this is valid
-FIXED_RECEIVED_MESSAGE_LENGTH = 16 # The number of bytes of a message received from host
+FIXED_RECEIVED_MESSAGE_LENGTH = 24 # The number of bytes of a message received from host
 RECEIVED_COMMAND_BUFFER_SIZE = (FIXED_RECEIVED_MESSAGE_LENGTH * 2) # Size of commands buffer, data comes from host
 
-FIXED_SEND_MESSAGE_LENGTH = 16 # The number of bytes of a message to send to host
+FIXED_SEND_MESSAGE_LENGTH = 24 # The number of bytes of a message to send to host
 SEND_COMMAND_BUFFER_SIZE = (FIXED_SEND_MESSAGE_LENGTH) # Size of buffer for data that goes to host
 
 # Debug functionality message defines
@@ -124,7 +124,7 @@ class MotorDriver:
                 self.sendMotorConfig(motor_id)
                 print("motor config update")
 
-        self.turnMotor(0, 0.5)
+        # self.turnMotor(0, 0.5)
         
     def resetDevice(self):
         self.serialLine.setDTR(False)
@@ -167,20 +167,27 @@ class MotorDriver:
         message.sabertoothConfigData.enabled = False
         self.serialLine.write(self.stringFill(message))
         
+        sleep(1)
         message.sabertoothConfigData.serialLine = self.motorConfigs[motorID].serialLine
         self.serialLine.write(self.stringFill(message))
 
+        sleep(1)
         message.sabertoothConfigData.motorNum = self.motorConfigs[motorID].motorNum
         self.serialLine.write(self.stringFill(message))
 
+        sleep(1)
         message.sabertoothConfigData.address = self.motorConfigs[motorID].address
         self.serialLine.write(self.stringFill(message))
 
+        sleep(1)
         message.sabertoothConfigData.inverted = self.motorConfigs[motorID].inverted
         self.serialLine.write(self.stringFill(message))
 
+        sleep(1)
         message.sabertoothConfigData.enabled = True
         self.serialLine.write(self.stringFill(message))
+
+        sleep(3)
 
     def stopMotors(self):
         message = commands_pb2.Serial_Message_To_Arduino()
@@ -198,4 +205,8 @@ class MotorDriver:
         message.motorCommand.percentOutput = output
         message.motorCommand.motorID = motorID
 
+        # print(f"PYTHON DEBUG: {str(message)}: {len(message.SerializeToString())}")
+        # print(f"PYTHON DEBUG: tyopeof{type(commands_pb2.TURN_MOTOR)}: {commands_pb2.TURN_MOTOR}")
+        # print(f"Desired Data: {message.SerializeToString()}, Extended Data: {self.stringFill(message)}")
         self.serialLine.write(self.stringFill(message))
+        sleep(.1)
