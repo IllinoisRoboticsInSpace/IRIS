@@ -44,6 +44,7 @@ SabertoothOperator& SabertoothOperator::operator=(const SabertoothOperator& othe
 
 bool SabertoothOperator::init()
 {
+    DEBUG_PRINTLN("Initializing Sabertooth")
     if (enabled == true)
     {
         serialLine.begin(baudrate);
@@ -54,13 +55,14 @@ bool SabertoothOperator::init()
 
 void SabertoothOperator::setOutput(float percentOutput)
 {
+    DEBUG_PRINTF("Sabertooth: motornum: %d, output %d\n", motornum, (int) (percentOutput * SABERTOOTH_MAX_OUTPUT));
     if (inverted)
     {
-        sabertooth.motor(motornum, -(byte) (percentOutput * SABERTOOTH_MAX_OUTPUT));
+        sabertooth.motor(motornum, -(int) (percentOutput * SABERTOOTH_MAX_OUTPUT));
     }
     else
     {
-        sabertooth.motor(motornum, (byte) (percentOutput * SABERTOOTH_MAX_OUTPUT));
+        sabertooth.motor(motornum, (int) (percentOutput * SABERTOOTH_MAX_OUTPUT));
     }
     //motor function will constraint output to -126 to 126.
     //power compute float times float and then casts to byte
