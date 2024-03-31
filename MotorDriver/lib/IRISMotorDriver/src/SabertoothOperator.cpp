@@ -42,6 +42,12 @@ SabertoothOperator& SabertoothOperator::operator=(const SabertoothOperator& othe
     return *this;
 }
 
+void SabertoothOperator::setEnabled(bool enabled)
+{
+    this->enabled = enabled;
+    setOutput(0);
+}
+
 bool SabertoothOperator::init()
 {
     DEBUG_PRINTLN("Initializing Sabertooth");

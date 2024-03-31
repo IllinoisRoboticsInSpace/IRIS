@@ -35,6 +35,9 @@ class SabertoothOperator : public MotorOperator
     void setOutput(float percentOutput);
     bool applyConfigUpdate(const Sabertooth_Config_Data& update);
 
+    // Operator overrides
+    void setEnabled(bool enabled);
+
   private:
     // Sabertooth specific
     USARTClass& serialLine;

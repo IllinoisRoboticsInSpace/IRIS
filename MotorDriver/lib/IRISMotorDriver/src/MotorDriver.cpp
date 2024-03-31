@@ -9,21 +9,21 @@ Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES> MotorDriver::proto_send_me
 */
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> motor_configs, std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS> encoder_configs)
     : serialTransferBaudRate(serialTransferBaudRate), motor_configs(motor_configs), encoder_configs(encoder_configs)
-    , debug_mode_enabled(false)//, proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
+    , debug_mode_enabled(false), num_deserialization_errors(0) //, proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
     
 }
 
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate, std::array<SabertoothOperator, MAX_MOTOR_CONFIGS> motor_configs)
     : serialTransferBaudRate(serialTransferBaudRate), motor_configs(motor_configs), encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>())
-    , debug_mode_enabled(false)//, proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
+    , debug_mode_enabled(false), num_deserialization_errors(0) //, proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
     
 }
 
 MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
     : serialTransferBaudRate(serialTransferBaudRate), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
-    , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false)
+    , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false), num_deserialization_errors(0)
     //, proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
     
@@ -31,7 +31,7 @@ MotorDriver::MotorDriver(unsigned int serialTransferBaudRate)
 
 MotorDriver::MotorDriver()
     : serialTransferBaudRate(DEFAULT_HOST_SERIAL_BAUD_RATE), motor_configs(std::array<SabertoothOperator, MAX_MOTOR_CONFIGS>())
-    , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false)
+    , encoder_configs(std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS>()), debug_mode_enabled(false), num_deserialization_errors(0)
     //, proto_send_message(Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES>())
 {
 
@@ -127,6 +127,7 @@ EmbeddedProto::Error MotorDriver::parse(Serial_Message_To_Arduino& deserialized_
     if(EmbeddedProto::Error::NO_ERRORS != deserialize_status && EmbeddedProto::Error::INVALID_FIELD_ID != deserialize_status)
     {
         DEBUG_PRINTLN("Deserialization Produced Error")
+        num_deserialization_errors++;
     }
     return deserialize_status;
 }
@@ -136,6 +137,20 @@ void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
     DEBUG_PRINTLN("EXECUTING:");
     DEBUG_PRINT_MESSAGE(deserialized_message);
     DEBUG_PRINTLN("");
+
+    if (num_deserialization_errors > MAX_DESERIALIZATION_ERRORS)
+    {
+        DEBUG_PRINTLN("MAX_DESERIALIZAION ERRORS EXCEEDED, GOING INTO SAFETY MODE");
+        for (SabertoothOperator config : motor_configs)
+        {
+            if (config.getEnabled())
+            {
+                config.setOutput(0);
+            }
+        }
+        return;
+    }
+
     Opcode_To_Arduino opcode = deserialized_message.get_opcode();
     switch (opcode)
     {

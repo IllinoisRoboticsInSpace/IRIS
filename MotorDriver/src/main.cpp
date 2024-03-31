@@ -32,14 +32,14 @@ void setup() {
   // Needs to be set to cytron implementation
   // motor_configs[3] = SabertoothOperator(130, DEFAULT_SABERTOOTH_BAUD_RATE, 2, Serial1, false, true);
 
-  encoder_configs[0] = RotaryEncoderOperator(40, 41, RotaryEncoder::LatchMode::FOUR3);//Left
-  encoder_configs[0].setEnabled(true);
-  encoder_configs[1] = RotaryEncoderOperator(36, 37, RotaryEncoder::LatchMode::FOUR3);//Right
-  encoder_configs[1].setEnabled(true);
-  encoder_configs[2] = RotaryEncoderOperator(44, 45, RotaryEncoder::LatchMode::FOUR3);//Free Big
-  encoder_configs[2].setEnabled(true);
-  encoder_configs[3] = RotaryEncoderOperator(48, 49, RotaryEncoder::LatchMode::FOUR3);//Excavator
-  encoder_configs[3].setEnabled(true);
+  // encoder_configs[0] = RotaryEncoderOperator(40, 41, RotaryEncoder::LatchMode::FOUR3);//Left
+  // encoder_configs[0].setEnabled(true);
+  // encoder_configs[1] = RotaryEncoderOperator(36, 37, RotaryEncoder::LatchMode::FOUR3);//Right
+  // encoder_configs[1].setEnabled(true);
+  // encoder_configs[2] = RotaryEncoderOperator(44, 45, RotaryEncoder::LatchMode::FOUR3);//Free Big
+  // encoder_configs[2].setEnabled(true);
+  // encoder_configs[3] = RotaryEncoderOperator(48, 49, RotaryEncoder::LatchMode::FOUR3);//Excavator
+  // encoder_configs[3].setEnabled(true);
 
 
   driver = MotorDriver(DEFAULT_HOST_SERIAL_BAUD_RATE, motor_configs);//, encoder_configs);

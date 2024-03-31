@@ -27,6 +27,9 @@
 #define FIXED_SEND_MESSAGE_LENGTH 24 // The number of bytes of a message to send to host
 #define SEND_COMMAND_BUFFER_SIZE (FIXED_SEND_MESSAGE_LENGTH) // Size of buffer for data that goes to host
 
+// Number of times deserialization can occur before robot motors are turned off
+#define MAX_DESERIALIZATION_ERRORS 8
+
 // Debug functionality message defines
 #define MAX_DEBUG_STRING_SIZE_BYTES 6
 
@@ -113,6 +116,7 @@ class MotorDriver
     std::array<RotaryEncoderOperator, MAX_ENCODER_CONFIGS> encoder_configs;
     EmbeddedProto::ReadBufferFixedSize<RECEIVED_COMMAND_BUFFER_SIZE> receive_command_buffer; //Operates on uint8
     bool debug_mode_enabled;
+    unsigned int num_deserialization_errors;
 
     // Preallocated memory
     static Serial_Message_To_Jetson<MAX_DEBUG_STRING_SIZE_BYTES> proto_send_message;
