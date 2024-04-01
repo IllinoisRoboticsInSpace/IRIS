@@ -40,6 +40,8 @@ MAX_DEBUG_STRING_SIZE_BYTES = 6
 # string end char for queue
 STR_END = "e"
 
+# Size of serial buffer on arduino
+ARDUINO_SERIAL_BUFFER_SIZE = 64
 
 class SerialReader(LineReader):
 
@@ -144,8 +146,8 @@ class MotorDriver:
             message.debugMode.enabled = False
 
         # print(type(self.stringFill(message)))
-        self.serialLine.write(self.stringFill(message))
         # self.serialLine.write(self.stringFill(message))
+        self.sendMessageBlocking(message)
 
     def stringFill(self, msg):
         serialized_str = msg.SerializeToString()
@@ -165,34 +167,52 @@ class MotorDriver:
         message.opcode = commands_pb2.CONFIG_MOTOR
         message.sabertoothConfigData.motorID = self.motorConfigs[motorID].motorID
         message.sabertoothConfigData.enabled = False
-        self.serialLine.write(self.stringFill(message))
+        # self.serialLine.write(self.stringFill(message))
+        self.sendMessageBlocking(message)
         
         sleep(1)
         message.sabertoothConfigData.serialLine = self.motorConfigs[motorID].serialLine
-        self.serialLine.write(self.stringFill(message))
+        # self.serialLine.write(self.stringFill(message))
+        self.sendMessageBlocking(message)
 
         sleep(1)
         message.sabertoothConfigData.motorNum = self.motorConfigs[motorID].motorNum
-        self.serialLine.write(self.stringFill(message))
+        # self.serialLine.write(self.stringFill(message))
+        self.sendMessageBlocking(message)
 
         sleep(1)
         message.sabertoothConfigData.address = self.motorConfigs[motorID].address
-        self.serialLine.write(self.stringFill(message))
+        # self.serialLine.write(self.stringFill(message))
+        self.sendMessageBlocking(message)
 
         sleep(1)
         message.sabertoothConfigData.inverted = self.motorConfigs[motorID].inverted
-        self.serialLine.write(self.stringFill(message))
+        # self.serialLine.write(self.stringFill(message))
+        self.sendMessageBlocking(message)
 
         sleep(1)
         message.sabertoothConfigData.enabled = True
-        self.serialLine.write(self.stringFill(message))
+        # self.serialLine.write(self.stringFill(message))
+        self.sendMessageBlocking(message)
 
         sleep(3)
+
+    # Message will wait until there are bytes available to send
+    def sendMessageBlocking(self, message):
+        extended_bytes_data = self.stringFill(message)
+        bytes_to_write = len(extended_bytes_data)
+        # Wait till space is available
+        while (not (ARDUINO_SERIAL_BUFFER_SIZE - self.serialLine.out_waiting > SEND_COMMAND_BUFFER_SIZE)):
+            bytes_to_write = len(extended_bytes_data) #dummy function
+        
+        self.serialLine.write(extended_bytes_data)
+        
 
     def stopMotors(self):
         message = commands_pb2.Serial_Message_To_Arduino()
         message.opcode = commands_pb2.STOP_ALL_MOTORS
-        self.serialLine.write(self.stringFill(message))
+        # self.serialLine.write(self.stringFill(message))
+        self.sendMessageBlocking(message)
 
     def turnMotor(self, motorID: int, output: float):
         if (output < -1.0 or output > 1.0):
@@ -208,5 +228,6 @@ class MotorDriver:
         # print(f"PYTHON DEBUG: {str(message)}: {len(message.SerializeToString())}")
         # print(f"PYTHON DEBUG: tyopeof{type(commands_pb2.TURN_MOTOR)}: {commands_pb2.TURN_MOTOR}")
         # print(f"Desired Data: {message.SerializeToString()}, Extended Data: {self.stringFill(message)}")
-        self.serialLine.write(self.stringFill(message))
+        # self.serialLine.write(self.stringFill(message))
+        self.sendMessageBlocking(message)
         sleep(.1)
