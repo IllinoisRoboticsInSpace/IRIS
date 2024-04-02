@@ -9,12 +9,11 @@ void cytron_operator_default_constructor_test(void)
 
 void cytron_operator_require_disabled_for_update_test(void) //breaks here, dosen't fail, just stops working
 {
-    CytronOperator default_operator; // Enabled is false
+    CytronOperator default_operator; 
     Cytron_Config_Data update_pin;
+    update_pin.set_motorID(1);
     update_pin.set_pwm_pin(1);
-    Serial.println("here1");
     bool successful = default_operator.applyConfigUpdate(update_pin);
-    Serial.println("here2");
     // Allowed to apply update on disabled config
     TEST_ASSERT_TRUE(successful);
 

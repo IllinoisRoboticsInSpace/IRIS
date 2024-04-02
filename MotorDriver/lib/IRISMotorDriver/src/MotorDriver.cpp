@@ -133,7 +133,6 @@ EmbeddedProto::Error MotorDriver::parse(Serial_Message_To_Arduino& deserialized_
 void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
 {
     Opcode_To_Arduino opcode = deserialized_message.get_opcode();
-    Serial.println((int)opcode);
     switch (opcode)
     {
         case Opcode_To_Arduino::TURN_MOTOR:
