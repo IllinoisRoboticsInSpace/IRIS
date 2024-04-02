@@ -38,7 +38,6 @@ bool CytronOperator::init()
     if (enabled == true){
         pinMode(pwm_pin, OUTPUT);
         pinMode(dir_pin, OUTPUT);
-
         digitalWrite(pwm_pin, LOW);
         digitalWrite(dir_pin, LOW);
     }
@@ -119,3 +118,5 @@ bool CytronOperator::applyConfigUpdate(const Cytron_Config_Data& update)
     }
     return true;
 }
+byte CytronOperator::get_pwm_pin() const {return pwm_pin;}
+byte CytronOperator::get_dir_pin() const {return dir_pin;}

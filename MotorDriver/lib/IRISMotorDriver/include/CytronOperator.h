@@ -10,8 +10,8 @@
 #include "generated/commands.h"
 #include "MotorOperator.h"
 
-#define DEFAULT_CYTRON_MOTOR_PWM_PIN 1
-#define DEFAULT_CYTRON_MOTOR_DIR_PIN 2
+#define DEFAULT_CYTRON_MOTOR_PWM_PIN 2
+#define DEFAULT_CYTRON_MOTOR_DIR_PIN 3
 #define CYTRON_MAX_OUTPUT 255
 
 class CytronOperator : public MotorOperator
@@ -32,6 +32,8 @@ class CytronOperator : public MotorOperator
     bool init() override;
     void setOutput(float percentOutput);
     bool applyConfigUpdate(const Cytron_Config_Data& update);
+    byte get_pwm_pin() const;
+    byte get_dir_pin() const;
 
   private:
     // Cytron specific

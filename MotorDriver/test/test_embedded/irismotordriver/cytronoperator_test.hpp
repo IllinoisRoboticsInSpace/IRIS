@@ -11,8 +11,7 @@ void cytron_operator_require_disabled_for_update_test(void) //breaks here, dosen
 {
     CytronOperator default_operator; 
     Cytron_Config_Data update_pin;
-    update_pin.set_motorID(1);
-    update_pin.set_pwm_pin(1);
+    update_pin.set_pwm_pin(4);
     bool successful = default_operator.applyConfigUpdate(update_pin);
     // Allowed to apply update on disabled config
     TEST_ASSERT_TRUE(successful);
@@ -20,7 +19,10 @@ void cytron_operator_require_disabled_for_update_test(void) //breaks here, dosen
     // Update to enabled
     Cytron_Config_Data update_enabled;
     update_enabled.set_enabled(true);
-    successful = default_operator.applyConfigUpdate(update_enabled);
+
+    
+    successful = default_operator.applyConfigUpdate(update_enabled); // break here
+
     // Only allowed to apply enabled update regardless of previous enable status
     TEST_ASSERT_TRUE(successful);
     TEST_ASSERT_TRUE(default_operator.getEnabled());
@@ -28,7 +30,6 @@ void cytron_operator_require_disabled_for_update_test(void) //breaks here, dosen
     // Fail to apply update to enabled config
     successful = default_operator.applyConfigUpdate(update_pin);
     TEST_ASSERT_FALSE(successful);
-
     // Sanity check
     update_enabled.set_enabled(false);
     successful = default_operator.applyConfigUpdate(update_enabled);
@@ -37,6 +38,12 @@ void cytron_operator_require_disabled_for_update_test(void) //breaks here, dosen
 
     successful = default_operator.applyConfigUpdate(update_pin);
     TEST_ASSERT_TRUE(successful);
+
+    update_pin.clear_pwm_pin();
+    update_pin.set_dir_pin(5);
+    default_operator.applyConfigUpdate(update_pin);
+    TEST_ASSERT_TRUE(default_operator.get_dir_pin() == 5);
+    TEST_ASSERT_TRUE(default_operator.get_pwm_pin() == 4);
 }
 
 void cytron_operator_update_key_not_set_test(void)
