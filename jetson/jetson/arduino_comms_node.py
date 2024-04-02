@@ -53,13 +53,13 @@ class arduino_comms_node(Node):
 
         self.motor_driver = MotorDriver(debugMode=True)
 
-        left_drive_config = MotorConfig(self.gamepad_mapping["left_drive"], commands_pb2.Serial1, 2, 128, False)
+        left_drive_config = MotorConfig(self.gamepad_mapping["left_drive"], commands_pb2.Serial1, 1, 128, False)
         self.motor_driver.setMotorConfig(left_drive_config)
         # self.motor_driver.sendMotorConfig(self.gamepad_mapping["left_drive"])
         # self.get_logger().info(f'left config complete on id {self.gamepad_mapping["left_drive"]}')
 
-        right_drive_config = MotorConfig(self.gamepad_mapping["right_drive"], commands_pb2.Serial1, 1, 128, False)
-        self.motor_driver.setMotorConfig(right_drive_config)
+        # right_drive_config = MotorConfig(self.gamepad_mapping["right_drive"], commands_pb2.Serial1, 1, 128, False)
+        # self.motor_driver.setMotorConfig(right_drive_config)
         # self.motor_driver.sendMotorConfig(self.gamepad_mapping["right_drive"])
         # self.get_logger().info(f'right config complete on id {self.gamepad_mapping["right_drive"]}')
         sleep(10)

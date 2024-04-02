@@ -26,9 +26,9 @@ void setup() {
   digitalWrite(LED_BUILTIN, HIGH);
 
   // Set configs
-  motor_configs[0] = SabertoothOperator(128, DEFAULT_SABERTOOTH_BAUD_RATE, 2, Serial1, false, true);
-  motor_configs[1] = SabertoothOperator(128, DEFAULT_SABERTOOTH_BAUD_RATE, 1, Serial1, false, true);
-  motor_configs[2] = SabertoothOperator(129, DEFAULT_SABERTOOTH_BAUD_RATE, 1, Serial1, false, true);
+  // motor_configs[0] = SabertoothOperator(128, DEFAULT_SABERTOOTH_BAUD_RATE, 1, Serial1, false, true);
+  // motor_configs[1] = SabertoothOperator(128, DEFAULT_SABERTOOTH_BAUD_RATE, 1, Serial1, false, true);
+  // motor_configs[2] = SabertoothOperator(129, DEFAULT_SABERTOOTH_BAUD_RATE, 1, Serial1, false, true);
   // Needs to be set to cytron implementation
   // motor_configs[3] = SabertoothOperator(130, DEFAULT_SABERTOOTH_BAUD_RATE, 2, Serial1, false, true);
 
@@ -53,32 +53,32 @@ void setup() {
 }
 
 void loop() {
-  // driver.update();
+  driver.update();
 
-  Serial_Message_To_Arduino command;
-  command.set_opcode(Opcode_To_Arduino::TURN_MOTOR);
-  Turn_Motor turn_motor_command;
+  // Serial_Message_To_Arduino command;
+  // command.set_opcode(Opcode_To_Arduino::TURN_MOTOR);
+  // Turn_Motor turn_motor_command;
 
-  turn_motor_command.set_motorID(0);
-  turn_motor_command.set_percentOutput(.50);
-  command.set_motorCommand(turn_motor_command);
-  driver.execute(command);
+  // turn_motor_command.set_motorID(0);
+  // turn_motor_command.set_percentOutput(1);
+  // command.set_motorCommand(turn_motor_command);
+  // driver.execute(command);
 
-  turn_motor_command.set_motorID(2);
-  turn_motor_command.set_percentOutput(-.50);
-  command.set_motorCommand(turn_motor_command);
-  driver.execute(command);
-  delay(2000);
-  turn_motor_command.set_motorID(0);
-  turn_motor_command.set_percentOutput(0);
-  command.set_motorCommand(turn_motor_command);
-  driver.execute(command);
+  // turn_motor_command.set_motorID(2);
+  // turn_motor_command.set_percentOutput(-.50);
+  // command.set_motorCommand(turn_motor_command);
+  // driver.execute(command);
+  // delay(2000);
+  // turn_motor_command.set_motorID(0);
+  // turn_motor_command.set_percentOutput(0);
+  // command.set_motorCommand(turn_motor_command);
+  // driver.execute(command);
 
-  turn_motor_command.set_motorID(2);
-  turn_motor_command.set_percentOutput(0);
-  command.set_motorCommand(turn_motor_command);
-  driver.execute(command);
-  delay(5000);
+  // turn_motor_command.set_motorID(2);
+  // turn_motor_command.set_percentOutput(0);
+  // command.set_motorCommand(turn_motor_command);
+  // driver.execute(command);
+  // delay(5000);
 
 
   // DEBUG_PRINTF("1:%ld\t2:%ld\t3:%ld\t4:%ld\n", driver.encoder_configs[0].get_encoder_tick_count() 

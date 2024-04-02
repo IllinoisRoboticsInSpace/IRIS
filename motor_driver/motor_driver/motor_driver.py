@@ -205,7 +205,11 @@ class MotorDriver:
         while (not (ARDUINO_SERIAL_BUFFER_SIZE - self.serialLine.out_waiting > SEND_COMMAND_BUFFER_SIZE)):
             bytes_to_write = len(extended_bytes_data) #dummy function
         
-        self.serialLine.write(extended_bytes_data)
+
+        if len(extended_bytes_data) > SEND_COMMAND_BUFFER_SIZE:
+            print(f"trying to write more bytes ({len(extended_bytes_data)}) than allowed ({SEND_COMMAND_BUFFER_SIZE})")
+        else:
+            self.serialLine.write(extended_bytes_data)
         
 
     def stopMotors(self):

@@ -134,9 +134,9 @@ EmbeddedProto::Error MotorDriver::parse(Serial_Message_To_Arduino& deserialized_
 
 void MotorDriver::execute(Serial_Message_To_Arduino& deserialized_message)
 {
-    DEBUG_PRINTLN("EXECUTING:");
-    DEBUG_PRINT_MESSAGE(deserialized_message);
-    DEBUG_PRINTLN("");
+    // DEBUG_PRINTLN("EXECUTING:");
+    // DEBUG_PRINT_MESSAGE(deserialized_message);
+    // DEBUG_PRINTLN("");
 
     if (num_deserialization_errors > MAX_DESERIALIZATION_ERRORS)
     {
