@@ -18,7 +18,7 @@
 
 #define MAX_ENCODER_ID 14 // Maximum number of encoders ids 0 indexed
 #define MAX_ENCODER_CONFIGS (MAX_ENCODER_ID + 1)
-#define DEFAULT_HOST_SERIAL_BAUD_RATE 112500 // Baud rate of serial communication with host
+#define DEFAULT_HOST_SERIAL_BAUD_RATE 115200 // Baud rate of serial communication with host
 
 //TODO: Write unit test to always check that this is valid
 #define FIXED_RECEIVED_MESSAGE_LENGTH 24 // The number of bytes of a message received from host
