@@ -68,7 +68,7 @@ RUN apt-get install -y ros-${ROS_DISTRO}-rtabmap-ros
 #                          Build Function                          #
 ####################################################################
 
-RUN echo "source ~/colcon_ws/install/setup.bash" >> ~/.bashrc
+RUN echo "source ~/colcon_ws/src/install/setup.bash" >> ~/.bashrc
 RUN echo "function build() {" >> ~/.bashrc
 RUN echo "if [ \$# == 0 ]; then" >> ~/.bashrc
 RUN echo "  echo \"colcon build\"" >> ~/.bashrc
@@ -76,9 +76,10 @@ RUN echo "  colcon build" >> ~/.bashrc
 RUN echo "else" >> ~/.bashrc
 RUN echo "  echo \"colcon build --packages-select\" \$@" >> ~/.bashrc
 RUN echo "  colcon build --packages-select \$@" >> ~/.bashrc
-RUN echo "fi" >> ~/.bashrc
+RUN echo "fi " >> ~/.bashrc
+RUN echo "}" >> ~/.bashrc
 RUN echo "echo \"Sourcing install/setup.bash\"" >> ~/.bashrc
-RUN echo "source ~/install/setup.bash" >> ~/.bashrc
+RUN echo "source ~/colcon_ws/src/install/setup.bash" >> ~/.bashrc
 
 ####################################################################
 #                        Protobuf Reworking                        #
