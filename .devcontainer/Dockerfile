@@ -1,6 +1,7 @@
 FROM ubuntu:20.04
 
-LABEL maintainer="Daniel Philipov <dp33@illinois.edu>"
+LABEL author="Daniel Philipov <dp33@illinois.edu>"
+LABEL maintainer="Rushil Shah <rushils4@illinois.edu>"
 
 SHELL ["/bin/bash", "-c"]
 
@@ -29,7 +30,15 @@ RUN apt upgrade -y && apt update -y
 # Realsense ros wrapper is managed by the repo's github submodules
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
 RUN add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -u
-RUN apt-get install -y librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
+RUN apt-get install apt-transport-https
+RUN apt-get update && \
+    apt-get install -y \
+        librealsense2-udev-rules \
+        librealsense2-dkms \
+        librealsense2-utils \
+        librealsense2-dev \
+        librealsense2-dbg \
+    || echo "librealsense2 packages aren't available, skipping them."
 
 ####################################################################
 #                            ROS Setup                             #
@@ -45,7 +54,7 @@ RUN locale-gen en_US en_US.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.
 ENV LANG=en_US.UTF-8
 RUN apt update -y && apt install -y curl gnupg2 lsb-release
 RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null
 RUN apt-get update -y
 RUN apt-get upgrade -y
 

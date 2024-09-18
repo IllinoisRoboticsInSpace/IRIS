@@ -1,7 +1,8 @@
 {
     "name": "IRIS-uiuc",
     // "image": "osrf/ros:galactic-desktop",
-    "image": "dandandooo/iris-uiuc:main",
+    // "image": "dandandooo/iris-uiuc:main",
+    "image": "rushils4/iris_uiuc:latest",
     "remoteUser": "root",
     "workspaceFolder": "/root/colcon_ws/src",
     "workspaceMount": "source=${localWorkspaceFolder},target=/root/colcon_ws/src,type=bind,consistency=cached",
