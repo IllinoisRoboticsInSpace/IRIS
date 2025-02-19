@@ -120,7 +120,9 @@ class gamepad_node(Node):
             self.curr_state[EXC_PIVOT_LIN] = joy_msg.buttons[self.joystick_button_mapping["X"]]
 
         for i in range(len(self.curr_state)):
-            if (self.prev_state[i] != self.curr_state[i]):
+            if (self.prevd be connected to programming port from the jetson
+        # initializes arduino serial port. make sure baudrate is same for arduino and python code
+        _state[i] != self.curr_state[i]):
                 self.prev_state[i] = self.curr_state[i]
 
                 if i < N_AXIS_USED:

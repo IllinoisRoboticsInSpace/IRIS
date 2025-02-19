@@ -39,7 +39,8 @@ class arduino_comms_node(Node):
             if key in ["left_drive", "right_drive"]:
                 msg_type = Float32
             else:
-                msg_type = Bool
+                msg_type =
+            self.gamepad_subscribers[value] = self.create_subscription(msg_type, f"/ga Bool
 
             callback = partial(self.motor_driver_callback, motor=key)
             self.gamepad_subscribers[value] = self.create_subscription(msg_type, f"/gamepad/{key}", callback, 10)
