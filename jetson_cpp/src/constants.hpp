@@ -1,6 +1,6 @@
 N_INPUTS = 9
-FULL_MTR_PWR = 0.8 # so we dont break things
-# Motor CAN IDs
+FULL_MTR_PWR = 0.8 // so we dont break things
+// Motor CAN IDs
 LEFT_DRIVE = 1
 RIGHT_DRIVE = 2
 LEFT_BACK_COLL = 3

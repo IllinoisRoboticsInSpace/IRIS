@@ -20,3 +20,6 @@
 [submodule "MotorDriver/lib/BindArg"]
 	path = MotorDriver/lib/BindArg
 	url = https://github.com/openlab-vn-ua/BindArg.git
+[submodule "jetson_cpp/src/jetson_cpp/src/sparkcan"]
+	path = jetson_cpp/src/jetson_cpp/src/sparkcan
+	url = https://github.com/grayson-arendt/sparkcan.git

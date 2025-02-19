@@ -10,7 +10,7 @@
 
 std::string[] keys = ["left_drive", "right_drive", 
                       "excavator_lin_actr",
-                      "auto_mode", "stop_mode", "speed_mode"]
+                      "auto_mode", "stop_mode", "speed_mode"];
 
 class SparkMaxCommunication_Sub : public rclcpp::Node {
     public:
