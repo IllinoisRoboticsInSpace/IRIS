@@ -1,0 +1,6 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/sparkcanTargets.cmake")
+
+set(sparkcan_INCLUDE_DIRS "@PACKAGE_INCLUDE_INSTALL_DIR@")
+set(sparkcan_LIBRARIES sparkcan)
