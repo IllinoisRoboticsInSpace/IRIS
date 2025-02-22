@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.5)
 project(jetson_cpp)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -8,14 +8,15 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(dependencies)
 find_package(std_msgs)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/sparkcan sparkcan)
 
-add_executable("src/jetson_sparkmax.cpp" SPARKMAX_NODE)
+add_executable(jetson_sparkmax "src/jetson_sparkmax.cpp")
+target_include_directories(jetson_sparkmax PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/sparkcan/include)
+ament_target_dependencies(jetson_sparkmax rclcpp std_msgs)
+target_link_libraries(jetson_sparkmax sparkcan)
 
-include(
-  "include/*"
-)
+install(TARGETS jetson_sparkmax DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -28,8 +29,8 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-install(DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME}
+install(DIRECTORY launch/
+  DESTINATION share/${PROJECT_NAME}/launch
 )
 
 ament_package()

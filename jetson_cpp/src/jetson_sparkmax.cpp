@@ -6,7 +6,7 @@
 #include "SparkMax.hpp"
 #include "constants.hpp"
 
-#define N_INPUTS 6
+#define int N_INPUTS 6
 
 constexpr std::array<const char*, 6> KEYS = {
                     "left_drive", 
@@ -22,9 +22,9 @@ class JetsonSparkMax : public rclcpp::Node {
     public:
         JetsonSparkMax()
             : Node("jetson_sparkmax"),
-            m_left_drive("can0", constants::LEFT_DRIVE),
-            m_right_drive("can0", constants::RIGHT_DRIVE),
-            m_excavator_lin_actr("can0", constants::LEFT_BACK_COLL),
+            SparkMax m_left_drive("can0", constants.LEFT_DRIVE),
+            SparkMax m_right_drive("can0", constants.RIGHT_DRIVE),
+            SparkMax m_excavator_lin_actr("can0", constants.LEFT_BACK_COLL),
             lock_(std::make_shared<std::mutex>()) {
 
             logger_ = this->get_logger();
@@ -64,8 +64,9 @@ class JetsonSparkMax : public rclcpp::Node {
 
         std::shared_ptr<std::mutex> lock_;
         std::vector<rclcpp::SubscriptionBase::SharedPtr> gamepad_subscribers_;
-        MotorDriver motor_drivers_[2];
-        MotorDriver lin_actuator_driver; /* TODO: Overload MotorDriver Functions for Cytron */
+        Constants constants();
+        // MotorDriver motor_drivers_[2];
+        // MotorDriver lin_actuator_driver; /* TODO: Overload MotorDriver Functions for Cytron */
         rclcpp::Logger logger_;
         
         void motor_driver_callback_float(
