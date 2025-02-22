@@ -9,8 +9,6 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(dependencies)
-find_package(mutex)
-find_package(memory)
 find_package(std_msgs)
 
 add_executable("src/jetson_sparkmax.cpp" SPARKMAX_NODE)
