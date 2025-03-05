@@ -1,23 +1,31 @@
 # IRIS
-### Prerequistes
-- [TODO]
 ## Getting Started
 > **Note**
-> It is highly recommended to develop in a virtual machine because our install procedures are not isolated and can be invasive ([VM Instructions](url))
-1. Install [VMWare Workstation Player](https://customerconnect.vmware.com/en/downloads/info/slug/desktop_end_user_computing/vmware_workstation_player/17_0)
-2. Download, Unzip, and Run in VMWare our [preconfigured VM](https://uofi.app.box.com/folder/178594834739?s=xefuv04cugxavr3wadn55qbbtfs31ig4)
-3. Open the `~/colcon_ws` folder in VSCode
-4. If working on Arduino, install the PlatformIO VSCode extension
-   
-### Commands to know
-1. Install dependencies with rosdep
+> It is highly recommended to develop in a virtual machine because our install procedures are not isolated and can be invasive. For more information on why our team uses a VM, refer to the following documentation: ([VM Documentation](VM_Documentation.md))
+1. Install [VMWare Workstation Player](https://blogs.vmware.com/workstation/2024/05/vmware-workstation-pro-now-available-free-for-personal-use.html)
+   - For Windows: Download VMWare Workstation Pro for personal use.
+   - For Macs: Follow these [setup instructions](MAC_Setup.md)
+   - You will have to make a Broadcom account in the process, but this will just require your email for verification.
+2. Add [Base Ubuntu Image](https://releases.ubuntu.com/focal/) to VMware.
+   - An Ubuntu image is a pre-packaged version of the Ubuntu operating system that you can download and use to install Ubuntu on a virtual machine. The “base” image is a minimal version of Ubuntu without additional customizations or software installations.
+3. Clone IRIS Repository from GitHub.
+4. Install dependencies with ROSdep:
     - `cd ~/colcon_ws`
+      - Change the directory to the ROS workspace (`colcon_ws`), which contains our ROS packages. The `colcon_ws` folder is typically the root workspace where we develop and build ROS projects.
     - `rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 -r --rosdistro $ROS_DISTRO -y --include-eol-distros`
-2. Build the desired package
+      - `rosdep` is a command-line tool that helps you install system dependencies needed by your ROS packages (such as libraries and third-party dependencies).
+      - `--from-paths src` tells rosdep to look for ROS package dependencies in the `src` directory of the current workspace.
+      - `--ignore-src` tells rosdep to ignore the source code dependencies (i.e. the actual ROS package code) and only focus on the external system dependencies (such as libraries). This is useful because rosdep doesn’t need to install the code you already have in your workspace, only the missing libraries/tools that your packages depend on.
+      - `--skip-keys=librealsense2` instructs rosdep to skip installing the `librealsense2` dependency as we have a custom installation of this library. `librealsense2` is used for the Intel RealSense camera.
+      - `-r` tells rosdep to resolve dependencies recursively: if any of the dependencies themselves require additional packages or dependencies, rosdep will find and install those as well.
+      - `--rosdistro $ROS_DISTRO` specifies the ROS distribution version we are using so that rosdep installs the dependencies compatible with that specific distribution. The `$ROS_DISTRO` variable is set in our environment to the `galactic` ROS version.
+      - `-y` tells rosdep to automatically confirm and proceed with the installation of dependencies without asking for confirmation prompts.
+      - `--include-eol-distros` - EOL (End of Life) ROS distributions are no longer officially supported, but this includes them in the dependency installation process. This is useful for working with older, unsupported versions of ROS or packages that are only compatible with these EOL distributions, such as galactic.
+5. Build the desired package
     - `colcon build --packages-select <Package folder name>`
     - `build <Package folder name>`
         - Use `build` function defined in `~./bashrc`
-3. Source the setup script so ros2 can find the packages in this workspace 
+6. Source the setup script so ros2 can find the packages in this workspace 
     - `source ~/colcon_ws/install/setup.bash`
 
 ## Package Usage
