@@ -32,47 +32,52 @@ void TankControl::setMotors(double leftMotorDutyCycle, double rightMotorDutyCycl
         rightTankMotor->SetDutyCycle(rightMotorDutyCycle);
     }
 }
+
 void TankControl::drive(double throttle, double turn, double durationSeconds) {
     double leftSpeed = throttle + turn;
     double rightSpeed = throttle - turn;
     setMotors(leftSpeed, rightSpeed, durationSeconds);
 }
+
 void TankControl::straight(double durationSeconds, double speedPercentage) {
     std::cout << "Going Straight" << std::endl;
     drive(speedPercentage, 0, durationSeconds);
 }
+
 void TankControl::turn(double angle, double speedPercentage) {
     if (angle > 0) { //pivot turn right
-        setMotors(speedPercentage, -speedPercentage, 5); //  forward, right backward
+        setMotors(speedPercentage, -speedPercentage, 5); // left forward, right backward
     } else { // pivot turn left
-        setMotors(-speedPercentage, speedPercentage, 5); // t backward right forward
+        setMotors(-speedPercentage, speedPercentage, 5); // left backward right forward
     }
 }
-void TankControl::stop() {
+
+void TankControl::stop(double duration) {
     std::cout << "Stopping" << std::endl;
-    setMotors(0,0, 10);
+    setMotors(0, 0, duration);
 }
 
-int main()
-{
-    try
-    {
-        // Initialize SparkMax object with CAN interface and CAN ID
-        SparkMax leftMotor("can0", 1);
-        SparkMax rightMotor("can0", 2);
-        TankControl controller(&leftMotor, &rightMotor);
-        std::cout << "initializing robot" << std::endl;
 
-        // Enable and run motor
-        controller.setMotors(0.1, 0.1, 5);
-        controller.turn(90, 0.1);
+// int main()
+// {
+//     try
+//     {
+//         // Initialize SparkMax object with CAN interface and CAN ID
+//         SparkMax leftMotor("can0", 1);
+//         SparkMax rightMotor("can0", 2);
+//         TankControl controller(&leftMotor, &rightMotor);
+//         std::cout << "initializing robot" << std::endl;
+
+//         // Enable and run motor
+//         controller.setMotors(0.1, 0.1, 5);
+//         controller.turn(90, 0.1);
         
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return -1;
-    }
+//     }
+//     catch (const std::exception &e)
+//     {
+//         std::cerr << "Error: " << e.what() << std::endl;
+//         return -1;
+//     }
 
-    return 0;
-}
+//     return 0;
+// }

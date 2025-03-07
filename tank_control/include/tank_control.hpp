@@ -12,6 +12,7 @@
 #include "SparkMax.hpp"
 #include <string>
 #include <unistd.h>
+#include <chrono>
 
 class TankControl {
     public:
@@ -21,7 +22,7 @@ class TankControl {
         void drive(double throttle, double turn, double durationSeconds);
         void straight(double durationSeconds, double speedPercentage);
         void turn(double angle, double speedPercentage);
-        void stop();
+        void stop(double duration);
 
     private:
         SparkMax* leftTankMotor;

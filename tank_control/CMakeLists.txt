@@ -15,20 +15,24 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
+# Add tank control library
+add_library(tank_control_lib src/tank_control.cpp)
+
 # Add executables
 add_executable(joy_to_tank_control src/joy_to_tank_control.cpp)
-add_executable(tank_control src/tank_control.cpp)
 
 # Link executables against libraries
+target_link_libraries(tank_control_lib PRIVATE ${sparkcan_LIBRARIES})
+target_include_directories(tank_control_lib PUBLIC include)
+target_link_libraries(joy_to_tank_control PRIVATE ${sparkcan_LIBRARIES})
+target_link_libraries(joy_to_tank_control PRIVATE tank_control_lib)
 target_include_directories(joy_to_tank_control PUBLIC include)
-target_link_libraries(tank_control PRIVATE ${sparkcan_LIBRARIES})
-target_include_directories(tank_control PUBLIC include)
 
-ament_target_dependencies(joy_to_tank_control rclcpp std_msgs)
+ament_target_dependencies(joy_to_tank_control PUBLIC rclcpp std_msgs)
 
 install(TARGETS
   joy_to_tank_control
-  tank_control
+  tank_control_lib
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
