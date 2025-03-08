@@ -33,7 +33,12 @@ ament_target_dependencies(joy_to_tank_control PUBLIC rclcpp std_msgs)
 install(TARGETS
   joy_to_tank_control
   tank_control_lib
-  DESTINATION lib/${PROJECT_NAME})
+  DESTINATION lib/${PROJECT_NAME}
+)
+install(
+  PROGRAMS resources/canable_start.sh
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
