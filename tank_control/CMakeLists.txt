@@ -15,6 +15,12 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
+add_subdirectory(${CMAKE_SOURCE_DIR}/../dependencies/sparkcan ${CMAKE_BINARY_DIR}/sparkcan_build)
+include_directories(
+  include
+  ${CMAKE_SOURCE_DIR}/../dependencies/sparkcan/include
+)
+
 # Add tank control library
 add_library(tank_control_lib src/tank_control.cpp)
 
@@ -22,6 +28,7 @@ add_library(tank_control_lib src/tank_control.cpp)
 add_executable(joy_to_tank_control src/joy_to_tank_control.cpp)
 
 # Link executables against libraries
+target_link_libraries(sparkcan)
 target_link_libraries(tank_control_lib PRIVATE ${sparkcan_LIBRARIES})
 target_include_directories(tank_control_lib PUBLIC include)
 target_link_libraries(joy_to_tank_control PRIVATE ${sparkcan_LIBRARIES})
