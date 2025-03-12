@@ -7,7 +7,7 @@
 
 #include "joy_to_tank_control.hpp"
 
-Gamepad_to_Motor::Gamepad_to_Motor() : Node("gamepad_to_motor"), 
+Gamepad_to_Motor::Gamepad_to_Motor() : Node("gamepad_to_sparkmax"), 
         leftMotor("can0", 1),
         rightMotor("can0", 2),
         tank_controller(&leftMotor, &rightMotor) {
@@ -40,8 +40,8 @@ Gamepad_to_Motor::Gamepad_to_Motor() : Node("gamepad_to_motor"),
 
   try {
       // Enable and run motor
-      this->tank_controller.setMotors(0.1, 0.1, 5);
-      this->tank_controller.turn(90, 0.1);
+      this->tank_controller.setMotors(0.1, 0.1);
+      this->tank_controller.turn(90, 0.5);
       std::cout << "Startup sequence/test complete" << std::endl;
       std::this_thread::sleep_for(std::chrono::seconds(3));
   } catch (const std::exception &e) {
@@ -57,7 +57,7 @@ Gamepad_to_Motor::Gamepad_to_Motor() : Node("gamepad_to_motor"),
 
 void Gamepad_to_Motor::left_joystick_callback(const std_msgs::msg::Float32& msg) {
   if (!this->killed) {
-
+    std::cout << "Left Joystick Activated" << std::endl;
     float left_prefilter = msg.data;
     this->last_command_left_joy = left_prefilter;
     float right_prefilter = this->last_command_right_joy;
@@ -70,8 +70,12 @@ void Gamepad_to_Motor::left_joystick_callback(const std_msgs::msg::Float32& msg)
 
     double throttle = this->joystick_to_throttle(left, right);
     double turn = this->joystick_to_turn(left, right);
-
-    this->tank_controller.drive(throttle, turn, 0.1);
+    double motor_power = sqrt(pow(throttle, 2) + pow(turn, 2));
+    double throttle_norm = motor_power == 0 ? 0 : throttle / motor_power;
+    double turn_norm = motor_power == 0 ? 0 : turn / motor_power;
+    std::cout << "Left Throttle: " << throttle_norm << std::endl;
+    std::cout << "Left Turn: " << turn_norm << std::endl;
+    this->tank_controller.drive(throttle_norm, turn_norm);
 
   }
   return;
@@ -79,7 +83,7 @@ void Gamepad_to_Motor::left_joystick_callback(const std_msgs::msg::Float32& msg)
 
 void Gamepad_to_Motor::right_joystick_callback(const std_msgs::msg::Float32& msg) {
   if (!this->killed) {
-
+    std::cout << "Right Joystick Activated" << std::endl;
     float right_prefilter = msg.data;
     this->last_command_right_joy = right_prefilter;
     float left_prefilter = this->last_command_left_joy;
@@ -92,8 +96,12 @@ void Gamepad_to_Motor::right_joystick_callback(const std_msgs::msg::Float32& msg
 
     double throttle = this->joystick_to_throttle(left, right);
     double turn = this->joystick_to_turn(left, right);
-
-    this->tank_controller.drive(throttle, turn, 0.1);
+    double motor_power = sqrt(pow(throttle, 2) + pow(turn, 2));
+    double throttle_norm = motor_power == 0 ? 0 : throttle / motor_power;
+    double turn_norm = motor_power == 0 ? 0 : turn / motor_power;
+    std::cout << "Right Throttle: " << throttle_norm << std::endl;
+    std::cout << "Right Turn: " << turn_norm << std::endl;
+    this->tank_controller.drive(throttle_norm, turn_norm);
 
   }
   return;
@@ -112,7 +120,7 @@ void Gamepad_to_Motor::point_turn_right_callback(const std_msgs::msg::Bool& msg)
 void Gamepad_to_Motor::hard_stop_callback(const std_msgs::msg::Bool& msg) {
   /* TODO: Implement Opposing Current Velocity Vector */
 
-  if (!this->killed && msg.data) { this->tank_controller.stop(1); }
+  if (!this->killed && msg.data) { this->tank_controller.stop(); }
   return;
 }
 

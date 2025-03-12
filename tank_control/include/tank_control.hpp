@@ -13,16 +13,17 @@
 #include <string>
 #include <unistd.h>
 #include <chrono>
+#include <cmath>
 
 class TankControl {
     public:
         TankControl(SparkMax* leftMotor, SparkMax* rightMotor);
 
-        void setMotors(double leftMotorDutyCycle, double rightMotorDutyCycle, int duration);
-        void drive(double throttle, double turn, double durationSeconds);
-        void straight(double durationSeconds, double speedPercentage);
+        void setMotors(double leftMotorDutyCycle, double rightMotorDutyCycle);
+        void drive(double throttle, double turn);
+        void straight(double speedPercentage);
         void turn(double angle, double speedPercentage);
-        void stop(double duration);
+        void stop();
 
     private:
         SparkMax* leftTankMotor;

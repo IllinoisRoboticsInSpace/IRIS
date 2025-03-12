@@ -21,40 +21,38 @@ TankControl::TankControl(SparkMax* leftMotor, SparkMax* rightMotor) {
     rightTankMotor->BurnFlash();
 }
 
-void TankControl::setMotors(double leftMotorDutyCycle, double rightMotorDutyCycle, int duration) {
-    auto start = std::chrono::high_resolution_clock::now();
-    while (std::chrono::duration_cast<std::chrono::seconds>(
-            std::chrono::high_resolution_clock::now() - start)
-            .count() < duration)
-    {  
-        SparkMax::Heartbeat();
-        leftTankMotor->SetDutyCycle(leftMotorDutyCycle);
-        rightTankMotor->SetDutyCycle(rightMotorDutyCycle);
-    }
+void TankControl::setMotors(double leftMotorDutyCycle, double rightMotorDutyCycle) {
+    SparkMax::Heartbeat();
+    leftTankMotor->SetDutyCycle(leftMotorDutyCycle);
+    rightTankMotor->SetDutyCycle(rightMotorDutyCycle);
 }
 
-void TankControl::drive(double throttle, double turn, double durationSeconds) {
+void TankControl::drive(double throttle, double turn) {
     double leftSpeed = throttle + turn;
     double rightSpeed = throttle - turn;
-    setMotors(leftSpeed, rightSpeed, durationSeconds);
+    if (leftSpeed > 1) { leftSpeed = 1; }
+    if (leftSpeed < -1) { leftSpeed = -1; }
+    if (rightSpeed > 1) { rightSpeed = 1; }
+    if (rightSpeed < -1) { rightSpeed = -1; }
+    setMotors(leftSpeed, rightSpeed);
 }
 
-void TankControl::straight(double durationSeconds, double speedPercentage) {
+void TankControl::straight(double speedPercentage) {
     std::cout << "Going Straight" << std::endl;
-    drive(speedPercentage, 0, durationSeconds);
+    drive(speedPercentage, 0);
 }
 
 void TankControl::turn(double angle, double speedPercentage) {
     if (angle > 0) { //pivot turn right
-        setMotors(speedPercentage, -speedPercentage, 5); // left forward, right backward
+        setMotors(speedPercentage, -speedPercentage); // left forward, right backward
     } else { // pivot turn left
-        setMotors(-speedPercentage, speedPercentage, 5); // left backward right forward
+        setMotors(-speedPercentage, speedPercentage); // left backward right forward
     }
 }
 
-void TankControl::stop(double duration) {
+void TankControl::stop() {
     std::cout << "Stopping" << std::endl;
-    setMotors(0, 0, duration);
+    setMotors(0, 0);
 }
 
 
