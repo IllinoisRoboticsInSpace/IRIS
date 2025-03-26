@@ -27,7 +27,7 @@ class Gamepad_to_Motor : public rclcpp::Node {
     public:
 
         Gamepad_to_Motor();
-    
+
     private:
 
         // Callbacks
@@ -36,6 +36,7 @@ class Gamepad_to_Motor : public rclcpp::Node {
         void point_turn_left_callback(const std_msgs::msg::Bool& msg); /* Precision Point-Turning Left */ /* TODO */
         void point_turn_right_callback(const std_msgs::msg::Bool& msg); /* Precision Point-Turning Right */ /* TODO */
         void hard_stop_callback(const std_msgs::msg::Bool& msg); /* Stop all Motor Current */ /* TODO */
+        void driveTimerCallback();
         
         double joystick_to_throttle(float left, float right); /* Convert Joystick Input to Throttle */
         double joystick_to_turn(float left, float right);
@@ -49,6 +50,7 @@ class Gamepad_to_Motor : public rclcpp::Node {
         SparkMax leftMotor;
         SparkMax rightMotor;
         TankControl tank_controller;
+        rclcpp::TimerBase::SharedPtr timer_;
 
         // Subscribers
         rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr left_drive_sub; /* /gamepad/left_drive */

@@ -6,6 +6,10 @@
  */
 
 #include "joy_to_tank_control.hpp"
+#include "rclcpp/rclcpp.hpp"
+
+int curr_throttle = 0;
+int curr_turn = 0;
 
 Gamepad_to_Motor::Gamepad_to_Motor() : Node("gamepad_to_sparkmax"), 
         leftMotor("can0", 1),
@@ -53,6 +57,16 @@ Gamepad_to_Motor::Gamepad_to_Motor() : Node("gamepad_to_sparkmax"),
   this->last_command_left_joy = 0;
   this->last_command_right_joy = 0;
   this->killed = false;
+
+  timer_ = this->create_wall_timer(
+    std::chrono::milliseconds(10),
+    std::bind(&Gamepad_to_Motor::driveTimerCallback, this));  // Update every 10ms        
+  
+}
+
+void Gamepad_to_Motor::driveTimerCallback() {
+  std::cout << "Running Drive Function" << std::endl;
+  this->tank_controller.drive(curr_throttle, curr_turn);
 }
 
 void Gamepad_to_Motor::left_joystick_callback(const std_msgs::msg::Float32& msg) {
@@ -75,8 +89,8 @@ void Gamepad_to_Motor::left_joystick_callback(const std_msgs::msg::Float32& msg)
     double turn_norm = motor_power == 0 ? 0 : turn / motor_power;
     std::cout << "Left Throttle: " << throttle_norm << std::endl;
     std::cout << "Left Turn: " << turn_norm << std::endl;
-    this->tank_controller.drive(throttle_norm, turn_norm);
-
+    curr_throttle = throttle_norm;
+    curr_turn = turn_norm;
   }
   return;
 }
@@ -93,15 +107,12 @@ void Gamepad_to_Motor::right_joystick_callback(const std_msgs::msg::Float32& msg
 
     float right = (right_prefilter < DEADZONE || right_prefilter > (1 - DEADZONE)) ? 
                   (right_prefilter < DEADZONE ? 0 : 1) : right_prefilter;
-
-    double throttle = this->joystick_to_throttle(left, right);
-    double turn = this->joystick_to_turn(left, right);
-    double motor_power = sqrt(pow(throttle, 2) + pow(turn, 2));
-    double throttle_norm = motor_power == 0 ? 0 : throttle / motor_power;
-    double turn_norm = motor_power == 0 ? 0 : turn / motor_power;
-    std::cout << "Right Throttle: " << throttle_norm << std::endl;
-    std::cout << "Right Turn: " << turn_norm << std::endl;
-    this->tank_controller.drive(throttle_norm, turn_norm);
+    // double motor_power = sqrt(pow(throttle, 2) + pow(turn, 2));
+    // double throttle_norm = motor_power == 0 ? 0 : throttle / motor_power;
+    // double turn_norm = motor_power == 0 ? 0 : turn / motor_power;
+    // std::cout << "Right Throttle: " << throttle_norm << std::endl;
+    // std::cout << "Right Turn: " << turn_norm << std::endl;
+    // this->tank_controller.drive(throttle_norm, turn_norm);
 
   }
   return;
@@ -135,7 +146,11 @@ double Gamepad_to_Motor::joystick_to_turn(float left, float right) {
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<Gamepad_to_Motor>());
+  auto node = std::make_shared<Gamepad_to_Motor>();
+  
+  rclcpp::executors::MultiThreadedExecutor executor;
+  executor.add_node(node);
+  executor.spin();
   rclcpp::shutdown();
   return 0;
 }

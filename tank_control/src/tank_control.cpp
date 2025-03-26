@@ -34,7 +34,9 @@ void TankControl::drive(double throttle, double turn) {
     if (leftSpeed < -1) { leftSpeed = -1; }
     if (rightSpeed > 1) { rightSpeed = 1; }
     if (rightSpeed < -1) { rightSpeed = -1; }
-    setMotors(leftSpeed, rightSpeed);
+    for (int i = 0; i < 100000000; i++) {
+        setMotors(leftSpeed, rightSpeed);
+    }
 }
 
 void TankControl::straight(double speedPercentage) {
