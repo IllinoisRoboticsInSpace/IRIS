@@ -8,12 +8,9 @@
 #include "joy_to_tank_control.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-int curr_throttle = 0;
-int curr_turn = 0;
-
 Gamepad_to_Motor::Gamepad_to_Motor() : Node("gamepad_to_sparkmax"), 
-        leftMotor("can0", 1),
-        rightMotor("can0", 2),
+        leftMotor("can0", 2),
+        rightMotor("can0", 1),
         tank_controller(&leftMotor, &rightMotor) {
 
   // Initialize Subscribers
@@ -65,56 +62,67 @@ Gamepad_to_Motor::Gamepad_to_Motor() : Node("gamepad_to_sparkmax"),
 }
 
 void Gamepad_to_Motor::driveTimerCallback() {
-  std::cout << "Running Drive Function" << std::endl;
-  this->tank_controller.drive(curr_throttle, curr_turn);
+  this->tank_controller.drive(this->curr_left, this->curr_right);
 }
 
 void Gamepad_to_Motor::left_joystick_callback(const std_msgs::msg::Float32& msg) {
+  std::cout << "Enter Left Joystick" << std::endl;
   if (!this->killed) {
     std::cout << "Left Joystick Activated" << std::endl;
-    float left_prefilter = msg.data;
-    this->last_command_left_joy = left_prefilter;
-    float right_prefilter = this->last_command_right_joy;
+    // float left_prefilter = msg.data;
+    // this->last_command_left_joy = left_prefilter;
+    // float right_prefilter = this->last_command_right_joy;
 
-    float left =  (left_prefilter < DEADZONE || left_prefilter > (1 - DEADZONE)) ? 
-                  (left_prefilter < DEADZONE ? 0 : 1) : left_prefilter;
+    // float left =  (left_prefilter < DEADZONE || left_prefilter > (1 - DEADZONE)) ? 
+    //               (left_prefilter < DEADZONE ? 0 : 1) : left_prefilter;
 
-    float right = (right_prefilter < DEADZONE || right_prefilter > (1 - DEADZONE)) ? 
-                  (right_prefilter < DEADZONE ? 0 : 1) : right_prefilter;
+    // float right = (right_prefilter < DEADZONE || right_prefilter > (1 - DEADZONE)) ? 
+    //               (right_prefilter < DEADZONE ? 0 : 1) : right_prefilter;
 
-    double throttle = this->joystick_to_throttle(left, right);
-    double turn = this->joystick_to_turn(left, right);
-    double motor_power = sqrt(pow(throttle, 2) + pow(turn, 2));
-    double throttle_norm = motor_power == 0 ? 0 : throttle / motor_power;
-    double turn_norm = motor_power == 0 ? 0 : turn / motor_power;
-    std::cout << "Left Throttle: " << throttle_norm << std::endl;
-    std::cout << "Left Turn: " << turn_norm << std::endl;
-    curr_throttle = throttle_norm;
-    curr_turn = turn_norm;
+    
+    float forward = msg.data;
+    std::cout << "Axis 2: " << forward << std::endl; 
+
+
+
+
+    // double throttle = this->joystick_to_throttle(left, right);
+    // double turn = this->joystick_to_turn(left, right);
+    // double motor_power = sqrt(pow(throttle, 2) + pow(turn, 2));
+    // double throttle_norm = motor_power == 0 ? 0 : throttle / motor_power;
+    // double turn_norm = motor_power == 0 ? 0 : turn / motor_power;
+    // std::cout << "Left Throttle: " << throttle_norm << std::endl;
+    // std::cout << "Left Turn: " << turn_norm << std::endl;
+    this->curr_left = forward;
   }
   return;
 }
 
 void Gamepad_to_Motor::right_joystick_callback(const std_msgs::msg::Float32& msg) {
-  if (!this->killed) {
-    std::cout << "Right Joystick Activated" << std::endl;
-    float right_prefilter = msg.data;
-    this->last_command_right_joy = right_prefilter;
-    float left_prefilter = this->last_command_left_joy;
+//   if (!this->killed) {
+//     std::cout << "Right Joystick Activated" << std::endl;
+//     float right_prefilter = msg.data;
+//     this->last_command_right_joy = right_prefilter;
+//     float left_prefilter = this->last_command_left_joy;
 
-    float left =  (left_prefilter < DEADZONE || left_prefilter > (1 - DEADZONE)) ? 
-                  (left_prefilter < DEADZONE ? 0 : 1) : left_prefilter;
+//     float left =  (left_prefilter < DEADZONE || left_prefilter > (1 - DEADZONE)) ? 
+//                   (left_prefilter < DEADZONE ? 0 : 1) : left_prefilter;
 
-    float right = (right_prefilter < DEADZONE || right_prefilter > (1 - DEADZONE)) ? 
-                  (right_prefilter < DEADZONE ? 0 : 1) : right_prefilter;
-    // double motor_power = sqrt(pow(throttle, 2) + pow(turn, 2));
-    // double throttle_norm = motor_power == 0 ? 0 : throttle / motor_power;
-    // double turn_norm = motor_power == 0 ? 0 : turn / motor_power;
-    // std::cout << "Right Throttle: " << throttle_norm << std::endl;
-    // std::cout << "Right Turn: " << turn_norm << std::endl;
-    // this->tank_controller.drive(throttle_norm, turn_norm);
+//     float right = (right_prefilter < DEADZONE || right_prefilter > (1 - DEADZONE)) ? 
+//                   (right_prefilter < DEADZONE ? 0 : 1) : right_prefilter;
+//     // double motor_power = sqrt(pow(throttle, 2) + pow(turn, 2));
+//     // double throttle_norm = motor_power == 0 ? 0 : throttle / motor_power;
+//     // double turn_norm = motor_power == 0 ? 0 : turn / motor_power;
+//     // std::cout << "Right Throttle: " << throttle_norm << std::endl;
+//     // std::cout << "Right Turn: " << turn_norm << std::endl;
+//     // this->tank_controller.drive(throttle_norm, turn_norm);
+//     // this->curr_throttle = throttle_norm;
+//     // this->curr_turn = turn_norm;
+//   }
+    float forward = msg.data;
+    std::cout << "Axis Right: " << forward << std::endl; 
+    this->curr_right = forward;
 
-  }
   return;
 }
 

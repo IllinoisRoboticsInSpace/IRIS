@@ -46,6 +46,9 @@ class Gamepad_to_Motor : public rclcpp::Node {
         float last_command_right_joy;
         bool killed;
 
+        float curr_left = 0;
+        float curr_right = 0;
+
         // Tank Control Objects
         SparkMax leftMotor;
         SparkMax rightMotor;

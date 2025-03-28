@@ -27,16 +27,15 @@ void TankControl::setMotors(double leftMotorDutyCycle, double rightMotorDutyCycl
     rightTankMotor->SetDutyCycle(rightMotorDutyCycle);
 }
 
-void TankControl::drive(double throttle, double turn) {
-    double leftSpeed = throttle + turn;
-    double rightSpeed = throttle - turn;
+void TankControl::drive(double leftSpeed, double rightSpeed) {
+    // double leftSpeed = throttle + turn;
+    // double rightSpeed = throttle - turn;
     if (leftSpeed > 1) { leftSpeed = 1; }
     if (leftSpeed < -1) { leftSpeed = -1; }
     if (rightSpeed > 1) { rightSpeed = 1; }
     if (rightSpeed < -1) { rightSpeed = -1; }
-    for (int i = 0; i < 100000000; i++) {
-        setMotors(leftSpeed, rightSpeed);
-    }
+    setMotors(leftSpeed, rightSpeed);
+
 }
 
 void TankControl::straight(double speedPercentage) {
