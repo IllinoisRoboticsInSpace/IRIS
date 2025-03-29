@@ -1,6 +1,6 @@
 /**
  * @file joy_to_tank_control.cpp
- * @author Rushil Shah
+ * @author Rama Rao Vencharla, Rushil Shah
  * 
  * @brief Integration b/w Xbox Controller & Motors via Tank Control Class
  */

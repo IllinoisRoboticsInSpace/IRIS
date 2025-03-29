@@ -1,6 +1,6 @@
 /**
  * @file tank_control.cpp
- * @author Rama Vencharla
+ * @author Rama Rao Vencharla
  * 
  * @brief Tank Control Class to Control SparkMax Motors
  */
@@ -11,14 +11,15 @@
 TankControl::TankControl(SparkMax* leftMotor, SparkMax* rightMotor) {
     this->leftTankMotor = leftMotor;
     this->rightTankMotor = rightMotor;
-    leftTankMotor->SetIdleMode(IdleMode::kCoast);
-    leftTankMotor->SetMotorType(MotorType::kBrushless);
-    leftTankMotor->SetInverted(true);
-    leftTankMotor->BurnFlash();
-    rightTankMotor->SetIdleMode(IdleMode::kCoast);
-    rightTankMotor->SetMotorType(MotorType::kBrushless);
-    rightTankMotor->SetInverted(true);
-    rightTankMotor->BurnFlash();
+    setupMotors(this->leftTankMotor);
+    setupMotors(this->rightTankMotor);
+}
+
+void TankControl::setupMotors(SparkMax * motor) {
+    motor->SetIdleMode(IdleMode::kCoast);
+    motor->SetMotorType(MotorType::kBrushless);
+    motor->SetInverted(true);
+    motor->BurnFlash();
 }
 
 void TankControl::setMotors(double leftMotorDutyCycle, double rightMotorDutyCycle) {
