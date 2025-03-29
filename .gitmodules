@@ -14,3 +14,6 @@
 [submodule "MotorDriver/lib/EmbeddedProto"]
 	path = MotorDriver/lib/EmbeddedProto
 	url = https://github.com/Embedded-AMS/EmbeddedProto.git
+[submodule "dependencies/CytronMotorDriver"]
+	path = dependencies/CytronMotorDriver
+	url = https://github.com/CytronTechnologies/CytronMotorDriver
