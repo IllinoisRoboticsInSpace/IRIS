@@ -49,7 +49,7 @@ install(
 
 install(
   DIRECTORY launch
-  DESTINATION share/{PROJECT_NAME}
+  DESTINATION share/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)
