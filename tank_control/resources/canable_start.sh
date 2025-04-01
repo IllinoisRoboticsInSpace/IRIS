@@ -1,7 +1,8 @@
 #!/bin/bash
 
-echo "Enter the name of the can interface (can0, e.g.):"
-read interface
+# echo "Enter the name of the can interface (can0, e.g.):"
+# read interface
+interface = can0
 
 # Check if the interface exists
 if ! ip link show "$interface" &> /dev/null; then

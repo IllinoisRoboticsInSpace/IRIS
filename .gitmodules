@@ -23,6 +23,6 @@
 [submodule "dependencies/sparkcan"]
 	path = dependencies/sparkcan
 	url = https://github.com/grayson-arendt/sparkcan.git
-[submodule "dependencies/CytronMotorDriver"]
-	path = dependencies/CytronMotorDriver
+[submodule "MotorDriver/lib/CytronMotorDriver"]
+	path = MotorDriver/lib/CytronMotorDriver
 	url = https://github.com/CytronTechnologies/CytronMotorDriver.git
