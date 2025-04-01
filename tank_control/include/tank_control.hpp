@@ -25,6 +25,7 @@ class TankControl {
         void turn(double angle, double speedPercentage);
         void stop();
         void setupMotors(SparkMax * motor);
+        void getStatus();
 
     private:
         SparkMax* leftTankMotor;

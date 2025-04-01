@@ -22,6 +22,13 @@ void TankControl::setupMotors(SparkMax * motor) {
     motor->BurnFlash();
 }
 
+void TankControl::getStatus() {
+    std::cout << "Left Motor Free Current Limit: " << leftTankMotor->GetSmartCurrentFreeLimit() << std::endl;
+    std::cout << "Right Motor Free Current Limit: " << rightTankMotor->GetSmartCurrentFreeLimit() << std::endl;
+    std::cout << "Left Motor Current: " << leftTankMotor->GetCurrent() << std::endl;
+    std::cout << "Right Motor Current: " << rightTankMotor->GetCurrent() << std::endl;
+}
+
 void TankControl::setMotors(double leftMotorDutyCycle, double rightMotorDutyCycle) {
     SparkMax::Heartbeat();
     leftTankMotor->SetDutyCycle(leftMotorDutyCycle);
@@ -56,6 +63,8 @@ void TankControl::stop() {
     std::cout << "Stopping" << std::endl;
     setMotors(0, 0);
 }
+
+
 
 
 // int main()
