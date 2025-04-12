@@ -14,6 +14,8 @@ from std_msgs.msg import Bool, Float32
 # * 6: Excavator Pivoting Linear Actuator -> X
 # * 7: Auto Mode -> Y
 # * 8: Stop Mode -> Xbox button
+# * 9: Linear Actuator Contract -> LT
+# * 10: Linear Actuator Expand -> RT
 
 # real vals
 N_AXIS_USED = 2
@@ -33,11 +35,14 @@ EXC_PIVOT_LIN = 6
 AUTO_MODE = 7
 STOP_MODE = 8
 
+LIN_ACTR_CONTRACT = 9  
+LIN_ACTR_EXPAND = 10  
+
 def get_gamepad_mapping():
     mapping = {"left_drive": LEFT_DRIVE, "right_drive": RIGHT_DRIVE, "left_back_cltn_mtr": LEFT_BACK_COLL, 
-                                "right_back_cltn_mtr": RIGHT_BACK_COLL, "exc_intrnl_mtr": EXC_INTERNAL, "exc_thrd_rod_actr": EXC_THREAD_ROD,
-                                "exc_pvt_lin_actr": EXC_PIVOT_LIN, "auto_mode": AUTO_MODE, "stop_mode": STOP_MODE}
-    
+                "right_back_cltn_mtr": RIGHT_BACK_COLL, "exc_intrnl_mtr": EXC_INTERNAL, "exc_thrd_rod_actr": EXC_THREAD_ROD,
+                "exc_pvt_lin_actr": EXC_PIVOT_LIN, "auto_mode": AUTO_MODE, "stop_mode": STOP_MODE,
+                "lin_actr_contract": LIN_ACTR_CONTRACT, "lin_actr_expand": LIN_ACTR_EXPAND}
     return mapping
 
 def get_inverse_gamepad_mapping():
@@ -74,7 +79,7 @@ class gamepad_node(Node):
         self.gamepad_publishers = [None] * (N_AXIS_USED + N_BUTTONS_USED)
 
         for key, value in self.gamepad_map.items():
-            if key in ["left_drive", "right_drive"]:
+            if key in ["left_drive", "right_drive", "lin_actr_contract", "lin_actr_expand"]:
                 msg_type = Float32
             else:
                 msg_type = Bool
@@ -118,6 +123,21 @@ class gamepad_node(Node):
             self.curr_state[EXC_INTERNAL] = joy_msg.buttons[self.joystick_button_mapping["A"]]
             self.curr_state[EXC_THREAD_ROD] = joy_msg.buttons[self.joystick_button_mapping["B"]]
             self.curr_state[EXC_PIVOT_LIN] = joy_msg.buttons[self.joystick_button_mapping["X"]]
+
+            # Xbox triggers return values from 1 (not pressed) to -1 (fully pressed)
+            left_trigger = (1 - joy_msg.axes[self.joystick_axis_mapping["LT"]]) / 2
+            right_trigger = (1 - joy_msg.axes[self.joystick_axis_mapping["RT"]]) / 2
+            
+            # Only one trigger should control at a time, prioritize the one with higher value
+            if left_trigger > 0.1 and left_trigger >= right_trigger:
+                self.curr_state[LIN_ACTR_CONTRACT] = left_trigger
+                self.curr_state[LIN_ACTR_EXPAND] = 0
+            elif right_trigger > 0.1:
+                self.curr_state[LIN_ACTR_EXPAND] = right_trigger
+                self.curr_state[LIN_ACTR_CONTRACT] = 0
+            else:
+                self.curr_state[LIN_ACTR_CONTRACT] = 0
+                self.curr_state[LIN_ACTR_EXPAND] = 0
 
         for i in range(len(self.curr_state)):
             if (self.prev_state[i] != self.curr_state[i]):
