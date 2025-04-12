@@ -43,6 +43,8 @@ enum Opcode_To_Arduino
     CONFIG_ENCODER = 7;
     GET_ENCODER_COUNT = 8;
     ZERO_ENCODER = 9;
+    CONFIG_CYTRON = 10;
+    TURN_CYTRON_MOTOR = 11;
 }
 
 message Serial_Message_To_Arduino
@@ -59,6 +61,8 @@ message Serial_Message_To_Arduino
         Encoder_Config_Data encoderConfigData = 5007;
         Zero_Encoder_Command zeroEncoderCommand = 5008;
         Encoder_Count_Request encoderCountRequest = 5009;
+        Cytron_Config_Data cytronConfigData = 5010;
+        Linear_Actuator_Command cytronMotorCommand = 5011;
     }
 }
 
@@ -75,10 +79,30 @@ message Sabertooth_Config_Data
     }
 }
 
+message Cytron_Config_Data
+{
+    uint32 motorID = 4100;
+    oneof values
+    {
+        bool inverted = 4101;
+        bool enabled = 4102;
+        uint32 pwmPin = 4104;
+        uint32 dirPin = 4105;
+        uint32 pwm2Pin = 4106;
+    }
+}
+
 message Turn_Motor
 {
     uint32 motorID = 6000;
     float percentOutput = 6001;
+}
+
+message Linear_Actuator_Command
+{
+    uint32 motorID = 18000; 
+    float percentOutput = 18001;     
+    bool stop = 18002;          
 }
 
 message Debug_Mode
