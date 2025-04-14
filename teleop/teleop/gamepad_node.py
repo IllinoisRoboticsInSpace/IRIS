@@ -29,19 +29,17 @@ N_BUTTONS_USED = 7
 LEFT_BACK_COLL = 2
 RIGHT_BACK_COLL = 3
 EXC_INTERNAL = 4
-EXC_THREAD_ROD = 5
-EXC_PIVOT_LIN = 6
+LIN_ACTR_CONTRACT = 5
+LIN_ACTR_EXPAND = 6 
 
 AUTO_MODE = 7
 STOP_MODE = 8
 
-LIN_ACTR_CONTRACT = 9  
-LIN_ACTR_EXPAND = 10  
+ 
 
 def get_gamepad_mapping():
     mapping = {"left_drive": LEFT_DRIVE, "right_drive": RIGHT_DRIVE, "left_back_cltn_mtr": LEFT_BACK_COLL, 
-                "right_back_cltn_mtr": RIGHT_BACK_COLL, "exc_intrnl_mtr": EXC_INTERNAL, "exc_thrd_rod_actr": EXC_THREAD_ROD,
-                "exc_pvt_lin_actr": EXC_PIVOT_LIN, "auto_mode": AUTO_MODE, "stop_mode": STOP_MODE,
+                "right_back_cltn_mtr": RIGHT_BACK_COLL, "exc_intrnl_mtr": EXC_INTERNAL, "auto_mode": AUTO_MODE, "stop_mode": STOP_MODE,
                 "lin_actr_contract": LIN_ACTR_CONTRACT, "lin_actr_expand": LIN_ACTR_EXPAND}
     return mapping
 
@@ -83,7 +81,6 @@ class gamepad_node(Node):
                 msg_type = Float32
             else:
                 msg_type = Bool
-
             self.gamepad_publishers[value] = self.create_publisher(msg_type, f"/gamepad/{key}", 10)
 
         self.joystick_button_mapping = {"A": 0, "B": 1, "X": 2, "Y": 3, "LB": 4,
@@ -121,8 +118,8 @@ class gamepad_node(Node):
             self.curr_state[LEFT_BACK_COLL] = joy_msg.buttons[self.joystick_button_mapping["LB"]]
             self.curr_state[RIGHT_BACK_COLL] = joy_msg.buttons[self.joystick_button_mapping["RB"]]
             self.curr_state[EXC_INTERNAL] = joy_msg.buttons[self.joystick_button_mapping["A"]]
-            self.curr_state[EXC_THREAD_ROD] = joy_msg.buttons[self.joystick_button_mapping["B"]]
-            self.curr_state[EXC_PIVOT_LIN] = joy_msg.buttons[self.joystick_button_mapping["X"]]
+            # self.curr_state[EXC_THREAD_ROD] = joy_msg.buttons[self.joystick_button_mapping["B"]]
+            # self.curr_state[EXC_PIVOT_LIN] = joy_msg.buttons[self.joystick_button_mapping["X"]]
 
             # Xbox triggers return values from 1 (not pressed) to -1 (fully pressed)
             left_trigger = (1 - joy_msg.axes[self.joystick_axis_mapping["LT"]]) / 2
@@ -143,7 +140,7 @@ class gamepad_node(Node):
             if (self.prev_state[i] != self.curr_state[i]):
                 self.prev_state[i] = self.curr_state[i]
 
-                if i < N_AXIS_USED:
+                if i < N_AXIS_USED or i == LIN_ACTR_CONTRACT or i == LIN_ACTR_EXPAND:
                     pub_msg = Float32()
                     pub_msg.data = float(self.curr_state[i])
                     

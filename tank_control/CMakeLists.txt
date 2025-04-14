@@ -16,7 +16,6 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/../dependencies/sparkcan ${CMAKE_BINARY_DIR}/sparkcan_build)
-add_subdirectory(${CMAKE_SOURCE_DIR}/../dependencies/CytronMotorDriver ${CMAKE_BINARY_DIR}/cytron_build)
 include_directories(
   include
   ${CMAKE_SOURCE_DIR}/../dependencies/sparkcan/include
