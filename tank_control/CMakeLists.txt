@@ -26,7 +26,6 @@ add_library(tank_control_lib src/tank_control.cpp)
 
 # Add executables
 add_executable(joy_to_tank_control src/joy_to_tank_control.cpp)
-add_executable(cytron_linear_actuator src/cytron_linear_actuator.cpp)
 
 # Link executables against libraries
 target_link_libraries(sparkcan)
@@ -35,15 +34,12 @@ target_include_directories(tank_control_lib PUBLIC include)
 target_link_libraries(joy_to_tank_control PRIVATE ${sparkcan_LIBRARIES})
 target_link_libraries(joy_to_tank_control PRIVATE tank_control_lib)
 target_include_directories(joy_to_tank_control PUBLIC include)
-target_link_libraries(cytron_linear_actuator PUBLIC CytronMotorDriver)
 
 ament_target_dependencies(joy_to_tank_control PUBLIC rclcpp std_msgs)
-ament_target_dependencies(cytron_linear_actuator PUBLIC rclcpp std_msgs)
 
 install(TARGETS
   joy_to_tank_control
   tank_control_lib
-  cytron_linear_actuator
   DESTINATION lib/${PROJECT_NAME}
 )
 install(
