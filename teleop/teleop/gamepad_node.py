@@ -126,6 +126,9 @@ class gamepad_node(Node):
                 if i < N_AXIS_USED:
                     pub_msg = Float32()
                     pub_msg.data = float(self.curr_state[i])
+
+                    if (i == LEFT_DRIVE or i == RIGHT_DRIVE):
+                        pub_msg.data = pub_msg.data * abs(pub_msg.data)
                     
                 else:
                     pub_msg = Bool()
