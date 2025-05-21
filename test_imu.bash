@@ -1,14 +1,14 @@
 source /opt/ros/galactic/setup.bash
 
 cd ~/colcon_ws
-colcon build --base-paths ./src/CameraTesting
+colcon build --packages-select rs_imu
 
 source ./install/setup.bash
 
 gnome-terminal \
     --tab -- bash -c \
     "ros2 launch realsense2_camera rs_launch.py \
-    e ;bash"
+    enable_gyro:=true enable_accel:=true unite_imu_method:=2 ;bash"
     # "ros2 launch realsense2_camera rs_d455_launch.py ;bash"
 gnome-terminal \
     --tab -- bash -c \
