@@ -6,34 +6,36 @@
 
 echo "Setting Up IRIS Galactic Development Environment Dependencies"
 
+apt update -y && apt install -y curl
+
 # Install ROS 2 Galactic
 # Initialization
-sudo apt update -y && sudo apt install -y locales
-sudo locale-gen en_US en_US.UTF-8
-sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+apt update -y && apt install -y locales
+locale-gen en_US en_US.UTF-8
+update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
-sudo apt update -y && sudo apt install -y curl gnupg lsb-release
-sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-sudo apt update -y
-sudo apt upgrade -y
+apt update -y && apt install -y curl gnupg lsb-release
+curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null
+apt update -y
+apt upgrade -y
 
 # Install Galactic
-sudo apt install -y ros-galactic-desktop
+apt install -y ros-galactic-desktop
 echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
 source /opt/ros/galactic/setup.bash
 
 # Utilities
-sudo apt-get install -y python3-colcon-common-extensions python3-rosdep
-sudo rosdep init # Can fail if already initialized previously, therefore disregard error
+apt-get install -y python3-colcon-common-extensions python3-rosdep
+rosdep init # Can fail if already initialized previously, therefore disregard error
 rosdep update --rosdistro=$ROS_DISTRO
 
 # Nav2
-sudo apt install -y ros-$ROS_DISTRO-navigation2 ros-$ROS_DISTRO-nav2-bringup
+apt install -y ros-$ROS_DISTRO-navigation2 ros-$ROS_DISTRO-nav2-bringup
 
 # Install RTAB-MAP
 # https://github.com/introlab/rtabmap_ros/tree/ros2#binaries
-sudo apt-get install -y ros-$ROS_DISTRO-rtabmap-ros
+apt-get install -y ros-$ROS_DISTRO-rtabmap-ros
 
 # Extra Installation Instructions
 echo "source ~/colcon_ws/install/setup.bash" >> ~/.bashrc
@@ -58,7 +60,7 @@ source ./install/setup.bash
 # git clone https://github.com/AprilRobotics/apriltag.git
 # cd apriltag
 # cmake -B build -DCMAKE_BUILD_TYPE=Release
-# sudo cmake --build build --target install
+# cmake --build build --target install
 # cd $cwd
 
 # Repo Code Initialization
