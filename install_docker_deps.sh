@@ -4,7 +4,7 @@
 #   ONLY RUN THIS SCRIPT ONCE
 #
 
-echo "Setting Up IRIS Galactic Development Environment Dependencies"
+echo "Setting Up IRIS Jazzy Development Environment Dependencies"
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -25,10 +25,10 @@ export DEBIAN_FRONTEND=noninteractive
 # echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
 # source /opt/ros/galactic/setup.bash
 #
-# # Utilities
-# apt-get install -y python3-colcon-common-extensions python3-rosdep
-# rosdep init # Can fail if already initialized previously, therefore disregard error
-# rosdep update --rosdistro=$ROS_DISTRO
+# Utilities
+apt-get install -y python3-colcon-common-extensions python3-rosdep
+rosdep init # Can fail if already initialized previously, therefore disregard error
+rosdep update --rosdistro=$ROS_DISTRO
 
 apt update
 apt install -y curl gnupg2 lsb-release
