@@ -6,29 +6,37 @@
 
 echo "Setting Up IRIS Galactic Development Environment Dependencies"
 
-apt update -y && apt install -y curl
+export DEBIAN_FRONTEND=noninteractive
 
-# Install ROS 2 Galactic
-# Initialization
-apt update -y && apt install -y locales
-locale-gen en_US en_US.UTF-8
-update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
-export LANG=en_US.UTF-8
-apt update -y && apt install -y curl gnupg lsb-release
-curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null
-apt update -y
-apt upgrade -y
+# # Install ROS 2 Galactic
+# # Initialization
+# apt update -y && apt install -y locales
+# locale-gen en_US en_US.UTF-8
+# update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+# export LANG=en_US.UTF-8
+# apt update -y && apt install -y curl gnupg lsb-release
+# curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+# echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null
+# apt update -y
+# apt upgrade -y
+#
+# # Install Galactic
+# apt install -y ros-galactic-desktop
+# echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
+# source /opt/ros/galactic/setup.bash
+#
+# # Utilities
+# apt-get install -y python3-colcon-common-extensions python3-rosdep
+# rosdep init # Can fail if already initialized previously, therefore disregard error
+# rosdep update --rosdistro=$ROS_DISTRO
 
-# Install Galactic
-apt install -y ros-galactic-desktop
-echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
-source /opt/ros/galactic/setup.bash
+apt update
+apt install -y curl gnupg2 lsb-release
 
-# Utilities
-apt-get install -y python3-colcon-common-extensions python3-rosdep
-rosdep init # Can fail if already initialized previously, therefore disregard error
-rosdep update --rosdistro=$ROS_DISTRO
+curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+sh -c 'echo "deb http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2.list'
+
+apt update
 
 # Nav2
 apt install -y ros-$ROS_DISTRO-navigation2 ros-$ROS_DISTRO-nav2-bringup
@@ -62,11 +70,3 @@ source ./install/setup.bash
 # cmake -B build -DCMAKE_BUILD_TYPE=Release
 # cmake --build build --target install
 # cd $cwd
-
-# Repo Code Initialization
-git submodule update --init --recursive
-cd ~/colcon_ws
-rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 -r --rosdistro $ROS_DISTRO -y --include-eol-distros
-# export MAKEFLAGS="-j$(nproc)" #Uncomment to use all cpu cores
-colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --executor sequential
-# colcon build # Should be run after running "install_jetson_deps.sh"
