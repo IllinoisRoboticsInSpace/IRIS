@@ -1,8 +1,0 @@
-{
-    "name": "IRISMotorDriver",
-    "version": "0.0.1",
-    "description": "Driver for UIUC Illinois Robotics in Space Arduino based encoder and motor handler board.",
-    "homepage": "https://github.com/IllinoisRoboticsInSpace",
-    "frameworks": "arduino",
-    "platforms": "atmelsam"
-  }

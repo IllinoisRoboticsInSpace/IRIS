@@ -11,6 +11,6 @@
 [submodule "dependencies/imu_tools"]
 	path = dependencies/imu_tools
 	url = https://github.com/IllinoisRoboticsInSpace/imu_tools
-[submodule "MotorDriver/lib/EmbeddedProto"]
-	path = MotorDriver/lib/EmbeddedProto
-	url = https://github.com/Embedded-AMS/EmbeddedProto.git
+[submodule "dependencies/sparkcan"]
+	path = dependencies/sparkcan
+	url = https://github.com/grayson-arendt/sparkcan
