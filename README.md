@@ -1,40 +1,53 @@
 # IRIS
+
 ## Getting Started
-> **Note**
-> It is highly recommended to develop in a virtual machine because our install procedures are not isolated and can be invasive. For more information on why our team uses a VM, refer to the following documentation: ([VM Documentation](VM_Documentation.md))
-1. Install [VMWare Workstation Player](https://blogs.vmware.com/workstation/2024/05/vmware-workstation-pro-now-available-free-for-personal-use.html)
-   - For Windows: Download VMWare Workstation Pro for personal use.
-   - For Macs: Follow these [setup instructions](MAC_Setup.md)
-   - You will have to make a Broadcom account in the process, but this will just require your email for verification.
-2. Add [Base Ubuntu Image](https://releases.ubuntu.com/focal/) to VMware.
-   - An Ubuntu image is a pre-packaged version of the Ubuntu operating system that you can download and use to install Ubuntu on a virtual machine. The “base” image is a minimal version of Ubuntu without additional customizations or software installations.
-3. Clone IRIS Repository from GitHub.
-4. Install dependencies with ROSdep:
-    - `cd ~/colcon_ws`
-      - Change the directory to the ROS workspace (`colcon_ws`), which contains our ROS packages. The `colcon_ws` folder is typically the root workspace where we develop and build ROS projects.
-    - `rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 -r --rosdistro $ROS_DISTRO -y --include-eol-distros`
-      - `rosdep` is a command-line tool that helps you install system dependencies needed by your ROS packages (such as libraries and third-party dependencies).
-      - `--from-paths src` tells rosdep to look for ROS package dependencies in the `src` directory of the current workspace.
-      - `--ignore-src` tells rosdep to ignore the source code dependencies (i.e. the actual ROS package code) and only focus on the external system dependencies (such as libraries). This is useful because rosdep doesn’t need to install the code you already have in your workspace, only the missing libraries/tools that your packages depend on.
-      - `--skip-keys=librealsense2` instructs rosdep to skip installing the `librealsense2` dependency as we have a custom installation of this library. `librealsense2` is used for the Intel RealSense camera.
-      - `-r` tells rosdep to resolve dependencies recursively: if any of the dependencies themselves require additional packages or dependencies, rosdep will find and install those as well.
-      - `--rosdistro $ROS_DISTRO` specifies the ROS distribution version we are using so that rosdep installs the dependencies compatible with that specific distribution. The `$ROS_DISTRO` variable is set in our environment to the `galactic` ROS version.
-      - `-y` tells rosdep to automatically confirm and proceed with the installation of dependencies without asking for confirmation prompts.
-      - `--include-eol-distros` - EOL (End of Life) ROS distributions are no longer officially supported, but this includes them in the dependency installation process. This is useful for working with older, unsupported versions of ROS or packages that are only compatible with these EOL distributions, such as galactic.
-5. Build the desired package
-    - `colcon build --packages-select <Package folder name>`
-    - `build <Package folder name>`
-        - Use `build` function defined in `~./bashrc`
-6. Source the setup script so ros2 can find the packages in this workspace 
-    - `source ~/colcon_ws/install/setup.bash`
+
+### Workspace setup
+
+1. Create a `colcon_ws` folder on your computer
+2. `cd` into it
+3. Clone IRIS repo:
+```bash
+git clone https://github.com/IllinoisRoboticsInSpace/IRIS IRIS
+```
+4. `cd` into the repo
+
+### Docker Setup
+
+1. Install Docker
+    - You may do this any way you wish as long as you have access to the Docker Engine and CLI.
+    - If in doubt, download [Docker Desktop](https://www.docker.com/)
+2. Checkout IRIS repo `docker` branch
+3. Open 'colcon_ws' in Docker container
+    - Using VS Code Dev Containers extension
+        - Install the Dev Containers extension 
+        - Open Command Palette and run `Dev Containers: Open Folder in Container`
+        - Select your `colcon_ws` folder
+        - Add configuration to workspace
+        - Select from Dockerfile
+        - Move through the rest of the menus without selecting anything
+        - You can close the connection with `Dev Containers: Reopen Folder Locally`
+        - From now on, just select `Dev Containers: Reopen in Container` to open folder in container
+    - Using Docker CLI
+        - Run `docker build -t iris-image .` to create an image from the Dockerfile
+        - Run `docker run -it --name iris -v /path/to/your/colcon_ws:/workspaces/colcon_ws iris-image`
+        - Run `exit` in the remote shell to reopen locally
+        - From now on, run `docker start -ai iris` to open folder in container
+    - Changes you make to `colcon_ws` in the container will be reflected on your computer and vice versa
+4. Develop while connected to container
+> Note: It is generally advise to run most `git` commands and other operations affecting the filetree from a shell connected to your computer.
+> If using VS Code Dev Containers, reopen locally before adding, committing, and pushing changes.
 
 ## Package Usage
+
 ### Navigation
+
 ```bash
 ros2 launch navigation-c display.launch.py
 ```
 
 ### RTAB-Map SLAM
+
 Realsense Data Command:
 ```bash
 ros2 launch realsense2_camera rs_launch.py enable_accel:=true enable_gyro:=true unite_imu_method:=2
@@ -53,6 +66,7 @@ ros2 launch rtabmap_ros rtabmap.launch.py \rtabmap_args:="--delete_db_on_start" 
 ```
 
 ### End Package Folder Structure
+
 ```
 ~/colcon_ws/
     build/
