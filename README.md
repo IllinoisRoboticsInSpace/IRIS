@@ -10,7 +10,6 @@
 ```bash
 git clone https://github.com/IllinoisRoboticsInSpace/IRIS IRIS
 ```
-4. `cd` into the repo
 
 ### Docker Setup
 
@@ -18,25 +17,17 @@ git clone https://github.com/IllinoisRoboticsInSpace/IRIS IRIS
     - You may do this any way you wish as long as you have access to the Docker Engine and CLI.
     - If in doubt, download [Docker Desktop](https://www.docker.com/)
 2. Checkout IRIS repo `docker` branch
-3. Open 'colcon_ws' in Docker container
-    - Using VS Code Dev Containers extension
-        - Install the Dev Containers extension 
-        - Open Command Palette and run `Dev Containers: Open Folder in Container`
-        - Select your `colcon_ws` folder
-        - Add configuration to workspace
-        - Select from Dockerfile
-        - Move through the rest of the menus without selecting anything
-        - You can close the connection with `Dev Containers: Reopen Folder Locally`
-        - From now on, just select `Dev Containers: Reopen in Container` to open folder in container
-    - Using Docker CLI
-        - Run `docker build -t iris-image .` to create an image from the Dockerfile
-        - Run `docker run -it --name iris -v /path/to/your/colcon_ws:/workspaces/colcon_ws iris-image`
-        - Run `exit` in the remote shell to reopen locally
-        - From now on, run `docker start -ai iris` to open folder in container
-    - Changes you make to `colcon_ws` in the container will be reflected on your computer and vice versa
-4. Develop while connected to container
-> Note: It is generally advise to run most `git` commands and other operations affecting the filetree from a shell connected to your computer.
-> If using VS Code Dev Containers, reopen locally before adding, committing, and pushing changes.
+3. Create Docker container and image + make first connection
+    - Run `docker build -t iris-image /path/to/your/IRIS/repo` to create an image from the Dockerfile
+    - Run `docker run -it --name iris -v /path/to/your/colcon_ws:/workspaces/colcon_ws iris-image` to create a container from the `iris-image` image
+        - You should now be in a remote shell in the new container
+    - Run `exit` in the remote shell to close the connection
+4. Connect to container
+    - Run `docker start -ai iris` to open container
+        - This is what you will do whenever you want to reconnect to the container in the future, don't create a new container and image each time
+    - Changes you make to `/workspaces/colcon_ws` in the container will be reflected on your computer's `colcon_ws` folder and vice versa
+5. Develop as you wish (e.g. open your `colcon_ws` folder in VS Code)
+> Note: It is generally advise to run most `git` commands from a shell connected to your computer rather than the container.
 
 ## Package Usage
 
