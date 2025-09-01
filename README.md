@@ -1,32 +1,44 @@
 # IRIS
-### Prerequistes
-- [TODO]
+
 ## Getting Started
-> **Note**
-> It is highly recommended to develop in a virtual machine because our install procedures are not isolated and can be invasive ([VM Instructions](url))
-1. Install [VMWare Workstation Player](https://customerconnect.vmware.com/en/downloads/info/slug/desktop_end_user_computing/vmware_workstation_player/17_0)
-2. Download, Unzip, and Run in VMWare our [preconfigured VM](https://uofi.app.box.com/folder/178594834739?s=xefuv04cugxavr3wadn55qbbtfs31ig4)
-3. Open the `~/colcon_ws` folder in VSCode
-4. If working on Arduino, install the PlatformIO VSCode extension
-   
-### Commands to know
-1. Install dependencies with rosdep
-    - `cd ~/colcon_ws`
-    - `rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 -r --rosdistro $ROS_DISTRO -y --include-eol-distros`
-2. Build the desired package
-    - `colcon build --packages-select <Package folder name>`
-    - `build <Package folder name>`
-        - Use `build` function defined in `~./bashrc`
-3. Source the setup script so ros2 can find the packages in this workspace 
-    - `source ~/colcon_ws/install/setup.bash`
+
+### Workspace setup
+
+1. Create a `colcon_ws` folder on your computer
+2. `cd` into it
+3. Clone IRIS repo:
+```bash
+git clone https://github.com/IllinoisRoboticsInSpace/IRIS IRIS
+```
+
+### Docker Setup
+
+1. Install Docker
+    - You may do this any way you wish as long as you have access to the Docker Engine and CLI.
+    - If in doubt, download [Docker Desktop](https://www.docker.com/)
+2. Checkout IRIS repo `docker` branch
+3. Create Docker container and image + make first connection
+    - Run `docker build -t iris-image /path/to/your/IRIS/repo` to create an image from the Dockerfile
+    - Run `docker run -it --name iris -v /path/to/your/colcon_ws:/workspaces/colcon_ws iris-image` to create a container from the `iris-image` image
+        - You should now be in a remote shell in the new container
+    - Run `exit` in the remote shell to close the connection
+4. Connect to container
+    - Run `docker start -ai iris` to open container
+        - This is what you will do whenever you want to reconnect to the container in the future, don't create a new container and image each time
+    - Changes you make to `/workspaces/colcon_ws` in the container will be reflected on your computer's `colcon_ws` folder and vice versa
+5. Develop as you wish (e.g. open your `colcon_ws` folder in VS Code)
+> Note: It is generally advise to run most `git` commands from a shell connected to your computer rather than the container.
 
 ## Package Usage
+
 ### Navigation
+
 ```bash
 ros2 launch navigation-c display.launch.py
 ```
 
 ### RTAB-Map SLAM
+
 Realsense Data Command:
 ```bash
 ros2 launch realsense2_camera rs_launch.py enable_accel:=true enable_gyro:=true unite_imu_method:=2
@@ -45,6 +57,7 @@ ros2 launch rtabmap_ros rtabmap.launch.py \rtabmap_args:="--delete_db_on_start" 
 ```
 
 ### End Package Folder Structure
+
 ```
 ~/colcon_ws/
     build/
