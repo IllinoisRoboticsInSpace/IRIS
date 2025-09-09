@@ -27,7 +27,8 @@ git clone https://github.com/IllinoisRoboticsInSpace/IRIS IRIS
         - This is what you will do whenever you want to reconnect to the container in the future, don't create a new container and image each time
     - Changes you make to `/workspaces/colcon_ws` in the container will be reflected on your computer's `colcon_ws` folder and vice versa
 5. Develop as you wish (e.g. open your `colcon_ws` folder in VS Code)
-> Note: It is generally advise to run most `git` commands from a shell connected to your computer rather than the container.
+6. You can open a new terminal in the container with `docker exec -it iris bash`
+> Note: It is generally advised to run most `git` commands from a shell connected to your computer rather than the container.
 
 ## Package Usage
 
