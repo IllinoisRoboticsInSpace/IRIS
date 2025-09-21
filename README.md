@@ -33,6 +33,7 @@ git clone https://github.com/IllinoisRoboticsInSpace/IRIS IRIS
 2. Connecting in the future
     - Run `docker start -ai iris` to open container
         - This is what you will do whenever you want to reconnect to the container in the future, don't create a new container and image each time
+    - You can open a new terminal connected to the container with `docker exec -it iris bash` from your computer's terminal
     - Changes you make to `/workspaces/colcon_ws` in the container will be reflected on your computer's `colcon_ws` folder and vice versa
 3. Develop as you wish (e.g. open your `colcon_ws` folder in VS Code)
 
