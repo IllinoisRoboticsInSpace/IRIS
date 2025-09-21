@@ -5,11 +5,15 @@
 ### Workspace setup
 
 1. Create a `colcon_ws` folder on your computer
-2. `cd` into it
-3. Clone IRIS repo:
+2. Create an `src` folder inside `colcon_ws`
+3. `cd` into it
+    - If you run `pwd` the output should end with `colcon_ws/src`
+4. Clone IRIS repo:
 ```bash
 git clone https://github.com/IllinoisRoboticsInSpace/IRIS IRIS
 ```
+6. `cd` into it
+    - If you run `pwd` the output should end with `colcon_ws/src/IRIS`
 
 ### Docker Setup
 
@@ -17,17 +21,30 @@ git clone https://github.com/IllinoisRoboticsInSpace/IRIS IRIS
     - You may do this any way you wish as long as you have access to the Docker Engine and CLI.
     - If in doubt, download [Docker Desktop](https://www.docker.com/)
 2. Checkout IRIS repo `docker` branch
-3. Create Docker container and image + make first connection
+3. Pick one of the two options below
+
+#### Manually Create Container and Image
+
+1. Creating and intial connection
     - Run `docker build -t iris-image /path/to/your/IRIS/repo` to create an image from the Dockerfile
     - Run `docker run -it --name iris -v /path/to/your/colcon_ws:/workspaces/colcon_ws iris-image` to create a container from the `iris-image` image
         - You should now be in a remote shell in the new container
     - Run `exit` in the remote shell to close the connection
-4. Connect to container
+2. Connecting in the future
     - Run `docker start -ai iris` to open container
         - This is what you will do whenever you want to reconnect to the container in the future, don't create a new container and image each time
     - You can open a new terminal connected to the container with `docker exec -it iris bash` from your computer's terminal
     - Changes you make to `/workspaces/colcon_ws` in the container will be reflected on your computer's `colcon_ws` folder and vice versa
-5. Develop as you wish (e.g. open your `colcon_ws` folder in VS Code)
+3. Develop as you wish (e.g. open your `colcon_ws` folder in VS Code)
+
+#### Use VS Code Dev Containers
+
+1. Copy the `.devcontainer` folder into `colcon_ws`
+2. Open `colcon_ws` in VS Code
+3. Install the `Dev Containers` extension
+4. Run the VS Code command `Dev Containers: Reopen in Container`
+    - You can access the command palette with `Ctrl+Shift+P`
+
 > Note: It is generally advised to run most `git` commands from a terminal connected to your computer rather than the container
 
 ## Package Usage
