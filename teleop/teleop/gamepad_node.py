@@ -113,17 +113,26 @@ class gamepad_node(Node):
                 if i != STOP_MODE:
                     self.curr_state[i] = 0
         else:
-            self.curr_state[LEFT_DRIVE] = joy_msg.axes[self.joystick_axis_mapping["UD axis stick left"]]
-            self.curr_state[RIGHT_DRIVE] = joy_msg.axes[self.joystick_axis_mapping["UD axis stick right"]]
+            self.curr_state[LEFT_DRIVE] = 0.75 * joy_msg.axes[self.joystick_axis_mapping["UD axis stick left"]] ** 3
+            self.curr_state[RIGHT_DRIVE] = 0.75 * joy_msg.axes[self.joystick_axis_mapping["UD axis stick right"]] ** 3
             self.curr_state[LEFT_BACK_COLL] = joy_msg.buttons[self.joystick_button_mapping["LB"]]
             self.curr_state[RIGHT_BACK_COLL] = joy_msg.buttons[self.joystick_button_mapping["RB"]]
             self.curr_state[EXC_INTERNAL] = joy_msg.buttons[self.joystick_button_mapping["A"]]
             # self.curr_state[EXC_THREAD_ROD] = joy_msg.buttons[self.joystick_button_mapping["B"]]
             # self.curr_state[EXC_PIVOT_LIN] = joy_msg.buttons[self.joystick_button_mapping["X"]]
 
+
+
+
+
+
+
             # Xbox triggers return values from 1 (not pressed) to -1 (fully pressed)
-            left_trigger = (1 - joy_msg.axes[self.joystick_axis_mapping["LT"]]) / 2
-            right_trigger = (1 - joy_msg.axes[self.joystick_axis_mapping["RT"]]) / 2
+            left_trigger = ((1 - joy_msg.axes[self.joystick_axis_mapping["LT"]]) / 2) ** 2
+            right_trigger = ((1 - joy_msg.axes[self.joystick_axis_mapping["RT"]]) / 2) ** 2
+
+            # print("LT", left_trigger)
+            # print("RT", right_trigger)
             
             # Only one trigger should control at a time, prioritize the one with higher value
             if left_trigger > 0.1 and left_trigger >= right_trigger:

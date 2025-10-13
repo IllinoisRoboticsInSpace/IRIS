@@ -9,21 +9,23 @@
 // Configure the motor driver
 CytronMD motor(PWM_DIR, PWM_PIN, DIR_PIN);
 
-// Serial communication variables
+// SerialUSB communication variables
 char inChar;
 String currentCommand = "";
+int numSetup = 0;
 
 void setup() {
-  Serial.begin(BAUD_RATE);
+  SerialUSB.begin(BAUD_RATE);
   motor.setSpeed(0);
-  
-  Serial.println("Cytron Linear Actuator Controller Ready");
+  SerialUSB.println("Cytron Linear Actuator Controller Ready");
+  numSetup++;
 }
 
 void loop() {
   // Check for incoming serial data
-  if (Serial.available() > 0) {
-    inChar = (char)Serial.read();
+  if (SerialUSB.available() > 0) {
+    SerialUSB.println("Data Received");
+    inChar = (char)SerialUSB.read();
     if (inChar == 'M') {
       currentCommand = "";
     }
@@ -40,17 +42,18 @@ void loop() {
         
         if (speed == 0) {
           motor.setSpeed(0);
-          Serial.println("Linear Actuator Stopped");
+          SerialUSB.println("Linear Actuator Stopped");
           currentCommand = "";
           return;
         } else {
         // Set the motor speed
         motor.setSpeed(speed);
-        Serial.print("Linear Actuator Speed set to: ");
-        Serial.println(speed);
+        SerialUSB.print("Linear Actuator Speed set to: ");
+        SerialUSB.println(speed);
         currentCommand = "";
         }
       }
     }
+    SerialUSB.println("NumSetup " + numSetup);
   }
 }
