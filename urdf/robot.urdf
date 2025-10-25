@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot name="iris-2026">
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box length="0.5" width="0.5" height="0.2" />
+            </geometry>
+        </visual>
+    </link>
+</robot>
