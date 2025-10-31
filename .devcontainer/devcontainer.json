@@ -1,7 +1,0 @@
-{
-    "build": {
-        "context": "../src/IRIS/",
-        "dockerfile": "../src/IRIS/Dockerfile"
-    },
-    "workspaceFolder": "/workspaces/colcon_ws"
-}
