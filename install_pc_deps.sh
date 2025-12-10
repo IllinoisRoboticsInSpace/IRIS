@@ -51,6 +51,13 @@ sudo apt install -y ros-$ROS_DISTRO-navigation2 ros-$ROS_DISTRO-nav2-bringup
 # https://github.com/introlab/rtabmap_ros/tree/ros2#binaries
 sudo apt-get install -y ros-$ROS_DISTRO-rtabmap-ros
 
+# Install Realsense
+sudo apt update -y
+sudo apt upgrade -y
+
+sudo apt install -y ros-$ROS_DISTRO-librealsense2*
+sudo apt install -y ros-$ROS_DISTRO-realsense2*
+
 # Extra Installation Instructions
 echo "source ~/colcon_ws/install/setup.bash" >> ~/.bashrc
 
