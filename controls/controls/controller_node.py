@@ -67,11 +67,11 @@ class Controller(Node):
 
     def joy_response(self, joy_msg: Joy):
 
-        if (joy_msg.buttons[joystick_button_mapping["power"]] == 1):
+        if (joy_msg.buttons[self.joystick_button_mapping["power"]] == 1):
             self.prev_state[stop_flag] = self.curr_state[stop_flag]
             self.curr_state[stop_flag] = True
         
-        if (joy_msg.buttons[joystick_button_mapping[auto_flag_button]] == 1):
+        if (joy_msg.buttons[self.joystick_button_mapping[auto_flag_button]] == 1):
             self.prev_state[auto_flag] = self.curr_state[auto_flag]
             self.curr_state[auto_flag] = not curr_state[auto_flag]
 
