@@ -74,8 +74,12 @@ class Controller(Node):
             if not self.curr_state.autonomous_flag:
                 self.curr_state.left_drive = joystick_input_conversion(joy_msg.axes[LEFT_STICK_Y])
                 self.curr_state.right_drive = joystick_input_conversion(joy_msg.axes[RIGHT_STICK_Y])
-                self.curr_state.run_excavate_routine = joy_msg.buttons[BUTTON_A] == 1
-                self.curr_state.run_deposit_routine = joy_msg.buttons[BUTTON_B] == 1
+                
+                if (joy_msg.buttons[BUTTON_A] == 1):
+                    self.curr_state.run_excavate_routine = True
+
+                if (joy_msg.buttons[BUTTON_B] == 1):
+                    self.curr_state.run_deposit_routine = True
 
                 trigger_left = trigger_input_conversion(joy_msg.axes[LEFT_TRIGGER]) > 0.7
                 trigger_right = trigger_input_conversion(joy_msg.axes[RIGHT_TRIGGER]) > 0.7
@@ -127,34 +131,34 @@ class Controller(Node):
         # Update all publishers with the current state variables, if there was a change from the previous value.
 
         if self.prev_state.left_drive != self.curr_state.left_drive:
-            self.tread_speed_left_teleop_publisher.publish(Float32(self.curr_state.left_drive))
+            self.tread_speed_left_teleop_publisher.publish(Float32(data=self.curr_state.left_drive))
         
         if self.prev_state.right_drive != self.curr_state.right_drive:
-            self.tread_speed_right_teleop_publisher.publish(Float32(self.curr_state.right_drive))
+            self.tread_speed_right_teleop_publisher.publish(Float32(data=self.curr_state.right_drive))
         
         if self.prev_state.raise_scooper != self.curr_state.raise_scooper:
-            self.raise_scooper_teleop_publisher.publish(Bool(self.curr_state.raise_scooper))
+            self.raise_scooper_teleop_publisher.publish(Bool(data=self.curr_state.raise_scooper))
         
         if self.prev_state.lower_scooper != self.curr_state.lower_scooper:
-            self.lower_scooper_teleop_publisher.publish(Bool(self.curr_state.lower_scooper))
+            self.lower_scooper_teleop_publisher.publish(Bool(data=self.curr_state.lower_scooper))
         
         if self.prev_state.raise_dumper != self.curr_state.raise_dumper:
-            self.raise_dumper_teleop_publisher.publish(Bool(self.curr_state.raise_dumper))
+            self.raise_dumper_teleop_publisher.publish(Bool(data=self.curr_state.raise_dumper))
 
         if self.prev_state.lower_dumper != self.curr_state.lower_dumper:
-            self.lower_dumper_teleop_publisher.publish(Bool(self.curr_state.lower_dumper))
+            self.lower_dumper_teleop_publisher.publish(Bool(data=self.curr_state.lower_dumper))
         
         if self.prev_state.run_excavate_routine != self.curr_state.run_excavate_routine:
-            self.exc_routine_teleop_publisher.publish(Bool(self.curr_state.run_excavate_routine))
+            self.exc_routine_teleop_publisher.publish(Bool(data=self.curr_state.run_excavate_routine))
 
         if self.prev_state.run_deposit_routine != self.curr_state.run_deposit_routine:
-            self.dep_routine_teleop_publisher.publish(Bool(self.curr_state.run_deposit_routine))
+            self.dep_routine_teleop_publisher.publish(Bool(data=self.curr_state.run_deposit_routine))
 
         if self.prev_state.autonomous_flag != self.curr_state.autonomous_flag:
-            self.auto_flag_teleop_publisher.publish(Bool(self.curr_state.autonomous_flag))
+            self.auto_flag_teleop_publisher.publish(Bool(data=self.curr_state.autonomous_flag))
 
         if self.prev_state.stop_flag != self.curr_state.stop_flag:
-            self.stop_flag_teleop_publisher.publish(Bool(self.curr_state.stop_flag))
+            self.stop_flag_teleop_publisher.publish(Bool(data=self.curr_state.stop_flag))
         
         # Update `self.prev_state`. We need to force a copy here to prevent `self.prev_state` from referencing `self.curr_state`.
         self.prev_state = copy.deepcopy(self.curr_state)
