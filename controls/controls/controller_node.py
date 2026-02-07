@@ -71,8 +71,8 @@ class Controller(Node):
 
         self.prev_buttons = [0] * BUTTON_MAX
         
-        self.curr_state = InputState(0.0, 0.0, False, False, False, False, False, False, False, False)
-        self.prev_state = InputState(0.0, 0.0, False, False, False, False, False, False, False, False)
+        self.curr_state = InputState(0.0, 0.0, False, False, False, False, False, False, False, False, False)
+        self.prev_state = InputState(0.0, 0.0, False, False, False, False, False, False, False, False, False)
     
     def exc_routine_response(self, message: Bool):
         self.prev_state.run_excavate_routine = message.data
@@ -118,7 +118,7 @@ class Controller(Node):
                         if self.curr_state.run_traversal_routine:
                             self.curr_state.run_excavate_routine = False
                             self.curr_state.run_deposit_routine = False
-                
+
                 trigger_left = trigger_input_conversion(joy_msg.axes[LEFT_TRIGGER]) > 0.7
                 trigger_right = trigger_input_conversion(joy_msg.axes[RIGHT_TRIGGER]) > 0.7
 
@@ -140,8 +140,8 @@ class Controller(Node):
 
             else:
                 # If the `auto_flag_teleop` flag is active, we want to assert the manual control state variables to their defaults.
-                self.curr_state.left_drive = 0
-                self.curr_state.right_drive = 0
+                self.curr_state.left_drive = 0.0
+                self.curr_state.right_drive = 0.0
                 self.curr_state.raise_scooper = False
                 self.curr_state.lower_scooper = False
                 self.curr_state.lower_dumper = False
@@ -168,12 +168,15 @@ class Controller(Node):
                         self.curr_state.run_deposit_routine = False
         else:
             # If the `stop_flag_teleop` flag is active, we want to assert all state variables to their defaults.
-            self.curr_state.left_drive = 0
-            self.curr_state.right_drive = 0
+            self.curr_state.left_drive = 0.0
+            self.curr_state.right_drive = 0.0
             self.curr_state.raise_scooper = False
             self.curr_state.lower_scooper = False
             self.curr_state.lower_dumper = False
             self.curr_state.raise_dumper = False
+
+            #finish
+            self.curr_state.exc_routine = False
 
         # Update all publishers with the current state variables, if there was a change from the previous value.
 
