@@ -1,34 +1,90 @@
-import Jetson.GPIO as GPIO
+import gpiod
 import time
+import signal
+import sys
+from gpiod.line import Direction, Value
 
-PWM_PIN = 32  # Adjust based on your physical wiring
-DIR_PIN = 31  # Adjust based on your physical wiring
+# ==============================
+# USER CONFIG
+# ==============================
+GPIO_CHIP = "/dev/gpiochip0"
+DIR_LINE = 144
+PWM_LINE = 112
 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(PWM_PIN, GPIO.OUT)
-GPIO.setup(DIR_PIN, GPIO.OUT)
+PWM_FREQUENCY = 1000  # Hz
+PWM_PERIOD = 1.0 / PWM_FREQUENCY
 
-# Initialize PWM at 1000Hz
-pwm_ctrl = GPIO.PWM(PWM_PIN, 1000)
-pwm_ctrl.start(0) # Start with 0% duty cycle
+running = True
 
-val = 0.5
-        
-# Clamp value between -1 and 1
-val = max(min(val, 1.0), -1.0)
+# ==============================
+# CLEANUP / SIGNAL
+# ==============================
+def cleanup():
+    try:
+        lines.release()
+    except Exception:
+        pass
 
-# Determine Direction
-if val >= 0:
-    GPIO.output(DIR_PIN, GPIO.HIGH)
-else:
-    GPIO.output(DIR_PIN, GPIO.LOW)
-    
-# Calculate Duty Cycle (0 to 100)
-duty_cycle = abs(val) * 100
-pwm_ctrl.ChangeDutyCycle(duty_cycle)
+def signal_handler(sig, frame):
+    global running
+    running = False
+    cleanup()
+    sys.exit(0)
 
-print(f'Setting speed to: {val}')
+signal.signal(signal.SIGINT, signal_handler)
 
-time.sleep(0.5)
+# ==============================
+# REQUEST GPIO LINES (v2)
+# ==============================
+lines = gpiod.request_lines(
+    GPIO_CHIP,
+    consumer="mdd10a",
+    config={
+        DIR_LINE: gpiod.LineSettings(direction=Direction.OUTPUT, output_value=Value.INACTIVE),
+        PWM_LINE: gpiod.LineSettings(direction=Direction.OUTPUT, output_value=Value.INACTIVE),
+    },
+)
 
-pwm_ctrl.ChangeDutyCycle(0)
+# ==============================
+# MOTOR CONTROL
+# ==============================
+def set_direction(forward: bool):
+    """Set direction using DIR_LINE"""
+    lines.set_value(DIR_LINE, Value.ACTIVE if forward else Value.INACTIVE)
+
+def run_motor(speed_percent: float, duration: float):
+    """Run actuator using software PWM"""
+    speed_percent = max(0, min(100, speed_percent))
+    duty = speed_percent / 100.0
+
+    on_time = PWM_PERIOD * duty
+    off_time = PWM_PERIOD * (1.0 - duty)
+
+    start = time.time()
+
+    while running and (time.time() - start) < duration:
+        if duty > 0:
+            lines.set_value(PWM_LINE, Value.ACTIVE)
+            time.sleep(on_time)
+        if duty < 1:
+            lines.set_value(PWM_LINE, Value.INACTIVE)
+            time.sleep(off_time)
+
+    lines.set_value(PWM_LINE, Value.INACTIVE)
+
+# ==============================
+# TEST
+# ==============================
+try:
+    print("Extending actuator")
+    set_direction(True)
+    run_motor(70, 1)
+
+    time.sleep(1)
+
+    print("Retracting actuator")
+    set_direction(False)
+    run_motor(50, 1)
+
+finally:
+    cleanup()
