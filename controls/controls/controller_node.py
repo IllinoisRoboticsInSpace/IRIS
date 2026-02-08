@@ -78,10 +78,10 @@ class Controller(Node):
         self.prev_state.run_excavate_routine = message.data
     
     def dep_routine_response(self, message: Bool):
-        self.prev_state.run_excavate_routine = message.data
+        self.prev_state.run_deposit_routine = message.data
     
     def tra_routine_response(self, message: Bool):
-        self.prev_state.run_excavate_routine = message.data
+        self.prev_state.run_traversal_routine = message.data
     
     def joy_response(self, joy_msg: Joy):
         # The `stop_flag_teleop` and `auto_flag_teleop` state variables need to toggle on button presses.
