@@ -1,4 +1,4 @@
-FROM osrf/ros:jazzy-desktop
+FROM osrf/ros:humble-desktop
 
 COPY ./install_docker_deps.sh /tmp/install_env_deps.sh
 
