@@ -175,8 +175,8 @@ class Controller(Node):
             self.curr_state.lower_dumper = False
             self.curr_state.raise_dumper = False
 
-            #finish
-            self.curr_state.exc_routine = False
+            # TODO: Finish.
+            self.curr_state.run_excavate_routine = False
 
         # Update all publishers with the current state variables, if there was a change from the previous value.
 
