@@ -1,82 +1,63 @@
-class LinearActuator():
-    def __init__(self):
-        super().__init__('LinearActuator')
-        
 import gpiod
-import time
-import signal
-import sys
 from gpiod.line import Direction, Value
+import time
+import threading
+
 
 class LinearActuator:
-    def __init__(self, gpio_chip, dir_line, pwm_line):
-        self.gpio_chip = gpio_chip;
-        self.dir_line
+    def __init__(self, gpio_chip: str, dir_line: int, pwm_line: int):
+        self.gpio_chip = gpio_chip
+        self.dir_line = dir_line
+        self.pwm_line = pwm_line
 
-# ==============================
-# USER CONFIG
-# ==============================
-GPIO_CHIP = "/dev/gpiochip0"
-DIR_LINE = 144
-PWM_LINE = 112
+        self.pwm_freq = 1000  # Hz
+        self.pwm_period = 1.0 / self.pwm_freq
 
-PWM_FREQUENCY = 1000  # Hz
-PWM_PERIOD = 1.0 / PWM_FREQUENCY
+        self.stop_event = threading.Event()
+        self.thread_active = False
+        self.motor_thread: threading.Thread
 
-running = True
+        self.lines = gpiod.request_lines(
+            self.gpio_chip,
+            consumer="mdd10a",
+            config={
+                self.dir_line: gpiod.LineSettings(
+                    direction=Direction.OUTPUT, output_value=Value.INACTIVE),
+                self.pwm_line: gpiod.LineSettings(
+                    direction=Direction.OUTPUT, output_value=Value.INACTIVE)})
 
-# ==============================
-# CLEANUP / SIGNAL
-# ==============================
-def cleanup():
-    try:
-        lines.release()
-    except Exception:
-        pass
+    def release(self):
+        self.lines.release()
 
-def signal_handler(sig, frame):
-    global running
-    running = False
-    cleanup()
-    sys.exit(0)
+    def set_direction(self, forward: bool):
+        self.run_motor(0.0)
 
-signal.signal(signal.SIGINT, signal_handler)
+        self.lines.set_value(
+            self.dir_line, Value.ACTIVE if forward else Value.INACTIVE)
 
-# ==============================
-# REQUEST GPIO LINES (v2)
-# ==============================
-lines = gpiod.request_lines(
-    GPIO_CHIP,
-    consumer="mdd10a",
-    config={
-        DIR_LINE: gpiod.LineSettings(direction=Direction.OUTPUT, output_value=Value.INACTIVE),
-        PWM_LINE: gpiod.LineSettings(direction=Direction.OUTPUT, output_value=Value.INACTIVE),
-    },
-)
+    def run_motor(self, duty: float, duration: float):
+        if self.thread_active:
+            self.stop_event.set()
+            self.motor_thread.join()
+            self.thread_active = False
 
-# ==============================
-# MOTOR CONTROL
-# ==============================
-def set_direction(forward: bool):
-    """Set direction using DIR_LINE"""
-    lines.set_value(DIR_LINE, Value.ACTIVE if forward else Value.INACTIVE)
+        duty = max(0.0, min(1.0, duty))
+        if (duty == 0.0):
+            self.lines.set_value(self.pwm_line, Value.INACTIVE)
+        elif (duty == 1.0):
+            self.lines.set_value(self.pwm_line, Value.ACTIVE)
+        else:
+            on_time = self.pwm_period * duty
+            off_time = self.pwm_period * (1.0 - duty)
 
-def run_motor(speed_percent: float, duration: float):
-    """Run actuator using software PWM"""
-    speed_percent = max(0, min(100, speed_percent))
-    duty = speed_percent / 100.0
+            def motor_lambda(): return self._motor_function(duty, on_time, off_time)
+            self.motor_thread = threading.Thread(target=motor_lambda)
+            self.thread_active = True
 
-    on_time = PWM_PERIOD * duty
-    off_time = PWM_PERIOD * (1.0 - duty)
-
-    start = time.time()
-
-    while running and (time.time() - start) < duration:
-        if duty > 0:
-            lines.set_value(PWM_LINE, Value.ACTIVE)
+    def _motor_function(self, duty: float, on_time: float, off_time: float):
+        while not self.stop_event.isSet():
+            self.lines.set_value(self.pwm_line, Value.ACTIVE)
             time.sleep(on_time)
-        if duty < 1:
-            lines.set_value(PWM_LINE, Value.INACTIVE)
-            time.sleep(off_time)
 
-    lines.set_value(PWM_LINE, Value.INACTIVE)
+            self.lines.set_value(self.pwm_line, Value.INACTIVE)
+            time.sleep(off_time)
