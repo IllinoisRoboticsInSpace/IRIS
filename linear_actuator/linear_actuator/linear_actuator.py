@@ -17,6 +17,8 @@ class LinearActuator:
         self.thread_active = False
         self.motor_thread: threading.Thread
 
+        self.current_speed = 0.0
+
         self.lines = gpiod.request_lines(
             self.gpio_chip,
             consumer="mdd10a",
@@ -35,13 +37,19 @@ class LinearActuator:
         self.lines.set_value(
             self.dir_line, Value.ACTIVE if forward else Value.INACTIVE)
 
-    def run_motor(self, duty: float, duration: float):
+    def run_motor(self, duty: float):
+        if (duty == self.current_speed):
+            return
+
+        self.current_speed = duty
+
         if self.thread_active:
             self.stop_event.set()
             self.motor_thread.join()
             self.thread_active = False
 
         duty = max(0.0, min(1.0, duty))
+
         if (duty == 0.0):
             self.lines.set_value(self.pwm_line, Value.INACTIVE)
         elif (duty == 1.0):
@@ -50,7 +58,7 @@ class LinearActuator:
             on_time = self.pwm_period * duty
             off_time = self.pwm_period * (1.0 - duty)
 
-            def motor_lambda(): return self._motor_function(duty, on_time, off_time)
+            def motor_lambda(): self._motor_function(duty, on_time, off_time)
             self.motor_thread = threading.Thread(target=motor_lambda)
             self.thread_active = True
 
