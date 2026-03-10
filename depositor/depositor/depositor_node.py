@@ -17,6 +17,7 @@ class Depositer(Node):
             Bool, 'dep_routine', 10)
 
         self.timer = self.create_timer(0.1, self.timer_response)
+
         self.raise_dumper_teleop_subscriber = self.create_subcription(
             Bool, 'raise_dumper_teleop', self.raise_dumper_response, 10)
         self.lower_dumper_teleop_subscriber = self.create_subcription(
@@ -67,7 +68,7 @@ class Depositer(Node):
     def dep_routine_response(self, message: Bool):
         self.dep_routine_val = message.data
 
-        if self.dep_routine_val:
+        if message.data:
             self.should_run = True
             self.direction = True
 
@@ -76,7 +77,7 @@ class Depositer(Node):
         if self.dep_routine_val:
             return
         
-        if not self.dep_routine_val and message.data:
+        if message.data:
             self.should_run = True
             self.direction = True
 
@@ -84,9 +85,17 @@ class Depositer(Node):
             self.should_run = False
 
     def lower_dumper_response(self, message: Bool):
-        if not self.dep_routine_val and message.data:
+        if self.dep_routine_val:
+            return
+        
+        if message.data:
             self.should_run = True
             self.direction = False
 
         else:
             self.should_run = False
+
+
+    def destrony_node(self):
+        self.linear_actuator.release()
+        super().destroy_node()        
