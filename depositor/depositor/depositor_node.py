@@ -4,9 +4,7 @@ from rclpy.node import Node
 from std_msgs.msg import Bool
 import time
 
-hold_time = 5
-motor_speed = 0.5
-motor_rest = 0
+
 
 class Depositer(Node):
     def __init__(self):
@@ -28,6 +26,9 @@ class Depositer(Node):
         self.min_limit = False
         self.should_run = False
         self.direction = False
+        self.hold_time = 5
+        self.motor_speed = 0.5
+        self.motor_rest = 0
 
 
     def dumper_max_limit_switch_response(self, message: Bool):
@@ -37,8 +38,27 @@ class Depositer(Node):
         self.min_limit = message.data
 
     def timer_response(self):
-        if self.should_run and not self.max_limit and not self.min_limit:
-            
+        if not self.should_run:
+            self.linear_actuator.run_motor(self.motor_rest)
+            return
+        
+        if self.dep_routine_val:
+            if self.direction and self.max_limit:
+                self.direction = False
+                time.sleep(self.hold_time)
+            if not self.direction and self.min_limit:
+                self.should_run = False
+                self.dep_routine_val = False
+
+                self.dep_routine_publisher.publish(Bool(data=False))
+
+        if (self.direction and not self.max_limit) or (not self.direction and not self.min_limit):
+            self.linear_actuator.set_direction(self.direction)
+            self.run_motor(self.motor_speed)
+        else:
+            self.linear_actuator.run_motor(self.motor_rest)
+
+
 
     def dep_routine_response(self, message: Bool):
         self.dep_routine_val = message.data
@@ -47,15 +67,12 @@ class Depositer(Node):
             self.should_run = True
             self.direction = True
 
-            time.sleep(hold_time)
-
-            self.should_run = True
-            self.direction = False
-
-            self.dep_routine_publisher.publish(Bool(data=False))
 
 
     def raise_dumper_response(self, message: Bool):
+        if self.dep_routine_val:
+            return
+        
         if not self.dep_routine_val and message.data:
             self.should_run = True
             self.direction = True
