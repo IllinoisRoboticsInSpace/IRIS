@@ -34,9 +34,11 @@ class Depositer(Node):
         self.min_limit = False
         self.should_run = False
         self.direction = False
-        self.hold_time = 5
+        self.hold_time = 5e9  # 5 ns
         self.motor_speed = 0.5
         self.motor_rest = 0
+        self.hold_initiated = False
+        self.hold_start_time = 0
 
     def dumper_max_limit_switch_response(self, message: Bool):
         self.max_limit = message.data
@@ -51,8 +53,14 @@ class Depositer(Node):
         
         if self.dep_routine_val:
             if self.direction and self.max_limit:
-                self.direction = False
-                time.sleep(self.hold_time)
+                if not self.hold_initiated:
+                    self.hold_initiated = True
+                    self.hold_start_time = time.time_ns()
+                
+                if (self.hold_start_time + self.hold_time < time.time_ns()):
+                    self.direction = False
+                    self.hold_initiated = False
+
             if not self.direction and self.min_limit:
                 self.should_run = False
                 self.dep_routine_val = False
