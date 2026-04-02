@@ -1,3 +1,4 @@
+#include <iostream>
 #include <chrono>
 #include <functional>
 #include "rclcpp/rclcpp.hpp"
@@ -17,6 +18,8 @@ private:
 
     SparkMax left;
     SparkMax right;
+    float incoming_left;
+    float incoming_right;
 public:
     Driver();
     auto handle_incoming_left(float in) -> void;
@@ -24,7 +27,7 @@ public:
     auto periodic() -> void;
 };
 
-Driver::Driver() : Node("Driver"), left("LEFT", 0), right("RIGHT", 1) {
+Driver::Driver() : Node("Driver"), left("LEFT", 0), right("RIGHT", 1), incoming_left(0), incoming_right(0) {
     tread_speed_left_teleop_subscription  = this->create_subscription<std_msgs::msg::Float32>(
         "tread_speed_left_teleop", 10,  
         [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_left(msg->data); }
@@ -36,17 +39,31 @@ Driver::Driver() : Node("Driver"), left("LEFT", 0), right("RIGHT", 1) {
     );
     
     timer = this->create_wall_timer(10ms, std::bind(&Driver::periodic, this));
+
+    left.SetIdleMode(IdleMode::kCoast);
+    left.SetMotorType(MotorType::kBrushless);
+    left.SetInverted(true);
+    left.BurnFlash();
+
+    right.SetIdleMode(IdleMode::kCoast);
+    right.SetMotorType(MotorType::kBrushless);
+    right.SetInverted(true);
+    right.BurnFlash();
 }
 
 auto Driver::handle_incoming_left(float in) -> void {
-    left.SetVoltage(in / 12);
+    std::cout << "[Driver::handle_incoming_left] " << in << std::endl;
+    incoming_left = in;
 }
 
 auto Driver::handle_incoming_right(float in) -> void {
-    right.SetVoltage(in / 12);
+    std::cout << "[Driver::handle_incoming_right] " << in << std::endl;
+    incoming_right = in;
 }
 
 auto Driver::periodic() -> void {
+    left.SetVoltage(incoming_left * 12.0);
+    right.SetVoltage(incoming_right * 12.0);
 }
 
 int main(int argc, char * argv[]) {
