@@ -27,7 +27,7 @@ public:
     auto periodic() -> void;
 };
 
-Driver::Driver() : Node("Driver"), left("LEFT", 0), right("RIGHT", 1), incoming_left(0), incoming_right(0) {
+Driver::Driver() : Node("Driver"), left("LEFT", 1), right("RIGHT", 2), incoming_left(0), incoming_right(0) {
     tread_speed_left_teleop_subscription  = this->create_subscription<std_msgs::msg::Float32>(
         "tread_speed_left_teleop", 10,  
         [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_left(msg->data); }
@@ -42,7 +42,7 @@ Driver::Driver() : Node("Driver"), left("LEFT", 0), right("RIGHT", 1), incoming_
 
     left.SetIdleMode(IdleMode::kCoast);
     left.SetMotorType(MotorType::kBrushless);
-    left.SetInverted(true);
+    left.SetInverted(false);
     left.BurnFlash();
 
     right.SetIdleMode(IdleMode::kCoast);
