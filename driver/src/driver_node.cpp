@@ -4,7 +4,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/float32.hpp"
 #include "std_msgs/msg/bool.hpp"
-#include "SparkMax.hpp"
+#include "SparkFlex.hpp"
 
 using namespace std::chrono_literals;
 
@@ -16,8 +16,8 @@ private:
     // FIX 1: Use TimerBase instead of templated WallTimer
     rclcpp::TimerBase::SharedPtr timer;
 
-    SparkMax left;
-    SparkMax right;
+    SparkFlex left;
+    SparkFlex right;
     float incoming_left;
     float incoming_right;
 public:
@@ -27,7 +27,7 @@ public:
     auto periodic() -> void;
 };
 
-Driver::Driver() : Node("Driver"), left("LEFT", 1), right("RIGHT", 2), incoming_left(0), incoming_right(0) {
+Driver::Driver() : Node("Driver"), left("can0", 1), right("can0", 2), incoming_left(0), incoming_right(0) {
     tread_speed_left_teleop_subscription  = this->create_subscription<std_msgs::msg::Float32>(
         "tread_speed_left_teleop", 10,  
         [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_left(msg->data); }
