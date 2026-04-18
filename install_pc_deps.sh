@@ -38,9 +38,6 @@ rosdep update --rosdistro=$ROS_DISTRO
 sudo apt update
 sudo apt install -y curl gnupg2 lsb-release
 
-sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
-sh -c 'echo "deb http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2.list'
-
 sudo apt update
 
 # Nav2
