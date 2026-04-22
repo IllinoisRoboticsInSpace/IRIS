@@ -8,7 +8,7 @@ from gpiod.line import Direction, Value
 # USER CONFIG
 # ==============================
 GPIO_CHIP = "/dev/gpiochip0"
-DIR_LINE = 144
+DIR_LINE = 143
 PWM_LINE = 112
 
 PWM_FREQUENCY = 1000  # Hz
