@@ -12,10 +12,10 @@ PWM1_LINE = 122 # 106
 DIR2_LINE = 85 # 43
 PWM2_LINE = 50 # 133 
 
-PWM_FREQUENCY = 1000  # Hz
-PWM_PERIOD = 1.0 / PWM_FREQUENCY
+# PWM_FREQUENCY = 1000  # Hz
+# PWM_PERIOD = 1.0 / PWM_FREQUENCY
 
-running = True
+# running = True
 
 # ==============================
 # OPEN CHIP + LINES (v1 API)
@@ -71,32 +71,10 @@ def set_direction(forward: bool):
     dir1_line.set_value(1 if forward else 0)
     dir2_line.set_value(1 if forward else 0)
 
-def run_motor(speed_percent: float, duration: float):
+def run_motor(on: bool):
     """Software PWM control"""
-    speed_percent = max(0, min(100, speed_percent))
-    duty = speed_percent / 100.0
-
-    on_time = PWM_PERIOD * duty
-    off_time = PWM_PERIOD * (1.0 - duty)
-
-    start = time.time()
-
-    while running and (time.time() - start) < duration:
-        if duty > 0:
-            pwm1_line.set_value(1)
-            pwm2_line.set_value(1)
-            time.sleep(on_time)
-
-        if duty < 1:
-            pwm1_line.set_value(0)
-            pwm2_line.set_value(0)
-            time.sleep(off_time)
-
-        pwm1_line.set_value(1)
-        pwm2_line.set_value(1)
-
-    pwm1_line.set_value(0)
-    pwm2_line.set_value(0)
+    pwm1_line.set_value(1 if on else 0)
+    pwm2_line.set_value(1 if on else 0)
 
 def run_motor_locked_antiphase(speed_percent: float, duration: float):
     """Software PWM control"""
@@ -134,14 +112,14 @@ def run_motor_locked_antiphase(speed_percent: float, duration: float):
 # ==============================
 try:
     print("Extending actuator")
-   # set_direction(False)
-    run_motor_locked_antiphase(70, 15)
+    set_direction(True)
+    run_motor(True)
     
-    time.sleep(1)
+    time.sleep(5)
 
     print("Retracting actuator")
-   # set_direction(True)
-    run_motor_locked_antiphase(30, 15)
+    set_direction(True)
+    run_motor(True)
 
 finally:
     cleanup()
