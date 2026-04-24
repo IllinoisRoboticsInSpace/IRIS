@@ -69,8 +69,8 @@ auto Driver::periodic() -> void {
 //    left.SetVoltage(incoming_left * 12.0);
 //    right.SetVoltage(incoming_right * 12.0);
 
-    left.SetDutyCycle(incoming_left);
-    right.SetDutyCycle(incoming_right);
+    left.SetDutyCycle(-1 * incoming_left);
+    right.SetDutyCycle(-1 * incoming_right);
 }
 
 int main(int argc, char * argv[]) {
