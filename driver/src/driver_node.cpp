@@ -62,17 +62,24 @@ auto Driver::handle_incoming_right(float in) -> void {
 }
 
 auto Driver::periodic() -> void {
-    left.SetVoltage(incoming_left * 12.0);
-    right.SetVoltage(incoming_right * 12.0);
+    std::cout << "Set left to " << incoming_left * 12.0 << std::endl;
+    std::cout << "Set right to " << incoming_right * 12.0 << std::endl;
+    left.Heartbeat();
+    right.Heartbeat();
+//    left.SetVoltage(incoming_left * 12.0);
+//    right.SetVoltage(incoming_right * 12.0);
+
+    left.SetDutyCycle(-1 * incoming_left);
+    right.SetDutyCycle(-1 * incoming_right);
 }
 
 int main(int argc, char * argv[]) {
     rclcpp::init(argc, argv);
     auto node = std::make_shared<Driver>();
-
-    rclcpp::executors::MultiThreadedExecutor executor;
-    executor.add_node(node);
-    executor.spin();
+    rclcpp::spin(node);
+    //rclcpp::executors::MultiThreadedExecutor executor;
+    //executor.add_node(node);
+    //executor.spin();
     rclcpp::shutdown();
     return 0;
 }
