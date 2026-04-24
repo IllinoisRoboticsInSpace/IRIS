@@ -36,8 +36,6 @@ class Depositer(Node):
         self.should_run = False
         self.direction = False
         self.hold_time = 5e9  # 5 ns
-        self.motor_speed = 0.5
-        self.motor_rest = 0
         self.hold_initiated = False
         self.hold_start_time = 0
 
@@ -49,7 +47,7 @@ class Depositer(Node):
 
     def timer_response(self):
         if not self.should_run:
-            self.linear_actuator.run_motor(self.motor_rest)
+            self.linear_actuator.run_motor(False)
             return
         
         if self.dep_routine_val:
@@ -70,9 +68,9 @@ class Depositer(Node):
 
         if (self.direction and not self.max_limit) or (not self.direction and not self.min_limit):
             self.linear_actuator.set_direction(self.direction)
-            self.run_motor(self.motor_speed)
+            self.run_motor(True)
         else:
-            self.linear_actuator.run_motor(self.motor_rest)
+            self.linear_actuator.run_motor(False)
 
     def dep_routine_response(self, message: Bool):
         self.dep_routine_val = message.data

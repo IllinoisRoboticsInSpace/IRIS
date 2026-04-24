@@ -39,8 +39,8 @@ class Excavator(Node):
         self.hold_initiated = False
         self.holdd_time_start = 0
 
-        self.motor_speed = 0.5
-        self.motor_rest = 0.0
+        # self.motor_speed = 0.5
+        # self.motor_rest = 0.0
 
         self.tread_speed = 0.3
         
@@ -53,7 +53,7 @@ class Excavator(Node):
 
     def timer_response(self):
         if not self.should_run:
-            self.linear_actuator.run_motor(self.motor_rest)
+            self.linear_actuator.run_motor(False)
             return
 
         if self.exc_routine_val:
@@ -80,9 +80,9 @@ class Excavator(Node):
 
         if (self.forward and not self.max_limit) or (not self.forward and not self.min_limit):
             self.linear_actuator.set_direction(self.forward)
-            self.run_motor(self.motor_speed)
+            self.run_motor(True)
         else:
-            self.linear_actuator.run_motor(self.motor_rest)
+            self.linear_actuator.run_motor(False)
 
     def exc_routine_response(self, message: Bool):
         self.exc_routine_val = message.data
