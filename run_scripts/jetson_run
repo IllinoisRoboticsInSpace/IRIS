@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+source /opt/ros/galactic/setup.bash
+
+ros2 run driver driver & 
+ros2 run excavator excavator_node &
+ros2 run depositor depositor_node

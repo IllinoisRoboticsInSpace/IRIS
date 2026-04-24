@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+source /opt/ros/galactic/setup.bash
+
+ros2 run joy joy_node &
+
+ros2 run controls controller_node

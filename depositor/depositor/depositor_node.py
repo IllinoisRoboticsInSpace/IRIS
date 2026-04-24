@@ -105,6 +105,18 @@ class Depositer(Node):
             self.should_run = False
 
 
-    def destrony_node(self):
+    def destroy_node(self):
         self.linear_actuator.release()
-        super().destroy_node()        
+        super().destroy_node()
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    exc = Excavator()
+    try:
+        rclpy.spin(exc)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        exc.destroy_node()
+        rclpy.shutdown()
