@@ -10,7 +10,7 @@ class Excavator(Node):
     def __init__(self):
         super().__init__('Excavator')
 
-        self.linear_actuator = LinearActuator(123, 456, 789)
+        self.linear_actuator = [LinearActuator(123, 456, 789), LinearActuator(123, 456, 789)]
 
         self.exc_routine_publisher = self.create_publisher(
             Bool, 'exc_routine', 10)
@@ -53,7 +53,8 @@ class Excavator(Node):
 
     def timer_response(self):
         if not self.should_run:
-            self.linear_actuator.run_motor(False)
+            self.linear_actuator[0].run_motor(False)
+            self.linear_actuator[1].run_motor(False)
             return
 
         if self.exc_routine_val:
@@ -79,10 +80,13 @@ class Excavator(Node):
                 self.exc_routine_publisher.publish(Bool(data=False))
 
         if (self.forward and not self.max_limit) or (not self.forward and not self.min_limit):
-            self.linear_actuator.set_direction(self.forward)
-            self.run_motor(True)
+            self.linear_actuator[0].set_direction(self.forward)
+            self.linear_actuator[1].set_direction(self.forward)
+            self.linear_actuator[0].run_motor(True)
+            self.linear_actuator[1].run_motor(True)
         else:
-            self.linear_actuator.run_motor(False)
+            self.linear_actuator[0].run_motor(False)
+            self.linear_actuator[1].run_motor(False)
 
     def exc_routine_response(self, message: Bool):
         self.exc_routine_val = message.data
@@ -111,7 +115,8 @@ class Excavator(Node):
             self.should_run = False
 
     def destroy_node(self):
-        self.linear_actuator.release()
+        self.linear_actuator[0].release()
+        self.linear_actuator[1].release()
         super().destroy_node()
 
 def main(args=None):
