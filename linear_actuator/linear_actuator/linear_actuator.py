@@ -6,10 +6,6 @@ import threading
 
 class LinearActuator:
     def __init__(self, gpio_chip: str, dir_line: int, pwm_line: int):
-        self.gpio_chip = gpio_chip
-        self.dir_line = dir_line
-        self.pwm_line = pwm_line
-
         # self.pwm_freq = 1000  # Hz
         # self.pwm_period = 1.0 / self.pwm_freq
 
@@ -19,23 +15,25 @@ class LinearActuator:
 
         self.is_running = False
 
-        self.lines = gpiod.request_lines(
-            self.gpio_chip,
-            consumer="mdd10a",
-            config={
-                self.dir_line: gpiod.LineSettings(
-                    direction=Direction.OUTPUT, output_value=Value.INACTIVE),
-                self.pwm_line: gpiod.LineSettings(
-                    direction=Direction.OUTPUT, output_value=Value.INACTIVE)})
+        self.gpio_chip = gpiod.Chip(gpio_chip)
+
+        self.dir_line = chip.get_line(dir_line)
+        self.pwm_line = chip.get_line(pwm_line)
+
+        self.dir_line.request(consumer="mdd10a", type=gpiod.LINE_REQ_DIR_OUT, default_vals=[0])
+        self.pwm_line.request(consumer="mdd10a", type=gpiod.LINE_REQ_DIR_OUT, default_vals=[0])
 
     def release(self):
-        self.lines.release()
+        self.dir_line.set_value(0);
+        self.pwm_line.set_value(0);
+
+        self.dir_line.release()
+        self.pwm_line.release()
+
+        self.chip.close()
 
     def set_direction(self, forward: bool):
-        self.run_motor(True)
-
-        self.lines.set_value(
-            self.dir_line, Value.ACTIVE if forward else Value.INACTIVE)
+        self.dir_line.set_value(0 if forward else 1)
 
     def run_motor(self, on: bool):
         if (on == self.is_running):
@@ -50,7 +48,7 @@ class LinearActuator:
 
         # duty = max(0.0, min(1.0, duty))
 
-        self.lines.set_value(self.pwm_line, Value.ACTIVE if on else Value.INACTIVE)
+        self.pwm_line.set_value(1 if on else 0)
 
         # if (duty == 0.0):
         #     self.lines.set_value(self.pwm_line, Value.INACTIVE)

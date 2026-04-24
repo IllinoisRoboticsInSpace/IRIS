@@ -12,7 +12,7 @@ class Depositer(Node):
     def __init__(self):
         super().__init__('Depositer')
 
-        self.linear_actuator = [LinearActuator(123, 456, 789), LinearActuator(123, 456, 789)]
+        self.linear_actuator = [LinearActuator("/dev/gpiochip0", 53, 113), LinearActuator("/dev/gpiochip0", 124, 52)]
 
         self.dep_routine_publisher = self.create_publisher(
             Bool, 'dep_routine', 10)

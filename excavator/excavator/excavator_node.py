@@ -10,7 +10,7 @@ class Excavator(Node):
     def __init__(self):
         super().__init__('Excavator')
 
-        self.linear_actuator = [LinearActuator(123, 456, 789), LinearActuator(123, 456, 789)]
+        self.linear_actuator = [LinearActuator("/dev/gpiochip0", 134, 123), LinearActuator("/dev/gpiochip0", 133, 136)]
 
         self.exc_routine_publisher = self.create_publisher(
             Bool, 'exc_routine', 10)
