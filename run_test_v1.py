@@ -7,10 +7,10 @@ import sys
 # USER CONFIG
 # ==============================
 GPIO_CHIP = "/dev/gpiochip0"
-DIR1_LINE = 112 # 105
-PWM1_LINE = 122 # 106
-DIR2_LINE = 85 # 43
-PWM2_LINE = 50 # 133 
+DIR1_LINE = 134 # 53
+PWM1_LINE = 123 # 113
+DIR2_LINE = 133 # 124
+PWM2_LINE = 136 # 52 
 
 # PWM_FREQUENCY = 1000  # Hz
 # PWM_PERIOD = 1.0 / PWM_FREQUENCY
