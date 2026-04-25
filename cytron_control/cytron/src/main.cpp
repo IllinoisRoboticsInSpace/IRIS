@@ -56,9 +56,24 @@ void setup() {
 
 void loop() {
     for (int i = 0; i < 4; i++) {
-        if (digitalRead(input_pins1[i]) == HIGH) analogWrite(output_pins1[i], 255);
-        else analogWrite(output_pins1[i], 0);
-        if (digitalRead(input_pins2[i]) == HIGH) analogWrite(output_pins2[i], 255);
-        else analogWrite(output_pins2[i], 0);
+        // if (digitalRead(input_pins1[i]) == HIGH) analogWrite(output_pins1[i], 255);
+        // else analogWrite(output_pins1[i], 0);
+        // if (digitalRead(input_pins2[i]) == HIGH) analogWrite(output_pins2[i], 255);
+        // else analogWrite(output_pins2[i], 0);
+
+        analogWrite(output_pins1[i], 255);
+        
+        // analogWrite(output_pins2[i], 255);
+
     }
+
+
+    delay(2000);
+
+    analogWrite(output_pins1[0], 0);
+    analogWrite(output_pins1[1], 255);
+    analogWrite(output_pins1[2], 0);
+    analogWrite(output_pins1[3], 255);
+
+    delay(2000);
 }
