@@ -1,79 +1,102 @@
 #include <Arduino.h>
 
-// void setup() {
-//     // LED_BUILTIN is pin 13 on the Due
-//     pinMode(LED_BUILTIN, OUTPUT);
-// }
-
-// void loop() {
-//     digitalWrite(LED_BUILTIN, HIGH);
-//     delay(500);
-//     digitalWrite(LED_BUILTIN, LOW);
-//     delay(500);
-// }
-
-// void setup() {
-//     pinMode(36, OUTPUT);
-//     pinMode(38, OUTPUT);
-// }
-
-// void loop() {
-//     digitalWrite(36, HIGH);
-//     analogWrite(38, 255);
-// }
-
-// void setup() {
-//     pinMode(10, INPUT);
-//     pinMode(38, OUTPUT);
-// }
-//
-// void loop() {
-//     if (digitalRead(10) == HIGH) {
-//         analogWrite(38, 255);
-//     }
-//     else {
-//         analogWrite(38, 0);
-//     }
-// }
-
-
 int input_pins1[4] = {13, 12, 11, 10};
-int output_pins1[4] = {46, 48, 50, 52};
+int scooper_pins[4] = {46, 48, 50, 52};
 int input_pins2[4] = {5, 4, 3, 2};
-int output_pins2[4] = {47, 49, 51, 53};
+int dumper_pins[4] = {47, 49, 51, 53};
 
 void setup() {
     for (int i = 0; i < 4; i++) {
         pinMode(input_pins1[i], INPUT);
-        pinMode(output_pins1[i], OUTPUT);
+        pinMode(scooper_pins[i], OUTPUT);
     }
 
     for (int i = 0; i < 4; i++) {
         pinMode(input_pins2[i], INPUT);
-        pinMode(output_pins2[i], OUTPUT);
+        pinMode(dumper_pins[i], OUTPUT);
     }
+
+    // for (int i = 0; i < 4;; i++) {
+    //     analogWrite(scooper_pins[i], 0);
+    //     analogWrite(dumper_pins[i], 0);
+    // }
 }
 
+// void loop() {
+//     for (int i = 0; i < 4; i++) {
+//         if (digitalRead(input_pins1[i]) == HIGH) analogWrite(scooper_pins[i], 255);
+//         else analogWrite(scooper_pins[i], 0);
+//         if (digitalRead(input_pins2[i]) == HIGH) analogWrite(dumper_pins[i], 255);
+//         else analogWrite(dumper_pins[i], 0);
+//     }
+// }
+
 void loop() {
-    for (int i = 0; i < 4; i++) {
-        // if (digitalRead(input_pins1[i]) == HIGH) analogWrite(output_pins1[i], 255);
-        // else analogWrite(output_pins1[i], 0);
-        // if (digitalRead(input_pins2[i]) == HIGH) analogWrite(output_pins2[i], 255);
-        // else analogWrite(output_pins2[i], 0);
+    analogWrite(scooper_pins[0], 0);
+    analogWrite(scooper_pins[1], 0);
+    analogWrite(scooper_pins[2], 0);
+    analogWrite(scooper_pins[3], 0);
 
-        analogWrite(output_pins1[i], 255);
-        
-        // analogWrite(output_pins2[i], 255);
+    analogWrite(dumper_pins[0], 0);
+    analogWrite(dumper_pins[1], 0);
+    analogWrite(dumper_pins[2], 0);
+    analogWrite(dumper_pins[3], 0);
 
-    }
+    delay(15000);
 
+    analogWrite(scooper_pins[0], 255);
+    analogWrite(scooper_pins[1], 255);
+    analogWrite(scooper_pins[2], 255);
+    analogWrite(scooper_pins[3], 255);
 
-    delay(2000);
+    delay(8000);
 
-    analogWrite(output_pins1[0], 0);
-    analogWrite(output_pins1[1], 255);
-    analogWrite(output_pins1[2], 0);
-    analogWrite(output_pins1[3], 255);
+    analogWrite(scooper_pins[0], 0);
+    analogWrite(scooper_pins[1], 0);
+    analogWrite(scooper_pins[2], 0);
+    analogWrite(scooper_pins[3], 0);
 
-    delay(2000);
+    delay(2500);
+
+    analogWrite(scooper_pins[0], 0);
+    analogWrite(scooper_pins[1], 255);
+    analogWrite(scooper_pins[2], 0);
+    analogWrite(scooper_pins[3], 255);
+
+    delay(8000);
+
+    analogWrite(scooper_pins[0], 0);
+    analogWrite(scooper_pins[1], 0);
+    analogWrite(scooper_pins[2], 0);
+    analogWrite(scooper_pins[3], 0);
+
+    delay(10000);
+
+    analogWrite(dumper_pins[0], 0);
+    analogWrite(dumper_pins[1], 255);
+    analogWrite(dumper_pins[2], 0);
+    analogWrite(dumper_pins[3], 255);
+
+    delay(8000);
+
+    analogWrite(dumper_pins[0], 0);
+    analogWrite(dumper_pins[1], 0);
+    analogWrite(dumper_pins[2], 0);
+    analogWrite(dumper_pins[3], 0);
+
+    delay(3000);
+
+    analogWrite(dumper_pins[0], 255);
+    analogWrite(dumper_pins[1], 255);
+    analogWrite(dumper_pins[2], 255);
+    analogWrite(dumper_pins[3], 255);
+
+    delay(8000);
+
+    analogWrite(dumper_pins[0], 0);
+    analogWrite(dumper_pins[1], 0);
+    analogWrite(dumper_pins[2], 0);
+    analogWrite(dumper_pins[3], 0);
+
+    delay(30000);
 }
