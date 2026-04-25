@@ -37,9 +37,9 @@
 // }
 
 
-int input_pins1[4] = {10, 11, 12, 13};
+int input_pins1[4] = {13, 12, 11, 10};
 int output_pins1[4] = {46, 48, 50, 52};
-int input_pins2[4] = {2, 3, 4, 5};
+int input_pins2[4] = {5, 4, 3, 2};
 int output_pins2[4] = {47, 49, 51, 53};
 
 void setup() {
