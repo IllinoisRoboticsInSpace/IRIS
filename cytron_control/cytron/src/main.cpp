@@ -66,11 +66,21 @@ void loop() {
         // analogWrite(output_pins1[i], 255);
         
         // analogWrite(output_pins2[i], 255);
-
-        Serial.print(i);
-        Serial.print(": ");
-        Serial.println(digitalRead(input_pins1[i]));
     }
+
+    Serial.print("In1 : ");
+    for (int i = 0; i < 4; i++) {
+        Serial.print(digitalRead(input_pins1[i]));
+        Serial.print(" ");
+    }
+    Serial.println("");
+
+    Serial.print("In2: ");
+    for (int i = 0; i < 4; i++) {
+        Serial.print(digitalRead(input_pins2[i]));
+        Serial.print(" ");
+    }
+    Serial.println("");
 
 
     // delay(2000);
