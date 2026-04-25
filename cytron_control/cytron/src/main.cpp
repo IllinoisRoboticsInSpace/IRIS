@@ -69,7 +69,7 @@ void loop() {
 
         Serial.print(i);
         Serial.print(": ");
-        Serial.println(analogRead(input_pins1[i]));
+        Serial.println(digitalRead(input_pins1[i]));
     }
 
 
