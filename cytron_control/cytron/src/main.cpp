@@ -52,6 +52,8 @@ void setup() {
         pinMode(input_pins2[i], INPUT);
         pinMode(output_pins2[i], OUTPUT);
     }
+
+    Serial.begin(9600);
 }
 
 void loop() {
@@ -61,19 +63,27 @@ void loop() {
         // if (digitalRead(input_pins2[i]) == HIGH) analogWrite(output_pins2[i], 255);
         // else analogWrite(output_pins2[i], 0);
 
-        analogWrite(output_pins1[i], 255);
+        // analogWrite(output_pins1[i], 255);
         
         // analogWrite(output_pins2[i], 255);
 
+        Serial.print(i);
+        Serial.print(": ");
+        Serial.println(analogRead(input_pins1[i]));
     }
 
 
-    delay(2000);
+    // delay(2000);
 
-    analogWrite(output_pins1[0], 0);
-    analogWrite(output_pins1[1], 255);
-    analogWrite(output_pins1[2], 0);
-    analogWrite(output_pins1[3], 255);
+    // analogWrite(output_pins1[0], 0);
+    // analogWrite(output_pins1[1], 255);
+    // analogWrite(output_pins1[2], 0);
+    // analogWrite(output_pins1[3], 255);
 
-    delay(2000);
+    // analogWrite(output_pins2[0], 0);
+    // analogWrite(output_pins2[1], 255);
+    // analogWrite(output_pins2[2], 0);
+    // analogWrite(output_pins2[3], 255);
+
+    delay(200);
 }
