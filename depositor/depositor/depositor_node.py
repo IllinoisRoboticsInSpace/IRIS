@@ -12,7 +12,7 @@ class Depositer(Node):
     def __init__(self):
         super().__init__('Depositer')
 
-        self.linear_actuator = [LinearActuator("/dev/gpiochip0", 53, 113), LinearActuator("/dev/gpiochip0", 124, 52)]
+        self.linear_actuator = LinearActuator('D')
 
         self.dep_routine_publisher = self.create_publisher(
             Bool, 'dep_routine', 10)
@@ -47,8 +47,7 @@ class Depositer(Node):
 
     def timer_response(self):
         if not self.should_run:
-            self.linear_actuator[0].run_motor(False)
-            self.linear_actuator[1].run_motor(False)
+            self.linear_actuator.run_motor(False)
             return
         
         if self.dep_routine_val:
@@ -68,13 +67,10 @@ class Depositer(Node):
                 self.dep_routine_publisher.publish(Bool(data=False))
 
         if (self.direction and not self.max_limit) or (not self.direction and not self.min_limit):
-            self.linear_actuator[0].set_direction(self.direction)
-            self.linear_actuator[1].set_direction(self.direction)
-            self.linear_actuator[0].run_motor(True)
-            self.linear_actuator[1].run_motor(True)
+            self.linear_actuator.set_direction(self.direction)
+            self.linear_actuator.run_motor(True)
         else:
-            self.linear_actuator[0].run_motor(False)
-            self.linear_actuator[1].run_motor(False)
+            self.linear_actuator.run_motor(False)
 
     def dep_routine_response(self, message: Bool):
         self.dep_routine_val = message.data
@@ -108,18 +104,17 @@ class Depositer(Node):
 
 
     def destroy_node(self):
-        self.linear_actuator[0].release()
-        self.linear_actuator[1].release()
+        self.linear_actuator.release()
         super().destroy_node()
 
 def main(args=None):
     rclpy.init(args=args)
 
-    exc = Excavator()
+    dep = Depositer()
     try:
-        rclpy.spin(exc)
+        rclpy.spin(dep)
     except KeyboardInterrupt:
         pass
     finally:
-        exc.destroy_node()
+        dep.destroy_node()
         rclpy.shutdown()
