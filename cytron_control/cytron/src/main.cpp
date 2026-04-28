@@ -44,11 +44,11 @@ void runCommand(char command[3]) {
 
 void setPin(int pins[4], bool is_pwm, bool set_to) {
     if (is_pwm) {
-        analogWrite(pins[1], set_to ? 25 : 0);
-        analogWrite(pins[3], set_to ? 25 : 0);
+        analogWrite(pins[1], set_to ? 255 : 0);
+        analogWrite(pins[3], set_to ? 255 : 0);
     } else {
-        analogWrite(pins[0], set_to ? 25 : 0);
-        analogWrite(pins[2], set_to ? 25 : 0);
+        analogWrite(pins[0], set_to ? 255 : 0);
+        analogWrite(pins[2], set_to ? 255 : 0);
     }
 }
 
