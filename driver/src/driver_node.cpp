@@ -13,6 +13,16 @@ private:
     rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_left_teleop_subscription;
     rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_right_teleop_subscription;
     
+    rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_left_exc_routine_subscription;
+    rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_right_exc_routine_subscription;
+
+    rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_left_dep_routine_subscription;
+    rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_right_dep_routine_subscription;
+
+    rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr exc_routine_subscription;
+    rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr dep_routine_subscription;
+
+    
     // FIX 1: Use TimerBase instead of templated WallTimer
     rclcpp::TimerBase::SharedPtr timer;
 

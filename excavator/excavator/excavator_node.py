@@ -37,7 +37,7 @@ class Excavator(Node):
         
         self.hold_time = 5e9 # 5ns
         self.hold_initiated = False
-        self.holdd_time_start = 0
+        self.hold_start_time = 0
 
         # self.motor_speed = 0.5
         # self.motor_rest = 0.0
