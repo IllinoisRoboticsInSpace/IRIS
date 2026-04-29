@@ -1,11 +1,11 @@
-import gpiod
-from gpiod.line import Direction, Value
+# import gpiod
+# from gpiod.line import Direction, Value
 import time
 import threading
 import serial
 
 class LinearActuator:
-    def __init__(self, id: str):
+    def __init__(self, _id: str):
         # self.pwm_freq = 1000  # Hz
         # self.pwm_period = 1.0 / self.pwm_freq
 
@@ -15,7 +15,7 @@ class LinearActuator:
 
         self.is_running = False
 
-        self.id = id
+        self.id = _id
 
         self.serial = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
 
@@ -25,9 +25,9 @@ class LinearActuator:
     def set_direction(self, forward: bool):
         # self.dir_line.set_value(0 if forward else 1)
         if forward:
-            self.send_serial_cmd('M' + id + 'DT')
+            self.send_serial_cmd('M' + self.id + 'DT')
         else:
-            self.send_serial_cmd('M' + id + 'DF')
+            self.send_serial_cmd('M' + self.id + 'DF')
 
     def run_motor(self, on: bool):
         if (on == self.is_running):
@@ -44,10 +44,10 @@ class LinearActuator:
 
         # self.pwm_line.set_value(1 if on else 0)
         if on:
-            self.send_serial_cmd('M' + id + 'PT')
+            self.send_serial_cmd('M' + self.id + 'PT')
 
         else:
-            self.send_serial_cmd('M' + id + 'PF')
+            self.send_serial_cmd('M' + self.id + 'PF')
 
         
         # if (duty == 0.0):

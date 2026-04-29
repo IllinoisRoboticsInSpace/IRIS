@@ -18,10 +18,10 @@ class Excavator(Node):
         self.tread_speed_right_exc_routine_publisher = self.create_publisher(Float32, 'tread_speed_right_exc_routine', 10)
 
         self.timer = self.create_timer(0.1, self.timer_response)
-        self.raise_excavator_teleop_subscriber = self.create_subcription(
-            Bool, 'raise_excavator_teleop', self.raise_excavator_response, 10)
-        self.lower_excavator_teleop_subscriber = self.create_subcription(
-            Bool, 'lower_excavator_teleop', self.lower_excavator_response, 10)
+        self.raise_excavator_teleop_subscriber = self.create_subscription(
+            Bool, 'raise_scooper_teleop', self.raise_excavator_response, 10)
+        self.lower_excavator_teleop_subscriber = self.create_subscription(
+            Bool, 'lower_scooper_teleop', self.lower_excavator_response, 10)
         self.exc_routine_subscription = self.create_subscription(
             Bool, 'exc_routine', self.exc_routine_response, 10)
         self.excavator_max_limit_switch_subscription = self.create_subscription(
@@ -91,6 +91,7 @@ class Excavator(Node):
             self.forward = True
 
     def raise_excavator_response(self, message: Bool):
+        self.get_logger().info("Raising excavator")
         if self.exc_routine_val:
             return
 
@@ -101,6 +102,7 @@ class Excavator(Node):
             self.should_run = False
 
     def lower_excavator_response(self, message: Bool):
+        self.get_logger().info("Lowering excavator")
         if self.exc_routine_val:
             return
 

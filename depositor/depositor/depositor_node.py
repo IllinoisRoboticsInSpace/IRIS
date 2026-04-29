@@ -19,9 +19,9 @@ class Depositer(Node):
 
         self.timer = self.create_timer(0.1, self.timer_response)
 
-        self.raise_dumper_teleop_subscriber = self.create_subcription(
+        self.raise_dumper_teleop_subscriber = self.create_subscription(
             Bool, 'raise_dumper_teleop', self.raise_dumper_response, 10)
-        self.lower_dumper_teleop_subscriber = self.create_subcription(
+        self.lower_dumper_teleop_subscriber = self.create_subscription(
             Bool, 'lower_dumper_teleop', self.lower_dumper_response, 10)
         self.dep_routine_subscription = self.create_subscription(
             Bool, 'dep_routine', self.dep_routine_response, 10)
@@ -38,6 +38,8 @@ class Depositer(Node):
         self.hold_time = 5e9  # 5 ns
         self.hold_initiated = False
         self.hold_start_time = 0
+
+        self.get_logger().info("Initialized pubs and subs")
 
     def dumper_max_limit_switch_response(self, message: Bool):
         self.max_limit = message.data
@@ -81,6 +83,7 @@ class Depositer(Node):
 
 
     def raise_dumper_response(self, message: Bool):
+        self.get_logger().info("Raising dumper")
         if self.dep_routine_val:
             return
         
@@ -92,6 +95,7 @@ class Depositer(Node):
             self.should_run = False
 
     def lower_dumper_response(self, message: Bool):
+        self.get_logger().info("Lowering dumper")
         if self.dep_routine_val:
             return
         
