@@ -15,19 +15,14 @@ void setup() {
     Serial.begin(9600);
 }
 
-void loop() {
-    char buf[3];
-
-    char val;
-    int count;
-    while (true) {
-        count = Serial.readBytes(&val, 1);
-        if (count == 1 && val == 'M') break;
+void setPin(int pins[4], bool is_pwm, bool set_to) {
+    if (is_pwm) {
+        analogWrite(pins[1], set_to ? 255 : 0);
+        analogWrite(pins[3], set_to ? 255 : 0);
+    } else {
+        analogWrite(pins[0], set_to ? 255 : 0);
+        analogWrite(pins[2], set_to ? 255 : 0);
     }
-
-    Serial.readBytes(buf, 3);
-
-    runCommand(buf);
 }
 
 void runCommand(char command[3]) {
@@ -42,14 +37,19 @@ void runCommand(char command[3]) {
     }
 }
 
-void setPin(int pins[4], bool is_pwm, bool set_to) {
-    if (is_pwm) {
-        analogWrite(pins[1], set_to ? 255 : 0);
-        analogWrite(pins[3], set_to ? 255 : 0);
-    } else {
-        analogWrite(pins[0], set_to ? 255 : 0);
-        analogWrite(pins[2], set_to ? 255 : 0);
+void loop() {
+    char buf[3];
+
+    char val;
+    int count;
+    while (true) {
+        count = Serial.readBytes(&val, 1);
+        if (count == 1 && val == 'M') break;
     }
+
+    Serial.readBytes(buf, 3);
+
+    runCommand(buf);
 }
 
 // void loop() {
