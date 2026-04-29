@@ -31,7 +31,7 @@ void runCommand(char command[3]) {
     bool set_to = command[2] == 'T';
 
     if (is_scoop) {
-        setPin(scooper_pins, isprint, set_to);
+        setPin(scooper_pins, is_pwm, set_to);
     } else {
         setPin(dumper_pins, is_pwm, set_to);
     }
