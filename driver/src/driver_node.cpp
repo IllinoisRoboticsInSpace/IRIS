@@ -72,15 +72,30 @@ auto Driver::handle_incoming_right(float in) -> void {
 }
 
 auto Driver::periodic() -> void {
-    std::cout << "Set left to " << incoming_left * 12.0 << std::endl;
-    std::cout << "Set right to " << incoming_right * 12.0 << std::endl;
+    std::cout << "Set left to " << incoming_left * 2.3703703 << std::endl;
+    std::cout << "Set right to " << incoming_right * 2.3703703 << std::endl;
     left.Heartbeat();
     right.Heartbeat();
 //    left.SetVoltage(incoming_left * 12.0);
 //    right.SetVoltage(incoming_right * 12.0);
 
-    left.SetDutyCycle(-1 * incoming_left);
-    right.SetDutyCycle(-1 * incoming_right);
+//    left.SetDutyCycle(incoming_right * -2.3703703 * 0.5);
+//    right.SetDutyCycle(incoming_left * -2.3703703 * 0.5);
+
+    float left_input = incoming_right * -2.3703703 * 0.75;
+    float right_input = incoming_left * -2.3703703 * 0.75;    
+
+    left.SetDutyCycle(left_input * left_input * left_input);    
+    right.SetDutyCycle(right_input * right_input * right_input);
+    // 	left.SetDutyCycle(incoming_right * incoming_right);
+    // if (incoming_right > 0)    
+    //else	
+    //	left.SetDutyCycle(-1 * incoming_right * incoming_right);
+
+    //if (incoming_left > 0)
+    //	right.SetDutyCycle(incoming_left * incoming_left);
+    //else
+    //	right.SetDutyCycle(-1 * incoming_left * incoming_left);
 }
 
 int main(int argc, char * argv[]) {
