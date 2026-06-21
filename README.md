@@ -47,33 +47,6 @@ git clone https://github.com/IllinoisRoboticsInSpace/IRIS IRIS
 
 > Note: It is generally advised to run most `git` commands from a terminal connected to your computer rather than the container
 
-## Package Usage
-
-### Navigation
-
-```bash
-ros2 launch navigation-c display.launch.py
-```
-
-### RTAB-Map SLAM
-
-Realsense Data Command:
-```bash
-ros2 launch realsense2_camera rs_launch.py enable_accel:=true enable_gyro:=true unite_imu_method:=2
-```
-IMU Filter Command:
-```bash
-ros2 run imu_filter_madgwick imu_filter_madgwick_node --ros-args -p use_mag:=false -r /imu/data_raw:=/camera/imu
-```
-RTAB-Map Command:
-```bash
-ros2 launch rtabmap_ros rtabmap.launch.py \rtabmap_args:="--delete_db_on_start --Optimizer/GravitySigma 0.3" \frame_id:=camera_link \rgb_topic:=/camera/color/image_raw \depth_topic:=/camera/depth/image_rect_raw \camera_info_topic:=/camera/color/camera_info \approx_sync:=true \wait_imu_to_init:=true \imu_topic:=/imu/data \rviz:=false \rtabmapviz:=true
-```
-RTAB-Map Debug Mode Command:
-```bash
-ros2 launch rtabmap_ros rtabmap.launch.py \rtabmap_args:="--delete_db_on_start" \frame_id:=camera_link \rgb_topic:=/camera/color/image_raw \depth_topic:=/camera/depth/image_rect_raw \camera_info_topic:=/camera/color/camera_info \approx_sync:=true \wait_imu_to_init:=true \imu_topic:=/imu/data \rviz:=true \rtabmapviz:=false \rtabmap_args:="-d --udebug" \launch_prefix:="xterm -e gdb -ex run --args"
-```
-
 ### End Package Folder Structure
 
 ```
@@ -84,3 +57,23 @@ ros2 launch rtabmap_ros rtabmap.launch.py \rtabmap_args:="--delete_db_on_start" 
     src/
         IRIS/
 ```
+
+## GitHub Guidelines
+
+### Contributing Code
+
+- Commits should be well-named and modular
+- Commit to the correct branch
+- Pushing code into the `comp/*` and `*/main-YYYY` branches will be blocked by GitHub - push code to a feature branch and open a pull request when it is ready to be merged
+
+### Branch Naming Scheme
+
+Unless branch names are in one of the following formats, they will be blocked by GitHub. Please adhere to the naming scheme below.
+
+- `comp/*` - final competition code for that year like `comp/2027`
+- `perception/*` - final code for perception like `perception/main-2027` or feature code for perception like `perception/apriltags-2027`
+- `navigation/*` - final code for navigation like `navigation/main-2027` or feature code for navigation like `navigation/a-star-2027`
+- `embedded/*` - final code for embedded like `embedded/main-2027` or feature code for embedded like `embedded/linear-actuator-2027`
+- `controls/*` - final code for controls like `controls/main-2027` or feature code for controls like `controls/joystick-2027`
+- `simulation/*` - final code for simulation like `simulation/main-2027` or feature code for simulation like `simulation/gazebo-2027`
+- `hotfix/*` - hotfixes to be applied to `comp/*` and `*/main-YYYY` branches
