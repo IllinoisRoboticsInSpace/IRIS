@@ -25,7 +25,7 @@ git clone https://github.com/IllinoisRoboticsInSpace/IRIS IRIS
 
 #### Manually Create Container and Image
 
-1. Creating and intial connection
+1. Creation and intial connection
     - Run `docker build -t iris-image /path/to/your/IRIS/repo` to create an image from the Dockerfile
     - Run `docker run -it --name iris -v /path/to/your/colcon_ws:/workspaces/colcon_ws iris-image` to create a container from the `iris-image` image
         - You should now be in a remote shell in the new container
@@ -35,7 +35,7 @@ git clone https://github.com/IllinoisRoboticsInSpace/IRIS IRIS
         - This is what you will do whenever you want to reconnect to the container in the future, don't create a new container and image each time
     - You can open a new terminal connected to the container with `docker exec -it iris bash` from your computer's terminal
     - Changes you make to `/workspaces/colcon_ws` in the container will be reflected on your computer's `colcon_ws` folder and vice versa
-3. Develop as you wish (e.g. open your `colcon_ws` folder in VS Code)
+3. Develop as you wish (e.g. open your `colcon_ws` folder in VS Code or editor of choice)
 
 #### Use VS Code Dev Containers
 
