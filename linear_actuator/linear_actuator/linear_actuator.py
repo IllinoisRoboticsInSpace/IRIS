@@ -14,6 +14,7 @@ class LinearActuator:
         # self.motor_thread: threading.Thread
 
         self.is_running = False
+        self.is_forward = False
 
         self.id = _id
 
@@ -23,7 +24,11 @@ class LinearActuator:
         self.serial.close()
 
     def set_direction(self, forward: bool):
-        # self.dir_line.set_value(0 if forward else 1)
+        if (forward == self.is_forward):
+            return
+        
+        self.is_forward = forward
+
         if forward:
             self.send_serial_cmd('M' + self.id + 'DT')
         else:
@@ -45,9 +50,11 @@ class LinearActuator:
         # self.pwm_line.set_value(1 if on else 0)
         if on:
             self.send_serial_cmd('M' + self.id + 'PT')
+            # print(f"[LinearActuator] sending serial cmd: {'M' + self.id + 'PT'}")
 
         else:
             self.send_serial_cmd('M' + self.id + 'PF')
+            # print(f"[LinearActuator] sending serial cmd: {'M' + self.id + 'PF'}")
 
         
         # if (duty == 0.0):
@@ -77,6 +84,7 @@ class LinearActuator:
     
         try:
             self.serial.write(command.encode())
-            print(f"Sent: {command}")
+            # print(f"Sent: {command}")
         except serial.SerialException as e:
-            print(f'Error: {e}')
+            # print(f'Error: {e}')
+            pass

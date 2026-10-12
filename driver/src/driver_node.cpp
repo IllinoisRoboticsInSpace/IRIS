@@ -13,11 +13,11 @@ private:
     rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_left_teleop_subscription;
     rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_right_teleop_subscription;
     
-    rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_left_exc_routine_subscription;
-    rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_right_exc_routine_subscription;
+   rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_left_exc_routine_subscription;
+   rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_right_exc_routine_subscription;
 
-    rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_left_dep_routine_subscription;
-    rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_right_dep_routine_subscription;
+   rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_left_dep_routine_subscription;
+   rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr tread_speed_right_dep_routine_subscription;
 
     rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr exc_routine_subscription;
     rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr dep_routine_subscription;
@@ -30,24 +30,56 @@ private:
     SparkFlex right;
     float incoming_left;
     float incoming_right;
+    bool routine_active;
 public:
     Driver();
     auto handle_incoming_left(float in) -> void;
     auto handle_incoming_right(float in) -> void;
+    auto handle_incoming_routine(bool in) -> void;
     auto periodic() -> void;
 };
 
-Driver::Driver() : Node("Driver"), left("can0", 1), right("can0", 2), incoming_left(0), incoming_right(0) {
+Driver::Driver() : Node("Driver"), left("can0", 1), right("can0", 2), incoming_left(0), incoming_right(0), routine_active(false) {
     tread_speed_left_teleop_subscription  = this->create_subscription<std_msgs::msg::Float32>(
         "tread_speed_left_teleop", 10,  
-        [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_left(msg->data); }
+        [this](const std_msgs::msg::Float32::SharedPtr msg) { if (!routine_active) handle_incoming_left(msg->data); }
     );
     
     tread_speed_right_teleop_subscription = this->create_subscription<std_msgs::msg::Float32>(
         "tread_speed_right_teleop", 10, 
-        [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_right(msg->data); }
+        [this](const std_msgs::msg::Float32::SharedPtr msg) { if (!routine_active) handle_incoming_right(msg->data); }
     );
     
+    tread_speed_left_exc_routine_subscription  = this->create_subscription<std_msgs::msg::Float32>(
+        "tread_speed_left_exc_routine", 10,  
+        [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_left(msg->data); }
+    );
+
+    tread_speed_right_exc_routine_subscription  = this->create_subscription<std_msgs::msg::Float32>(
+        "tread_speed_right_exc_routine", 10,  
+        [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_right(msg->data); }
+    );
+
+    tread_speed_left_dep_routine_subscription  = this->create_subscription<std_msgs::msg::Float32>(
+        "tread_speed_left_dep_routine", 10,  
+        [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_left(msg->data); }
+    );
+
+    tread_speed_right_dep_routine_subscription  = this->create_subscription<std_msgs::msg::Float32>(
+        "tread_speed_right_dep_routine", 10,  
+        [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_right(msg->data); }
+    );
+
+    exc_routine_subscription  = this->create_subscription<std_msgs::msg::Bool>(
+        "exc_routine", 10,  
+        [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_routine(msg->data); }
+    );
+
+    dep_routine_subscription  = this->create_subscription<std_msgs::msg::Bool>(
+        "dep_routine", 10,  
+        [this](const std_msgs::msg::Float32::SharedPtr msg) { handle_incoming_routine(msg->data); }
+    );
+
     timer = this->create_wall_timer(10ms, std::bind(&Driver::periodic, this));
 
     left.SetIdleMode(IdleMode::kCoast);
@@ -71,9 +103,13 @@ auto Driver::handle_incoming_right(float in) -> void {
     incoming_right = in;
 }
 
+auto Driver::handle_incoming_routine(bool in) -> void {
+    routine_active = in;
+}
+
 auto Driver::periodic() -> void {
-    std::cout << "Set left to " << incoming_left * 2.3703703 << std::endl;
-    std::cout << "Set right to " << incoming_right * 2.3703703 << std::endl;
+//'    std::cout << "Set left to " << incoming_left * -2.3703703 * 0.75 << std::endl;
+//    std::cout << "Set right to " << incoming_right * -2.3703703 * 0.75 << std::endl;
     left.Heartbeat();
     right.Heartbeat();
 //    left.SetVoltage(incoming_left * 12.0);
@@ -82,11 +118,11 @@ auto Driver::periodic() -> void {
 //    left.SetDutyCycle(incoming_right * -2.3703703 * 0.5);
 //    right.SetDutyCycle(incoming_left * -2.3703703 * 0.5);
 
-    float left_input = incoming_right * -2.3703703 * 0.75;
-    float right_input = incoming_left * -2.3703703 * 0.75;    
+    float left_input = incoming_right * -1.0;
+    float right_input = incoming_left * -1.0;    
 
-    left.SetDutyCycle(left_input * left_input * left_input);    
-    right.SetDutyCycle(right_input * right_input * right_input);
+    left.SetDutyCycle(left_input);    
+    right.SetDutyCycle(right_input);
     // 	left.SetDutyCycle(incoming_right * incoming_right);
     // if (incoming_right > 0)    
     //else	
