@@ -1,21 +1,27 @@
+from enum import Enum, auto
+import time
 
 import rclpy
-from rclpy.qos import QoSProfile, LivelinessPolicy, QoSReliabilityPolicy, QoSDurabilityPolicy
-from rclpy.duration import Duration
-import copy
-from dataclasses import dataclass
 from rclpy.node import Node
-from std_msgs.msg import Float32, Bool
-import time
+from std_msgs.msg import Bool, Float32
 
 from linear_actuator import LinearActuator
 
-PHASE_INIT = 0
-PHASE_DRIVE_IN = 1
-PHASE_RAISE = 2
-PHASE_HOLD = 3
-PHASE_LOWER = 4
-PHASE_DRIVE_OUT = 5
+
+class DepositPhase(Enum):
+    IDLE = auto()
+    DRIVE_IN = auto()
+    RAISE = auto()
+    HOLD = auto()
+    LOWER = auto()
+    DRIVE_OUT = auto()
+
+
+class ActuatorMode(Enum):
+    STOPPED = auto()
+    RAISING = auto()
+    LOWERING = auto()
+
 
 class Depositer(Node):
     def __init__(self):
@@ -39,123 +45,103 @@ class Depositer(Node):
         self.dep_routine_subscription = self.create_subscription(
             Bool, 'dep_routine', self.dep_routine_response, 10)
 
-        self.dep_routine_val = False
-
-        self.should_run = False
-        self.up = False
-
+        self.actuator_mode = ActuatorMode.STOPPED
         self.tread_speed = 0.15
 
-        self.drive_duration = 3.5 * 1e9
-        self.lower_duration = 40.0 * 1e9
-        self.hold_duration = 2.0 * 1e9
-        self.raise_duration = 45.0 * 1e9
+        self.drive_duration_ns = 3.5 * 1e9
+        self.lower_duration_ns = 40.0 * 1e9
+        self.hold_duration_ns = 2.0 * 1e9
+        self.raise_duration_ns = 45.0 * 1e9
 
-        self.routine_phase = PHASE_INIT
-        self.routine_phase_start_time = 0
+        self.routine_phase = DepositPhase.IDLE
+        self.routine_phase_start_time_ns = time.monotonic_ns()
 
     def timer_response(self):
-        if not self.should_run:
+        self._apply_actuator_mode()
+
+        now_ns = time.monotonic_ns()
+        elapsed_ns = now_ns - self.routine_phase_start_time_ns
+
+        if self.routine_phase is DepositPhase.DRIVE_IN:
+            if elapsed_ns > self.drive_duration_ns:
+                self._publish_tread_speed(0.0)
+                self._enter_phase(DepositPhase.RAISE, now_ns)
+                self.actuator_mode = ActuatorMode.RAISING
+        elif self.routine_phase is DepositPhase.RAISE:
+            if elapsed_ns > self.raise_duration_ns:
+                self._enter_phase(DepositPhase.HOLD, now_ns)
+                self.actuator_mode = ActuatorMode.STOPPED
+        elif self.routine_phase is DepositPhase.HOLD:
+            if elapsed_ns > self.hold_duration_ns:
+                self._enter_phase(DepositPhase.LOWER, now_ns)
+                self.actuator_mode = ActuatorMode.LOWERING
+        elif self.routine_phase is DepositPhase.LOWER:
+            if elapsed_ns > self.lower_duration_ns:
+                self._enter_phase(DepositPhase.DRIVE_OUT, now_ns)
+                self.actuator_mode = ActuatorMode.LOWERING
+                self._publish_tread_speed(-self.tread_speed)
+        elif self.routine_phase is DepositPhase.DRIVE_OUT:
+            if elapsed_ns > self.drive_duration_ns:
+                self._publish_tread_speed(0.0)
+                self._enter_phase(DepositPhase.IDLE, now_ns)
+                self.actuator_mode = ActuatorMode.STOPPED
+                self._publish_routine_status(False)
+
+    def _apply_actuator_mode(self):
+        if self.actuator_mode is ActuatorMode.STOPPED:
             self.linear_actuator.run_motor(False)
-        else:        
-            self.linear_actuator.set_direction(self.up)
-            self.linear_actuator.run_motor(True)
+            return
 
-        if (self.routine_phase == PHASE_INIT):
-            pass
-        elif (self.routine_phase == PHASE_DRIVE_IN):
-            if (time.time_ns() - self.routine_phase_start_time > self.drive_duration):
-                self.tread_speed_left_dep_routine_publisher.publish(Float32(data=0.0))
-                self.tread_speed_right_dep_routine_publisher.publish(Float32(data=0.0))
+        self.linear_actuator.set_direction(self.actuator_mode is ActuatorMode.RAISING)
+        self.linear_actuator.run_motor(True)
 
-                self.routine_phase = PHASE_RAISE
-                self.routine_phase_start_time = time.time_ns()
+    def _enter_phase(self, phase: DepositPhase, now_ns: int):
+        self.routine_phase = phase
+        self.routine_phase_start_time_ns = now_ns
 
-                self.up = True
-                self.should_run = True
-        elif (self.routine_phase == PHASE_RAISE):
-            if (time.time_ns() - self.routine_phase_start_time > self.raise_duration):
-                self.routine_phase = PHASE_HOLD
-                self.routine_phase_start_time = time.time_ns()
+    def _publish_tread_speed(self, speed: float):
+        self.tread_speed_left_dep_routine_publisher.publish(Float32(data=speed))
+        self.tread_speed_right_dep_routine_publisher.publish(Float32(data=speed))
 
-                self.up = False
-                self.should_run = False
-        elif (self.routine_phase == PHASE_HOLD):
-            if (time.time_ns() - self.routine_phase_start_time > self.hold_duration):
-                self.routine_phase = PHASE_LOWER
-                self.routine_phase_start_time = time.time_ns()
+    def _publish_routine_status(self, active: bool):
+        self.dep_routine_publisher.publish(Bool(data=active))
 
-                self.up = False
-                self.should_run = True
-        elif (self.routine_phase == PHASE_LOWER):
-            if (time.time_ns() - self.routine_phase_start_time > self.lower_duration):
-                self.routine_phase = PHASE_DRIVE_OUT
-                self.routine_phase_start_time = time.time_ns()
+    def _cancel_routine(self):
+        if self.routine_phase is DepositPhase.IDLE:
+            return
 
-                self.up = False
-                self.should_run = True
-
-                self.tread_speed_left_dep_routine_publisher.publish(Float32(data=-self.tread_speed))
-                self.tread_speed_right_dep_routine_publisher.publish(Float32(data=-self.tread_speed))
-        elif (self.routine_phase == PHASE_DRIVE_OUT):
-            if (time.time_ns() - self.routine_phase_start_time > self.drive_duration):
-                self.tread_speed_left_dep_routine_publisher.publish(Float32(data=0.0))
-                self.tread_speed_right_dep_routine_publisher.publish(Float32(data=0.0))
-
-                self.routine_phase = PHASE_INIT
-
-                self.dep_routine_val = False
-                self.dep_routine_publisher.publish(Bool(data=False))
-
-                self.up = True
-                self.should_run = False
+        self._enter_phase(DepositPhase.IDLE, time.monotonic_ns())
+        self._publish_tread_speed(0.0)
+        self._publish_routine_status(False)
 
     def dep_routine_response(self, message: Bool):
-        self.dep_routine_val = message.data
-        if message.data and not self.should_run:
-           self.get_logger().info('Triggering dumping routine...')
+        if not message.data or self.routine_phase is not DepositPhase.IDLE:
+            return
 
-           self.routine_phase = PHASE_DRIVE_IN
-           self.routine_phase_start_time = time.time_ns()
+        if self.actuator_mode is not ActuatorMode.STOPPED:
+            self._publish_routine_status(False)
+            return
 
-           self.up = True
-           self.should_run = False
-
-           self.tread_speed_left_dep_routine_publisher.publish(Float32(data=self.tread_speed))
-           self.tread_speed_right_dep_routine_publisher.publish(Float32(data=self.tread_speed))
+        self.get_logger().info('Triggering dumping routine...')
+        now_ns = time.monotonic_ns()
+        self._enter_phase(DepositPhase.DRIVE_IN, now_ns)
+        self.actuator_mode = ActuatorMode.STOPPED
+        self._publish_tread_speed(self.tread_speed)
 
     def raise_dumper_response(self, message: Bool):
-        self.get_logger().info(f"Raise dumper {message}")
-        if self.dep_routine_val:
-            self.routine_phase = PHASE_INIT
-            self.dep_routine_val = False
-            self.dep_routine_publisher.publish(Bool(data=False))
-        
-        if message.data:
-            self.should_run = True
-            self.up = True
-
-        else:
-            self.should_run = False
+        self.get_logger().info(f'Raise dumper {message}')
+        self._cancel_routine()
+        self.actuator_mode = ActuatorMode.RAISING if message.data else ActuatorMode.STOPPED
 
     def lower_dumper_response(self, message: Bool):
-        self.get_logger().info(f"Lower dumper {message}")
-        if self.dep_routine_val:
-            self.routine_phase = PHASE_INIT
-            self.dep_routine_val = False
-            self.dep_routine_publisher.publish(Bool(data=False))
-        
-        if message.data:
-            self.should_run = True
-            self.up = False
-
-        else:
-            self.should_run = False
-
+        self.get_logger().info(f'Lower dumper {message}')
+        self._cancel_routine()
+        self.actuator_mode = ActuatorMode.LOWERING if message.data else ActuatorMode.STOPPED
 
     def destroy_node(self):
         self.linear_actuator.release()
         super().destroy_node()
+
 
 def main(args=None):
     rclpy.init(args=args)
