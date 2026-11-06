@@ -1,8 +1,8 @@
 #include <Arduino.h>
 
-int dumper_pins[4] = {46, 48, 50, 52};
-int scooper_pins[4] = {47, 49, 51, 53};
-int bab_limit_switch_pin = A2; // A2 is for bab bottom limit, A1 is for BAB fully extended limit
+int dumper_pins[4] = {8, 9, 7, 6};
+int scooper_pins[4] = {4, 5, 2, 3};
+int bab_limit_switch_pin = A0; // A2 is for bab bottom limit, A1 is for BAB fully extended limit
 // int bab_forward_switch_pin = A4;
 
 bool scooper_pwm = false;
