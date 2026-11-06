@@ -18,6 +18,7 @@ class LinearActuator:
 
         self.id = _id
 
+        # @TODO Confirm this TTY port will be the same with the new Arduino Nano.
         self.serial = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
 
     def release(self):
